@@ -1,0 +1,1897 @@
+[
+  {
+    "id": "swiggy-hdfc",
+    "name": "Swiggy HDFC Bank",
+    "issuer": "HDFC Bank",
+    "network": "Mastercard",
+    "upi": false,
+    "reward": {
+      "kind": "cashback",
+      "unitName": "Cashback",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "Cashback in rupees; auto-adjusted against card outstanding / posted to Swiggy account."
+    },
+    "base": {
+      "rate": 0.01,
+      "capId": "base1"
+    },
+    "rules": [
+      {
+        "id": "swiggy10",
+        "label": "10% on the Swiggy app (Food, Instamart, Genie, Dineout)",
+        "rate": 0.1,
+        "merchants": [
+          "swiggy_food",
+          "swiggy_instamart",
+          "swiggy_dineout",
+          "swiggy_genie"
+        ],
+        "minTxn": 249,
+        "capId": "swiggy10"
+      },
+      {
+        "id": "online5",
+        "label": "5% on select online categories",
+        "rate": 0.05,
+        "categories": [
+          "online_shopping",
+          "apparel",
+          "electronics",
+          "cab",
+          "movies"
+        ],
+        "channels": [
+          "online"
+        ],
+        "minTxn": 100,
+        "capId": "online5"
+      },
+      {
+        "id": "cleartrip5",
+        "label": "5% on Cleartrip (from 17 Apr 2026)",
+        "rate": 0.05,
+        "merchants": [
+          "cleartrip"
+        ],
+        "minTxn": 100,
+        "capId": "online5"
+      }
+    ],
+    "caps": [
+      {
+        "id": "swiggy10",
+        "label": "Swiggy 10% cap",
+        "amount": 1500,
+        "period": "month",
+        "overflow": "none"
+      },
+      {
+        "id": "online5",
+        "label": "Online 5% cap",
+        "amount": 1500,
+        "period": "month",
+        "overflow": "none"
+      },
+      {
+        "id": "base1",
+        "label": "1% base cap",
+        "amount": 500,
+        "period": "month",
+        "overflow": "none"
+      }
+    ],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "rent",
+        "jewellery",
+        "government",
+        "wallet_load"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Caps are Rs.1500 per billing cycle for 10% and 5% categories, and Rs.500 for 1%, mapped to 'month' (monthly statement). The document shows the 5% cap being hit and further spend earning 0 (overflow 'none'). It doesn't say what happens to 10% spend over the cap, so overflow is 'none' there too. The old record had 'base' for all caps.",
+      "The 5% and 1% categories need a minimum transaction of Rs.100. The 10% Swiggy category needs Rs.249, effective 21 Apr 2026. The top-level minTxn is 100 and the Swiggy rule overrides it with 249.",
+      "The document says the 5% and 1% minimum is Rs.100. Section 4.1.1 also states a general Rs.100 minimum to earn cashback.",
+      "5% eligible categories per section 2.3: Apparels, Electronics, Department Stores, Online Pet Stores and Supplies, Home Décor, Personal Care, Local Cabs, Entertainment, Pharmacies, Discount Stores (Flipkart, Amazon, Meesho, Ajio). Department stores, pet stores, home decor, personal care, pharmacies and grocery (MCC 5411 on Amazon/Flipkart) have no matching enum category. They are not modelled separately; 'online_shopping' covers the discount-store merchants. 'Entertainment' is mapped loosely to 'movies'. Only select merchants under these MCCs qualify.",
+      "'travel' was removed from the 5% rule's categories because the document says any MCC outside Table 1.2 is not eligible. The only travel-related 5% item is Cleartrip, from 17 Apr 2026, and it is modelled as its own rule that shares the online5 cap.",
+      "Cleartrip also has a limited-period instant discount of 20% on hotels and 6.35% on flights. It applies only with coupon CTSWHDFC, from 17 Apr 2026. It is a discount rather than cashback and is not modelled.",
+      "Gift cards and grocery bought on 5%-eligible merchants earn no cashback. Amazon and Flipkart transactions with MCC 5411 earn 5% for statements from 10 May 2025. These two statements conflict somewhat and are not modelled as exclusions.",
+      "Exclusions that map to the enum: fuel, rent, jewellery, government, wallet_load. Exclusions with no enum value: gift cards/prepaid cards, EMI (all types), Smartpay, Smartbuy portal, cash advances, travellers' cheques, foreign currency purchase and fees. For the Swiggy 10% category, Swiggy Money wallet, Swiggy Liquor and Swiggy Minis are excluded.",
+      "'insurance' was in the old exclusions but the document does not list it, so it was dropped. The document does say other categories may be added from time to time.",
+      "Network is Mastercard (World), as stated in section 4.2.1. No UPI is stated.",
+      "Cashback is rounded to the nearest integer per transaction. Cashback is reversed for returns and EMI conversions.",
+      "Welcome benefit (3 months Swiggy One, plus 9 months in a limited offer), birthday-week Dineout discount (extra 10% up to Rs.500 on a minimum Rs.3000 order) and renewal fee waiver at Rs.2,00,000 annual spend are stated but not representable as reward rules.",
+      "The old record's rules did not state a minTxn for online5. Both old rules (swiggy10, online5) are confirmed by the document and their ids are reused."
+    ],
+    "sources": [
+      {
+        "label": "Extracted from issuer document",
+        "url": "C:\\Users\\lenovo\\Downloads\\terms-and-conditions-swiggy-hdfc-bank-credit-card-26052026.pdf"
+      },
+      {
+        "label": "Swiggy: Swiggy HDFC Bank Credit Card page",
+        "url": "https://www.swiggy.com/swiggy-hdfc-bank-credit-card"
+      },
+      {
+        "label": "HDFC Bank: 10% category exclusions (PDF)",
+        "url": "https://hdfcbank.com/content/api/contentstream-id/723fb80a-2dde-42a3-9793-7ae1be57c87f/7f43849c-4010-46f2-b41f-5dd184269526"
+      },
+      {
+        "label": "CardAdvisor: ₹249 minimum from April 2026 (secondary)",
+        "url": "https://cardadvisor.in/cards/hdfc-swiggy"
+      }
+    ],
+    "lastVerified": "2026-11-07",
+    "confidence": "medium",
+    "minTxn": 100
+  },
+  {
+    "id": "flipkart-axis",
+    "name": "Flipkart Axis Bank",
+    "issuer": "Axis Bank",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹ cashback",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "Cashback is money awarded in the card account."
+    },
+    "base": {
+      "rate": 0.01
+    },
+    "minTxn": 100,
+    "rules": [
+      {
+        "id": "myntra",
+        "label": "7.5% on Myntra",
+        "rate": 0.075,
+        "merchants": [
+          "myntra"
+        ],
+        "capId": "myntra"
+      },
+      {
+        "id": "flipkart",
+        "label": "5% on Flipkart",
+        "rate": 0.05,
+        "merchants": [
+          "flipkart"
+        ],
+        "capId": "flipkart"
+      },
+      {
+        "id": "cleartrip",
+        "label": "5% on Cleartrip",
+        "rate": 0.05,
+        "merchants": [
+          "cleartrip"
+        ],
+        "capId": "cleartrip"
+      },
+      {
+        "id": "preferred",
+        "label": "4% preferred merchant (Swiggy food)",
+        "rate": 0.04,
+        "merchants": [
+          "swiggy_food"
+        ]
+      }
+    ],
+    "caps": [
+      {
+        "id": "myntra",
+        "label": "Myntra cap",
+        "amount": 4000,
+        "period": "quarter",
+        "overflow": "none"
+      },
+      {
+        "id": "flipkart",
+        "label": "Flipkart cap",
+        "amount": 4000,
+        "period": "quarter",
+        "overflow": "none"
+      },
+      {
+        "id": "cleartrip",
+        "label": "Cleartrip cap",
+        "amount": 4000,
+        "period": "quarter",
+        "overflow": "none"
+      }
+    ],
+    "exclusions": {
+      "categories": [
+        "utilities",
+        "telecom",
+        "fuel",
+        "jewellery",
+        "insurance",
+        "rent",
+        "wallet_load",
+        "education",
+        "government"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "The 4% Preferred Merchants list is not given in the document, and it says the list can change at the bank's discretion. The only named accelerated merchant is Swiggy food delivery (Swiggy app). The existing 'preferred' rule for swiggy_food is kept on that basis. The document does not explicitly pair 4% with Swiggy.",
+      "Swiggy Instamart, Genie and similar are stated as not eligible for accelerated cashback. They earn the base rate only.",
+      "The Flipkart 5% rate applies on the Flipkart website and app, excluding Flipkart Health. This isn't representable as a merchant exclusion.",
+      "Cap is INR 4000 cashback per statement quarter, separately for each of Flipkart, Myntra and Cleartrip. Cashback above the cap is held as 'surplus' to adjust for EMI conversions or refunds, and is written off at quarter end. Overflow is therefore recorded as 'none'.",
+      "The base rate is 1% on other eligible merchants, with no cap.",
+      "Not eligible for cashback: gift card purchases on Flipkart and Myntra, gold in any form, EMI transactions (including post-facto EMI conversion), cash advances, payment of outstanding balances, and card fees and charges. These are not representable in the category enums.",
+      "The excluded MCC 'Financial Institutions' has no matching category enum and is not mapped. The other excluded MCCs are mapped: utilities, telecom, fuel, jewellery (clock, jewelry, watch and silverware stores), insurance, rent, wallet load, education, government.",
+      "Cashback is not applicable on transactions below Rs. 100. Cashback is rounded down per transaction.",
+      "Accelerated cashback (7.5%, 5%, 4%) is calculated from the Merchant IDs shared by merchants. The bank is not liable if a transaction does not earn accelerated cashback.",
+      "Network and UPI are not stated in the document, so they are omitted."
+    ],
+    "sources": [
+      {
+        "label": "Extracted from issuer document",
+        "url": "https://www.axis.bank.in/docs/default-source/default-document-library/cashback-tncs---final.pdf"
+      }
+    ],
+    "lastVerified": "2026-11-07",
+    "confidence": "high"
+  },
+  {
+    "id": "hsbc-live-plus",
+    "name": "HSBC Live+",
+    "issuer": "HSBC",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "Cashback is credited to the card account and adjusted against the amount payable."
+    },
+    "base": {
+      "rate": 0.015
+    },
+    "rules": [
+      {
+        "id": "ten",
+        "label": "10% on dining, food delivery, grocery, shopping and utilities (up to ₹1,200/month)",
+        "rate": 0.1,
+        "categories": [
+          "dining",
+          "food_delivery",
+          "grocery",
+          "utilities",
+          "telecom",
+          "online_shopping",
+          "apparel",
+          "electronics"
+        ],
+        "excludeMerchants": [
+          "amazon",
+          "flipkart",
+          "myntra"
+        ],
+        "capId": "ten"
+      }
+    ],
+    "caps": [
+      {
+        "id": "ten",
+        "label": "10% cashback cap",
+        "amount": 1200,
+        "period": "month",
+        "overflow": "none"
+      }
+    ],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "wallet_load",
+        "education",
+        "government",
+        "rent",
+        "insurance",
+        "jewellery"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Base: 1.5% unlimited cashback on 'most other spends'. The document says the 10% category has a ₹1,200/month cap but does not say what spend above the cap earns. Overflow is set to 'none'; it may in fact earn the 1.5% base.",
+      "Shopping spends on Amazon, Flipkart and Myntra earn 1.5% and are excluded from the 10% category. This is encoded as excludeMerchants on the 10% rule.",
+      "The 'shopping' category is mapped to online_shopping, apparel and electronics. This mapping is kept from the existing record, and the MCC table (page 22) lists many general shopping MCCs. MCC 4814 is listed as 'Utilities' with 10%, so telecom was added to the 10% rule.",
+      "The cashback MCC table (pages 22-24) lists the following as 0% cashback. Education and Government, Rent, Insurance, Jewellery and Antique Items, Fuel Related, and E-Wallets map to the exclusion categories: education, government, rent, insurance, jewellery, fuel, wallet_load. Fuel and wallet_load were already in the current record and are confirmed by the document.",
+      "The 0% cashback table also lists categories with no matching enum: Business to Business, Financial Institutions, Money Order and Wire Transfer, Gambling, Hospitals, Charity, Quasi Cash, Security Broker Services, Wholesale Clubs, Collection Agencies, Local Bus Transportation, and Tolls and Bridge Fees. These are not represented.",
+      "Cashback is credited solely on MCC categorisation, and the bank's classification decision is final. Instant EMI (IEMI) transactions earn no cashback. Cashback on reversed or cancelled transactions is recovered.",
+      "Conflicting statements on international spends. Pages 2 and 4 say 1.5% cashback will no longer be earned on international spends (forex markup 1.99%). Page 53 says 'International spends both online and POS will be eligible for Cashback.' Neither is encoded as a rule.",
+      "Cashback is credited within 45 days of the statement date. Terms are subject to change with 30 days' notice. Annual fee ₹999 is reversed on spends above ₹2,00,000 per year. These are not representable."
+    ],
+    "sources": [
+      {
+        "label": "Extracted from issuer document",
+        "url": "C:\\Users\\lenovo\\Downloads\\live-plus-credit-card-services-guide.pdf"
+      },
+      {
+        "label": "HSBC India: Live+ product page",
+        "url": "https://hsbc.co.in/credit-cards/products/live-plus"
+      },
+      {
+        "label": "TechnoFino: HSBC communication on the July 2026 change (secondary)",
+        "url": "https://technofino.in/community/posts/1238438/"
+      }
+    ],
+    "lastVerified": "2026-11-07",
+    "confidence": "medium"
+  },
+  {
+    "id": "indusind-tiger",
+    "name": "IndusInd Tiger",
+    "issuer": "IndusInd Bank",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "Reward Point",
+      "inrPerUnit": 0.4,
+      "inrPerUnitNote": "1 Reward Point = ₹0.40 as cash credit (also ₹0.40 via Indusmoments vouchers). 4 Reward Points = 1 KrisFlyer Mile."
+    },
+    "base": {
+      "rate": 0.01,
+      "tiers": [
+        {
+          "upTo": 100000,
+          "rate": 0.01
+        },
+        {
+          "upTo": 250000,
+          "rate": 0.02
+        },
+        {
+          "upTo": 500000,
+          "rate": 0.04
+        },
+        {
+          "upTo": null,
+          "rate": 0.06
+        }
+      ]
+    },
+    "rules": [],
+    "caps": [],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "utilities",
+        "insurance",
+        "government",
+        "education",
+        "rent"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Base earn is 1 Reward Point per ₹100 (0.01 per ₹1). The 'Magnificent Rewards Program' multiplies this by 1x, 2x, 4x and 6x as spend rises within the card anniversary year. The slabs are up to ₹1,00,000; ₹1,00,001-2,50,000; ₹2,50,001-5,00,000; and above ₹5,00,000. Only incremental spend in each slab gets the higher multiplier. The tiers match the existing record and are kept unchanged.",
+      "The tier thresholds are measured over the card Anniversary Year, not a calendar year or month. The schema can't express that, so it is noted here.",
+      "The document says accelerated reward points are not accrued on select MCC categories: fuel, utility bill payments, insurance premium, government services, educational institutes, real estate and rental payments. It separately says fuel transactions earn no reward points at all. For the other categories it only says 'accelerated' points are excluded, so they may still earn the base 1 RP per ₹100. I listed all of them as exclusions, but this is ambiguous.",
+      "'Real estate' has no matching category in the schema enum, so it is not listed in the exclusions. Rental payments are mapped to 'rent'.",
+      "The document says reward points allowed for cash redemption are capped at 5000 per calendar month, effective 1 Sep 2024. This is a redemption cap, not an earning cap, so no cap is recorded. It also says earnable points are capped at the credit limit, which is not representable.",
+      "No category- or merchant-specific earn rates are stated, so the rules list stays empty. The existing record had no rules to keep.",
+      "Non-reward benefits are not modelled: 1% fuel surcharge waiver on fuel transactions of ₹400-4000, forex markup of 1.5%, lounge access, golf, and a BookMyShow ticket of up to ₹500 every 6 months.",
+      "The document does not state the card network, so network is omitted. It also does not state UPI support, so upi is omitted.",
+      "Redemption to Club Vistara and InterMiles is stated as discontinued."
+    ],
+    "sources": [
+      {
+        "label": "Extracted from issuer document",
+        "url": "https://www.indusind.bank.in/in/en/personal/cards/credit-card/tiger-credit-card.html"
+      },
+      {
+        "label": "CardInsider: spend slabs (secondary)",
+        "url": "https://cardinsider.com/fintech-cards/indusind-bank-tiger-credit-card/"
+      }
+    ],
+    "lastVerified": "2026-11-07",
+    "confidence": "medium"
+  },
+  {
+    "id": "scapia-visa",
+    "name": "Scapia Federal (Visa)",
+    "issuer": "Federal Bank",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "Scapia Coin",
+      "inrPerUnit": 0.2,
+      "inrPerUnitNote": "1 Reward = 1 Scapia Coin, converted on the statement date. 5 Scapia Coins = Rs. 1 when redeemed for flights, hotels, buses and other services on the Scapia app. The document says this value and the conversion ratio can change."
+    },
+    "base": {
+      "rate": 0.1
+    },
+    "minTxn": 20,
+    "rules": [
+      {
+        "id": "scapia-travel",
+        "label": "20% rewards on travel purchases made on the Scapia App",
+        "rate": 0.2,
+        "merchants": [
+          "scapia_travel"
+        ]
+      }
+    ],
+    "caps": [],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "rent",
+        "wallet_load",
+        "education",
+        "insurance",
+        "utilities",
+        "telecom",
+        "government"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Base rate: the Visa card earns 10% rewards on every purchase of Rs. 20 and above. Purchases below Rs. 20 earn nothing. This is stored as minTxn = 20 and matches the existing record.",
+      "The document's examples (Rs. 48 gives 5 rewards, Rs. 52 gives 5 rewards) show rounding to the nearest whole reward. The rule schema can't represent this rounding.",
+      "The document gives a separate RuPay variant (5% on eligible spends above Rs. 500). It is not part of this Visa record and was left out.",
+      "The 20% travel rate applies to travel purchases made on the Scapia App. The document doesn't say whether it replaces the 10% base rate or is added to it. It is stored as a standalone 20% rule. No cap is stated.",
+      "Excluded categories mapped to the schema: fuel (including fuel surcharge), rent, digital wallet loading/top-up (MCC 6540), education and school fees, insurance, and utility, telecom and cable spends. The existing exclusions were all confirmed.",
+      "Government services (MCCs 9099 to 9999) is listed in the document's table of ineligible reward categories but not in the text list. It is added to the exclusions on the strength of that table.",
+      "Also ineligible but with no matching category in the schema: money transfers, cash withdrawals, EMI transactions, forex transactions, gift cards, credit card repayments, crypto/digital asset transactions, business services (MCCs 7399, 7311, 7372, 7538, 7392) and crypto/financial institutions (MCCs 6051, 6012, 6011). Purchases on a digital wallet app may also earn no rewards if they involve an actual wallet load.",
+      "Refunds, chargebacks and reimbursements reduce the rewards balance. The bank can change or withdraw the programme without notice.",
+      "Not representable: convenience fee of 1% on utility, telecom and cable spends over Rs. 50,000 per billing cycle, fuel spends over Rs. 50,000 per billing cycle, and rent (capped at Rs. 3,000 per transaction, plus GST). Also not representable: unlimited domestic lounge access (needs Rs. 20,000 spend per billing cycle), zero forex markup, no-cost EMI on travel booked in the Scapia app, and Scapia Coin validity of 36 months.",
+      "The English text says the terms were last updated on 1 Jun 2026 (version dated 30.04.2026). The Hindi translation says 27 Feb 2026. The English version was used."
+    ],
+    "sources": [
+      {
+        "label": "Extracted from issuer document",
+        "url": "C:\\Users\\lenovo\\Downloads\\Cardholder_agreement v11 30_04_26.pdf"
+      },
+      {
+        "label": "Scapia: programme summary",
+        "url": "https://www.scapia.cards/llms.txt"
+      },
+      {
+        "label": "Paisabazaar: Scapia earn rates (secondary)",
+        "url": "https://www.paisabazaar.com/credit-card/compare/scapia-credit-card-vs-bobcard-scapia-credit-card/"
+      }
+    ],
+    "lastVerified": "2026-11-07",
+    "confidence": "medium"
+  },
+  {
+    "id": "scapia-rupay",
+    "name": "Scapia Federal (RuPay, UPI)",
+    "issuer": "Federal Bank",
+    "network": "RuPay",
+    "upi": true,
+    "reward": {
+      "kind": "points",
+      "unitName": "Scapia Coin",
+      "inrPerUnit": 0.2,
+      "inrPerUnitNote": "1 Reward = 1 Scapia Coin; 5 Scapia Coins = Rs. 1 when redeemed on the Scapia app (flights, hotels, buses, other Scapia services). The value may change with one month's notice."
+    },
+    "base": {
+      "rate": 0.05
+    },
+    "minTxn": 500,
+    "rules": [
+      {
+        "id": "travel-scapia-app",
+        "label": "20% on travel purchases made on the Scapia App",
+        "rate": 0.2,
+        "categories": [
+          "travel"
+        ],
+        "merchants": [
+          "scapia_travel"
+        ]
+      }
+    ],
+    "caps": [],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "rent",
+        "wallet_load",
+        "education",
+        "insurance",
+        "utilities",
+        "telecom",
+        "government"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Base 5% comes from: 'on your Scapia Federal Rupay Credit Card, you will earn 5% rewards on eligible spends of more than 500 Rs. For purchase amounts below Rs. 500, rewards will not be credited.' The document says 'more than 500' and 'below 500', so spend of exactly Rs. 500 is unclear. minTxn is set to 500.",
+      "The document also covers a Scapia Federal Visa variant (10% rewards on purchases of Rs. 20 and above). It is not applied here because this card is the RuPay variant.",
+      "Network is set to RuPay because the document describes a RuPay variant and the card was given as RuPay. UPI is omitted because the document does not mention UPI.",
+      "Exclusions are taken from the document's list of purchases that earn no rewards: rent, fuel and fuel surcharge, digital wallet loading, education and school fees, insurance, and utility, telecom and cable spends. Government services (MCCs 9099 to 9999) are also in the ineligible MCC table. The record's earlier exclusion list is unchanged, with government added.",
+      "The document lists other non-earning items that have no matching category in the schema: money transfers, cash withdrawals, EMI transactions, forex transactions, gift cards, credit card repayments, crypto/digital asset transactions, business services (MCCs 7399, 7311, 7372, 7538, 7392), crypto and financial institutions (MCCs 6051, 6012, 6011), and cable spends. Rewards are credited only on regular purchases, and rewards on reversed transactions are deducted. Rewards may also be missed on in-app purchases in digital wallet apps because of wallet loads.",
+      "The 20% travel rate applies to travel purchases made on the Scapia App. The document does not say whether the Rs. 500 minimum applies, so no minTxn is set on that rule. It is mapped to the scapia_travel merchant.",
+      "No reward caps are stated in the document.",
+      "Convenience fee of 1% (capped at Rs. 3,000 per transaction) applies to rent, to fuel spends over Rs. 50,000 per billing cycle, and to utility/telecom/cable spends over Rs. 50,000 per billing cycle. These are fees, not reward rules.",
+      "Other benefits not represented: unlimited domestic lounge access with Rs. 20,000 spend per billing cycle, zero forex markup, and no-cost EMI on Scapia App travel bookings.",
+      "The English terms say they were last updated on 01 Jun 2026 and the version footer says 30.04.2026. The Hindi section says 27 Feb 2026. The earlier record had no rules, so none were kept as 'KEPT'."
+    ],
+    "sources": [
+      {
+        "label": "Extracted from issuer document",
+        "url": "C:\\Users\\lenovo\\Downloads\\Cardholder_agreement v11 30_04_26.pdf"
+      },
+      {
+        "label": "Scapia: RuPay card (website)",
+        "url": "https://scapia.cards"
+      }
+    ],
+    "lastVerified": "2026-11-07",
+    "confidence": "medium"
+  },
+  {
+    "id": "sbi-cashback",
+    "name": "Cashback SBI Card",
+    "issuer": "SBI Card",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "Cashback is credited to the SBI Card account within two working days of statement generation; 1 unit = ₹1."
+    },
+    "base": {
+      "rate": 0.01,
+      "capId": "offline-cap"
+    },
+    "rules": [
+      {
+        "id": "online-5",
+        "label": "5% cashback on online spends",
+        "rate": 0.05,
+        "channels": [
+          "online"
+        ],
+        "capId": "online-cap",
+        "minTxn": 100
+      },
+      {
+        "id": "offline-1",
+        "label": "1% cashback on offline spends",
+        "rate": 0.01,
+        "channels": [
+          "offline"
+        ],
+        "capId": "offline-cap",
+        "minTxn": 100
+      }
+    ],
+    "caps": [
+      {
+        "id": "online-cap",
+        "label": "Online cashback cap per statement cycle",
+        "amount": 2000,
+        "period": "month",
+        "overflow": "none"
+      },
+      {
+        "id": "offline-cap",
+        "label": "Offline cashback cap per statement cycle",
+        "amount": 2000,
+        "period": "month",
+        "overflow": "none"
+      }
+    ],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "wallet_load",
+        "rent",
+        "jewellery",
+        "education",
+        "utilities",
+        "insurance",
+        "government"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Online vs offline is decided by the online indicators sent by the card networks and the acquirer. Any transaction not flagged online counts as offline.",
+      "The base rate of 1% is the offline rate. The online rule at 5% applies to eligible online spends.",
+      "Caps are per statement cycle: ₹2,000 online, ₹2,000 offline, and ₹4,000 combined. Once a cap is hit, no further cashback is earned that cycle, so overflow is 'none'. The rule schema allows one capId per rule, so the ₹4,000 aggregate cap (total-cap) is listed in caps but not attached to any rule.",
+      "Source 2 (revision effective 1 April 2026) restates the same 5%/1% rates and ₹2,000/₹2,000/₹4,000 caps. It lists digital gaming (MCC 7993, 7994, 5816), tolls (MCC 4784) and government transactions (MCC 9222, 9311, 9402) as excluded in addition to the existing exclusions. The 2026 revision is the most recent document. The Source 1 T&C table already lists these three categories, so there is no conflict. Only 'government' maps to an exclusion enum.",
+      "Minimum transaction: cashback is not applicable on transactions below ₹100 (clause 11.1 s).",
+      "Cashback is rounded down per transaction.",
+      "Not representable in the category/merchant enums: digital gaming, tolls, railways (MCC 4011, 4112), card/gift/novelty/souvenir shops (MCC 5947), member financial institution/quasi cash (MCC 6011, 6012, 6051), balance transfers, cash advances, ATM withdrawals, financial charges, disputed transactions, Encash, Flexipay and merchant EMI transactions, and payments via Standing Instructions or Fetch and Pay on SBI Card platforms.",
+      "The utilities exclusion (MCC 4900, 4814, 4816, 4899, 9399) is mapped to 'utilities' only. Telecom MCCs 4814 and 4816 sit inside that list, but the document labels the whole group 'Utility'.",
+      "Fuel earns no cashback (MCC 5172, 5541, 5542, 5983). Separately, a 1% fuel surcharge waiver applies to fuel transactions between ₹500 and ₹3,000, capped at ₹100 per statement cycle. This is not cashback and is not modeled as a rule.",
+      "The document does not state whether the card works on UPI, so 'upi' is omitted. The network (Visa) is stated in the document."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/ekit-tncs/cashback-tnc-ekit.pdf"
+      },
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/cashback-revised.pdf"
+      }
+    ],
+    "lastVerified": "2026-11-07",
+    "confidence": "high",
+    "minTxn": 100
+  },
+  {
+    "id": "amazon-pay-icici",
+    "name": "Amazon Pay ICICI",
+    "issuer": "ICICI Bank",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹ Amazon Pay balance",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "Credited as Amazon Pay balance, not statement credit."
+    },
+    "base": {
+      "rate": 0.01
+    },
+    "rules": [
+      {
+        "id": "amazon-prime",
+        "label": "5% on Amazon for Prime members",
+        "rate": 0.05,
+        "merchants": [
+          "amazon"
+        ],
+        "requires": "amazon_prime"
+      },
+      {
+        "id": "amazon-non-prime",
+        "label": "3% on Amazon for non-Prime members",
+        "rate": 0.03,
+        "merchants": [
+          "amazon"
+        ]
+      }
+    ],
+    "caps": [],
+    "exclusions": {
+      "categories": [],
+      "merchants": []
+    },
+    "notes": [
+      "Base 1% applies to all other spends (document: 'Unlimited reward points of 1% on all other spends').",
+      "The document also states 2 points per ₹100 (2%) at 100+ Amazon Pay partner merchants (via 'Login and Pay with Amazon'). The partner merchants are not in the merchant enum, and a rule with no merchants or categories would apply to all spend, so this rate is not represented.",
+      "The FAQ also says 1% on spends outside Amazon 'at partner merchants'. This is ambiguous. I used the 1% base as stated in the 'all other spends' line.",
+      "The document says 'up to 5%' on Amazon for Prime members and 3% for non-Prime members. Rewards are credited as Amazon Pay balance.",
+      "The 1% fuel surcharge waiver is not a reward rate and is not represented. The 1.99% forex markup is not represented.",
+      "No caps or exclusions are stated in the document.",
+      "The document does not state the network (Visa), UPI support or an explicit rupee value per point, so network, upi and reward are omitted. The supplied metadata gave these but the document does not confirm them.",
+      "The page shows no category exclusions, minimum transaction amounts or caps. The T&Cs/MITC were not included."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.icici.bank.in/personal-banking/cards/credit-card/amazon-pay-credit-card/index"
+      }
+    ],
+    "lastVerified": "2026-11-07",
+    "confidence": "medium"
+  },
+  {
+    "id": "airtel-axis",
+    "name": "Airtel Axis Bank",
+    "issuer": "Axis Bank",
+    "network": "Mastercard",
+    "upi": false,
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹ cashback",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "Cashback is money credited to the card account. The 10% Zomato/Blinkit value back is credited to partner wallets instead."
+    },
+    "base": {
+      "rate": 0.01
+    },
+    "rules": [
+      {
+        "id": "airtel-bill-25",
+        "label": "25% on Airtel Mobile/Broadband/WiFi/DTH bills via Airtel Thanks App",
+        "rate": 0.25,
+        "merchants": [
+          "airtel_bill"
+        ]
+      },
+      {
+        "id": "airtel-utility-10",
+        "label": "10% on other utility bills via Airtel Thanks App",
+        "rate": 0.1,
+        "merchants": [
+          "airtel_utility"
+        ]
+      },
+      {
+        "id": "zomato-10-valueback",
+        "label": "10% value back on Zomato (online, min order ₹499)",
+        "rate": 0.1,
+        "merchants": [
+          "zomato"
+        ],
+        "channels": [
+          "online"
+        ],
+        "rails": [
+          "card"
+        ],
+        "minTxn": 499,
+        "capId": "zomato-valueback-cap"
+      },
+      {
+        "id": "blinkit-10-valueback",
+        "label": "10% value back on Blinkit (online, min order ₹499)",
+        "rate": 0.1,
+        "merchants": [
+          "blinkit"
+        ],
+        "channels": [
+          "online"
+        ],
+        "rails": [
+          "card"
+        ],
+        "minTxn": 499,
+        "capId": "blinkit-valueback-cap"
+      }
+    ],
+    "caps": [
+      {
+        "id": "zomato-valueback-cap",
+        "label": "Zomato value back max ₹200/month per primary card",
+        "amount": 200,
+        "period": "month",
+        "overflow": "none"
+      },
+      {
+        "id": "blinkit-valueback-cap",
+        "label": "Blinkit value back max ₹200/month per primary card",
+        "amount": 200,
+        "period": "month",
+        "overflow": "none"
+      }
+    ],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "rent",
+        "wallet_load",
+        "jewellery",
+        "insurance",
+        "education",
+        "government",
+        "utilities",
+        "telecom"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Two documents were provided: the T&C effective 12-Apr-2026 and the revision notice effective 12-Apr-2026. They are consistent. The revision replaces the old 10% on Swiggy/Zomato/BigBasket with 10% value back on Zomato, Blinkit and District Movies, and replaces the fixed ₹250 caps with caps tied to base cashback.",
+      "The 25% (Airtel mobile/broadband/WiFi/DTH) and 10% (other utility) rates are capped dynamically. The 25% rate is capped at 2x the base 1% cashback earned in the same statement month. The 10% rate is capped at 1x the base cashback. If there is no base spend, there is no Airtel cashback. This can't be shown as a fixed amount, so no caps were added for these rules.",
+      "The 1% base cashback has no cap.",
+      "The 25% and 10% rates apply only on Airtel Thanks App, matched by merchant ID or VPA. The 25% rate applies only to active Airtel connections, not new or inactive ones. Utility and telecom spends outside Airtel Thanks App earn no cashback, so utilities and telecom are listed as excluded categories. The Airtel Thanks App rules use merchants, not categories.",
+      "The 10% value back on Zomato/Blinkit is paid into the partner wallet. It has no Axis Bank cashback on top. It applies only on the partner App/Website, through online card payment (UPI is not eligible), and not on wallet load or gift card purchases. It is capped at ₹200 per month per partner, per primary card. The minimum order value of ₹499 applies to Zomato and Blinkit.",
+      "District Movies also gets 10% value back, capped at ₹200 per month. It has no matching merchant in the enum, so it was not added as a rule. The document gives no minimum order value for it.",
+      "Excluded items with no matching category in the enum: cash advances/financial institutions, gift cards, bridge fees, road fees and tolls, EMI transactions, payment of outstanding balance, and fees and other charges.",
+      "Cashback is rounded down for each transaction.",
+      "Cashback is not applicable on EMI transactions.",
+      "The 4 complimentary domestic lounge accesses are discontinued.",
+      "Network and UPI support are not stated in the documents, so they were omitted."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.axis.bank.in/docs/default-source/default-document-library/credit-cards/terms-and-conditions-for-cashback-for-airtel-axis-bank-credit-card.pdf"
+      },
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.axis.bank.in/docs/default-source/default-document-library/terms-and-conditions-for-airtel-cbcc-cvp.pdf"
+      }
+    ],
+    "lastVerified": "2026-11-07",
+    "confidence": "medium"
+  },
+  {
+    "id": "tata-neu-plus-hdfc",
+    "name": "Tata Neu Plus HDFC",
+    "issuer": "HDFC Bank",
+    "network": "RuPay",
+    "upi": true,
+    "reward": {
+      "kind": "points",
+      "unitName": "NeuCoins",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "1 Tata NeuCoin = ₹1 savings on Tata Neu App/Website across eligible Tata brands"
+    },
+    "base": {
+      "rate": 0.01
+    },
+    "rules": [
+      {
+        "id": "tata-neu-2pct",
+        "label": "2% on Tata Neu and partner Tata brands (non-UPI, non-EMI)",
+        "rate": 0.02,
+        "merchants": [
+          "tata_neu"
+        ],
+        "rails": [
+          "card"
+        ]
+      },
+      {
+        "id": "upi-base",
+        "label": "0.25% on eligible UPI spends",
+        "rate": 0.0025,
+        "rails": [
+          "upi"
+        ],
+        "capId": "upi-monthly"
+      },
+      {
+        "id": "upi-neu-id",
+        "label": "Up to 1% on UPI via Tata Neu UPI ID",
+        "rate": 0.01,
+        "rails": [
+          "upi"
+        ],
+        "requires": "partner_upi_app",
+        "capId": "upi-monthly"
+      },
+      {
+        "id": "grocery-capped",
+        "label": "1% on grocery (capped 1,000 NeuCoins/month)",
+        "rate": 0.01,
+        "categories": [
+          "grocery"
+        ],
+        "capId": "grocery-monthly"
+      },
+      {
+        "id": "utilities-capped",
+        "label": "1% on utilities (capped 2,000 NeuCoins/month)",
+        "rate": 0.01,
+        "categories": [
+          "utilities"
+        ],
+        "capId": "utilities-monthly"
+      },
+      {
+        "id": "telecom-capped",
+        "label": "1% on telecom & cable (capped 2,000 NeuCoins/month)",
+        "rate": 0.01,
+        "categories": [
+          "telecom"
+        ],
+        "capId": "telecom-monthly"
+      },
+      {
+        "id": "insurance-capped",
+        "label": "1% on insurance (capped 2,000 NeuCoins/month)",
+        "rate": 0.01,
+        "categories": [
+          "insurance"
+        ],
+        "capId": "insurance-monthly"
+      }
+    ],
+    "caps": [
+      {
+        "id": "upi-monthly",
+        "label": "UPI NeuCoins cap",
+        "amount": 500,
+        "period": "month",
+        "overflow": "none"
+      },
+      {
+        "id": "grocery-monthly",
+        "label": "Grocery NeuCoins cap",
+        "amount": 1000,
+        "period": "month",
+        "overflow": "none"
+      },
+      {
+        "id": "utilities-monthly",
+        "label": "Utilities NeuCoins cap",
+        "amount": 2000,
+        "period": "month",
+        "overflow": "none"
+      },
+      {
+        "id": "telecom-monthly",
+        "label": "Telecom & cable NeuCoins cap",
+        "amount": 2000,
+        "period": "month",
+        "overflow": "none"
+      },
+      {
+        "id": "insurance-monthly",
+        "label": "Insurance NeuCoins cap",
+        "amount": 2000,
+        "period": "month",
+        "overflow": "none"
+      }
+    ],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "wallet_load",
+        "rent",
+        "government"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Base 1% NeuCoins applies to non-Tata-brand spends and any merchant EMI spends (non-UPI). Cap overflow behaviour is not stated in the document, so overflow is set to 'none'. Caps are applied per category via dedicated rules.",
+      "The list of partner Tata brands for the 2% rate is behind a 'click here' link and not in the document; only tata_neu is mapped. The 2% applies to non-EMI spends only.",
+      "Additional 5% NeuCoins on 'selected categories' on Tata Neu App/Website (needs NeuPass registration; from 15-Jan-25 only via primary cardholder's mobile number account) is not modelled because the categories are not specified. A banner mentions '7% on Tata Neu'. Bill Payment (Tata Pay), Tanishq, Cult.fit, Air India and Tata Play are not eligible for the additional 5%.",
+      "UPI: total NeuCoins on all UPI payments is capped at 500 per calendar month. The extra 0.75% via Tata Neu UPI ID is posted to the Tata Neu account. The 'upi-neu-id' rule is the total of 0.25% + 0.75%.",
+      "Exclusions: no NeuCoins on Fuel, Wallet, Rental, Government and Online Gaming (incl. Online Skill-Based Gaming MCC-5816; no enum category for gaming). Education payments through third-party apps (CRED, Cheq, MobiKwik etc.) earn nothing, but direct school/college payments do (not modelled as a category exclusion).",
+      "Network and UPI-support flags omitted: the document mentions 'VISA / RuPay Card' for lounge access, so the network is not clearly stated. Fuel surcharge waiver: 1% on ₹400–₹5,000, max ₹250 per statement cycle (not a NeuCoin rule). Lounge access needs ₹50,000 spend per calendar quarter. Fee ₹499 + taxes, waived on ₹1,00,000 annual spend. From 25-Nov-2026 NeuCoins must be claimed via the Tata Neu App within 12 months."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.hdfc.bank.in/credit-cards/tata-neu-plus-hdfc-bank-credit-card"
+      }
+    ],
+    "lastVerified": "2026-11-07",
+    "confidence": "medium"
+  },
+  {
+    "id": "tata-neu-infinity-hdfc",
+    "name": "Tata Neu Infinity HDFC",
+    "issuer": "HDFC Bank",
+    "network": "RuPay",
+    "upi": true,
+    "reward": {
+      "kind": "points",
+      "unitName": "NeuCoins",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "1 Tata NeuCoin = ₹1 savings on Tata Neu App/Website across eligible Tata brands"
+    },
+    "base": {
+      "rate": 0.015
+    },
+    "rules": [
+      {
+        "id": "tata-neu-partner-5",
+        "label": "5% NeuCoins on Tata Neu and partner Tata brands (non-UPI, non-EMI)",
+        "rate": 0.05,
+        "merchants": [
+          "tata_neu"
+        ],
+        "rails": [
+          "card"
+        ]
+      },
+      {
+        "id": "grocery-capped",
+        "label": "1.5% on grocery (capped 2,000 NeuCoins/month)",
+        "rate": 0.015,
+        "categories": [
+          "grocery"
+        ],
+        "rails": [
+          "card"
+        ],
+        "capId": "grocery-cap"
+      },
+      {
+        "id": "utilities-capped",
+        "label": "1.5% on utilities (capped 2,000 NeuCoins/month)",
+        "rate": 0.015,
+        "categories": [
+          "utilities"
+        ],
+        "rails": [
+          "card"
+        ],
+        "capId": "utilities-cap"
+      },
+      {
+        "id": "telecom-capped",
+        "label": "1.5% on telecom & cable (capped 2,000 NeuCoins/month)",
+        "rate": 0.015,
+        "categories": [
+          "telecom"
+        ],
+        "rails": [
+          "card"
+        ],
+        "capId": "telecom-cap"
+      },
+      {
+        "id": "insurance-capped",
+        "label": "1.5% on insurance (capped 2,000 NeuCoins/month)",
+        "rate": 0.015,
+        "categories": [
+          "insurance"
+        ],
+        "rails": [
+          "card"
+        ],
+        "capId": "insurance-cap"
+      },
+      {
+        "id": "upi-base",
+        "label": "0.5% on eligible UPI spends",
+        "rate": 0.005,
+        "rails": [
+          "upi"
+        ],
+        "capId": "upi-cap"
+      },
+      {
+        "id": "upi-tata-neu-id",
+        "label": "1.5% on UPI via Tata Neu UPI ID (0.5% + 1%)",
+        "rate": 0.015,
+        "rails": [
+          "upi"
+        ],
+        "requires": "partner_upi_app",
+        "capId": "upi-cap"
+      }
+    ],
+    "caps": [
+      {
+        "id": "grocery-cap",
+        "label": "Grocery NeuCoins cap",
+        "amount": 2000,
+        "period": "month",
+        "overflow": "none"
+      },
+      {
+        "id": "utilities-cap",
+        "label": "Utilities NeuCoins cap",
+        "amount": 2000,
+        "period": "month",
+        "overflow": "none"
+      },
+      {
+        "id": "telecom-cap",
+        "label": "Telecom & cable NeuCoins cap",
+        "amount": 2000,
+        "period": "month",
+        "overflow": "none"
+      },
+      {
+        "id": "insurance-cap",
+        "label": "Insurance NeuCoins cap",
+        "amount": 2000,
+        "period": "month",
+        "overflow": "none"
+      },
+      {
+        "id": "upi-cap",
+        "label": "All UPI payments NeuCoins cap",
+        "amount": 500,
+        "period": "month",
+        "overflow": "none"
+      }
+    ],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "wallet_load",
+        "rent",
+        "government"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Document: 'NeuCoins will not be accrued for Fuel, Wallet, Rental, Government and Online Gaming related transactions.' Online gaming has no category enum, so it is not mapped. From 1 July 2025, Online Skill-Based Gaming (MCC-5816) earns nothing.",
+      "Additional 5% on 'selected categories' on Tata Neu App/Website (after NeuPass registration) is not represented because the categories are not listed. Bill Payment (Tata Pay), Tanishq, Cult.fit, Air India and Tata Play are not eligible for it. Only the primary cardholder's mobile number account qualifies (from 15-Jan-25).",
+      "The list of eligible partner Tata brands is not in the document ('click here'), so the 5% rule is mapped only to tata_neu. The brands listed under redemption are not necessarily earn partners.",
+      "The 5% applies to non-EMI spends. 1.5% applies to non-Tata brand spends and merchant EMI spends; this is the base rate. Base is assumed to be for non-UPI spends.",
+      "UPI: 0.5% is posted by the bank, and an additional 1% is credited to the Tata Neu account when paying with a Tata Neu UPI ID. The Tata Neu UPI ID rule uses 1.5% (0.5% + 1%) combined. Total UPI NeuCoins are capped at 500 per calendar month.",
+      "Grocery, utilities, telecom and insurance caps are in NeuCoins per month. The document does not say what spend above a cap earns, so overflow is 'none'. The rules for these categories assume the 1.5% base rate, because the document gives no category-specific rate.",
+      "Education payments through third-party apps (CRED, Cheq, MobiKwik, etc.) earn no NeuCoins. Education payments made directly with the college or school earn NeuCoins. This is not mapped as an exclusion because it applies only to third-party apps.",
+      "The document covers both Visa and RuPay variants. Network RuPay, UPI true and the ₹1 per NeuCoin value follow the supplied metadata. The document states '1 Tata NeuCoin = ₹1'.",
+      "Other benefits not represented: fuel surcharge waiver (1% on ₹400–₹5,000, max ₹500 per cycle), lounge access tied to spend milestones, a ₹1,499 fee waived at ₹3,00,000 annual spend, and a 1,499 NeuCoin welcome benefit.",
+      "NeuCoins must be claimed within 12 months of the statement date, effective 25-Nov-2026."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.hdfc.bank.in/credit-cards/tata-neu-infinity-hdfc-bank-credit-card"
+      }
+    ],
+    "lastVerified": "2026-11-07",
+    "confidence": "medium"
+  },
+  {
+    "id": "kiwi-rupay",
+    "name": "Kiwi RuPay (YES / AU / PNB)",
+    "issuer": "Kiwi with YES Bank, AU Bank or PNB",
+    "network": "RuPay",
+    "upi": true,
+    "reward": {
+      "kind": "cashback",
+      "unitName": "Kiwis",
+      "inrPerUnit": 0.25,
+      "inrPerUnitNote": "Document: 'Each Kiwis will be currently worth Rs 0.25/-' (4 Kiwis = ₹1). Rates are expressed in Kiwis per ₹1 (2 Kiwis per ₹100 = 0.5%)."
+    },
+    "base": {
+      "rate": 0.02
+    },
+    "rules": [
+      {
+        "id": "scan-and-pay",
+        "label": "1.5% on Scan & Pay (UPI)",
+        "rate": 0.06,
+        "rails": [
+          "upi"
+        ]
+      }
+    ],
+    "caps": [],
+    "exclusions": {
+      "categories": [
+        "government",
+        "utilities",
+        "telecom",
+        "fuel",
+        "jewellery",
+        "insurance",
+        "education"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Rates used are for 'Credit Card issued via Kiwi App since 4th July 2024 (for users who do not subscribe to Kiwi Neon)': online 0.5% (2 Kiwis per ₹100) and Scan & Pay 1.5% (6 Kiwis per ₹100). Cards issued before 4 July 2024 earn 0.5% online / 1% scan & pay, not used here.",
+      "Base rate 0.02 Kiwis/₹ (0.5%) is the stated online rate; the document does not state an offline card-swipe rate, so the base is applied to all other spend as an assumption.",
+      "The user-supplied metadata said a Kiwi is worth ₹1, but the document says ₹0.25 per Kiwi. The document is used. Effective cashback percentages are the same either way.",
+      "Since 1 June 2025, Kiwis are awarded only on transaction amounts in multiples of ₹100 (e.g. ₹150 earns the same as ₹100). This can't be represented in the schema.",
+      "Monthly cap is 1% of the card's total credit limit (in Kiwis). The credit limit isn't stated, so no cap amount is recorded. Under suspicious activity, the cap may be reduced to the lower of 1% of the limit or ₹500.",
+      "Exclusions are by merchant category code. Mapped: government services/tax, utilities (cable, telecom, electricity, water), fuel, jewellery, insurance, educational institutions. Not mapped to the enum: agricultural services, horticulture/vet, auto rentals/repairs, direct marketing, legal/accounting, auto dealers, tolls, financial institutions, real estate, gift cards.",
+      "The ₹50 minimum and 400 Kiwi monthly cap apply to 'other RuPay credit cards' and bank accounts (surprise rewards), not this card, so they are not included.",
+      "Kiwis can be redeemed only in multiples of 500 (minimum 500). Many limited-time and merchant offers are listed by name only, with no rates stated, so none are captured. No two offers can be clubbed.",
+      "Kiwi Neon membership and Kiwi Boost programmes are referenced, but their rates are not stated in this document."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://gokiwi.in/rewards-policy-v2"
+      }
+    ],
+    "lastVerified": "2026-11-07",
+    "confidence": "medium"
+  },
+  {
+    "id": "axis-supermoney",
+    "name": "Axis super.money RuPay",
+    "issuer": "Axis Bank",
+    "network": "RuPay",
+    "upi": true,
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "Cashback is money credited to the card account."
+    },
+    "base": {
+      "rate": 0.01
+    },
+    "rules": [
+      {
+        "id": "supermoney-qr-3pct",
+        "label": "3% on QR/UPI transactions via the super.money app",
+        "rate": 0.03,
+        "rails": [
+          "upi"
+        ],
+        "requires": "partner_upi_app"
+      }
+    ],
+    "caps": [],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "jewellery",
+        "wallet_load",
+        "insurance",
+        "education",
+        "government",
+        "rent",
+        "utilities",
+        "telecom"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Base rate: 1% on all other qualifying spends, unlimited, on UPI purchases made outside the super.money app and on non-UPI purchases.",
+      "The 3% super.money rate is capped per statement cycle at the total cashback earned from other UPI and non-UPI spends. If that other cashback is under INR 100 and the super.money cashback exceeds INR 100, the super.money cashback is capped at INR 100. This variable, dependent cap can't be expressed as a fixed cap, so no cap is recorded. The cap is not a fixed amount, and the overflow treatment is unclear. Unused amounts are carried as 'surplus' for two statement cycles.",
+      "3% applies only to transactions done through QR code (CC on UPI) on the super.money platform. The terms also say an additional partner VPA ID identifier is needed.",
+      "The website says 3% is for transactions 'via the super.money App', while the PDF says QR transactions on/through the super.money platform. The wording differs slightly, and I used the PDF's more specific wording.",
+      "Spends below INR 100 earn no cashback (recorded as minTxn 100). Cashback is rounded down for each individual transaction.",
+      "No cashback on restricted MCCs. The excluded categories mapped to enums are fuel, jewellery (clock, jewelry, watch and silverware stores), wallet load, insurance, education, government services, rent, utilities and telecom.",
+      "Exclusions not mapped to the enums: repayments, cash withdrawal, financial institutions, gift cards, bridge/road fees and tolls, EMI transactions, and purchases converted to EMI post facto.",
+      "Fuel surcharge waiver is not an earn rate: 1% on UPI fuel transactions and 0.989% on non-UPI, for transactions of INR 400–4000, with a maximum benefit of INR 400 per statement cycle. It is not modelled as a rule.",
+      "The website says the T&Cs will be updated w.e.f. 1 January 2026 and again w.e.f. 28 August 2026, but it gives no details of the changes. The provided PDF terms are used. Later revised terms were not provided, so they could change these rates.",
+      "Cashback is credited about 3 days before the statement date of the next billing cycle. It is forfeited on cancellation, default or breach."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.axis.bank.in/docs/default-source/default-document-library/credit-cards/axis-bank-supermoney-rupay-credit-card.pdf"
+      },
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.axis.bank.in/cards/credit-card/supermoney-credit-card"
+      }
+    ],
+    "lastVerified": "2026-11-07",
+    "confidence": "medium",
+    "minTxn": 100
+  },
+  {
+    "id": "swiggy-blck-hdfc",
+    "name": "Swiggy BLCK HDFC",
+    "issuer": "HDFC Bank",
+    "network": "Mastercard",
+    "upi": false,
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹ cashback",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "Cashback is auto-redeemed against the outstanding amount; 1 unit = ₹1."
+    },
+    "base": {
+      "rate": 0.01,
+      "capId": "other-1pct-cap"
+    },
+    "rules": [
+      {
+        "id": "swiggy-app-10",
+        "label": "10% on Swiggy app (Food, Instamart, Dineout)",
+        "rate": 0.1,
+        "merchants": [
+          "swiggy_food",
+          "swiggy_instamart",
+          "swiggy_dineout"
+        ],
+        "capId": "swiggy-10-cap",
+        "minTxn": 249
+      },
+      {
+        "id": "online-5-categories",
+        "label": "5% on select online categories (apparel, electronics, travel, cabs)",
+        "rate": 0.05,
+        "categories": [
+          "apparel",
+          "electronics",
+          "travel",
+          "cab"
+        ],
+        "channels": [
+          "online"
+        ],
+        "capId": "online-5-cap",
+        "minTxn": 100
+      },
+      {
+        "id": "online-5-merchants",
+        "label": "5% on Amazon, Flipkart, Nykaa, Cleartrip, Ajio, BookMyShow, Meesho (online)",
+        "rate": 0.05,
+        "merchants": [
+          "amazon",
+          "flipkart",
+          "nykaa",
+          "cleartrip",
+          "ajio",
+          "bookmyshow",
+          "meesho"
+        ],
+        "channels": [
+          "online"
+        ],
+        "capId": "online-5-cap",
+        "minTxn": 100
+      },
+      {
+        "id": "online-5-mcc-merchants",
+        "label": "5% on Ola, Uber, Croma (online, eligible MCCs)",
+        "rate": 0.05,
+        "merchants": [
+          "ola",
+          "uber",
+          "croma"
+        ],
+        "channels": [
+          "online"
+        ],
+        "capId": "online-5-cap",
+        "minTxn": 100
+      }
+    ],
+    "caps": [
+      {
+        "id": "swiggy-10-cap",
+        "label": "10% Swiggy app cashback cap per billing cycle",
+        "amount": 1500,
+        "period": "month",
+        "overflow": "none"
+      },
+      {
+        "id": "online-5-cap",
+        "label": "5% online cashback cap per billing cycle",
+        "amount": 1500,
+        "period": "month",
+        "overflow": "none"
+      },
+      {
+        "id": "other-1pct-cap",
+        "label": "1% other spends cashback cap per billing cycle",
+        "amount": 1000,
+        "period": "month",
+        "overflow": "none"
+      }
+    ],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "rent",
+        "jewellery",
+        "government",
+        "education",
+        "wallet_load"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Only the Swiggy BLCK HDFC Bank Credit Card sections of the document were used; the Swiggy Ornge card (5% on Swiggy) was ignored. Both documents are published 04-03-2026.",
+      "Caps are per billing cycle, mapped to 'month'. The BLCK table lists Rs.1500 separately for the Swiggy app (10%) row and the online 5% rows, so two separate caps are used. The 1% category cap is Rs.1000. The document does not say what spend above a cap earns, so overflow is 'none'.",
+      "Minimum transaction: Rs.249 for the 10% Swiggy rate; Rs.100 for the 5% and 1% rates. The base 1% rule's Rs.100 minimum cannot be represented in the base object.",
+      "Cashback on 5% rates applies only to online transactions on listed merchants/categories and eligible MCCs (Table 2.1). Categories not mappable to the enums are not included as rules: Pharmacies, Pet Stores, Personal Care, Discount Stores, Entertainment (general), Zoom, Reliance Retail, Vijay Sales, Paytm Travel, EaseMyTrip, Ixigo, Yatra, Ibibo, Netflix, Hotstar.",
+      "Cleartrip (5% + 6% instant discount on travel / 19% on hotels) and Nykaa (5% cashback + 5% instant discount): only the 5% cashback is modelled; instant discounts are not representable.",
+      "Excluded items not mappable to category enums: Gaming, EMI, Gift Cards/Prepaid cards, Smartpay, Smartbuy portal, cash advances, foreign currency, Swiggy Money Wallet, Swiggy Liquor. Wallet is mapped to wallet_load. Swiggy platforms other than Food, Instamart and Dineout (e.g. Genie) do not earn 10%.",
+      "Fee info (not modelled): annual fee Rs.1000 + taxes; joining fee waived on Rs.75,000 spend in first 90 days. Welcome benefit: 3 months Swiggy BLCK membership. Birthday week extra 10% Dineout discount up to Rs.500 on Rs.3000 minimum.",
+      "Network and UPI are not stated in the document and are omitted."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/pdfs/Combined_TnCs_Ornge_and_BLCK.pdf"
+      }
+    ],
+    "lastVerified": "2026-11-07",
+    "confidence": "medium"
+  },
+  {
+    "id": "swiggy-ornge-hdfc",
+    "name": "Swiggy Ornge HDFC",
+    "issuer": "HDFC Bank",
+    "network": "Mastercard",
+    "upi": false,
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "Cashback in rupees, auto-redeemed against the outstanding amount (excluding finance charges)."
+    },
+    "base": {
+      "rate": 0.01,
+      "capId": "other-1pct-cap"
+    },
+    "rules": [
+      {
+        "id": "swiggy-app-5",
+        "label": "5% on Swiggy App (Food Delivery, Instamart, Dineout)",
+        "rate": 0.05,
+        "merchants": [
+          "swiggy_food",
+          "swiggy_instamart",
+          "swiggy_dineout"
+        ],
+        "capId": "swiggy-5pct-cap",
+        "minTxn": 249
+      },
+      {
+        "id": "online-apparel-5",
+        "label": "5% on online Apparels",
+        "rate": 0.05,
+        "categories": [
+          "apparel"
+        ],
+        "channels": [
+          "online"
+        ],
+        "capId": "swiggy-5pct-cap",
+        "minTxn": 249
+      },
+      {
+        "id": "online-electronics-5",
+        "label": "5% on online Electronics (Croma, Reliance Retail, Vijay Sales)",
+        "rate": 0.05,
+        "categories": [
+          "electronics"
+        ],
+        "merchants": [
+          "croma"
+        ],
+        "channels": [
+          "online"
+        ],
+        "capId": "swiggy-5pct-cap",
+        "minTxn": 249
+      },
+      {
+        "id": "online-cab-5",
+        "label": "5% on online Ola / Uber cabs",
+        "rate": 0.05,
+        "categories": [
+          "cab"
+        ],
+        "merchants": [
+          "ola",
+          "uber"
+        ],
+        "channels": [
+          "online"
+        ],
+        "capId": "swiggy-5pct-cap",
+        "minTxn": 249
+      },
+      {
+        "id": "online-travel-5",
+        "label": "5% on online Travel (Cleartrip, Paytm Travel, EaseMyTrip, Ixigo, Yatra, Ibibo)",
+        "rate": 0.05,
+        "categories": [
+          "travel"
+        ],
+        "merchants": [
+          "cleartrip"
+        ],
+        "channels": [
+          "online"
+        ],
+        "capId": "swiggy-5pct-cap",
+        "minTxn": 249
+      },
+      {
+        "id": "online-merchants-5",
+        "label": "5% on Amazon, Flipkart, Nykaa, Ajio, BookMyShow, Meesho (online)",
+        "rate": 0.05,
+        "merchants": [
+          "amazon",
+          "flipkart",
+          "nykaa",
+          "ajio",
+          "bookmyshow",
+          "meesho"
+        ],
+        "channels": [
+          "online"
+        ],
+        "capId": "swiggy-5pct-cap",
+        "minTxn": 249
+      }
+    ],
+    "caps": [
+      {
+        "id": "swiggy-5pct-cap",
+        "label": "5% cashback categories cap per billing cycle",
+        "amount": 1500,
+        "period": "month",
+        "overflow": "none"
+      },
+      {
+        "id": "other-1pct-cap",
+        "label": "1% cashback on other categories cap per billing cycle",
+        "amount": 1000,
+        "period": "month",
+        "overflow": "none"
+      }
+    ],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "rent",
+        "jewellery",
+        "government",
+        "education",
+        "wallet_load"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Only the Swiggy Ornge card is used. The Swiggy BLCK card in the same document (10% on Swiggy, separate caps) is ignored. Both documents are dated 04-03-2026.",
+      "The ₹1500 per billing cycle cap sits in a merged cell that covers all 5% rows: Swiggy App, online merchants and categories, Cleartrip and Nykaa. I modelled it as one shared cap. The document doesn't say what spend above a cap earns, so overflow is 'none'.",
+      "The 1% 'other categories' cap is ₹1000 per billing cycle.",
+      "Minimum transaction: ₹249 to earn 5% and ₹100 to earn 1%. These are set per rule.",
+      "The online 5% rules apply only to select merchants under the listed MCCs. Table 2.1 lists Apparels, Pharmacies, Pet Stores, Personal Care, Ola/Zoom/Uber, Reliance Retail/Vijay Sales/Croma, and Paytm Travel/EaseMyTrip/Ixigo/Yatra/Ibibo.",
+      "Pharmacies, Pet Stores, Personal Care, Zoom, Reliance Retail, Vijay Sales, Paytm Travel, EaseMyTrip, Ixigo, Yatra, Ibibo, Netflix and Hotstar have no matching enum, so they are not mapped as merchants or categories.",
+      "Some 5% merchants (Amazon, Flipkart, Nykaa, Cleartrip, Ajio, BookMyShow, Meesho) earn on all online transactions except the standard excluded MCCs in Table 2.5.",
+      "Cleartrip (6% instant discount on travel, 19% on hotels) and Nykaa (extra 5% instant discount) have instant discounts on top of cashback. These are not cashback and are not modelled.",
+      "The document says only 'cashback will not be accrued' for the excluded categories, and doesn't say whether that overrides the 5% rules. Excluded categories mapped: fuel, rent, jewellery, government, education, and wallet/prepaid (wallet_load).",
+      "Exclusions with no enum, left out: gaming (MCC 5816), gift cards (5947), EMI (all types), Smartpay, Smartbuy portal, cash advances, traveller's cheques, foreign currency purchases and fees, and Swiggy Money wallet and Swiggy Liquor transactions.",
+      "Swiggy 5% is calculated on merchant and terminal IDs. Transactions without a TID in the set-up don't qualify. Other Swiggy platforms (e.g. Genie) don't earn 5%.",
+      "Network and UPI are not stated in the document, so they are omitted.",
+      "Not modelled: welcome benefit (12 months Swiggy One), birthday week Dineout offer, and the ₹500 annual fee, which is waived on ₹1,50,000 spend in the preceding year."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/pdfs/Combined_TnCs_Ornge_and_BLCK.pdf"
+      }
+    ],
+    "lastVerified": "2026-11-07",
+    "confidence": "high",
+    "minTxn": 100
+  },
+  {
+    "id": "hdfc-regalia-gold",
+    "name": "HDFC Regalia Gold",
+    "issuer": "HDFC Bank",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "Reward Point",
+      "inrPerUnit": 0.5,
+      "inrPerUnitNote": "Document states 1 RP = ₹0.50 on flights and hotel bookings (SmartBuy); Gold Catalogue ₹0.65, products/vouchers up to ₹0.35, statement balance ₹0.15 (website) or ₹0.20 (Smartbuy section)."
+    },
+    "base": {
+      "rate": 0.025,
+      "capId": "cycle-cap"
+    },
+    "rules": [],
+    "caps": [
+      {
+        "id": "cycle-cap",
+        "label": "Max 50,000 Reward Points per statement cycle",
+        "amount": 50000,
+        "period": "month",
+        "overflow": "none"
+      }
+    ],
+    "exclusions": {
+      "categories": [],
+      "merchants": []
+    },
+    "notes": [
+      "Base rate: 5 Reward Points per ₹200 on eligible spends (effective 15 May 2026), i.e. 0.025 points per ₹1. This is stated in the revision letter and on the product page. The older calculator text of '4RPs on daily and retail spends' is superseded by the newer letter.",
+      "The cap is 'maximum reward points that can be earned in a statement cycle is 50,000'. I mapped the statement cycle to a month. The document does not say what happens beyond the cap, so overflow is 'none'.",
+      "The page says '5X Reward Points on spends at Myntra, Nykaa, Reliance Digital and more!' but gives no numeric rate or cap for it. It is unclear whether 5X is relative to the base rate. I left it out rather than guess. Reliance Digital is not in the merchant enum.",
+      "SmartBuy 'up to 10X' on hotel and flight bookings and '5X on Instant Vouchers' are mentioned without exact rates or caps, so I did not add them.",
+      "The document does not define 'eligible categories' or list excluded categories or merchants, so no exclusions were set.",
+      "Network (Visa) and UPI support are not stated in the documents, so I omitted them.",
+      "Not representable as earn rules: Boarding Edge (2 benefits per calendar quarter), lounge access (3 domestic visits per quarter on ₹60,000 spend in the preceding quarter, from 1 July 2026), 6 international Priority Pass visits per year, milestone vouchers, a Global Value Program with 1% cashback on international (non-INR) spends (up to ₹1,000 per cycle), a DCC markup of 1.75% from 15 May 2026, a ₹199 reissuance fee and a ₹2,500 annual fee. The website's 2% foreign currency markup is older than the 15 May 2026 DCC revision for INR transactions.",
+      "Redemption caps: up to 70% of a booking value can be redeemed with points on flights, hotels and experiences, and 50,000 points per month on statement balance and SmartBuy flight/hotel redemptions."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/pdf/common/Credit-Cards/Regalia-Gold-Product-feature-change.pdf"
+      },
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.hdfc.bank.in/credit-cards/regalia-gold-credit-card"
+      }
+    ],
+    "lastVerified": "2026-11-07",
+    "confidence": "medium"
+  },
+  {
+    "id": "icici-coral-rupay",
+    "name": "ICICI Coral RuPay",
+    "issuer": "ICICI Bank",
+    "network": "RuPay",
+    "upi": true,
+    "reward": {
+      "kind": "points",
+      "unitName": "ICICI reward points",
+      "inrPerUnit": 0.25,
+      "inrPerUnitNote": "Typical catalogue/voucher value; varies by redemption."
+    },
+    "base": {
+      "rate": 0.02
+    },
+    "rules": [],
+    "caps": [],
+    "exclusions": {
+      "categories": [],
+      "merchants": []
+    },
+    "notes": [
+      "Base rate comes from the page text 'Earn Points on every ₹100 spend 4 On International Spend 2 On Domestic Spend'. That is 2 points per ₹100 on domestic spend, so rate = 0.02. The page covers several ICICI RuPay variants. The block holding this text sits beside Coral-specific benefits (4 lounge visits a quarter, INOX offer, HPCL fuel waiver). I assumed it applies to Coral, so confidence is medium.",
+      "International spend earns 4 points per ₹100 (0.04). I left it out because a rule with no merchants or categories can't be limited to international spend in this schema. It is stated here only.",
+      "The FAQ says UPI spends earn reward points as per the card's reward structure, so UPI spend earns the same base rate. No separate UPI rate is stated.",
+      "The document doesn't state the rupee value of a reward point, so I omitted the reward object. The ₹0.25 value in the metadata is not confirmed by the document.",
+      "No caps, minimum transaction amounts, or category/merchant exclusions for earning are stated. The page says UPI use is blocked for restricted merchant categories (P2P, cash withdrawal, lending, IPO, mutual funds, foreign inward remittance). Those are payment restrictions, not reward exclusions, so I did not map them.",
+      "Non-reward benefits stated but not represented: 1% fuel surcharge waiver at HPCL, BookMyShow offers, 25% off up to ₹150 on INOX tickets, a ₹2 lakh personal accident cover, 4 domestic lounge visits per quarter, and milestone benefits based on annual spend. The page gives no details of the milestone benefits. Fees: ₹500 + GST joining fee and ₹500 + GST annual fee for Coral."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.icici.bank.in/personal-banking/cards/credit-card/coral-rupay-card"
+      }
+    ],
+    "lastVerified": "2026-11-07",
+    "confidence": "medium"
+  },
+  {
+    "id": "axis-ace",
+    "name": "Axis Bank ACE",
+    "issuer": "Axis Bank",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹",
+      "inrPerUnit": 1
+    },
+    "base": {
+      "rate": 0.015
+    },
+    "rules": [
+      {
+        "id": "gpay-bills-5",
+        "label": "5% on utility bills, DTH and mobile recharges via Google Pay",
+        "rate": 0.05,
+        "merchants": [
+          "gpay_bill"
+        ],
+        "capId": "accelerated-cap"
+      },
+      {
+        "id": "swiggy-zomato-ola-4",
+        "label": "4% on Swiggy, Zomato and Ola",
+        "rate": 0.04,
+        "merchants": [
+          "swiggy_food",
+          "zomato",
+          "ola"
+        ],
+        "capId": "accelerated-cap"
+      }
+    ],
+    "caps": [
+      {
+        "id": "accelerated-cap",
+        "label": "Combined cap on 5% (Google Pay bills) and 4% (Swiggy/Zomato/Ola) cashback",
+        "amount": 500,
+        "period": "month",
+        "overflow": "none"
+      }
+    ],
+    "exclusions": {
+      "categories": [
+        "utilities",
+        "telecom",
+        "fuel",
+        "wallet_load",
+        "rent",
+        "jewellery",
+        "insurance",
+        "education",
+        "government"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Rates are the ones effective from 20 April 2024 (latest in the T&C: 1.5% base, down from 2%); the earlier 2% rate is superseded.",
+      "Base rate: 1.5% on other eligible spends, unlimited.",
+      "Cap: Rs. 500 per statement, combined for 5% and 4% categories. The statement cycle is monthly, so it is mapped to 'month'. The document does not say what spend above the cap earns. The worked example credits only Rs. 500 for those categories, so overflow is set to 'none'.",
+      "Utilities and telecom (MCC 4814, 4816, 4899, 4900) are excluded on any platform except Google Pay. The Google Pay rule overrides this exclusion.",
+      "Google Pay 5% is valid only for Android users paying with the card on Google Pay. It is a card payment on Google Pay, so 'requires' is not set.",
+      "Swiggy is mapped to swiggy_food only. The document says 'Swiggy' (website and app) without naming Instamart, Dineout or Genie. Accelerated cashback is determined by merchant IDs shared by the merchants.",
+      "Excluded but not mappable to the category enum: EMI transactions (including post-facto conversions), cash advances / financial institutions (MCC 6011, 6012, 6051), payment of outstanding balances, card fees and other charges. Fuel (MCC 5541, 5542, 5983) is excluded and mapped.",
+      "Network and UPI support are not stated in the documents, so they are omitted.",
+      "The website page (Document 2) says T&C will be updated w.e.f. 28 August 2026 but gives no details of the changes. Nothing was changed on that basis. Its stated rates match the T&C: 5% Google Pay bills, 4% Swiggy/Zomato/Ola, 1.5% other.",
+      "The 1% fuel surcharge waiver (Rs. 400-4000 transactions, up to Rs. 500 per statement) is not cashback and is not modelled.",
+      "Per-transaction cashback is rounded to the nearest rupee. This is not modelled."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.axis.bank.in/docs/default-source/default-document-library/credit-card/axis-bank-ace-credit-card-tncs.pdf"
+      },
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.axis.bank.in/cards/credit-card/axis-bank-ace-credit-card"
+      }
+    ],
+    "lastVerified": "2026-11-07",
+    "confidence": "high"
+  },
+  {
+    "id": "hdfc-millennia",
+    "name": "HDFC Millennia",
+    "issuer": "HDFC Bank",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "CashPoints",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "1 CashPoint = ₹1 when redeemed as statement-credit CashBack (₹50 redemption fee, minimum 500 CashPoints). Redemption via SmartBuy flights/hotels/catalogue is only ₹0.30 per CashPoint."
+    },
+    "base": {
+      "rate": 0.01,
+      "capId": "cap-base-1pct"
+    },
+    "rules": [
+      {
+        "id": "ten-online-merchants-5pct",
+        "label": "5% on Amazon, BookMyShow, Cult.fit, Flipkart, Myntra, Sony LIV, Swiggy, Tata CLiQ, Uber & Zomato",
+        "rate": 0.05,
+        "merchants": [
+          "amazon",
+          "bookmyshow",
+          "cultfit",
+          "flipkart",
+          "myntra",
+          "sonyliv",
+          "swiggy_food",
+          "swiggy_instamart",
+          "swiggy_dineout",
+          "swiggy_genie",
+          "tata_cliq",
+          "uber",
+          "zomato"
+        ],
+        "capId": "cap-5pct-merchants"
+      }
+    ],
+    "caps": [
+      {
+        "id": "cap-5pct-merchants",
+        "label": "5% CashBack on 10 online merchants: max 1,000 CashPoints per month",
+        "amount": 1000,
+        "period": "month",
+        "overflow": "none"
+      },
+      {
+        "id": "cap-base-1pct",
+        "label": "1% CashBack on other spends: max 1,000 CashPoints per month",
+        "amount": 1000,
+        "period": "month",
+        "overflow": "none"
+      }
+    ],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "rent",
+        "government",
+        "wallet_load"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Most recent document (published 20 Jul 2026) lists 5% on the 10 merchants and 1% on other spends, each capped at 1000 CashPoints 'per Cycle'. The earlier 25 Apr 2025 documents say 1,000 CashPoints per calendar month for each category; both were mapped to a monthly cap. The two caps are separate (5% category and 1% category each have their own 1,000).",
+      "Spend beyond the caps earns nothing ('Spends beyond the capping of 1,000 shall not be considered for CashPoints posting'), so overflow = none.",
+      "The document says only 'Swiggy'; this was mapped to all four Swiggy enum merchants (food, Instamart, Dineout, Genie). The document doesn't say which Swiggy services qualify.",
+      "5% applies only to non-EMI spends at the 10 online merchants, and only if the merchant TID/MID qualifies. Transactions under MCC 6540 do not get the 5% even at these merchants.",
+      "Uber earns 5% only for transactions under MCC 4121 (travel/commute).",
+      "Conflict on gift/prepaid card loads and vouchers: the 25 Apr 2025 page says 1% eligible on 1% page 3 says not eligible, while the latest (20 Jul 2026) document says gift/prepaid card loads and voucher purchases are considered in 'other spends' (1%). The latest was followed, so they stay in base 1%. Wallet loads (MCC 6540) earn nothing.",
+      "Excluded from all rewards: fuel, rent, government-related transactions, wallet load, EMI (incl. Smart EMI/Dial an EMI, even if preclosed), cash advances, payment of outstanding balances, card fees and charges. EMI, cash advances, balance payments and fees are not in the category enum, so they are only noted here. Renewal membership fee payments get no CashPoints.",
+      "Education payments through third-party apps earn no points (from 1 Sep 2024). Direct payments via college/school websites or POS do earn. Education was not added to category exclusions because the exclusion is only partial.",
+      "SmartBuy/PayZapp transactions get 1% CashPoints (same as base). Smartpay transactions are in the 1% category. Other SmartBuy/PayZapp offers follow their own terms.",
+      "Not represented: Welcome benefit of 1000 CashPoints on paying the joining fee; quarterly milestone voucher (₹1,000 voucher for ₹1 lakh net spend in a calendar quarter); 1% fuel surcharge waiver (min txn ₹400, max txn ₹5,000, max waiver ₹250 per statement cycle); redemption caps and fees; CashPoints expire after 2 years; extra fees on rent, fuel >₹15,000, utilities >₹50,000 and third-party education payments.",
+      "Network and UPI left out because the document doesn't state them."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "C:\\Users\\lenovo\\Downloads\\millennia-tnc-20th-jul26.pdf"
+      }
+    ],
+    "lastVerified": "2026-11-07",
+    "confidence": "medium"
+  },
+  {
+    "id": "flipkart-sbi",
+    "name": "Flipkart SBI Card",
+    "issuer": "SBI Card",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "Cashback credited directly to the SBI Card account; 1 unit = ₹1."
+    },
+    "base": {
+      "rate": 0.01
+    },
+    "rules": [
+      {
+        "id": "flipkart-5",
+        "label": "5% cashback on Flipkart (incl. Shopsy, Flipkart Travel)",
+        "rate": 0.05,
+        "merchants": [
+          "flipkart",
+          "shopsy"
+        ],
+        "capId": "flipkart-quarterly"
+      },
+      {
+        "id": "cleartrip-5",
+        "label": "5% cashback on Cleartrip",
+        "rate": 0.05,
+        "merchants": [
+          "cleartrip"
+        ],
+        "capId": "cleartrip-quarterly"
+      },
+      {
+        "id": "myntra-7-5",
+        "label": "7.5% cashback on Myntra",
+        "rate": 0.075,
+        "merchants": [
+          "myntra"
+        ],
+        "capId": "myntra-quarterly"
+      }
+    ],
+    "caps": [
+      {
+        "id": "flipkart-quarterly",
+        "label": "Flipkart 5% cashback quarterly limit",
+        "amount": 4000,
+        "period": "quarter",
+        "overflow": "none"
+      },
+      {
+        "id": "cleartrip-quarterly",
+        "label": "Cleartrip 5% cashback quarterly limit",
+        "amount": 4000,
+        "period": "quarter",
+        "overflow": "none"
+      },
+      {
+        "id": "myntra-quarterly",
+        "label": "Myntra 7.5% cashback quarterly limit",
+        "amount": 4000,
+        "period": "quarter",
+        "overflow": "none"
+      }
+    ],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "wallet_load",
+        "rent",
+        "government",
+        "education",
+        "jewellery",
+        "insurance"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Source is the Flipkart SBI Credit Card T&C booklet (clause 11, Card Cashback). Rates come from the table on page 35.",
+      "Quarterly cap of ₹4,000 applies separately to each of Flipkart, Cleartrip, Myntra and '4 Select Merchants'. After the cap is reached, no cashback is earned for that quarter, so overflow is 'none'. The cap resets after the third bill is generated, counted from the first transaction after account opening (not calendar quarters).",
+      "The table lists '4 Select Merchants' at 4% cashback with a ₹4,000 quarterly cap, but the document does not name them. No rule or cap was created for this. Add it when the merchants are known.",
+      "Excluded (0% cashback): fuel, wallet load, rent, government, education/school, jewellery, insurance. These map to the exclusion categories. Also excluded but not representable: gift/prepaid card load, voucher purchase, cash advance, payment of outstanding balance, card fees and charges, gaming, EMI spends (Flexipay/Merchant EMI), balance transfers, disputed transactions, Encash, ATM withdrawals, and payments via Standing Instructions / Fetch and Pay on SBI Card platforms.",
+      "Cashback is not applicable on transactions below ₹100 (set as minTxn). Cashback is rounded down for each transaction.",
+      "Fuel surcharge waiver of 1% on transactions up to ₹4,000, capped at ₹400 per statement cycle, is stated. It is not an earn rate and is not modelled.",
+      "The document says 'VISA / Mastercard' throughout and does not name a single network, so network is omitted. UPI is not mentioned, so upi is omitted.",
+      "Flipkart Travel and Shopsy are covered under the Flipkart 5% rate and cap. Shopsy is mapped to the shopsy merchant. Flipkart Travel has no separate enum and is covered by the flipkart merchant.",
+      "Welcome benefit: Flipkart e-Gift voucher of ₹250 within 60 days of fee realisation. Not an earn rate, so not modelled."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "C:\\Users\\lenovo\\Downloads\\Flipkart-SBI-CreditCard-TandC-Booklet.pdf"
+      }
+    ],
+    "lastVerified": "2026-11-07",
+    "confidence": "high",
+    "minTxn": 100
+  }
+]

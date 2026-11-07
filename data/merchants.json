@@ -1,0 +1,400 @@
+[
+  {
+    "id": "swiggy_food",
+    "name": "Swiggy (food)",
+    "category": "food_delivery",
+    "channel": "online",
+    "aliases": [
+      "swiggy",
+      "swiggy food"
+    ]
+  },
+  {
+    "id": "swiggy_instamart",
+    "name": "Swiggy Instamart",
+    "category": "grocery",
+    "channel": "online",
+    "aliases": [
+      "instamart"
+    ]
+  },
+  {
+    "id": "swiggy_dineout",
+    "name": "Swiggy Dineout",
+    "category": "dining",
+    "channel": "online",
+    "aliases": [
+      "dineout",
+      "swiggy dineout"
+    ]
+  },
+  {
+    "id": "swiggy_genie",
+    "name": "Swiggy Genie",
+    "category": "other",
+    "channel": "online",
+    "aliases": [
+      "genie"
+    ]
+  },
+  {
+    "id": "zomato",
+    "name": "Zomato",
+    "category": "food_delivery",
+    "channel": "online",
+    "aliases": [
+      "zomato"
+    ]
+  },
+  {
+    "id": "blinkit",
+    "name": "Blinkit",
+    "category": "grocery",
+    "channel": "online",
+    "aliases": [
+      "blinkit"
+    ]
+  },
+  {
+    "id": "zepto",
+    "name": "Zepto",
+    "category": "grocery",
+    "channel": "online",
+    "aliases": [
+      "zepto"
+    ]
+  },
+  {
+    "id": "bigbasket",
+    "name": "BigBasket",
+    "category": "grocery",
+    "channel": "online",
+    "aliases": [
+      "bigbasket",
+      "big basket",
+      "bb"
+    ]
+  },
+  {
+    "id": "flipkart",
+    "name": "Flipkart",
+    "category": "online_shopping",
+    "channel": "online",
+    "aliases": [
+      "flipkart",
+      "fk"
+    ]
+  },
+  {
+    "id": "amazon",
+    "name": "Amazon",
+    "category": "online_shopping",
+    "channel": "online",
+    "aliases": [
+      "amazon",
+      "amzn"
+    ]
+  },
+  {
+    "id": "myntra",
+    "name": "Myntra",
+    "category": "apparel",
+    "channel": "online",
+    "aliases": [
+      "myntra"
+    ]
+  },
+  {
+    "id": "ajio",
+    "name": "Ajio",
+    "category": "apparel",
+    "channel": "online",
+    "aliases": [
+      "ajio"
+    ]
+  },
+  {
+    "id": "nykaa",
+    "name": "Nykaa",
+    "category": "online_shopping",
+    "channel": "online",
+    "aliases": [
+      "nykaa"
+    ]
+  },
+  {
+    "id": "cleartrip",
+    "name": "Cleartrip",
+    "category": "travel",
+    "channel": "online",
+    "aliases": [
+      "cleartrip"
+    ]
+  },
+  {
+    "id": "makemytrip",
+    "name": "MakeMyTrip",
+    "category": "travel",
+    "channel": "online",
+    "aliases": [
+      "makemytrip",
+      "mmt"
+    ]
+  },
+  {
+    "id": "scapia_travel",
+    "name": "Scapia app (travel)",
+    "category": "travel",
+    "channel": "online",
+    "aliases": [
+      "scapia app",
+      "scapia flight",
+      "scapia hotel"
+    ]
+  },
+  {
+    "id": "irctc",
+    "name": "IRCTC",
+    "category": "travel",
+    "channel": "online",
+    "aliases": [
+      "irctc",
+      "train"
+    ]
+  },
+  {
+    "id": "uber",
+    "name": "Uber",
+    "category": "cab",
+    "channel": "online",
+    "aliases": [
+      "uber"
+    ]
+  },
+  {
+    "id": "ola",
+    "name": "Ola",
+    "category": "cab",
+    "channel": "online",
+    "aliases": [
+      "ola"
+    ]
+  },
+  {
+    "id": "bookmyshow",
+    "name": "BookMyShow",
+    "category": "movies",
+    "channel": "online",
+    "aliases": [
+      "bookmyshow",
+      "bms"
+    ]
+  },
+  {
+    "id": "pvr",
+    "name": "PVR INOX",
+    "category": "movies",
+    "channel": "offline",
+    "aliases": [
+      "pvr",
+      "inox"
+    ]
+  },
+  {
+    "id": "restaurant",
+    "name": "Restaurant / café (dine-in)",
+    "category": "dining",
+    "channel": "offline",
+    "aliases": [
+      "restaurant",
+      "dinner",
+      "lunch",
+      "cafe",
+      "café",
+      "bar",
+      "pub",
+      "dine in",
+      "dining out"
+    ]
+  },
+  {
+    "id": "kirana",
+    "name": "Local grocery store",
+    "category": "grocery",
+    "channel": "offline",
+    "aliases": [
+      "kirana",
+      "grocery store",
+      "dmart",
+      "d-mart",
+      "supermarket"
+    ]
+  },
+  {
+    "id": "electricity",
+    "name": "Electricity bill",
+    "category": "utilities",
+    "channel": "online",
+    "aliases": [
+      "electricity",
+      "power bill",
+      "light bill"
+    ]
+  },
+  {
+    "id": "mobile_recharge",
+    "name": "Mobile / broadband bill",
+    "category": "telecom",
+    "channel": "online",
+    "aliases": [
+      "recharge",
+      "jio",
+      "broadband",
+      "postpaid"
+    ]
+  },
+  {
+    "id": "petrol",
+    "name": "Fuel station",
+    "category": "fuel",
+    "channel": "offline",
+    "aliases": [
+      "petrol",
+      "diesel",
+      "fuel"
+    ]
+  },
+  {
+    "id": "rent",
+    "name": "Rent",
+    "category": "rent",
+    "channel": "online",
+    "aliases": [
+      "rent"
+    ]
+  },
+  {
+    "id": "airtel_bill",
+    "name": "Airtel bill (Airtel Thanks app)",
+    "category": "telecom",
+    "channel": "online",
+    "aliases": [
+      "airtel",
+      "airtel bill",
+      "airtel postpaid",
+      "airtel broadband",
+      "airtel dth",
+      "airtel thanks"
+    ]
+  },
+  {
+    "id": "airtel_utility",
+    "name": "Utility bill via Airtel Thanks app",
+    "category": "utilities",
+    "channel": "online",
+    "aliases": [
+      "bill via airtel thanks",
+      "electricity via airtel"
+    ]
+  },
+  {
+    "id": "gpay_bill",
+    "name": "Bill / recharge via Google Pay",
+    "category": "utilities",
+    "channel": "online",
+    "aliases": [
+      "gpay bill",
+      "google pay bill",
+      "bill via gpay",
+      "recharge via gpay",
+      "bill on gpay"
+    ]
+  },
+  {
+    "id": "tata_neu",
+    "name": "Tata Neu app",
+    "category": "online_shopping",
+    "channel": "online",
+    "aliases": [
+      "tata neu",
+      "neu app"
+    ]
+  },
+  {
+    "id": "croma",
+    "name": "Croma",
+    "category": "electronics",
+    "channel": "online",
+    "aliases": [
+      "croma"
+    ]
+  },
+  {
+    "id": "tata_cliq",
+    "name": "Tata CLiQ",
+    "category": "online_shopping",
+    "channel": "online",
+    "aliases": [
+      "tata cliq",
+      "cliq"
+    ]
+  },
+  {
+    "id": "tata_1mg",
+    "name": "Tata 1mg",
+    "category": "online_shopping",
+    "channel": "online",
+    "aliases": [
+      "1mg",
+      "tata 1mg"
+    ]
+  },
+  {
+    "id": "westside",
+    "name": "Westside",
+    "category": "apparel",
+    "channel": "offline",
+    "aliases": [
+      "westside"
+    ]
+  },
+  {
+    "id": "meesho",
+    "name": "Meesho",
+    "category": "online_shopping",
+    "channel": "online",
+    "aliases": [
+      "meesho"
+    ]
+  },
+  {
+    "id": "shopsy",
+    "name": "Shopsy",
+    "category": "online_shopping",
+    "channel": "online",
+    "aliases": [
+      "shopsy"
+    ]
+  },
+  {
+    "id": "cultfit",
+    "name": "Cult.fit",
+    "category": "other",
+    "channel": "online",
+    "aliases": [
+      "cult",
+      "cultfit",
+      "cult.fit"
+    ]
+  },
+  {
+    "id": "sonyliv",
+    "name": "Sony LIV",
+    "category": "movies",
+    "channel": "online",
+    "aliases": [
+      "sonyliv",
+      "sony liv"
+    ]
+  }
+]
