@@ -26,6 +26,10 @@ const tileIcons: Record<string, React.ReactNode> = {
   travel: <><path d="M3 15l18-7-4 11-5-3-3 4v-6" /></>,
   bills: <><path d="M6 3h12v18l-3-2-3 2-3-2-3 2Z" /><path d="M9 8h6M9 12h6" /></>,
   upi: <><rect x="4" y="4" width="6" height="6" rx="1" /><rect x="14" y="4" width="6" height="6" rx="1" /><rect x="4" y="14" width="6" height="6" rx="1" /><path d="M14 14h2v2M20 14v6h-6v-2" /></>,
+  movies: <><rect x="3" y="7" width="18" height="12" rx="2" /><path d="M3 11h18M7 7l2-4M13 7l2-4" /></>,
   fuel: <><path d="M5 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16" /><path d="M4 21h12M15 9h2l2 2v6a1.5 1.5 0 0 0 3 0V8l-3-3" /><path d="M8 7h4" /></>,
 };
+export const IconTag = ({ size = 18 }: P) => svg(size, <><path d="M3 12V4h8l10 10-8 8Z" /><circle cx="7.5" cy="8.5" r="1.5" /></>);
+export const IconLogout = ({ size = 20 }: P) => svg(size, <><path d="M15 4h4v16h-4" /><path d="M10 8l-4 4 4 4M6 12h10" /></>);
+
 export const TileIcon = ({ id, size = 22 }: { id: string; size?: number }) => svg(size, tileIcons[id] ?? tileIcons.shopping);

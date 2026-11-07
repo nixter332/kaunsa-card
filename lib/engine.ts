@@ -1,5 +1,6 @@
 // Deterministic rules engine. No AI here: every number comes from data/cards.json.
-import type { Card, CardState, Lookup, Recommendation, Rule, Tier } from "./types";
+import { bestOffer } from "./offers";
+import type { Card, CardState, Lookup, Offer, Recommendation, Rule, Tier } from "./types";
 
 const round2 = (n: number) => Math.round(n * 100) / 100;
 const inr = (n: number) => `₹${round2(n).toLocaleString("en-IN")}`;
@@ -56,6 +57,7 @@ export function evaluate(card: Card, lookup: Lookup, state: CardState = { capUse
       capConsumption,
       confidence: card.confidence,
       lastVerified: card.lastVerified,
+      totalInr: value,
     };
   };
 
@@ -149,11 +151,29 @@ export function evaluate(card: Card, lookup: Lookup, state: CardState = { capUse
   return result({ rewardUnits: units, ruleLabel: rule.label, reason: rule.label });
 }
 
-/** Rank the user's cards for a purchase. Usable cards first, then by ₹ value. */
-export function recommend(cards: Card[], lookup: Lookup, states: Record<string, CardState> = {}): Recommendation[] {
+/** Live offers to consider, today's date, and how often each offer was used this month (key: offerId|cardId). */
+export type OfferContext = { offers: Offer[]; today: Date; uses?: Record<string, number> };
+
+/**
+ * One card with its best offer applied. The offer is an instant discount, so the card is charged
+ * the amount after the discount and earns rewards on that.
+ */
+export function evaluateWithOffers(card: Card, lookup: Lookup, state: CardState | undefined, ctx?: OfferContext): Recommendation {
+  const plain = evaluate(card, lookup, state);
+  if (!ctx || !plain.usable || ctx.offers.length === 0) return plain;
+  const { best, hints } = bestOffer(ctx.offers, card, lookup, ctx.today, ctx.uses);
+  const offerHints = hints.length ? hints : undefined;
+  if (!best) return { ...plain, offerHints };
+  const paid = Math.max(0, lookup.amount - best.discountInr);
+  const r = evaluate(card, { ...lookup, amount: paid }, state);
+  return { ...r, offer: best, offerHints, totalInr: round2(best.discountInr + r.valueInr) };
+}
+
+/** Rank the user's cards for a purchase. Usable cards first, then by ₹ saved (offer + rewards). */
+export function recommend(cards: Card[], lookup: Lookup, states: Record<string, CardState> = {}, ctx?: OfferContext): Recommendation[] {
   return cards
-    .map((c) => evaluate(c, lookup, states[c.id]))
-    .sort((a, b) => Number(b.usable) - Number(a.usable) || b.valueInr - a.valueInr);
+    .map((c) => evaluateWithOffers(c, lookup, states[c.id], ctx))
+    .sort((a, b) => Number(b.usable) - Number(a.usable) || b.totalInr - a.totalInr || b.valueInr - a.valueInr);
 }
 
 type MerchantInfo = { id: string; category: Lookup["category"]; channel: Lookup["channel"] };
@@ -175,17 +195,21 @@ export function merchantHints(
   states: Record<string, CardState>,
   merchants: MerchantInfo[],
   limit = 4,
+  ctx?: OfferContext,
 ): MerchantHint[] {
   if (lookup.merchant || lookup.category === "other" || !(lookup.amount > 0)) return [];
-  const named = new Set(cards.flatMap((c) => c.rules.flatMap((r) => r.merchants ?? [])));
+  const named = new Set([
+    ...cards.flatMap((c) => c.rules.flatMap((r) => r.merchants ?? [])),
+    ...(ctx?.offers ?? []).flatMap((o) => o.merchants),
+  ]);
   const cats = new Set([lookup.category, ...(RELATED[lookup.category] ?? [])]);
-  const current = recommend(cards, lookup, states).find((r) => r.usable)?.valueInr ?? 0;
+  const current = recommend(cards, lookup, states, ctx).find((r) => r.usable)?.totalInr ?? 0;
   const hints: MerchantHint[] = [];
   for (const m of merchants) {
     if (!named.has(m.id) || !cats.has(m.category)) continue;
     const channel = lookup.rail === "upi" ? lookup.channel : m.channel;
-    const best = recommend(cards, { ...lookup, merchant: m.id, category: m.category, channel }, states).find((r) => r.usable);
-    if (best && best.valueInr > current + 0.5) hints.push({ merchantId: m.id, cardId: best.cardId, valueInr: best.valueInr, effectivePct: best.effectivePct });
+    const best = recommend(cards, { ...lookup, merchant: m.id, category: m.category, channel }, states, ctx).find((r) => r.usable);
+    if (best && best.totalInr > current + 0.5) hints.push({ merchantId: m.id, cardId: best.cardId, valueInr: best.totalInr, effectivePct: best.effectivePct });
   }
   return hints.sort((a, b) => b.valueInr - a.valueInr).slice(0, limit);
 }

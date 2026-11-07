@@ -19,7 +19,7 @@ export function SavingsTab({ ledger }: { ledger: LedgerEntry[] }) {
         <h1 className="title">Savings</h1>
         <div className="empty">
           <p className="empty-big">Nothing logged in {monthName} yet.</p>
-          <p className="muted">After a lookup, tap “I paid with this card”. Your rewards and anything you missed by using a different card add up here.</p>
+          <p className="muted">After a lookup, tap “I paid with this card”. Your rewards, bank discounts, and anything you missed by using a different card add up here.</p>
         </div>
       </div>
     );
@@ -29,7 +29,7 @@ export function SavingsTab({ ledger }: { ledger: LedgerEntry[] }) {
     <div className="screen">
       <h1 className="title">Savings</h1>
       <section className="earned">
-        <p className="earned-label">Earned in {monthName}</p>
+        <p className="earned-label">Saved in {monthName}</p>
         <p className="earned-amount">{inr(earned)}</p>
         <p className="muted small">
           on {inr(spent)} of spending, {month.length} {month.length === 1 ? "payment" : "payments"}

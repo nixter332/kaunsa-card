@@ -1,9 +1,11 @@
 "use client";
 import { MERCHANTS } from "@/lib/localParse";
 import type { MerchantHint } from "@/lib/engine";
-import { CATEGORIES, type Lookup, type Recommendation } from "@/lib/types";
+import { amountBucket } from "@/lib/analytics";
+import { CATEGORIES, type AppliedOffer, type Lookup, type Recommendation } from "@/lib/types";
 import { useEffect, useState } from "react";
 import { CardTile } from "./CardTile";
+import { IconTag } from "./Icons";
 import { cardById, inr, pretty, track } from "./store";
 
 type Props = {
@@ -31,11 +33,16 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
   }, [lookup.merchant, lookup.category]);
   const best = results.find((r) => r.usable);
   const rest = results.filter((r) => r !== best);
-  const top = Math.max(best?.valueInr ?? 0, 1);
+  const top = Math.max(best?.totalInr ?? 0, 1);
   const merchant = MERCHANTS.find((m) => m.id === lookup.merchant);
   const bestCard = best && cardById(best.cardId);
   const runnerUp = rest.find((r) => r.usable);
-  const gap = best && runnerUp ? best.valueInr - runnerUp.valueInr : 0;
+  const gap = best && runnerUp ? best.totalInr - runnerUp.totalInr : 0;
+  const [missedOpen, setMissedOpen] = useState(false);
+  const [missedSent, setMissedSent] = useState(false);
+  const [missedCard, setMissedCard] = useState("");
+  const [missedAmount, setMissedAmount] = useState("");
+  const [missedText, setMissedText] = useState("");
 
   return (
     <div className="result">
@@ -137,11 +144,20 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
         <section className="winner" aria-live="polite">
           <CardTile card={bestCard} size="lg">
             <div className="tile-value">
-              <span className="tile-amount">{inr(best.valueInr)}</span>
-              <span className="tile-pct">back, {best.effectivePct}%</span>
+              <span className="tile-amount">{inr(best.totalInr)}</span>
+              <span className="tile-pct">{best.offer ? "saved" : `back, ${best.effectivePct}%`}</span>
             </div>
           </CardTile>
-          <p className="why">{best.reason}</p>
+          {best.offer ? (
+            <OfferBox offer={best.offer} reward={best.valueInr} paid={lookup.amount - best.offer.discountInr} reason={best.reason} />
+          ) : (
+            <p className="why">{best.reason}</p>
+          )}
+          {best.offerHints?.map((h) => (
+            <p key={h} className="offer-hint">
+              <IconTag size={15} /> {h}
+            </p>
+          ))}
           {gap > 0 && runnerUp && (
             <p className="muted small">
               {inr(gap)} more than your next best card, {runnerUp.cardName}.
@@ -193,7 +209,67 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
               </>
             )}
           </div>
-          <p className="fine">Rules checked {best.lastVerified}. Bank offers and discounts aren&apos;t included yet.</p>
+          <p className="fine">
+            Rules checked {best.lastVerified}. Bank offers are shown once we&apos;ve verified them.{" "}
+            {missedSent ? (
+              <span>Thanks, we&apos;ll look into that offer.</span>
+            ) : (
+              <button type="button" className="linkish" onClick={() => setMissedOpen(!missedOpen)} aria-expanded={missedOpen}>
+                Got a discount we didn&apos;t show?
+              </button>
+            )}
+          </p>
+          {missedOpen && !missedSent && (
+            <form
+              className="report"
+              onSubmit={(e) => {
+                e.preventDefault();
+                track("offer_missed", {
+                  merchant: lookup.merchant,
+                  category: lookup.category,
+                  amount_range: amountBucket(lookup.amount),
+                  card: missedCard || undefined,
+                  discount_inr: Number(missedAmount) || undefined,
+                  comment: missedText.trim().slice(0, 300) || undefined,
+                });
+                setMissedSent(true);
+                setMissedOpen(false);
+              }}
+            >
+              <label className="small" htmlFor="missed-card">
+                Which card, and how much off?
+              </label>
+              <div className="report-row">
+                <select id="missed-card" className="field" value={missedCard} onChange={(e) => setMissedCard(e.target.value)}>
+                  <option value="">Card…</option>
+                  {results.map((r) => (
+                    <option key={r.cardId} value={r.cardId}>
+                      {r.cardName}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  className="field"
+                  type="number"
+                  inputMode="numeric"
+                  min={1}
+                  placeholder="₹ off"
+                  aria-label="Discount in rupees"
+                  value={missedAmount}
+                  onChange={(e) => setMissedAmount(e.target.value)}
+                />
+              </div>
+              <textarea
+                className="field textarea"
+                rows={2}
+                maxLength={300}
+                placeholder="Anything else, e.g. coupon code, EMI only, which day"
+                value={missedText}
+                onChange={(e) => setMissedText(e.target.value)}
+              />
+              <button className="btn ghost wide">Send</button>
+            </form>
+          )}
           {reportOpen && !flagged && (
             <form
               className="report"
@@ -243,15 +319,19 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
               <li key={r.cardId} className={r.usable ? "" : "dim"}>
                 <div className="compare-head">
                   <span className="compare-name">{r.cardName}</span>
-                  <span className="compare-val">{r.usable ? inr(r.valueInr) : "Can't use"}</span>
+                  <span className="compare-val">{r.usable ? inr(r.totalInr) : "Can't use"}</span>
                 </div>
                 {r.usable && (
                   <div className="bar" aria-hidden="true">
-                    <div style={{ width: `${Math.max(2, (r.valueInr / top) * 100)}%` }} />
+                    <div style={{ width: `${Math.max(2, (r.totalInr / top) * 100)}%` }} />
                   </div>
                 )}
                 <p className="compare-why">
-                  {r.usable ? `${r.effectivePct}%. ${r.reason}` : r.reason}
+                  {!r.usable
+                    ? r.reason
+                    : r.offer
+                      ? `${inr(r.offer.discountInr)} off (${r.offer.title}) + ${inr(r.valueInr)} rewards.`
+                      : `${r.effectivePct}%. ${r.reason}`}
                 </p>
                 {r.warnings.map((w) => (
                   <p key={w} className="compare-warn">
@@ -268,6 +348,28 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
           </ul>
         </section>
       )}
+    </div>
+  );
+}
+
+function OfferBox({ offer, reward, paid, reason }: { offer: AppliedOffer; reward: number; paid: number; reason: string }) {
+  const end = offer.validTo ? new Date(`${offer.validTo}T12:00:00+05:30`).toLocaleDateString("en-IN", { day: "numeric", month: "short" }) : "";
+  const details = [
+    offer.code && `Code ${offer.code}`,
+    offer.payment === "emi" && "No-cost EMI only",
+    offer.conditions,
+    end && `Till ${end}`,
+  ].filter(Boolean);
+  return (
+    <div className="offer-box">
+      <p className="offer-head">
+        <IconTag /> {inr(offer.discountInr)} off: {offer.title}
+        {offer.kind === "card_perk" && <span className="offer-kind">Card perk</span>}
+      </p>
+      {details.length > 0 && <p className="offer-details">{details.join(" · ")}</p>}
+      <p className="offer-plus">
+        Plus {inr(reward)} in rewards on the {inr(paid)} you pay. {reason}
+      </p>
     </div>
   );
 }

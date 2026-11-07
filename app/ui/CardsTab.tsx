@@ -1,10 +1,12 @@
 "use client";
 import { useState } from "react";
-import type { Card, CardState } from "@/lib/types";
+import { MERCHANTS } from "@/lib/localParse";
+import { dayList, offersForCards } from "@/lib/offers";
+import type { Card, CardState, Offer } from "@/lib/types";
 import { CardPicker } from "./CardPicker";
 import { CardTile } from "./CardTile";
-import { IconClose } from "./Icons";
-import { inr } from "./store";
+import { IconClose, IconTag } from "./Icons";
+import { ALL_OFFERS, inr } from "./store";
 
 type Props = {
   cards: Card[];
@@ -59,6 +61,8 @@ export function CardsTab({ cards, states, selected, onToggle, met, onToggleCondi
       </ul>
       {cards.some((c) => c.caps.length) && <p className="fine">Limits fill up as you log payments, and reset each calendar month or quarter.</p>}
 
+      {cards.length > 0 && <OffersList cards={cards} />}
+
       {editing && (
         <div className="sheet-backdrop" onClick={() => setEditing(false)}>
           <div className="sheet tall" role="dialog" aria-modal="true" aria-label="Your cards" onClick={(e) => e.stopPropagation()}>
@@ -76,5 +80,47 @@ export function CardsTab({ cards, states, selected, onToggle, met, onToggleCondi
         </div>
       )}
     </div>
+  );
+}
+
+function deal(o: Offer) {
+  const d = o.discount;
+  const off = d.type === "flat" ? `${inr(d.value)} off` : `${Math.round(d.value * 100)}% off${d.max ? ` up to ${inr(d.max)}` : ""}`;
+  return o.minTxn ? `${off} on ${inr(o.minTxn)}+` : off;
+}
+
+function OffersList({ cards }: { cards: Card[] }) {
+  const live = offersForCards(ALL_OFFERS, cards, new Date());
+  return (
+    <section aria-label="Offers on your cards">
+      <h3 className="section-title">Offers on your cards</h3>
+      {live.length === 0 ? (
+        <p className="muted small">No verified offers on your cards right now. We add bank offers as we check them.</p>
+      ) : (
+        <ul className="offers-list">
+          {live.map(({ offer, cards: covered }) => {
+            const where = offer.merchants.map((id) => MERCHANTS.find((m) => m.id === id)?.name ?? id).join(", ");
+            const end = offer.validTo ? new Date(`${offer.validTo}T12:00:00+05:30`).toLocaleDateString("en-IN", { day: "numeric", month: "short" }) : "";
+            const meta = [
+              offer.days?.length && `${dayList(offer.days)} only`,
+              offer.payment === "emi" && "no-cost EMI only",
+              offer.usesPerMonth && `${offer.usesPerMonth}× a month`,
+              offer.code && `code ${offer.code}`,
+              offer.kind === "card_perk" ? "card perk" : end && `till ${end}`,
+            ].filter(Boolean);
+            return (
+              <li key={offer.id}>
+                <p className="o-title">
+                  <IconTag /> {where}
+                </p>
+                <p className="o-deal">{deal(offer)}</p>
+                <p className="o-meta">{[covered.map((c) => c.name).join(", "), ...meta].join(" · ")}</p>
+                {offer.conditions && <p className="o-meta">{offer.conditions}</p>}
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </section>
   );
 }

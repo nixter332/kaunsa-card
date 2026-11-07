@@ -1,10 +1,13 @@
 // Device-only persistence, analytics hook, and helpers shared by the screens.
 import cardsJson from "@/data/cards.json";
+import offersJson from "@/data/offers.json";
 import { capture } from "@/lib/analytics";
-import type { Card, CardState, Condition, Lookup } from "@/lib/types";
+import { istMonth, offerUseKey } from "@/lib/offers";
+import type { Card, CardState, Condition, Lookup, Offer } from "@/lib/types";
 
 export const ALL_CARDS = cardsJson as Card[];
 export const cardById = (id: string) => ALL_CARDS.find((c) => c.id === id);
+export const ALL_OFFERS = offersJson as Offer[];
 
 export type LedgerEntry = {
   ts: number;
@@ -15,7 +18,21 @@ export type LedgerEntry = {
   best?: number; // ₹ value the best card would have earned
   bestCardId?: string;
   label?: string; // what the payment was, e.g. "Myntra"
+  offerId?: string; // bank offer or card perk used, for "once a month" limits
+  discount?: number; // ₹ instant discount from that offer (included in earned)
 };
+
+/** How many times each offer was used on each card this month (India time). Key: offerId|cardId. */
+export function offerUsesFromLedger(ledger: LedgerEntry[], now = new Date()): Record<string, number> {
+  const month = istMonth(now);
+  const uses: Record<string, number> = {};
+  for (const e of ledger) {
+    if (!e.offerId || istMonth(new Date(e.ts)) !== month) continue;
+    const k = offerUseKey(e.offerId, e.cardId);
+    uses[k] = (uses[k] ?? 0) + 1;
+  }
+  return uses;
+}
 
 export function load<T>(key: string, fallback: T): T {
   try {
@@ -108,8 +125,9 @@ export const TILES: Tile[] = [
   { id: "dining", label: "Dining out", hint: "Restaurants, cafés", category: "dining", channel: "offline", rail: "card", merchants: ["restaurant", "swiggy_dineout"] },
   { id: "grocery", label: "Groceries", hint: "Instamart, Blinkit…", category: "grocery", channel: "online", rail: "card", merchants: ["swiggy_instamart", "blinkit", "zepto", "bigbasket", "kirana"] },
   { id: "shopping", label: "Shopping", hint: "Amazon, Myntra…", category: "online_shopping", channel: "online", rail: "card", merchants: ["amazon", "flipkart", "myntra", "ajio", "nykaa", "meesho", "croma", "tata_cliq"] },
-  { id: "travel", label: "Travel & cabs", hint: "Flights, trains, Uber", category: "travel", channel: "online", rail: "card", merchants: ["cleartrip", "makemytrip", "irctc", "scapia_travel", "uber", "ola"] },
+  { id: "travel", label: "Travel & cabs", hint: "Flights, trains, Uber", category: "travel", channel: "online", rail: "card", merchants: ["goibibo", "makemytrip", "cleartrip", "easemytrip", "irctc", "scapia_travel", "uber", "ola"] },
   { id: "bills", label: "Bills", hint: "Electricity, phone", category: "utilities", channel: "online", rail: "card", merchants: ["electricity", "mobile_recharge", "airtel_bill", "gpay_bill"] },
   { id: "upi", label: "Scan & pay", hint: "Any UPI QR", category: "other", channel: "offline", rail: "upi", merchants: ["kirana", "restaurant"] },
+  { id: "movies", label: "Movies", hint: "BookMyShow, PVR", category: "movies", channel: "online", rail: "card", merchants: ["bookmyshow", "pvr", "district"] },
   { id: "fuel", label: "Fuel", hint: "Petrol pumps", category: "fuel", channel: "offline", rail: "card", merchants: ["petrol"] },
 ];

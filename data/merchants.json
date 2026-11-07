@@ -396,5 +396,56 @@
       "sonyliv",
       "sony liv"
     ]
+  },
+  {
+    "id": "goibibo",
+    "name": "Goibibo",
+    "category": "travel",
+    "channel": "online",
+    "aliases": [
+      "goibibo",
+      "go ibibo",
+      "goibibo app"
+    ]
+  },
+  {
+    "id": "easemytrip",
+    "name": "EaseMyTrip",
+    "category": "travel",
+    "channel": "online",
+    "aliases": [
+      "easemytrip",
+      "ease my trip",
+      "emt"
+    ]
+  },
+  {
+    "id": "ixigo",
+    "name": "ixigo",
+    "category": "travel",
+    "channel": "online",
+    "aliases": [
+      "ixigo"
+    ]
+  },
+  {
+    "id": "yatra",
+    "name": "Yatra",
+    "category": "travel",
+    "channel": "online",
+    "aliases": [
+      "yatra"
+    ]
+  },
+  {
+    "id": "district",
+    "name": "District (movies)",
+    "category": "movies",
+    "channel": "online",
+    "aliases": [
+      "district app",
+      "district by zomato",
+      "district"
+    ]
   }
 ]

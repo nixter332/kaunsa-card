@@ -1,11 +1,14 @@
 "use client";
 import { useState } from "react";
 import { analyticsEnabled, setStatsEnabled, statsEnabled } from "@/lib/analytics";
-import { IconClose } from "./Icons";
+import type { AppUser } from "./App";
+import { IconClose, IconLogout } from "./Icons";
 
 export type ThemeChoice = "system" | "dark" | "light";
 
 type Props = {
+  user: AppUser;
+  onSignOut: () => void;
   theme: ThemeChoice;
   onTheme: (t: ThemeChoice) => void;
   canInstall: boolean;
@@ -15,8 +18,9 @@ type Props = {
   onClose: () => void;
 };
 
-export function Settings({ theme, onTheme, canInstall, onInstall, onReplay, onClear, onClose }: Props) {
+export function Settings({ user, onSignOut, theme, onTheme, canInstall, onInstall, onReplay, onClear, onClose }: Props) {
   const [confirming, setConfirming] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
   const [stats, setStats] = useState(statsEnabled);
   return (
     <div className="sheet-backdrop" onClick={onClose}>
@@ -25,6 +29,30 @@ export function Settings({ theme, onTheme, canInstall, onInstall, onReplay, onCl
           <h2>Settings</h2>
           <button type="button" className="icon-btn" onClick={onClose} aria-label="Close">
             <IconClose />
+          </button>
+        </div>
+
+        <div className="setting account">
+          {user.image ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={user.image} alt="" referrerPolicy="no-referrer" />
+          ) : (
+            <span className="avatar">{(user.name || user.email).slice(0, 1).toUpperCase()}</span>
+          )}
+          <div>
+            <strong>{user.name || "Signed in"}</strong>
+            <small className="muted">{user.email}</small>
+          </div>
+          <button
+            type="button"
+            className="btn ghost small"
+            disabled={signingOut}
+            onClick={() => {
+              setSigningOut(true);
+              onSignOut();
+            }}
+          >
+            <IconLogout size={18} /> Sign out
           </button>
         </div>
 
@@ -54,8 +82,8 @@ export function Settings({ theme, onTheme, canInstall, onInstall, onReplay, onCl
           <div className="setting">
             <label className="toggle-row">
               <span>
-                <strong>Share anonymous usage stats</strong>
-                <small className="muted">Which cards people add, what they look up (like “zomato 650”), and wrong-answer reports. No names, card numbers or bank details.</small>
+                <strong>Share usage stats</strong>
+                <small className="muted">Which cards you add, what you look up (like “zomato 650”), and reports you send, linked to your Google name and email. Never card numbers or bank details.</small>
               </span>
               <input
                 type="checkbox"

@@ -1,6 +1,6 @@
-// Anonymous product analytics via PostHog (free tier).
+// Product analytics via PostHog (free tier). Signed-in users are identified by their Google name and email.
 // Without NEXT_PUBLIC_POSTHOG_KEY nothing is sent anywhere; events are only kept on the device.
-// No names, emails or bank details are ever sent: just which cards people picked and what they looked up
+// No card numbers or bank details are ever sent: just who it is, which cards they picked and what they looked up
 // (for typed lookups, the first 80 characters of what was typed, e.g. "zomato 650").
 import posthog from "posthog-js";
 
@@ -19,7 +19,7 @@ function start() {
   posthog.init(KEY, {
     api_host: RELAY,
     ui_host: UI_HOST,
-    person_profiles: "identified_only", // anonymous users only, no profiles
+    person_profiles: "identified_only", // a profile per signed-in person
     autocapture: false, // only the events we send on purpose
     capture_pageview: true,
     disable_session_recording: true,
@@ -36,7 +36,18 @@ export function capture(event: string, props: Record<string, unknown> = {}) {
   if (KEY) posthog.capture(event, props);
 }
 
-/** Lets people switch anonymous stats off in Settings. */
+/** After Google sign-in: ties this device's events to the person, so you can see who's who in PostHog. */
+export function identifyUser(user: { id: string; name: string; email: string }) {
+  start();
+  if (!KEY) return;
+  if (posthog.get_distinct_id() !== user.id) posthog.identify(user.id, { email: user.email, name: user.name });
+}
+
+export function resetUser() {
+  if (KEY && started) posthog.reset();
+}
+
+/** Lets people switch usage stats off in Settings. */
 export function setStatsEnabled(on: boolean) {
   try {
     localStorage.setItem("cs.statsOff", String(!on));

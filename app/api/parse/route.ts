@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { auth } from "@/auth";
 import { parseWithClaude } from "@/lib/claude";
 import { localParse } from "@/lib/localParse";
 import { allowAiLookup } from "@/lib/rateLimit";
@@ -10,13 +11,17 @@ const LIMIT_NOTES = {
 };
 
 export async function POST(req: Request) {
+  // Only signed-in people can use AI lookups (and the Claude bill).
+  const session = await auth();
+  if (!session?.user) return NextResponse.json({ error: "Please sign in again." }, { status: 401 });
   const { text } = (await req.json()) as { text?: string };
   if (!text || text.length > 200) return NextResponse.json({ error: "Type a short purchase, e.g. 'zomato 650'" }, { status: 400 });
 
   let note: string | undefined;
   if (process.env.ANTHROPIC_API_KEY) {
-    const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() || "unknown";
-    const limit = await allowAiLookup(ip);
+    // Daily limit per person (their Google account), not per network.
+    const who = session.user.id ?? session.user.email ?? req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+    const limit = await allowAiLookup(who);
     if (limit.ok) {
       try {
         const lookup = await parseWithClaude(text);

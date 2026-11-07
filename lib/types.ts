@@ -120,6 +120,12 @@ export interface Recommendation {
   capConsumption: Record<string, number>;
   confidence: Card["confidence"];
   lastVerified: string;
+  /** Best bank offer or card perk that applies right now, if any. */
+  offer?: AppliedOffer;
+  /** Offers that would apply with a different day or a bigger amount. */
+  offerHints?: string[];
+  /** Instant discount + reward value. Equals valueInr when there's no offer. */
+  totalInr: number;
 }
 
 export interface Merchant {
@@ -128,4 +134,49 @@ export interface Merchant {
   category: Category;
   channel: Channel;
   aliases: string[];
+}
+
+export const WEEKDAYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"] as const;
+export type Weekday = (typeof WEEKDAYS)[number];
+
+/**
+ * A bank offer (time-limited, e.g. "10% off up to ₹1,500 on Goibibo with IndusInd cards")
+ * or a card perk (lasting, e.g. "buy 1 get 1 on BookMyShow, twice a month").
+ * Offers are instant discounts given by the merchant, on top of the card's normal rewards.
+ */
+export interface Offer {
+  id: string;
+  title: string; // short, e.g. "IndusInd × Goibibo flights"
+  kind: "bank_offer" | "card_perk";
+  /** Which cards: specific card ids, or every credit card from an issuer (optionally one network). */
+  cardIds?: string[];
+  issuer?: string;
+  networks?: Card["network"][];
+  excludeCardIds?: string[];
+  merchants: string[]; // merchant ids from data/merchants.json
+  categories?: Category[]; // narrows within the merchant, e.g. only travel
+  discount: { type: "percent"; value: number; max?: number } | { type: "flat"; value: number };
+  minTxn?: number;
+  validFrom?: string; // YYYY-MM-DD, India time
+  validTo?: string; // YYYY-MM-DD inclusive; omitted for lasting card perks
+  days?: Weekday[]; // only on these days
+  usesPerMonth?: number; // per card
+  payment?: "full" | "emi"; // "emi" = only when you pay by (no-cost) EMI
+  code?: string; // coupon code to enter at checkout
+  rails?: Rail[]; // defaults to card payments only
+  channels?: Channel[];
+  conditions?: string; // one short line shown to the user, e.g. "Domestic flights only"
+  source: string; // URL or file it was read from
+  lastVerified: string;
+}
+
+export interface AppliedOffer {
+  id: string;
+  title: string;
+  kind: Offer["kind"];
+  discountInr: number;
+  code?: string;
+  payment?: Offer["payment"];
+  conditions?: string;
+  validTo?: string;
 }

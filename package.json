@@ -6,12 +6,14 @@
     "build": "next build",
     "start": "next start",
     "test": "vitest run",
-    "extract": "tsx --env-file-if-exists=.env.local scripts/extract-rules.ts"
+    "extract": "tsx --env-file-if-exists=.env.local scripts/extract-rules.ts",
+    "offers": "tsx --env-file-if-exists=.env.local scripts/extract-offers.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.6.0",
     "@fontsource-variable/bricolage-grotesque": "^5.3.0",
     "next": "^16.4.5",
+    "next-auth": "^5.0.0-beta.32",
     "posthog-js": "^1.447.3",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"

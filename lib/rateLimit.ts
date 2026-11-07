@@ -34,11 +34,12 @@ async function incr(key: string): Promise<number> {
 export type LimitResult = { ok: true } | { ok: false; reason: "daily" | "person" | "error" };
 
 /** Call once per AI lookup. Counts it, and says whether it's allowed. */
-export async function allowAiLookup(ip: string, now = new Date()): Promise<LimitResult> {
+export async function allowAiLookup(who: string, now = new Date()): Promise<LimitResult> {
   // Days run on India time so the limit resets at midnight IST.
   const day = new Date(now.getTime() + 5.5 * 3600_000).toISOString().slice(0, 10);
   try {
-    if ((await incr(`ai:ip:${ip}:${day}`)) > PER_IP_LIMIT) return { ok: false, reason: "person" };
+    // Keyed by Google account id since sign-in (the key name is kept so existing counters carry on).
+    if ((await incr(`ai:ip:${who}:${day}`)) > PER_IP_LIMIT) return { ok: false, reason: "person" };
     if ((await incr(`ai:all:${day}`)) > DAILY_LIMIT) return { ok: false, reason: "daily" };
     return { ok: true };
   } catch {

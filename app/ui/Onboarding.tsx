@@ -48,7 +48,7 @@ export function Onboarding({ selected, onToggle, met, onToggleCondition, states,
           <ul className="points">
             <li>Knows each card&apos;s bonus categories, monthly limits and exclusions</li>
             <li>Checks which cards work on UPI</li>
-            <li>Your cards stay on this phone. No sign-up, no bank login</li>
+            <li>Your cards stay on this phone. No bank login, ever</li>
           </ul>
           <div className="onboard-actions">
             <button type="button" className="btn primary wide" onClick={() => setStep(1)}>
