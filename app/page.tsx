@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { amountBucket } from "@/lib/analytics";
-import { recommend } from "@/lib/engine";
+import { merchantHints, recommend } from "@/lib/engine";
 import { localParse, MERCHANTS } from "@/lib/localParse";
 import type { Lookup, Recommendation } from "@/lib/types";
 import { CardsTab } from "./ui/CardsTab";
@@ -41,6 +41,7 @@ export default function Home() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [paidWith, setPaidWith] = useState<string | null>(null);
+  const [needAmount, setNeedAmount] = useState<{ lookup: Lookup; query: string; parser: string } | null>(null);
   const [toast, setToast] = useState("");
 
   useEffect(() => {
@@ -79,6 +80,7 @@ export default function Home() {
   const myCards = useMemo(() => ALL_CARDS.filter((c) => myCardIds.includes(c.id)), [myCardIds]);
   const states = useMemo(() => statesFromLedger(myCards, ledger, met), [myCards, ledger, met]);
   const results: Recommendation[] = useMemo(() => (lookup ? recommend(myCards, lookup, states) : []), [lookup, myCards, states]);
+  const hints = useMemo(() => (lookup ? merchantHints(myCards, lookup, states, MERCHANTS) : []), [lookup, myCards, states]);
 
   const showToast = useCallback((msg: string) => {
     setToast(msg);
@@ -98,7 +100,7 @@ export default function Home() {
     save("cs.conditions", next);
   };
 
-  function startLookup(l: Lookup, source: string, parsedBy = "") {
+  function startLookup(l: Lookup, source: string, parsedBy = "", query?: string) {
     setLookup(l);
     setParser(parsedBy);
     setPaidWith(null);
@@ -115,6 +117,9 @@ export default function Home() {
       cards_held: myCards.length,
       best_card: top?.cardId,
       best_pct: top?.effectivePct,
+      // What was typed (text lookups only, first 80 characters), so wrong reads can be fixed.
+      query: query?.slice(0, 80),
+      merchant_hints: merchantHints(myCards, l, states, MERCHANTS).map((h) => h.merchantId),
     });
   }
 
@@ -128,13 +133,19 @@ export default function Home() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Something went wrong");
       setNote(data.note);
-      startLookup(data.lookup, "text", data.parser);
       setRecent(nextRecent);
       save("cs.recent", nextRecent);
+      if (!(Number(data.lookup.amount) > 0)) {
+        // No amount in what they typed: ask for it instead of showing ₹0.
+        setNeedAmount({ lookup: { ...data.lookup, amount: 0 }, query: q, parser: data.parser });
+        track("amount_missing", { query: q.slice(0, 80), merchant: data.lookup.merchant, category: data.lookup.category });
+        return;
+      }
+      startLookup(data.lookup, "text", data.parser, q);
     } catch (e) {
       const local = localParse(q);
       if (local) {
-        startLookup(local, "text", "local");
+        startLookup(local, "text", "local", q);
         setRecent(nextRecent);
         save("cs.recent", nextRecent);
       } else setError(e instanceof Error ? e.message : "Add an amount, like “dinner 2400”.");
@@ -224,6 +235,13 @@ export default function Home() {
         ) : (
           <PayTab
             onLookup={(l, src) => startLookup(l, src)}
+            pending={needAmount?.lookup ?? null}
+            onPendingDone={(l) => {
+              const p = needAmount;
+              setNeedAmount(null);
+              startLookup(l, "text", p?.parser ?? "", p?.query);
+            }}
+            onPendingCancel={() => setNeedAmount(null)}
             onText={askText}
             busy={busy}
             error={error}
@@ -231,7 +249,18 @@ export default function Home() {
             hasResult={!!lookup}
             onBack={() => setLookup(null)}
           >
-            {lookup && <Result lookup={lookup} setLookup={setLookup} results={results} parser={parser} note={note} paidWith={paidWith} onPaid={markPaid} />}
+            {lookup && (
+              <Result
+                lookup={lookup}
+                setLookup={setLookup}
+                results={results}
+                hints={hints}
+                parser={parser}
+                note={note}
+                paidWith={paidWith}
+                onPaid={markPaid}
+              />
+            )}
           </PayTab>
         ))}
       {tab === "cards" && <CardsTab cards={myCards} states={states} selected={myCardIds} onToggle={toggleCard} met={met} onToggleCondition={toggleCondition} />}

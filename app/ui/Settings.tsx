@@ -55,7 +55,7 @@ export function Settings({ theme, onTheme, canInstall, onInstall, onReplay, onCl
             <label className="toggle-row">
               <span>
                 <strong>Share anonymous usage stats</strong>
-                <small className="muted">Which cards people add, what they look up, and wrong-answer reports. No names, numbers or bank details.</small>
+                <small className="muted">Which cards people add, what they look up (like “zomato 650”), and wrong-answer reports. No names, card numbers or bank details.</small>
               </span>
               <input
                 type="checkbox"

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { MERCHANTS } from "@/lib/localParse";
 import type { Lookup } from "@/lib/types";
 import { IconArrowUp, IconBack, IconClose, IconDelete, TileIcon } from "./Icons";
-import { TILES, type Tile } from "./store";
+import { pretty, TILES, type Tile } from "./store";
 
 const EXAMPLES = ["dinner 2400", "zomato 650", "myntra 3000", "instamart 900", "electricity bill via gpay 1800", "kirana 800 via UPI"];
 
@@ -15,10 +15,14 @@ type Props = {
   recent: string[];
   hasResult: boolean;
   onBack: () => void;
+  /** A typed lookup that had no amount: ask for it. */
+  pending: Lookup | null;
+  onPendingDone: (l: Lookup) => void;
+  onPendingCancel: () => void;
   children?: React.ReactNode; // the result, when there is one
 };
 
-export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBack, children }: Props) {
+export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBack, pending, onPendingDone, onPendingCancel, children }: Props) {
   const [text, setText] = useState("");
   const [tile, setTile] = useState<Tile | null>(null);
   const [example, setExample] = useState(0);
@@ -87,15 +91,31 @@ export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBac
         </section>
       )}
 
+      {pending && !tile && (
+        <AmountSheet
+          tile={pendingTile(pending)}
+          initial={pending}
+          title="How much is it?"
+          onClose={onPendingCancel}
+          onDone={onPendingDone}
+        />
+      )}
       {tile && <AmountSheet tile={tile} onClose={() => setTile(null)} onDone={(l) => (setTile(null), onLookup(l, `tile:${tile.id}`))} />}
     </div>
   );
 }
 
-function AmountSheet({ tile, onClose, onDone }: { tile: Tile; onClose: () => void; onDone: (l: Lookup) => void }) {
+function pendingTile(l: Lookup): Tile {
+  const m = MERCHANTS.find((x) => x.id === l.merchant);
+  return { id: "typed", label: m?.name ?? pretty(l.category), hint: "", category: l.category, channel: l.channel, rail: l.rail, merchants: [] };
+}
+
+type SheetProps = { tile: Tile; initial?: Lookup; title?: string; onClose: () => void; onDone: (l: Lookup) => void };
+
+function AmountSheet({ tile, initial, title, onClose, onDone }: SheetProps) {
   const [amount, setAmount] = useState("");
-  const [merchant, setMerchant] = useState<string | undefined>();
-  const [rail, setRail] = useState<Lookup["rail"]>(tile.rail);
+  const [merchant, setMerchant] = useState<string | undefined>(initial?.merchant);
+  const [rail, setRail] = useState<Lookup["rail"]>(initial?.rail ?? tile.rail);
   const m = MERCHANTS.find((x) => x.id === merchant);
 
   const press = (k: string) => {
@@ -106,19 +126,20 @@ function AmountSheet({ tile, onClose, onDone }: { tile: Tile; onClose: () => voi
 
   function done() {
     if (!value) return;
-    const channel = rail === "upi" ? "offline" : m?.channel ?? tile.channel;
+    const channel = rail === "upi" ? "offline" : initial?.channel ?? m?.channel ?? tile.channel;
     onDone({ merchant, category: m?.category ?? tile.category, amount: value, channel, rail });
   }
 
   return (
     <div className="sheet-backdrop" onClick={onClose}>
-      <div className="sheet" role="dialog" aria-modal="true" aria-label={tile.label} onClick={(e) => e.stopPropagation()}>
+      <div className="sheet" role="dialog" aria-modal="true" aria-label={title ?? tile.label} onClick={(e) => e.stopPropagation()}>
         <div className="sheet-head">
-          <h2>{tile.label}</h2>
+          <h2>{title ?? tile.label}</h2>
           <button type="button" className="icon-btn" onClick={onClose} aria-label="Close">
             <IconClose />
           </button>
         </div>
+        {title && <p className="muted small">{tile.label}: add the amount to compare your cards.</p>}
         {tile.merchants.length > 0 && (
           <div className="chips" role="group" aria-label="Where (optional)">
             {tile.merchants.map((id) => {

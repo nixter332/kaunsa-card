@@ -249,3 +249,14 @@ select.field { appearance: none; background-image: linear-gradient(45deg, transp
 .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
 .toggle-row span { display: grid; gap: 2px; }
 .toggle-row input { width: 22px; height: 22px; accent-color: var(--accent); flex-shrink: 0; }
+
+/* Better-shop hint above the answer */
+.hint { border: 1px solid var(--accent); background: var(--accent-soft); border-radius: 14px; padding: 12px 14px; margin: 12px 0; }
+.hint-title { font-size: 14px; font-weight: 560; margin: 0 0 8px; }
+.hint .chip { background: var(--surface); }
+
+/* Was this right? */
+.vote { display: flex; align-items: center; gap: 8px; margin-top: 14px; font-size: 14px; color: var(--muted); min-height: 44px; }
+.vote span { flex: 1; }
+.vote-btn { width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); font-size: 20px; }
+.vote-btn:active { transform: scale(0.94); }

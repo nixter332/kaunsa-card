@@ -1,7 +1,8 @@
 "use client";
 import { MERCHANTS } from "@/lib/localParse";
+import type { MerchantHint } from "@/lib/engine";
 import { CATEGORIES, type Lookup, type Recommendation } from "@/lib/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CardTile } from "./CardTile";
 import { cardById, inr, pretty, track } from "./store";
 
@@ -9,17 +10,25 @@ type Props = {
   lookup: Lookup;
   setLookup: (l: Lookup) => void;
   results: Recommendation[];
+  hints: MerchantHint[];
   parser: string;
   note?: string;
   paidWith: string | null;
   onPaid: (r: Recommendation) => void;
 };
 
-export function Result({ lookup, setLookup, results, parser, note, paidWith, onPaid }: Props) {
+export function Result({ lookup, setLookup, results, hints, parser, note, paidWith, onPaid }: Props) {
   const [editing, setEditing] = useState(false);
   const [reportOpen, setReportOpen] = useState(false);
   const [reportText, setReportText] = useState("");
   const [flagged, setFlagged] = useState(false);
+  const [vote, setVote] = useState<"up" | "down" | null>(null);
+  // A different shop or spend type is a new answer: ask again.
+  useEffect(() => {
+    setVote(null);
+    setFlagged(false);
+    setReportOpen(false);
+  }, [lookup.merchant, lookup.category]);
   const best = results.find((r) => r.usable);
   const rest = results.filter((r) => r !== best);
   const top = Math.max(best?.valueInr ?? 0, 1);
@@ -99,6 +108,31 @@ export function Result({ lookup, setLookup, results, parser, note, paidWith, onP
         </div>
       )}
 
+      {hints.length > 0 && (
+        <section className="hint" aria-label="Where are you paying?">
+          <p className="hint-title">Paying on one of these? Your cards earn more there.</p>
+          <div className="chips">
+            {hints.map((h) => {
+              const m = MERCHANTS.find((x) => x.id === h.merchantId);
+              if (!m) return null;
+              return (
+                <button
+                  type="button"
+                  key={h.merchantId}
+                  className="chip"
+                  onClick={() => {
+                    track("merchant_hint_used", { merchant: h.merchantId, category: lookup.category, card: h.cardId });
+                    setLookup({ ...lookup, merchant: m.id, category: m.category, channel: lookup.rail === "upi" ? lookup.channel : m.channel });
+                  }}
+                >
+                  {m.name} · {inr(h.valueInr)}
+                </button>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
       {best && bestCard ? (
         <section className="winner" aria-live="polite">
           <CardTile card={bestCard} size="lg">
@@ -123,16 +157,43 @@ export function Result({ lookup, setLookup, results, parser, note, paidWith, onP
               {paidWith === best.cardId ? "Payment logged" : "I paid with this card"}
             </button>
           </div>
-          <p className="fine">
-            Rules checked {best.lastVerified}.{" "}
-            {flagged ? (
-              <span>Reported. Thanks, this gets checked against the bank&apos;s terms.</span>
-            ) : (
-              <button type="button" className="linkish" onClick={() => setReportOpen(!reportOpen)} aria-expanded={reportOpen}>
-                Report a wrong answer
-              </button>
+          <div className="vote" role="group" aria-label="Was this answer right?">
+            <span>{vote === "up"
+                ? "Thanks!"
+                : flagged
+                  ? "Reported. Thanks, this gets checked against the bank's terms."
+                  : vote === "down"
+                    ? "What was wrong? Tell us below."
+                    : "Was this right?"}</span>
+            {!vote && (
+              <>
+                <button
+                  type="button"
+                  className="vote-btn"
+                  aria-label="Yes, this was right"
+                  onClick={() => {
+                    setVote("up");
+                    track("answer_vote", { vote: "up", merchant: lookup.merchant, category: lookup.category, best_card: best.cardId, parser });
+                  }}
+                >
+                  👍
+                </button>
+                <button
+                  type="button"
+                  className="vote-btn"
+                  aria-label="No, this was wrong"
+                  onClick={() => {
+                    setVote("down");
+                    setReportOpen(true);
+                    track("answer_vote", { vote: "down", merchant: lookup.merchant, category: lookup.category, best_card: best.cardId, parser });
+                  }}
+                >
+                  👎
+                </button>
+              </>
             )}
-          </p>
+          </div>
+          <p className="fine">Rules checked {best.lastVerified}. Bank offers and discounts aren&apos;t included yet.</p>
           {reportOpen && !flagged && (
             <form
               className="report"
@@ -155,7 +216,7 @@ export function Result({ lookup, setLookup, results, parser, note, paidWith, onP
               }}
             >
               <label htmlFor="report-text" className="small">
-                What should it have said? (optional)
+                What was wrong? A discount you got, a different rate… (optional)
               </label>
               <textarea
                 id="report-text"

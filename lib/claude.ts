@@ -20,7 +20,7 @@ const lookupTool: Anthropic.Tool = {
       },
       merchant_text: { type: "string", description: "The merchant as the user wrote it." },
       category: { type: "string", enum: [...CATEGORIES], description: "Spend category. Dine-in at a restaurant or café is 'dining'." },
-      amount: { type: "number", description: "Amount in rupees. '1.2k' = 1200." },
+      amount: { type: "number", description: "Amount in rupees. '1.2k' = 1200. Use 0 if the user gave no amount; never guess one." },
       channel: { type: "string", enum: ["online", "offline"], description: "Online = app/website. Offline = in a shop or restaurant." },
       rail: { type: "string", enum: ["card", "upi"], description: "'upi' only if the user says UPI, QR, GPay, PhonePe or Paytm. Otherwise 'card'." },
     },

@@ -155,3 +155,37 @@ export function recommend(cards: Card[], lookup: Lookup, states: Record<string, 
     .map((c) => evaluate(c, lookup, states[c.id]))
     .sort((a, b) => Number(b.usable) - Number(a.usable) || b.valueInr - a.valueInr);
 }
+
+type MerchantInfo = { id: string; category: Lookup["category"]; channel: Lookup["channel"] };
+
+/** Spend types that people often mean when they pick a broader one (the Shopping tile covers clothes and gadgets). */
+const RELATED: Partial<Record<Lookup["category"], Lookup["category"][]>> = {
+  online_shopping: ["apparel", "electronics"],
+};
+
+export type MerchantHint = { merchantId: string; cardId: string; valueInr: number; effectivePct: number };
+
+/**
+ * When a lookup names no shop, find shops where one of the user's cards has its own, better rate.
+ * e.g. "Food delivery ₹600" with a Swiggy card: Swiggy would earn far more than the 1% shown.
+ */
+export function merchantHints(
+  cards: Card[],
+  lookup: Lookup,
+  states: Record<string, CardState>,
+  merchants: MerchantInfo[],
+  limit = 4,
+): MerchantHint[] {
+  if (lookup.merchant || lookup.category === "other" || !(lookup.amount > 0)) return [];
+  const named = new Set(cards.flatMap((c) => c.rules.flatMap((r) => r.merchants ?? [])));
+  const cats = new Set([lookup.category, ...(RELATED[lookup.category] ?? [])]);
+  const current = recommend(cards, lookup, states).find((r) => r.usable)?.valueInr ?? 0;
+  const hints: MerchantHint[] = [];
+  for (const m of merchants) {
+    if (!named.has(m.id) || !cats.has(m.category)) continue;
+    const channel = lookup.rail === "upi" ? lookup.channel : m.channel;
+    const best = recommend(cards, { ...lookup, merchant: m.id, category: m.category, channel }, states).find((r) => r.usable);
+    if (best && best.valueInr > current + 0.5) hints.push({ merchantId: m.id, cardId: best.cardId, valueInr: best.valueInr, effectivePct: best.effectivePct });
+  }
+  return hints.sort((a, b) => b.valueInr - a.valueInr).slice(0, limit);
+}

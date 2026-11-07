@@ -1,10 +1,14 @@
 // Anonymous product analytics via PostHog (free tier).
 // Without NEXT_PUBLIC_POSTHOG_KEY nothing is sent anywhere; events are only kept on the device.
-// No names, emails or bank details are ever sent: just which cards people picked and what they looked up.
+// No names, emails or bank details are ever sent: just which cards people picked and what they looked up
+// (for typed lookups, the first 80 characters of what was typed, e.g. "zomato 650").
 import posthog from "posthog-js";
 
 const KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY;
 const HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? "https://eu.i.posthog.com";
+// Sent via this site's own /kc-relay path (see next.config.mjs) so ad blockers don't drop events.
+const RELAY = "/kc-relay";
+const UI_HOST = HOST.includes("://us.") ? "https://us.posthog.com" : "https://eu.posthog.com";
 let started = false;
 
 export const analyticsEnabled = Boolean(KEY);
@@ -13,7 +17,8 @@ function start() {
   if (started || !KEY || typeof window === "undefined") return;
   started = true;
   posthog.init(KEY, {
-    api_host: HOST,
+    api_host: RELAY,
+    ui_host: UI_HOST,
     person_profiles: "identified_only", // anonymous users only, no profiles
     autocapture: false, // only the events we send on purpose
     capture_pageview: true,

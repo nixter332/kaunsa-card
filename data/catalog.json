@@ -5,7 +5,11 @@
     "issuer": "SBI Card",
     "network": "Visa",
     "upi": false,
-    "reward": { "kind": "cashback", "unitName": "₹ cashback", "inrPerUnit": 1 },
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹ cashback",
+      "inrPerUnit": 1
+    },
     "sources": [
       "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/ekit-tncs/cashback-tnc-ekit.pdf",
       "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/cashback-revised.pdf"
@@ -18,9 +22,16 @@
     "issuer": "ICICI Bank",
     "network": "Visa",
     "upi": false,
-    "reward": { "kind": "cashback", "unitName": "₹ Amazon Pay balance", "inrPerUnit": 1, "inrPerUnitNote": "Credited as Amazon Pay balance, not statement credit." },
-    "sources": ["https://www.icici.bank.in/personal-banking/cards/credit-card/amazon-pay-credit-card/index"],
-    "reviewTips": "Expect two Amazon rules: 5% that needs amazon_prime, and a lower rate without it. Also 2% on Amazon Pay partner merchants. If the page comes back thin, save it as PDF."
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹ Amazon Pay balance",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "Credited as Amazon Pay balance, not statement credit."
+    },
+    "sources": [
+      "https://www.icici.bank.in/personal-banking/cards/credit-card/amazon-pay-credit-card/index"
+    ],
+    "reviewTips": "Expect two Amazon rules: 5% that needs amazon_prime, and a lower rate without it. Also 2% on Amazon Pay partner merchants. Exclusions matter here: ICICI's card terms (not the product page) list no cashback on fuel, rent, EMI, education, tax/government and international spends, and flights/hotels via Amazon Pay don't get the 5%/3% rate. If the proposal has no exclusions, re-run with the terms PDF as a second --source."
   },
   {
     "id": "axis-ace",
@@ -28,7 +39,11 @@
     "issuer": "Axis Bank",
     "network": "Visa",
     "upi": false,
-    "reward": { "kind": "cashback", "unitName": "₹ cashback", "inrPerUnit": 1 },
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹ cashback",
+      "inrPerUnit": 1
+    },
     "sources": [
       "https://www.axis.bank.in/docs/default-source/default-document-library/credit-card/axis-bank-ace-credit-card-tncs.pdf",
       "https://www.axis.bank.in/cards/credit-card/axis-bank-ace-credit-card"
@@ -41,7 +56,11 @@
     "issuer": "Axis Bank",
     "network": "Mastercard",
     "upi": false,
-    "reward": { "kind": "cashback", "unitName": "₹ cashback", "inrPerUnit": 1 },
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹ cashback",
+      "inrPerUnit": 1
+    },
     "sources": [
       "https://www.axis.bank.in/docs/default-source/default-document-library/credit-cards/terms-and-conditions-for-cashback-for-airtel-axis-bank-credit-card.pdf",
       "https://www.axis.bank.in/docs/default-source/default-document-library/terms-and-conditions-for-airtel-cbcc-cvp.pdf"
@@ -54,8 +73,15 @@
     "issuer": "HDFC Bank",
     "network": "Visa",
     "upi": false,
-    "reward": { "kind": "points", "unitName": "CashPoints", "inrPerUnit": 1, "inrPerUnitNote": "1 CashPoint = ₹1 against the statement." },
-    "sources": ["https://hdfcbank.com/content/api/contentstream-id/723fb80a-2dde-42a3-9793-7ae1be57c87f/5d94cc09-80b7-4073-8c9f-22fad88054f0"],
+    "reward": {
+      "kind": "points",
+      "unitName": "CashPoints",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "1 CashPoint = ₹1 against the statement."
+    },
+    "sources": [
+      "https://hdfcbank.com/content/api/contentstream-id/723fb80a-2dde-42a3-9793-7ae1be57c87f/5d94cc09-80b7-4073-8c9f-22fad88054f0"
+    ],
     "reviewTips": "5% on 10 named merchants (Amazon, BookMyShow, Cult.fit, Flipkart, Myntra, Sony LIV, Swiggy, Tata CLiQ, Uber, Zomato), 1% elsewhere, each with a monthly CashPoint cap. Check the PDF's date: terms changed in 2026."
   },
   {
@@ -64,7 +90,11 @@
     "issuer": "SBI Card",
     "network": "Visa",
     "upi": false,
-    "reward": { "kind": "cashback", "unitName": "₹ cashback", "inrPerUnit": 1 },
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹ cashback",
+      "inrPerUnit": 1
+    },
     "sources": [
       "https://www.sbicard.com/en/personal/credit-cards/rewards/flipkart-sbi-card.page",
       "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/personal/cards/Preferred-Partners-TandC.pdf"
@@ -77,8 +107,15 @@
     "issuer": "HDFC Bank",
     "network": "RuPay",
     "upi": true,
-    "reward": { "kind": "points", "unitName": "NeuCoins", "inrPerUnit": 1, "inrPerUnitNote": "1 NeuCoin = ₹1, usable only on Tata Neu and Tata brands." },
-    "sources": ["https://www.hdfc.bank.in/credit-cards/tata-neu-plus-hdfc-bank-credit-card"],
+    "reward": {
+      "kind": "points",
+      "unitName": "NeuCoins",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "1 NeuCoin = ₹1, usable only on Tata Neu and Tata brands."
+    },
+    "sources": [
+      "https://www.hdfc.bank.in/credit-cards/tata-neu-plus-hdfc-bank-credit-card"
+    ],
     "reviewTips": "UPI has two rates: a low one on any UPI app and a higher one via your Tata Neu UPI ID (should need partner_upi_app), all capped at 500 NeuCoins/month."
   },
   {
@@ -87,8 +124,15 @@
     "issuer": "HDFC Bank",
     "network": "RuPay",
     "upi": true,
-    "reward": { "kind": "points", "unitName": "NeuCoins", "inrPerUnit": 1, "inrPerUnitNote": "1 NeuCoin = ₹1, usable only on Tata Neu and Tata brands." },
-    "sources": ["https://www.hdfc.bank.in/credit-cards/tata-neu-infinity-hdfc-bank-credit-card"],
+    "reward": {
+      "kind": "points",
+      "unitName": "NeuCoins",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "1 NeuCoin = ₹1, usable only on Tata Neu and Tata brands."
+    },
+    "sources": [
+      "https://www.hdfc.bank.in/credit-cards/tata-neu-infinity-hdfc-bank-credit-card"
+    ],
     "reviewTips": "5% on Tata brands, 1.5% elsewhere. UPI: 0.5% on any app vs 1.5% via Tata Neu UPI ID (partner_upi_app), capped at 500 NeuCoins/month. Grocery points capped at 2,000/month."
   },
   {
@@ -97,8 +141,14 @@
     "issuer": "Kiwi with YES Bank, AU Bank or PNB",
     "network": "RuPay",
     "upi": true,
-    "reward": { "kind": "cashback", "unitName": "₹ cashback (Kiwis)", "inrPerUnit": 1 },
-    "sources": ["https://gokiwi.in/rewards-policy-v2"],
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹ cashback (Kiwis)",
+      "inrPerUnit": 1
+    },
+    "sources": [
+      "https://gokiwi.in/rewards-policy-v2"
+    ],
     "reviewTips": "Base 1.5% on UPI scan & pay through the Kiwi app (partner_upi_app). Ignore paid Neon membership rates for now; note them."
   },
   {
@@ -107,7 +157,11 @@
     "issuer": "Axis Bank",
     "network": "RuPay",
     "upi": true,
-    "reward": { "kind": "cashback", "unitName": "₹ cashback", "inrPerUnit": 1 },
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹ cashback",
+      "inrPerUnit": 1
+    },
     "sources": [
       "https://www.axis.bank.in/docs/default-source/default-document-library/credit-cards/axis-bank-supermoney-rupay-credit-card.pdf",
       "https://www.axis.bank.in/cards/credit-card/supermoney-credit-card"
@@ -120,8 +174,14 @@
     "issuer": "HDFC Bank",
     "network": "Mastercard",
     "upi": false,
-    "reward": { "kind": "cashback", "unitName": "₹ cashback", "inrPerUnit": 1 },
-    "sources": ["https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/pdfs/Combined_TnCs_Ornge_and_BLCK.pdf"],
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹ cashback",
+      "inrPerUnit": 1
+    },
+    "sources": [
+      "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/pdfs/Combined_TnCs_Ornge_and_BLCK.pdf"
+    ],
     "reviewTips": "This PDF covers both Ornge and BLCK: make sure only BLCK rates are used (10% Swiggy, 5% online, 1% other capped ₹1,000)."
   },
   {
@@ -130,8 +190,14 @@
     "issuer": "HDFC Bank",
     "network": "Mastercard",
     "upi": false,
-    "reward": { "kind": "cashback", "unitName": "₹ cashback", "inrPerUnit": 1 },
-    "sources": ["https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/pdfs/Combined_TnCs_Ornge_and_BLCK.pdf"],
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹ cashback",
+      "inrPerUnit": 1
+    },
+    "sources": [
+      "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/pdfs/Combined_TnCs_Ornge_and_BLCK.pdf"
+    ],
     "reviewTips": "This PDF covers both Ornge and BLCK: make sure only Ornge rates are used (5% Swiggy and online sharing one ₹1,500 cap)."
   },
   {
@@ -140,7 +206,12 @@
     "issuer": "HDFC Bank",
     "network": "Visa",
     "upi": false,
-    "reward": { "kind": "points", "unitName": "reward points", "inrPerUnit": 0.5, "inrPerUnitNote": "₹0.50 is a typical value (flights/hotels via SmartBuy or vouchers); statement credit is worth less." },
+    "reward": {
+      "kind": "points",
+      "unitName": "reward points",
+      "inrPerUnit": 0.5,
+      "inrPerUnitNote": "₹0.50 is a typical value (flights/hotels via SmartBuy or vouchers); statement credit is worth less."
+    },
     "sources": [
       "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/pdf/common/Credit-Cards/Regalia-Gold-Product-feature-change.pdf",
       "https://www.hdfc.bank.in/credit-cards/regalia-gold-credit-card"
@@ -153,8 +224,31 @@
     "issuer": "ICICI Bank",
     "network": "RuPay",
     "upi": true,
-    "reward": { "kind": "points", "unitName": "ICICI reward points", "inrPerUnit": 0.25, "inrPerUnitNote": "Typical catalogue/voucher value; varies by redemption." },
-    "sources": ["https://www.icici.bank.in/personal-banking/cards/credit-card/coral-rupay-card"],
+    "reward": {
+      "kind": "points",
+      "unitName": "ICICI reward points",
+      "inrPerUnit": 0.25,
+      "inrPerUnitNote": "Typical catalogue/voucher value; varies by redemption."
+    },
+    "sources": [
+      "https://www.icici.bank.in/personal-banking/cards/credit-card/coral-rupay-card"
+    ],
     "reviewTips": "2 points per ₹100 (not fuel), 1 point per ₹100 on utilities and insurance. Same on UPI."
+  },
+  {
+    "id": "hsbc-rupay-cashback",
+    "name": "HSBC RuPay Cashback",
+    "issuer": "HSBC",
+    "network": "RuPay",
+    "upi": true,
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹ cashback",
+      "inrPerUnit": 1
+    },
+    "sources": [
+      "https://www.hsbc.co.in/credit-cards/products/rupay-cashback-credit-card/"
+    ],
+    "reviewTips": "Requested by a user. Reviews describe 10% on dining, food delivery and groceries under one combined monthly cap (about ₹400), and 1% on everything else including UPI. Check the cap amount and whether UPI spends earn the 10% too. If the page comes back thin, add HSBC's cashback T&C PDF linked from that page."
   }
 ]
