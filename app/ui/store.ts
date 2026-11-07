@@ -1,13 +1,15 @@
 // Device-only persistence, analytics hook, and helpers shared by the screens.
 import cardsJson from "@/data/cards.json";
 import offersJson from "@/data/offers.json";
+import profilesJson from "@/data/card-profiles.json";
 import { capture } from "@/lib/analytics";
 import { istMonth, offerUseKey } from "@/lib/offers";
-import type { Card, CardState, Condition, Lookup, Offer } from "@/lib/types";
+import type { Card, CardProfile, CardState, Condition, Lookup, Offer } from "@/lib/types";
 
 export const ALL_CARDS = cardsJson as Card[];
 export const cardById = (id: string) => ALL_CARDS.find((c) => c.id === id);
 export const ALL_OFFERS = offersJson as Offer[];
+export const ALL_PROFILES = profilesJson as CardProfile[];
 
 export type LedgerEntry = {
   ts: number;

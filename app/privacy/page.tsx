@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
+import { CONTACT_EMAIL } from "./contact";
 
 export const metadata: Metadata = { title: "Privacy policy · Kaunsa Card" };
 
-// Change this to the support email you entered on Google's Branding page.
-const CONTACT_EMAIL = "nikhilphilip332@gmail.com";
 const UPDATED = "8 November 2026";
 
 export default function Privacy() {
@@ -30,6 +29,10 @@ export default function Privacy() {
           <li>
             <strong>How you use the app</strong>: which cards you add, what you look up (for typed lookups, the first 80 characters, like
             &ldquo;zomato 650&rdquo;), which card you said you paid with, and any feedback you send. This is linked to your name and email.
+          </li>
+          <li>
+            <strong>Card advisor answers</strong>: your income range and monthly spending stay on your phone. Analytics only get the income range, a
+            rounded total, which spending types you filled in, and which cards were suggested.
           </li>
           <li>
             <strong>Basic device information</strong> such as browser, device type and approximate city (from your IP address), recorded by our

@@ -210,7 +210,7 @@ select.field { appearance: none; background-image: linear-gradient(45deg, transp
 .setting { display: grid; gap: 10px; }
 .setting > span { font-weight: 600; }
 .toast { position: fixed; left: 50%; bottom: calc(92px + env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 30; padding: 12px 16px; border-radius: 14px; background: var(--text); color: var(--bg); font-weight: 560; font-size: 14px; max-width: calc(100% - 36px); animation: rise 0.2s ease-out; }
-.tabbar { position: fixed; z-index: 10; left: 50%; transform: translateX(-50%); bottom: 0; width: 100%; max-width: 480px; display: grid; grid-template-columns: repeat(3, 1fr); padding: 8px 12px calc(8px + env(safe-area-inset-bottom)); background: color-mix(in srgb, var(--bg) 90%, transparent); backdrop-filter: blur(14px); border-top: 1px solid var(--line); }
+.tabbar { position: fixed; z-index: 10; left: 50%; transform: translateX(-50%); bottom: 0; width: 100%; max-width: 480px; display: grid; grid-template-columns: repeat(4, 1fr); padding: 8px 12px calc(8px + env(safe-area-inset-bottom)); background: color-mix(in srgb, var(--bg) 90%, transparent); backdrop-filter: blur(14px); border-top: 1px solid var(--line); }
 .tabbar button { display: grid; justify-items: center; gap: 2px; padding: 6px 0; color: var(--muted); font-size: 12px; font-weight: 560; }
 .tabbar button.on { color: var(--accent); }
 @keyframes rise { from { transform: translateY(24px); opacity: 0; } }
@@ -292,3 +292,36 @@ select.field { appearance: none; background-image: linear-gradient(45deg, transp
 .legal p, .legal li { line-height: 1.55; }
 .legal ul { padding-left: 20px; display: grid; gap: 8px; }
 .legal a:not(.linkish) { color: var(--accent); }
+
+/* Card advisor */
+.chip.static { background: var(--surface-2); cursor: default; }
+.spend-total { float: right; color: var(--text); font-variant-numeric: tabular-nums; }
+.spend-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
+.spend-list li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.spend-list label { display: grid; gap: 2px; min-width: 0; }
+.spend-list small { font-size: 12.5px; }
+.spend-input { display: flex; align-items: center; gap: 4px; width: 120px; flex: none; min-height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); }
+.spend-input span { color: var(--muted); }
+.spend-input input { width: 100%; min-width: 0; border: 0; background: transparent; color: var(--text); font-size: 16px; text-align: right; font-variant-numeric: tabular-nums; outline: none; }
+.spend-input:focus-within { border-color: var(--accent); }
+.prefs { display: grid; gap: 16px; }
+.pref-label { display: block; font-weight: 600; margin-bottom: 8px; }
+.advisor-go { margin-top: 24px; }
+.advice { margin-top: 28px; }
+.stat.accent { border-color: var(--accent); background: var(--accent-soft); }
+.stat.accent .stat-num { color: var(--accent); }
+.advice-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.advice-card { padding: 14px; border-radius: 18px; border: 1px solid var(--line); background: var(--surface); display: grid; gap: 8px; }
+.advice-card.add { border-color: var(--accent); }
+.advice-card.drop { border-color: var(--warn); }
+.advice-head { display: grid; grid-template-columns: 96px 1fr; gap: 12px; align-items: start; }
+.advice-head p { margin: 4px 0 0; }
+.advice-num { font-weight: 640; font-variant-numeric: tabular-nums; }
+.facts { margin: 0; display: grid; gap: 6px; font-size: 13.5px; }
+.facts div { display: grid; grid-template-columns: 112px 1fr; gap: 8px; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; }
+.route-list { list-style: none; padding: 0; margin: 0; display: grid; }
+.route-list li { display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.route-card { font-weight: 600; }
+.route-val { color: var(--muted); font-variant-numeric: tabular-nums; }

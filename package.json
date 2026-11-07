@@ -7,7 +7,8 @@
     "start": "next start",
     "test": "vitest run",
     "extract": "tsx --env-file-if-exists=.env.local scripts/extract-rules.ts",
-    "offers": "tsx --env-file-if-exists=.env.local scripts/extract-offers.ts"
+    "offers": "tsx --env-file-if-exists=.env.local scripts/extract-offers.ts",
+    "profiles": "tsx --env-file-if-exists=.env.local scripts/extract-profile.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.6.0",

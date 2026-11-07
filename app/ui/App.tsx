@@ -6,8 +6,9 @@ import { signOutOfApp } from "../actions";
 import { merchantHints, recommend, type OfferContext } from "@/lib/engine";
 import { localParse, MERCHANTS } from "@/lib/localParse";
 import type { Lookup, Recommendation } from "@/lib/types";
+import { AdvisorTab } from "./AdvisorTab";
 import { CardsTab } from "./CardsTab";
-import { IconCards, IconPay, IconSavings, IconSettings } from "./Icons";
+import { IconAdvisor, IconCards, IconPay, IconSavings, IconSettings } from "./Icons";
 import { Onboarding } from "./Onboarding";
 import { PayTab } from "./PayTab";
 import { Result } from "./Result";
@@ -15,7 +16,7 @@ import { SavingsTab } from "./SavingsTab";
 import { Settings, type ThemeChoice } from "./Settings";
 import { ALL_CARDS, ALL_OFFERS, load, offerUsesFromLedger, pretty, save, statesFromLedger, track, type LedgerEntry } from "./store";
 
-type Tab = "pay" | "cards" | "savings";
+type Tab = "pay" | "cards" | "savings" | "advisor";
 type InstallPrompt = Event & { prompt: () => Promise<void> };
 
 function applyTheme(choice: ThemeChoice) {
@@ -278,6 +279,7 @@ export function App({ user }: { user: AppUser }) {
         ))}
       {tab === "cards" && <CardsTab cards={myCards} states={states} selected={myCardIds} onToggle={toggleCard} met={met} onToggleCondition={toggleCondition} />}
       {tab === "savings" && <SavingsTab ledger={ledger} />}
+      {tab === "advisor" && <AdvisorTab myCards={myCards} onEditCards={() => setTab("cards")} />}
 
       {toast && (
         <div className="toast" role="status">
@@ -291,6 +293,7 @@ export function App({ user }: { user: AppUser }) {
             ["pay", "Pay", <IconPay key="p" />],
             ["cards", "My cards", <IconCards key="c" />],
             ["savings", "Savings", <IconSavings key="s" />],
+            ["advisor", "Advisor", <IconAdvisor key="a" />],
           ] as const
         ).map(([id, label, icon]) => (
           <button type="button" key={id} className={tab === id ? "on" : ""} aria-current={tab === id ? "page" : undefined} onClick={() => setTab(id)}>
@@ -322,7 +325,7 @@ export function App({ user }: { user: AppUser }) {
             setOnboarded(false);
           }}
           onClear={() => {
-            for (const k of ["cs.cards", "cs.ledger", "cs.conditions", "cs.recent", "cs.onboarded"]) localStorage.removeItem(k);
+            for (const k of ["cs.cards", "cs.ledger", "cs.conditions", "cs.recent", "cs.onboarded", "cs.advisor"]) localStorage.removeItem(k);
             setMyCardIds([]);
             setLedger([]);
             setMet([]);

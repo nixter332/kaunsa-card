@@ -180,3 +180,22 @@ export interface AppliedOffer {
   conditions?: string;
   validTo?: string;
 }
+
+/**
+ * Everything about a card besides how it earns: fees, waivers, welcome benefit, lounges, eligibility.
+ * Lives in data/card-profiles.json, filled by the card details agent (npm run profiles) and reviewed by a person.
+ */
+export interface CardProfile {
+  id: string; // same id as in cards.json
+  joiningFee: number; // ₹, before GST; 0 if free
+  annualFee: number; // ₹ per year from year 2, before GST; 0 if lifetime free
+  feeWaiverSpend?: number; // ₹ spent in a card year that waives the next annual fee
+  welcome?: { text: string; valueInr?: number }; // one-time benefit for new cardholders
+  lounge?: { domestic?: number; international?: number; note?: string }; // free visits per year; 99 = unlimited
+  forexMarkupPct?: number; // e.g. 3.5
+  minIncomeMonthly?: number; // ₹ per month for salaried applicants, if the bank states it
+  highlights?: string[]; // up to 3 short non-reward perks, e.g. "1% fuel surcharge waiver"
+  notIssued?: boolean; // existing holders keep it, but new people can't apply (never suggested as a new card)
+  sources: string[];
+  lastVerified: string;
+}

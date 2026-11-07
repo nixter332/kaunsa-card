@@ -1,0 +1,420 @@
+[
+  {
+    "id": "airtel-axis",
+    "joiningFee": 500,
+    "annualFee": 500,
+    "feeWaiverSpend": 200000,
+    "welcome": {
+      "text": "₹250 Amazon eVoucher on first transaction within 30 days of card issuance",
+      "valueInr": 250
+    },
+    "forexMarkupPct": 3.5,
+    "highlights": [
+      "1% fuel surcharge waiver on transactions ₹400–₹4,000 (max ₹500 per statement)",
+      "Wednesday Delight offers: up to 15% off flights & hotels via Goibibo/MakeMyTrip, 10% off Swiggy, 10% off up to ₹1000 on Tira",
+      "EMI conversion on purchases of ₹1,500 or more"
+    ],
+    "sources": [
+      "https://axis.bank.in/cards/credit-card/airtel-axis-bank-credit-card"
+    ],
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "amazon-pay-icici",
+    "joiningFee": 0,
+    "annualFee": 0,
+    "forexMarkupPct": 1.99,
+    "minIncomeMonthly": 30000,
+    "highlights": [
+      "1% fuel surcharge waiver on fuel purchases",
+      "3 months no-cost EMI on eligible Amazon.in transactions",
+      "Low forex markup of 1.99% on international spends"
+    ],
+    "sources": [
+      "https://www.icici.bank.in/personal-banking/cards/credit-card/amazon-pay-credit-card/index",
+      "https://www.icici.bank.in/content/dam/icicibank/india/managed-assets/revamp-page-images/docs/pdf/tc-for-amazon-pay-credit-card.pdf"
+    ],
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "axis-ace",
+    "joiningFee": 499,
+    "annualFee": 499,
+    "feeWaiverSpend": 200000,
+    "welcome": {
+      "text": "Joining fee of ₹499 waived on spends of ₹10,000 within 45 days of card set-up (no separate welcome gift stated)"
+    },
+    "lounge": {
+      "domestic": 4,
+      "note": "4 complimentary visits per calendar year at select domestic airports; no international lounge access stated. Airport list and detailed terms are on a linked page not provided."
+    },
+    "forexMarkupPct": 3.5,
+    "highlights": [
+      "1% fuel surcharge waiver on transactions of ₹400–₹4,000 (max ₹500 per statement)",
+      "Convert purchases of ₹2,500 or more into EMI",
+      "Dining offers up to 15% off up to ₹500 monthly (per Value Chart)"
+    ],
+    "sources": [
+      "https://www.axis.bank.in/docs/default-source/default-document-library/credit-card/axis-bank-ace-credit-card-tncs.pdf",
+      "https://www.axis.bank.in/cards/credit-card/axis-bank-ace-credit-card"
+    ],
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "axis-supermoney",
+    "joiningFee": 0,
+    "annualFee": 0,
+    "forexMarkupPct": 3.5,
+    "highlights": [
+      "1% fuel surcharge waiver on UPI fuel transactions (0.989% non-UPI), for ₹400–₹4,000 transactions, max ₹400 per statement cycle",
+      "RuPay credit card can be linked to UPI apps for payments",
+      "No card replacement fee; over-limit charge 0"
+    ],
+    "sources": [
+      "https://www.axis.bank.in/docs/default-source/default-document-library/credit-cards/axis-bank-supermoney-rupay-credit-card.pdf",
+      "https://www.axis.bank.in/cards/credit-card/supermoney-credit-card"
+    ],
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "flipkart-axis",
+    "joiningFee": 500,
+    "annualFee": 500,
+    "feeWaiverSpend": 350000,
+    "welcome": {
+      "text": "₹350 worth of activation benefits: ₹250 Flipkart voucher on first transaction within 30 days (paid cards only) plus 50% off up to ₹100 on Swiggy for first-time users",
+      "valueInr": 350
+    },
+    "forexMarkupPct": 3.5,
+    "highlights": [
+      "1% fuel surcharge waiver on transactions between ₹400 and ₹4,000 (max ₹400 per statement cycle)",
+      "Wednesday Delight: up to 15% off flights & hotels via MakeMyTrip, 10% off Swiggy orders, 10% off up to ₹1,000 on Tira",
+      "Axis Bank Dining Delights program"
+    ],
+    "sources": [
+      "https://www.axis.bank.in/cards/credit-card/flipkart-axisbank-credit-card"
+    ],
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "flipkart-sbi",
+    "joiningFee": 500,
+    "annualFee": 500,
+    "feeWaiverSpend": 350000,
+    "welcome": {
+      "text": "₹250 Flipkart Gift Card on fee realisation, plus ₹1,000 additional benefit on first Flipkart transaction (see T&C)",
+      "valueInr": 250
+    },
+    "highlights": [
+      "Add-on card fee: Nil",
+      "12% off on Cleartrip",
+      "Contactless payments and Flexipay EMI listed as features"
+    ],
+    "sources": [
+      "C:\\Users\\lenovo\\Downloads\\flipkart-sbi.pdf"
+    ],
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "hdfc-millennia",
+    "joiningFee": 1000,
+    "annualFee": 1000,
+    "feeWaiverSpend": 100000,
+    "sources": [
+      "https://www.hdfc.bank.in/credit-cards/millennia-credit-card/fees-and-charges"
+    ],
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "hdfc-regalia-gold",
+    "joiningFee": 2500,
+    "annualFee": 2500,
+    "feeWaiverSpend": 400000,
+    "welcome": {
+      "text": "Complimentary Swiggy One and MMT Black Gold membership on spends of ₹1 lakh in first 90 days"
+    },
+    "lounge": {
+      "domestic": 12,
+      "international": 6,
+      "note": "Domestic: 3 visits per calendar quarter, needs ₹60,000 or more spend in the preceding calendar quarter (applies from the quarter starting 1 July 2026). International: 6 visits per year via Priority Pass."
+    },
+    "forexMarkupPct": 2,
+    "minIncomeMonthly": 150000,
+    "highlights": [
+      "Boarding Edge: any 2 of spa, buffet/dining, hotel room upgrade, airport transfer per calendar quarter (upload boarding pass on SmartBuy)",
+      "Accidental air death cover of ₹1 crore; overseas hospitalization cover up to ₹15 lakh",
+      "Good Food Trail dining discount up to 10% via Swiggy Dineout"
+    ],
+    "sources": [
+      "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/pdf/common/Credit-Cards/Regalia-Gold-Product-feature-change.pdf",
+      "https://www.hdfc.bank.in/credit-cards/regalia-gold-credit-card"
+    ],
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "hsbc-live-plus",
+    "joiningFee": 999,
+    "annualFee": 999,
+    "feeWaiverSpend": 200000,
+    "welcome": {
+      "text": "Several welcome offers listed on the website, e.g. ₹1,000 cashback for downloading the HSBC India app and spending ₹25,000 within 30 days; ₹750 voucher (Amazon Pay/Zomato/Swiggy) on activation with a ₹300+ transaction; ₹250 Amazon eGift voucher for online application with video verification"
+    },
+    "lounge": {
+      "domestic": 2,
+      "international": 1,
+      "note": "2 domestic visits per year, limited to one usage every 6 calendar months; 1 international visit w.e.f. 1 September 2026. No spend condition is stated in the documents."
+    },
+    "forexMarkupPct": 1.99,
+    "minIncomeMonthly": 50000,
+    "highlights": [
+      "Lost card liability cover up to ₹100,000 (24 hrs before to 7 days after reporting; insurer: ICICI Lombard)",
+      "Buy-one-get-one cinema tickets via District app / BookMyShow",
+      "The Live+ Reserve: chef-curated menus and complimentary beverages at partner restaurants (from 1 Aug 2026)"
+    ],
+    "sources": [
+      "C:\\Users\\lenovo\\Downloads\\live-plus-credit-card-services-guide.pdf",
+      "https://hsbc.co.in/credit-cards/products/live-plus"
+    ],
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "hsbc-rupay-cashback",
+    "joiningFee": 499,
+    "annualFee": 499,
+    "feeWaiverSpend": 200000,
+    "welcome": {
+      "text": "₹500 cashback on downloading and logging on to the HSBC India Mobile Banking app and spending ₹10,000 within 30 days of getting the card",
+      "valueInr": 500
+    },
+    "lounge": {
+      "domestic": 8,
+      "international": 2,
+      "note": "Website: up to 2 complimentary local visits per quarter (8/yr) and 2 international visits per year. The Service Guide (06/25) instead says \"four complimentary lounge access, one per quarter\". No spend condition is stated in the documents."
+    },
+    "forexMarkupPct": 3.5,
+    "minIncomeMonthly": 50000,
+    "highlights": [
+      "Can be linked to UPI apps (RuPay credit card on UPI)",
+      "Lost card liability cover up to ₹1,00,000 (24 hrs before to 7 days after reporting), provided by ICICI Lombard",
+      "0% forex mark-up promo until 31 Dec 2026 (standard 3.5%)"
+    ],
+    "sources": [
+      "https://www.hsbc.co.in/credit-cards/products/rupay-cashback-credit-card/",
+      "https://www.hsbc.bank.in/credit-cards/products/rupay-cashback-credit-card/",
+      "https://www.hsbc.bank.in/content/dam/hsbc/in/documents/credit-cards/rupay-cashback/hsbc-rupay-credit-card-faq.pdf",
+      "https://www.hsbc.bank.in/content/dam/hsbc/in/documents/credit-cards/rupay-cashback/rupay-cashback-credit-card-services-guide.pdf"
+    ],
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "icici-coral-rupay",
+    "joiningFee": 500,
+    "annualFee": 500,
+    "lounge": {
+      "domestic": 4,
+      "note": "Page says 'Quarterly: Get 4 Domestic airport lounge access' under generic RuPay card benefits; not explicitly tied to Coral, and no spend condition is stated. Read as 4 per quarter (16/year); could be misread."
+    },
+    "minIncomeMonthly": 20000,
+    "highlights": [
+      "1% fuel surcharge waiver at HPCL outlets",
+      "BookMyShow offers twice a month; 25% off up to ₹150 on INOX tickets",
+      "₹2 lakh Personal Accident Insurance cover"
+    ],
+    "sources": [
+      "https://www.icici.bank.in/personal-banking/cards/credit-card/coral-rupay-card"
+    ],
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "indusind-tiger",
+    "joiningFee": 0,
+    "annualFee": 0,
+    "lounge": {
+      "domestic": 8,
+      "international": 2,
+      "note": "2 complimentary domestic lounge visits per calendar quarter and 2 international visits per year via Priority Pass. No spend condition is stated."
+    },
+    "forexMarkupPct": 1.5,
+    "highlights": [
+      "1 complimentary golf game or lesson per quarter",
+      "1 complimentary BookMyShow movie ticket up to ₹500 every 6 months",
+      "1% fuel surcharge waiver on transactions of ₹400 to ₹4,000"
+    ],
+    "sources": [
+      "https://www.indusind.bank.in/in/en/personal/cards/credit-card/tiger-credit-card.html"
+    ],
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "kiwi-rupay",
+    "joiningFee": 0,
+    "annualFee": 0,
+    "highlights": [
+      "Credit card usable on UPI via RuPay, with no POS swipe or CVV needed",
+      "Cashback is credited directly to the bank account",
+      "Optional paid membership upgrade at ₹999 + GST"
+    ],
+    "sources": [
+      "https://gokiwi.in/rupay-credit-card/"
+    ],
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "sbi-cashback",
+    "joiningFee": 999,
+    "annualFee": 999,
+    "feeWaiverSpend": 200000,
+    "highlights": [
+      "1% fuel surcharge waiver",
+      "Add-on card fee: Nil",
+      "Contactless payments"
+    ],
+    "sources": [
+      "C:\\Users\\lenovo\\Downloads\\cashback-sbi.pdf"
+    ],
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "scapia-rupay",
+    "joiningFee": 0,
+    "annualFee": 0,
+    "lounge": {
+      "domestic": 99,
+      "note": "Unlimited domestic lounge access unlocks with ₹20,000 spend in a billing cycle and the card must be active monthly to keep it. Access is enabled 3-5 working days after the billing date. Only the cardholder gets free entry, and guests pay. No international lounge access is mentioned."
+    },
+    "forexMarkupPct": 0,
+    "highlights": [
+      "Zero forex markup on spends abroad",
+      "No-cost EMI (3-month tenure) on flight/hotel bookings made on the Scapia app",
+      "Domestic airport dining/shopping/spa privilege, up to ₹1,000 back, on ₹20,000 monthly spend"
+    ],
+    "sources": [
+      "C:\\Users\\lenovo\\Downloads\\Cardholder_agreement v11 30_04_26.pdf",
+      "https://scapia.cards"
+    ],
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "scapia-visa",
+    "joiningFee": 0,
+    "annualFee": 0,
+    "lounge": {
+      "domestic": 99,
+      "note": "Unlimited domestic lounge access. It needs ₹20,000 combined spend on the Scapia card in a billing cycle, and the card must stay active monthly. Access is enabled 3-5 working days after the billing date. Add-on cardholders must meet the spend separately. Guests are charged at the lounge's rates. A boarding pass and QR code from the Scapia app are required."
+    },
+    "forexMarkupPct": 0,
+    "minIncomeMonthly": 41667,
+    "highlights": [
+      "Zero forex mark-up on spends abroad",
+      "No Cost EMI (3-month tenure) on flight/hotel bookings made on the Scapia app",
+      "Airport privileges: up to ₹2,000 back on international airport spends and up to ₹1,000 on domestic airport spends (conditional on bookings made on Scapia)"
+    ],
+    "sources": [
+      "C:\\Users\\lenovo\\Downloads\\Cardholder_agreement v11 30_04_26.pdf",
+      "https://www.scapia.cards/llms.txt"
+    ],
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "swiggy-blck-hdfc",
+    "joiningFee": 1000,
+    "annualFee": 1000,
+    "welcome": {
+      "text": "Complimentary Swiggy BLCK Membership for 3 months on card activation (within 37 days of issuance), claimed on the Swiggy app"
+    },
+    "highlights": [
+      "Complimentary 3-month Swiggy BLCK Membership as welcome benefit",
+      "Birthday-week extra 10% discount on Swiggy Dineout up to ₹500 (min order ₹3,000)",
+      "Instant discounts on Cleartrip (6% travel, 19% hotels) and 5% on Nykaa"
+    ],
+    "sources": [
+      "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/pdfs/Combined_TnCs_Ornge_and_BLCK.pdf"
+    ],
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "swiggy-hdfc",
+    "joiningFee": 500,
+    "annualFee": 500,
+    "feeWaiverSpend": 200000,
+    "notIssued": true,
+    "highlights": [
+      "Cleartrip instant discount: 20% on hotels and 6.35% on flights with coupon CTSWHDFC (limited period from 17 Apr 2026)",
+      "Birthday-week extra 10% off Swiggy Dineout, up to ₹500 on a minimum order of ₹3,000 (once per cardholder)",
+      "Website lists golf access and a free 1-night stay as bonus benefits"
+    ],
+    "sources": [
+      "C:\\Users\\lenovo\\Downloads\\terms-and-conditions-swiggy-hdfc-bank-credit-card-26052026.pdf",
+      "https://www.swiggy.com/swiggy-hdfc-bank-credit-card",
+      "https://hdfcbank.com/content/api/contentstream-id/723fb80a-2dde-42a3-9793-7ae1be57c87f/7f43849c-4010-46f2-b41f-5dd184269526"
+    ],
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "swiggy-ornge-hdfc",
+    "joiningFee": 500,
+    "annualFee": 500,
+    "feeWaiverSpend": 150000,
+    "welcome": {
+      "text": "Complimentary Swiggy One membership for 12 months on card activation within 37 days of issuance (claim in Swiggy app)"
+    },
+    "highlights": [
+      "Cleartrip: 6% instant discount on travel and 19% on hotels; Nykaa: extra 5% instant discount",
+      "Birthday week: extra 10% off Swiggy Dineout up to ₹500 on min order ₹3,000 (once per cardholder)",
+      "Complimentary Swiggy One membership for 12 months"
+    ],
+    "sources": [
+      "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/pdfs/Combined_TnCs_Ornge_and_BLCK.pdf"
+    ],
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "tata-neu-infinity-hdfc",
+    "joiningFee": 1499,
+    "annualFee": 1499,
+    "feeWaiverSpend": 300000,
+    "welcome": {
+      "text": "1,499 NeuCoins (reversal of 1st year fee) on first transaction within 30 days of card issuance",
+      "valueInr": 1499
+    },
+    "lounge": {
+      "domestic": 8,
+      "international": 4,
+      "note": "Domestic: 2 vouchers per calendar quarter, only on spends of ₹50,000+ in that calendar quarter; claim voucher within 120 days of qualification, use within 180 days. International: 4 per calendar year (1 per quarter); for RuPay, a $3.25 transaction fee is charged and reversed. On the Visa variant Priority Pass is issued only on request and extra visits cost US $27 + GST."
+    },
+    "minIncomeMonthly": 100000,
+    "highlights": [
+      "1% fuel surcharge waiver (₹400–₹5,000 transactions, max ₹500 per statement cycle)",
+      "Accidental air death cover ₹1 Crore; emergency overseas hospitalization up to ₹15 lakhs",
+      "Lost card liability cover up to ₹9 lakhs"
+    ],
+    "sources": [
+      "https://www.hdfc.bank.in/credit-cards/tata-neu-infinity-hdfc-bank-credit-card"
+    ],
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "tata-neu-plus-hdfc",
+    "joiningFee": 499,
+    "annualFee": 499,
+    "feeWaiverSpend": 100000,
+    "welcome": {
+      "text": "499 NeuCoins on Tata Neu App on first transaction within 30 days of card issuance (reversal of first-year membership fee)",
+      "valueInr": 499
+    },
+    "lounge": {
+      "domestic": 4,
+      "note": "Milestone based: 1 complimentary domestic lounge voucher per calendar quarter on spends of Rs 50,000 or more in that calendar quarter (up to 4 per calendar year). Voucher must be claimed within 120 days of qualification and used within 180 days of issuance. Effective 10-Jun-2025. Spends on a previous card are not counted if the card is upgraded, lost or reissued."
+    },
+    "minIncomeMonthly": 25000,
+    "highlights": [
+      "1% fuel surcharge waiver at all fuel stations in India (min txn ₹400, max txn ₹5,000; max waiver ₹250 per statement cycle)",
+      "Smart EMI: convert big spends into EMI after purchase",
+      "Zero Cost Card Liability on fraudulent transactions reported immediately"
+    ],
+    "sources": [
+      "https://www.hdfc.bank.in/credit-cards/tata-neu-plus-hdfc-bank-credit-card"
+    ],
+    "lastVerified": "2026-11-08"
+  }
+]
