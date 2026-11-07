@@ -631,10 +631,10 @@
     "network": "Visa",
     "upi": false,
     "reward": {
-      "kind": "cashback",
-      "unitName": "₹ Amazon Pay balance",
+      "kind": "points",
+      "unitName": "Reward Points",
       "inrPerUnit": 1,
-      "inrPerUnitNote": "Credited as Amazon Pay balance, not statement credit."
+      "inrPerUnitNote": "Points are credited as Amazon Pay balance; the document states earn rates as a % of transaction amount (5 points per ₹100 = 5%), implying 1 point = ₹1. An explicit point-to-rupee value is not stated."
     },
     "base": {
       "rate": 0.01
@@ -642,7 +642,7 @@
     "rules": [
       {
         "id": "amazon-prime",
-        "label": "5% on Amazon for Prime members",
+        "label": "5% on Amazon.in for Prime members",
         "rate": 0.05,
         "merchants": [
           "amazon"
@@ -651,7 +651,7 @@
       },
       {
         "id": "amazon-non-prime",
-        "label": "3% on Amazon for non-Prime members",
+        "label": "3% on Amazon.in for non-Prime members",
         "rate": 0.03,
         "merchants": [
           "amazon"
@@ -660,23 +660,38 @@
     ],
     "caps": [],
     "exclusions": {
-      "categories": [],
+      "categories": [
+        "education",
+        "utilities",
+        "fuel",
+        "rent",
+        "telecom",
+        "government"
+      ],
       "merchants": []
     },
     "notes": [
-      "Base 1% applies to all other spends (document: 'Unlimited reward points of 1% on all other spends').",
-      "The document also states 2 points per ₹100 (2%) at 100+ Amazon Pay partner merchants (via 'Login and Pay with Amazon'). The partner merchants are not in the merchant enum, and a rule with no merchants or categories would apply to all spend, so this rate is not represented.",
-      "The FAQ also says 1% on spends outside Amazon 'at partner merchants'. This is ambiguous. I used the 1% base as stated in the 'all other spends' line.",
-      "The document says 'up to 5%' on Amazon for Prime members and 3% for non-Prime members. Rewards are credited as Amazon Pay balance.",
-      "The 1% fuel surcharge waiver is not a reward rate and is not represented. The 1.99% forex markup is not represented.",
-      "No caps or exclusions are stated in the document.",
-      "The document does not state the network (Visa), UPI support or an explicit rupee value per point, so network, upi and reward are omitted. The supplied metadata gave these but the document does not confirm them.",
-      "The page shows no category exclusions, minimum transaction amounts or caps. The T&Cs/MITC were not included."
+      "Source: the website page and the T&C PDF (last updated Oct 12, 2026). They agree on earn rates (5% Prime, 3% non-Prime on Amazon.in, 1% elsewhere); the T&C PDF is the more recent and detailed source.",
+      "Existing rules amazon-prime and amazon-non-prime are confirmed; base 1% is confirmed ('1% Reward Points will be offered for all purchases on non-amazon platform').",
+      "Amazon rates exclude Gold Coins via Amazon Pay; this cannot be represented in the schema.",
+      "2% rule: applies to digitally fulfilled categories (e.g. mobile recharges, bill payments) via 'Login and Pay with Amazon Pay' and also physical gift cards. Gift cards are not mappable. Categories utilities/telecom are my best mapping, tied to the amazon merchant since it is on the Amazon platform. The website FAQ also mentions this for Amazon Pay partner sites.",
+      "Utility transactions OUTSIDE the Amazon platform earn nothing from Oct 11, 2025, so 'utilities' is listed as excluded; the 2% Amazon Pay rule is the exception. Telecom MCCs (4812-4815) are part of the T&C utility MCC list, but telecom is not explicitly excluded in the text, so it is not listed as an exclusion.",
+      "Education and international transactions are ineligible from Oct 11, 2025. 'Education' is excluded; international transactions have no category enum, so they are not representable.",
+      "Fuel, gold, silver, any precious metal and tax-related payments earn no points. Fuel is excluded. Gold/silver/precious metals and tax are not cleanly mapped (jewellery/government are different), so they are left out of the exclusions. Fuel gets a 1% surcharge waiver.",
+      "Rent transactions earn nothing (from Jun 18, 2024); rent is excluded.",
+      "Also not eligible: EMI transactions and cash transactions, late payment charges/fees, interest/service charges. Not representable.",
+      "The MCC table also lists Insurance, Government, Skill Based Gaming, E-Wallet Load and Transportation, described as 'indicative' of restricted categories, but the text does not explicitly say they earn nothing, so they are not excluded.",
+      "Reward Points are rounded down to the nearest integer. No caps are stated. Rewards are credited as Amazon Pay balance within 2 working days of the billing cycle closing.",
+      "Network is not stated for this card, so it is omitted. The T&C only mentions Visa/Mastercard/Amex generically."
     ],
     "sources": [
       {
         "label": "Issuer document (read by the rules agent)",
         "url": "https://www.icici.bank.in/personal-banking/cards/credit-card/amazon-pay-credit-card/index"
+      },
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.icici.bank.in/content/dam/icicibank/india/managed-assets/revamp-page-images/docs/pdf/tc-for-amazon-pay-credit-card.pdf"
       }
     ],
     "lastVerified": "2026-11-07",
@@ -1893,5 +1908,86 @@
     "lastVerified": "2026-11-07",
     "confidence": "high",
     "minTxn": 100
+  },
+  {
+    "id": "hsbc-rupay-cashback",
+    "name": "HSBC RuPay Cashback",
+    "issuer": "HSBC",
+    "network": "RuPay",
+    "upi": true,
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "Cashback is credited to the card account in rupees."
+    },
+    "base": {
+      "rate": 0.01,
+      "capId": "monthly-cashback-cap"
+    },
+    "rules": [
+      {
+        "id": "dining-delivery-grocery-10",
+        "label": "10% cashback on dining, food delivery and grocery",
+        "rate": 0.1,
+        "categories": [
+          "dining",
+          "food_delivery",
+          "grocery"
+        ],
+        "capId": "monthly-cashback-cap"
+      }
+    ],
+    "caps": [
+      {
+        "id": "monthly-cashback-cap",
+        "label": "₹400 cashback cap across 10% and 1% categories",
+        "amount": 400,
+        "period": "month",
+        "overflow": "none"
+      }
+    ],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "wallet_load",
+        "rent",
+        "insurance",
+        "jewellery",
+        "education",
+        "government"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Earn rates (10% on dining, food delivery and grocery; 1% on all other eligible spends) share a single cap of ₹400. The website says 'Earn up to INR400 on your spending every month', so the cap period is monthly. The Service Guide only says 'capped at ₹400' with no period.",
+      "The document does not say what spend above the cap earns, so overflow is set to 'none'.",
+      "UPI spends on the card earn cashback on the same basis as other spends, excluding the categories listed. No separate UPI rate is stated.",
+      "Zero-cashback categories mapped: fuel (MCCs 5541, 5983, 5172, 5542, 5552), e-wallets (6540), rent and property-management payments (6513, 7012, 7349), insurance (6300, 5960), jewellery and antiques (5944, 5094, 5932, 5937), education and government (MCCs 9399, 8299, 8220, 8211, 8241, 9311, 8244, 8249, 9222, 9402, 9211, 9405, 9950, 9223, 8351).",
+      "Zero-cashback categories that do not map to the enum, so not listed in exclusions: business-to-business MCCs, gambling (7995), tolls and bridge fees (4784), financial and non-financial institutions (6011, 6010, 6012, 6051), security brokers (6211), collection agencies (7322), charity (8398, 8641), money transfers (4829), wholesale clubs (5300), and lodging (7012, which the document lists under rental-type exclusions).",
+      "MCC 4900 (utilities) appears in the cashback table with a blank cashback type. It is not listed as excluded in the text, so utilities is not added to exclusions.",
+      "Instant EMI (IEMI) transactions earn no cashback or reward points.",
+      "The card has no separate rewards programme or reward points. International spends, online and POS, are eligible for cashback.",
+      "Eligible cashback is credited within 45 days of the statement date, and cashback on reversed or cancelled transactions is recovered.",
+      "Merchant-specific rules are not given: categories are determined solely by MCC, and the bank's classification is final.",
+      "Fees (₹499 joining and annual; annual fee waived at ₹2,00,000 yearly spend), lounge access, welcome offers and the 0% forex mark-up are not reward rules and are not represented.",
+      "The service guide dated 06/25 is a PDF; the website page gives the same rates and excludes nothing further."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.hsbc.bank.in/credit-cards/products/rupay-cashback-credit-card/"
+      },
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.hsbc.bank.in/content/dam/hsbc/in/documents/credit-cards/rupay-cashback/hsbc-rupay-credit-card-faq.pdf"
+      },
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.hsbc.bank.in/content/dam/hsbc/in/documents/credit-cards/rupay-cashback/rupay-cashback-credit-card-services-guide.pdf"
+      }
+    ],
+    "lastVerified": "2026-11-07",
+    "confidence": "high"
   }
 ]
