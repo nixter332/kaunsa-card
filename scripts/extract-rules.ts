@@ -233,6 +233,7 @@ async function extract(cardId: string, srcs: string[]): Promise<Report> {
       "Some documents cover several card variants; use only the rates for the card named below. " +
       "If a rate depends on the user (e.g. Amazon Prime) or on paying UPI through the card's own app or UPI ID, set 'requires'. " +
       "A rule with no merchants or categories applies to every spend, so only use that together with rails, channels or requires (e.g. a UPI-wide rate). " +
+      "A rule matches if EITHER a listed merchant OR a listed category matches. So a rate that only applies on one app or site (e.g. 'on the Scapia app') lists that merchant and NO categories. " +
       "Put the 'all other spends' rate in base (with base.capId if it has a cap), never as a rule. " +
       "If a category earns nothing except through a specific merchant (e.g. bills only via Google Pay or Airtel Thanks), list the category as excluded AND add the merchant rule; the merchant rule wins. " +
       "If the card has separate UPI rates, set rails ['card'] on its other rules. " +

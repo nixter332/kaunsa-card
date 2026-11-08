@@ -484,9 +484,6 @@
         "id": "travel-scapia-app",
         "label": "20% on travel purchases made on the Scapia App",
         "rate": 0.2,
-        "categories": [
-          "travel"
-        ],
         "merchants": [
           "scapia_travel"
         ]

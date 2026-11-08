@@ -158,6 +158,14 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
               <IconTag size={15} /> {h}
             </p>
           ))}
+          {rest
+            .filter((r) => r.usable && r.offerHints?.length)
+            .flatMap((r) => r.offerHints!.map((h) => `${r.cardName}: ${h}`))
+            .map((h) => (
+              <p key={h} className="offer-hint">
+                <IconTag size={15} /> {h}
+              </p>
+            ))}
           {gap > 0 && runnerUp && (
             <p className="muted small">
               {inr(gap)} more than your next best card, {runnerUp.cardName}.
