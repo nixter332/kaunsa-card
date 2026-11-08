@@ -124,8 +124,23 @@ export interface Recommendation {
   offer?: AppliedOffer;
   /** Offers that would apply with a different day or a bigger amount. */
   offerHints?: string[];
+  /** The same hints with their numbers, so the screen can promote a big one. */
+  offerTips?: OfferTip[];
   /** Instant discount + reward value. Equals valueInr when there's no offer. */
   totalInr: number;
+}
+
+/** An offer that needs something different (EMI, another day, a bigger amount) or is used up. */
+export interface OfferTip {
+  offerId: string;
+  reason: "emi" | "wrong_day" | "below_min" | "used_up";
+  discountInr: number;
+  /** Full sentence, starting with the offer's title. */
+  text: string;
+  /** Without the title, e.g. "₹1,800 off with no-cost EMI (code GOINDUSEMI)". */
+  short: string;
+  code?: string;
+  conditions?: string;
 }
 
 export interface Merchant {

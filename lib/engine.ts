@@ -161,12 +161,13 @@ export type OfferContext = { offers: Offer[]; today: Date; uses?: Record<string,
 export function evaluateWithOffers(card: Card, lookup: Lookup, state: CardState | undefined, ctx?: OfferContext): Recommendation {
   const plain = evaluate(card, lookup, state);
   if (!ctx || !plain.usable || ctx.offers.length === 0) return plain;
-  const { best, hints } = bestOffer(ctx.offers, card, lookup, ctx.today, ctx.uses);
+  const { best, hints, tips } = bestOffer(ctx.offers, card, lookup, ctx.today, ctx.uses);
   const offerHints = hints.length ? hints : undefined;
-  if (!best) return { ...plain, offerHints };
+  const offerTips = tips.length ? tips : undefined;
+  if (!best) return { ...plain, offerHints, offerTips };
   const paid = Math.max(0, lookup.amount - best.discountInr);
   const r = evaluate(card, { ...lookup, amount: paid }, state);
-  return { ...r, offer: best, offerHints, totalInr: round2(best.discountInr + r.valueInr) };
+  return { ...r, offer: best, offerHints, offerTips, totalInr: round2(best.discountInr + r.valueInr) };
 }
 
 /** Rank the user's cards for a purchase. Usable cards first, then by ₹ saved (offer + rewards). */

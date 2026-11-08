@@ -3,6 +3,7 @@ import { MERCHANTS } from "@/lib/localParse";
 import type { MerchantHint } from "@/lib/engine";
 import { amountBucket } from "@/lib/analytics";
 import { CATEGORIES, type AppliedOffer, type Lookup, type Recommendation } from "@/lib/types";
+import { betterDeal } from "@/lib/offers";
 import { useEffect, useState } from "react";
 import { CardTile } from "./CardTile";
 import { IconTag } from "./Icons";
@@ -38,6 +39,22 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
   const bestCard = best && cardById(best.cardId);
   const runnerUp = rest.find((r) => r.usable);
   const gap = best && runnerUp ? best.totalInr - runnerUp.totalInr : 0;
+  const deal = betterDeal(results);
+  const [copied, setCopied] = useState(false);
+  useEffect(() => {
+    setCopied(false);
+    if (deal)
+      track("offer_tip_shown", { offer_id: deal.tip.offerId, card: deal.rec.cardId, discount_inr: deal.tip.discountInr, extra_inr: Math.round(deal.extra) });
+    // Once per answer, not on every render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lookup.merchant, lookup.amount, deal?.tip.offerId, deal?.rec.cardId]);
+  const otherTips = results
+    .filter((r) => r.usable)
+    .flatMap((r) =>
+      (r.offerTips ?? [])
+        .filter((t) => !(deal && deal.rec === r && deal.tip.offerId === t.offerId))
+        .map((t) => (r === best ? t.text : `${r.cardName}: ${t.short}.`)),
+    );
   const [missedOpen, setMissedOpen] = useState(false);
   const [missedSent, setMissedSent] = useState(false);
   const [missedCard, setMissedCard] = useState("");
@@ -140,6 +157,36 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
         </section>
       )}
 
+      {best && deal && (
+        <section className="better-deal" aria-live="polite">
+          <p className="bd-label">
+            <IconTag size={15} /> Better deal on EMI
+          </p>
+          <p className="bd-main">
+            {inr(deal.tip.discountInr)} off with {deal.rec.cardName}
+          </p>
+          <p className="bd-how">
+            Pay by no-cost EMI{deal.tip.code ? " and use code " : "."}
+            {deal.tip.code && <strong>{deal.tip.code}</strong>}
+            {deal.tip.code && "."} That&apos;s {inr(deal.extra)} more than paying in full with {best.cardName}.
+          </p>
+          {deal.tip.conditions && <p className="bd-small">{deal.tip.conditions}</p>}
+          {deal.tip.code && (
+            <button
+              type="button"
+              className="btn ghost small"
+              onClick={() => {
+                navigator.clipboard?.writeText(deal.tip.code!).catch(() => {});
+                setCopied(true);
+                track("offer_tip_code_copied", { offer_id: deal.tip.offerId, card: deal.rec.cardId });
+              }}
+            >
+              {copied ? "Code copied" : `Copy ${deal.tip.code}`}
+            </button>
+          )}
+        </section>
+      )}
+
       {best && bestCard ? (
         <section className="winner" aria-live="polite">
           <CardTile card={bestCard} size="lg">
@@ -153,19 +200,11 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
           ) : (
             <p className="why">{best.reason}</p>
           )}
-          {best.offerHints?.map((h) => (
+          {otherTips.map((h) => (
             <p key={h} className="offer-hint">
               <IconTag size={15} /> {h}
             </p>
           ))}
-          {rest
-            .filter((r) => r.usable && r.offerHints?.length)
-            .flatMap((r) => r.offerHints!.map((h) => `${r.cardName}: ${h}`))
-            .map((h) => (
-              <p key={h} className="offer-hint">
-                <IconTag size={15} /> {h}
-              </p>
-            ))}
           {gap > 0 && runnerUp && (
             <p className="muted small">
               {inr(gap)} more than your next best card, {runnerUp.cardName}.

@@ -1,7 +1,7 @@
 // Bank offers and card perks: instant discounts from the merchant, on top of the card's own rewards.
 // Like the rules engine, nothing here is decided by AI at lookup time: offers come from data/offers.json,
 // which the offers agent fills from bank/merchant pages and a human reviews.
-import { WEEKDAYS, type AppliedOffer, type Card, type Lookup, type Offer, type Weekday } from "./types";
+import { WEEKDAYS, type AppliedOffer, type Card, type Lookup, type Offer, type OfferTip, type Recommendation, type Weekday } from "./types";
 
 const IST_MS = 5.5 * 3600_000;
 /** Today's date in India, as YYYY-MM-DD. */
@@ -111,26 +111,35 @@ export function bestOffer(
   lookup: Lookup,
   today: Date,
   uses: Record<string, number> = {},
-): { best?: AppliedOffer; hints: string[] } {
+): { best?: AppliedOffer; hints: string[]; tips: OfferTip[] } {
   let best: AppliedOffer | undefined;
-  const near: { text: string; discount: number }[] = [];
+  const near: OfferTip[] = [];
+  const tip = (offer: Offer, reason: OfferTip["reason"], discountInr: number, short: string): OfferTip => ({
+    offerId: offer.id,
+    reason,
+    discountInr,
+    text: `${offer.title}: ${short}.`,
+    short,
+    code: offer.code,
+    conditions: offer.conditions,
+  });
   for (const offer of offers) {
     const c = checkOffer(offer, card, lookup, today, uses[offerUseKey(offer.id, card.id)] ?? 0, uses[offerYearKey(offer.id, card.id)] ?? 0);
     if (c.status === "ok" && offer.payment === "emi") {
       // Most people pay in full, so an EMI-only deal is a tip, not the answer.
-      near.push({ text: `${offer.title}: ${rupees(c.discount)} off if you pay by no-cost EMI${offer.code ? ` (code ${offer.code})` : ""}.`, discount: c.discount });
+      near.push(tip(offer, "emi", c.discount, `${rupees(c.discount)} off if you pay by no-cost EMI${offer.code ? ` (code ${offer.code})` : ""}`));
     } else if (c.status === "ok") {
       if (!best || c.discount > best.discountInr) best = applied(offer, c.discount);
     } else if (c.status === "wrong_day" && offer.days) {
-      near.push({ text: `${offer.title}: ${rupees(c.discount)} off, but only on ${dayList(offer.days)}.`, discount: c.discount });
+      near.push(tip(offer, "wrong_day", c.discount, `${rupees(c.discount)} off, but only on ${dayList(offer.days)}`));
     } else if (c.status === "below_min" && offer.minTxn) {
-      near.push({ text: `${offer.title}: spend ${rupees(offer.minTxn)} or more to get ${rupees(c.discount)} off.`, discount: c.discount });
+      near.push(tip(offer, "below_min", c.discount, `spend ${rupees(offer.minTxn)} or more to get ${rupees(c.discount)} off`));
     } else if (c.status === "used_up") {
-      near.push({ text: `${offer.title}: already used ${offer.usesPerYear && !offer.usesPerMonth ? "this year" : "this month"} on this card.`, discount: 0 });
+      near.push(tip(offer, "used_up", 0, `already used ${offer.usesPerYear && !offer.usesPerMonth ? "this year" : "this month"} on this card`));
     }
   }
-  const hints = near.filter((n) => n.discount === 0 || n.discount > (best?.discountInr ?? 0)).map((n) => n.text);
-  return { best, hints };
+  const tips = near.filter((n) => n.discountInr === 0 || n.discountInr > (best?.discountInr ?? 0));
+  return { best, hints: tips.map((t) => t.text), tips };
 }
 
 /** Live offers that cover at least one of these cards, soonest-ending first. For the "Offers on your cards" list. */
@@ -177,4 +186,27 @@ export function validateOffer(o: Offer, knownCardIds: string[], knownMerchants: 
   for (const d of o.days ?? []) if (!(WEEKDAYS as readonly string[]).includes(d)) errors.push(`unknown day "${d}"`);
   for (const n of [o.usesPerMonth, o.usesPerYear]) if (n !== undefined && !(Number.isInteger(n) && n > 0 && n <= 60)) errors.push("uses per month/year must be a whole number");
   return errors;
+}
+
+/**
+ * A no-cost EMI deal on another card (or this one) that beats the top answer by a real margin.
+ * We show it above the answer: it's often worth several times the best card's rewards.
+ */
+export function betterDeal(
+  results: Recommendation[],
+  minExtra = 100,
+): { rec: Recommendation; tip: OfferTip; total: number; extra: number } | undefined {
+  const best = results.find((r) => r.usable);
+  if (!best) return undefined;
+  let pick: { rec: Recommendation; tip: OfferTip; total: number; extra: number } | undefined;
+  for (const rec of results) {
+    if (!rec.usable) continue;
+    for (const tip of rec.offerTips ?? []) {
+      if (tip.reason !== "emi") continue;
+      const total = tip.discountInr + rec.valueInr;
+      const extra = total - best.totalInr;
+      if (extra >= minExtra && (!pick || total > pick.total)) pick = { rec, tip, total, extra };
+    }
+  }
+  return pick;
 }
