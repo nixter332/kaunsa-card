@@ -4,3 +4,5 @@ node_modules
 next-env.d.ts
 *.tsbuildinfo
 data/proposed
+# review output saved with Tee-Object
+/*.txt

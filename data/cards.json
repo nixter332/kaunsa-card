@@ -2232,8 +2232,8 @@
     "rules": [
       {
         "id": "hpcl-fuel-cashback",
-        "label": "4% cashback on fuel at HPCL pumps / HP Pay (cap ₹200/month)",
-        "rate": 0.04,
+        "label": "4% cashback on fuel at HPCL pumps (cap ₹200/month)",
+        "rate": 0.16,
         "merchants": [
           "hpcl"
         ],
@@ -2253,8 +2253,8 @@
     "caps": [
       {
         "id": "hpcl-fuel-cap",
-        "label": "Fuel cashback cap ₹200 per month",
-        "amount": 200,
+        "label": "HPCL fuel cashback cap ₹200 per month",
+        "amount": 800,
         "period": "month",
         "overflow": "none"
       },
@@ -2273,6 +2273,7 @@
       "merchants": []
     },
     "notes": [
+      "The 4% HPCL fuel cashback is paid in rupees; it is stored as 0.16 points per ₹1 (at ₹0.25 a point) so it adds up with the reward points. The ₹200 monthly cap is stored as 800 points.",
       "Two sources: the T&C (June 2021) and the current ICICI web page (2026). Where they conflict, the web page wins. The T&C cap the accelerated points at 400 per statement cycle; the web page says per month, so I used a monthly cap. The web page also adds groceries to the accelerated category.",
       "Base rate: 2 ICICI Bank Reward Points per ₹100 (0.02 per ₹1) on non-fuel, non-utility, non-department-store spends, both domestic and international.",
       "The fuel cashback is a rupee cashback. Its rate (0.04) and cap (₹200/month) are in rupees. The utility/grocery rate (0.20) and cap (400) are in reward points. The two cap units differ.",
@@ -2589,7 +2590,9 @@
     ],
     "caps": [],
     "exclusions": {
-      "categories": [],
+      "categories": [
+        "fuel"
+      ],
       "merchants": []
     },
     "notes": [
@@ -2599,12 +2602,17 @@
       "The document does not state the network in its text, so 'network' is omitted. The card image in a video thumbnail looks like Mastercard, but that is not stated. The known metadata says Visa.",
       "The document does not say whether the card works on UPI, so 'upi' is omitted.",
       "No caps, minimum transactions or exclusions are stated for earn rates.",
-      "Not representable as earn rules: 2,000 bonus reward points (worth Rs. 500) for spending Rs. 2,000 or more in the first 60 days. Also not representable: a 1% fuel surcharge waiver on transactions of Rs. 500 to Rs. 3,000, capped at Rs. 100 per statement cycle. Also a renewal fee reversal on annual spend of Rs. 1,00,000 or more (annual fee Rs. 499 + taxes)."
+      "Not representable as earn rules: 2,000 bonus reward points (worth Rs. 500) for spending Rs. 2,000 or more in the first 60 days. Also not representable: a 1% fuel surcharge waiver on transactions of Rs. 500 to Rs. 3,000, capped at Rs. 100 per statement cycle. Also a renewal fee reversal on annual spend of Rs. 1,00,000 or more (annual fee Rs. 499 + taxes).",
+      "Fuel excluded from reward points: SBI Card's reward terms exclude fuel (stated in the SimplyCLICK booklet for the same programme); the SimplySAVE page itself doesn't say."
     ],
     "sources": [
       {
         "label": "Issuer document (read by the rules agent)",
         "url": "C:\\Users\\lenovo\\Downloads\\simplysave.pdf"
+      },
+      {
+        "label": "Issuer product page (watched for changes)",
+        "url": "https://www.sbicard.com/en/personal/credit-cards/shopping/simplysave-sbi-card.page"
       }
     ],
     "lastVerified": "2026-11-08",
@@ -2623,7 +2631,7 @@
       "inrPerUnitNote": "Typical EDGE catalogue value; varies by redemption."
     },
     "base": {
-      "rate": 0
+      "rate": 0.02
     },
     "rules": [],
     "caps": [],
@@ -2641,7 +2649,7 @@
       "merchants": []
     },
     "notes": [
-      "Neither document states any earn rate (base or bonus), so base.rate is set to 0 only as a placeholder because the field is required. It is NOT a stated rate. No rules or caps were created.",
+      "Base rate of 4 EDGE points per ₹200 (about 0.4%) comes from review sites (BankBazaar, Bajaj Finserv Markets). Axis's own documents read so far don't state it, so this card is marked low confidence.",
       "Exclusions are from Source 2 (effective 20 June 2025): 'Transactions made on Utility & Telecom, Rent, Wallet, Government spends, Insurance, Gold & Jewellery, Fuel, Cash advances and Repayments.' Cash advances and repayments don't map to the category enum.",
       "Source 1 (later revision, effective 28-08-2026): gift card purchases earn no rewards (now classed as a separate 'Gift Card' category instead of 'Wallet'), and no rewards on Bridge Fees, Road Fees and Tolls. These don't map to the category enum and are not in the exclusions list.",
       "Source 2: from 1 April 2026, 1,000 EDGE REWARD Points are earned on annual spends of INR 1.5 lakh in a card anniversary year. This milestone is not representable in the schema. Movie, Fuel, Insurance, Utility, Rent, Wallet, Jewelry, Education and Government spends are excluded from that milestone calculation only. Education and movies are therefore not listed as reward-earn exclusions.",
@@ -2649,8 +2657,21 @@
       "The District 'Buy one get one' offer needs INR 25,000 spend in the previous 3 months (from 01-11-2026). It is not a reward earn rate and is not representable.",
       "Fee changes in Source 1 (DCC markup 3.5%, late fee slabs, payment allocation order) and the EDGE point forfeiture terms in Source 2 are not reward rules."
     ],
-    "sources": [],
+    "sources": [
+      {
+        "label": "Axis MY Zone terms revision (watched for changes)",
+        "url": "https://www.axisbank.com/docs/default-source/default-document-library/credit-cards/terms-and-conditions-for-myzone-credit-card.pdf"
+      },
+      {
+        "label": "Review site: earn rate",
+        "url": "https://www.bajajfinservmarkets.in/credit-card/axis-bank-my-zone-credit-card"
+      },
+      {
+        "label": "Review site: earn rate",
+        "url": "https://justdial.bankbazaar.com/axis-bank-credit-card-reward-points.html"
+      }
+    ],
     "lastVerified": "never",
-    "confidence": "medium"
+    "confidence": "low"
   }
 ]

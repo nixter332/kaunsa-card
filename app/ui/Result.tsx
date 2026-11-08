@@ -257,7 +257,8 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
             )}
           </div>
           <p className="fine">
-            Rules checked {best.lastVerified}. Bank offers are shown once we&apos;ve verified them.{" "}
+            {best.lastVerified === "never" ? "Rules for this card are from review sites, not yet checked against the bank's terms." : `Rules checked ${best.lastVerified}.`}{" "}
+            Bank offers are shown once we&apos;ve verified them.{" "}
             {missedSent ? (
               <span>Thanks, we&apos;ll look into that offer.</span>
             ) : (

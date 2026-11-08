@@ -12,3 +12,11 @@ describe("app-only rates stay on their app", () => {
     for (const r of recommend(scapia, lookup, {})) expect(r.ruleLabel ?? "").not.toMatch(/scapia app/i);
   });
 });
+
+describe("HPCL fuel cashback is in rupees", () => {
+  it("₹2,000 at HPCL earns ₹80 on the HPCL Super Saver", () => {
+    const hpcl = all.filter((c) => c.id === "icici-hpcl-super-saver");
+    const [r] = recommend(hpcl, { merchant: "hpcl", category: "fuel", channel: "offline", rail: "card", amount: 2000 } as never, {});
+    expect(r.valueInr).toBe(80);
+  });
+});
