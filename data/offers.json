@@ -76,7 +76,7 @@
   },
   {
     "id": "hsbc-bookmyshow-saturday-bogo-2026-11",
-    "title": "BookMyShow Saturday buy 1 get 1",
+    "title": "HSBC × BookMyShow Saturday buy 1 get 1",
     "kind": "bank_offer",
     "issuer": "HSBC",
     "merchants": [
@@ -96,7 +96,7 @@
       "sat"
     ],
     "usesPerMonth": 1,
-    "conditions": "Buy 1 get 1; book 2+ movie tickets on Saturday in the BookMyShow app; select HSBC cards; first 2,000 bookings each Saturday",
+    "conditions": "Buy 1 get 1; book 2+ tickets on a Saturday in the BookMyShow app (show can be any day); document says 'select' HSBC cards without naming them; first 2,000 bookings each Saturday.",
     "source": "https://www.hsbc.co.in/credit-cards/offers/bookmyshow-saturday/",
     "lastVerified": "2026-11-08"
   },
@@ -115,7 +115,7 @@
     },
     "validTo": "2026-11-11",
     "code": "INDUS150 | INDUS300",
-    "conditions": "Use code INDUS150 or INDUS300; minimum order not stated on page",
+    "conditions": "Use code INDUS150 or INDUS300; minimum spend not stated on the page",
     "source": "https://www.indusind.bank.in/in/en/personal/offers/indusInd-bank-credit-card-offers.html",
     "lastVerified": "2026-11-08"
   },
@@ -230,6 +230,48 @@
     },
     "conditions": "Apply coupon, pay online by card (UPI not eligible); value back goes to District wallet; max ₹200/month",
     "source": "https://www.axis.bank.in/docs/default-source/default-document-library/credit-cards/terms-and-conditions-for-cashback-for-airtel-axis-bank-credit-card.pdf + https://www.axis.bank.in/docs/default-source/default-document-library/terms-and-conditions-for-airtel-cbcc-cvp.pdf",
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "indusind-goibibo-flights-emi-2026-11",
+    "title": "IndusInd × Goibibo flights (No-Cost EMI)",
+    "kind": "bank_offer",
+    "issuer": "IndusInd Bank",
+    "merchants": [
+      "goibibo"
+    ],
+    "discount": {
+      "type": "percent",
+      "value": 0.15,
+      "max": 1800
+    },
+    "minTxn": 5000,
+    "validFrom": "2026-11-01",
+    "validTo": "2026-11-30",
+    "usesPerMonth": 1,
+    "payment": "emi",
+    "code": "GOINDUSEMI",
+    "conditions": "Domestic flights on 3/6-month no-cost EMI only; hotels, international and holidays differ; not on multi-city flights",
+    "source": "https://www.goibibo.com/gi-promos/indusind-emi",
+    "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "axis-makemytrip-intl-flights-2026-11",
+    "title": "Axis × MakeMyTrip international flights",
+    "kind": "bank_offer",
+    "issuer": "Axis Bank",
+    "merchants": [
+      "makemytrip"
+    ],
+    "discount": {
+      "type": "percent",
+      "value": 0.08,
+      "max": 7500
+    },
+    "validTo": "2026-12-30",
+    "code": "MMTAXIS",
+    "conditions": "International flights (economy); business class and international hotels have different offers. No minimum stated.",
+    "source": "https://www.axis.bank.in/offers/makemytrip-offers/instant-discount-on-international-flights-and-hotels",
     "lastVerified": "2026-11-08"
   }
 ]
