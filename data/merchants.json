@@ -215,7 +215,8 @@
       "pub",
       "dine in",
       "dining out"
-    ]
+    ],
+    "generic": true
   },
   {
     "id": "kirana",
@@ -228,7 +229,8 @@
       "dmart",
       "d-mart",
       "supermarket"
-    ]
+    ],
+    "generic": true
   },
   {
     "id": "electricity",
@@ -239,7 +241,8 @@
       "electricity",
       "power bill",
       "light bill"
-    ]
+    ],
+    "generic": true
   },
   {
     "id": "mobile_recharge",
@@ -251,7 +254,8 @@
       "jio",
       "broadband",
       "postpaid"
-    ]
+    ],
+    "generic": true
   },
   {
     "id": "petrol",
@@ -262,7 +266,8 @@
       "petrol",
       "diesel",
       "fuel"
-    ]
+    ],
+    "generic": true
   },
   {
     "id": "rent",
@@ -271,7 +276,8 @@
     "channel": "online",
     "aliases": [
       "rent"
-    ]
+    ],
+    "generic": true
   },
   {
     "id": "airtel_bill",
@@ -446,6 +452,105 @@
       "district app",
       "district by zomato",
       "district"
+    ]
+  },
+  {
+    "id": "bpcl",
+    "name": "BPCL fuel station",
+    "category": "fuel",
+    "channel": "offline",
+    "aliases": [
+      "bpcl",
+      "bharat petroleum",
+      "bharatgas",
+      "bharat gas"
+    ]
+  },
+  {
+    "id": "hpcl",
+    "name": "HPCL fuel station",
+    "category": "fuel",
+    "channel": "offline",
+    "aliases": [
+      "hpcl",
+      "hindustan petroleum",
+      "hp petrol",
+      "hp pump",
+      "hp pay"
+    ]
+  },
+  {
+    "id": "airline",
+    "name": "Airline (booked direct)",
+    "category": "travel",
+    "channel": "online",
+    "aliases": [
+      "indigo",
+      "air india",
+      "akasa",
+      "spicejet",
+      "air india express",
+      "airline website",
+      "airline app"
+    ]
+  },
+  {
+    "id": "hotel",
+    "name": "Hotel (booked direct)",
+    "category": "travel",
+    "channel": "online",
+    "aliases": [
+      "marriott",
+      "taj hotel",
+      "hyatt",
+      "itc hotel",
+      "radisson",
+      "lemon tree",
+      "hotel website",
+      "booked hotel direct"
+    ]
+  },
+  {
+    "id": "dominos",
+    "name": "Domino's",
+    "category": "food_delivery",
+    "channel": "online",
+    "aliases": [
+      "dominos",
+      "domino's",
+      "domino"
+    ]
+  },
+  {
+    "id": "apollo247",
+    "name": "Apollo 24|7",
+    "category": "online_shopping",
+    "channel": "online",
+    "aliases": [
+      "apollo 24/7",
+      "apollo247",
+      "apollo pharmacy"
+    ]
+  },
+  {
+    "id": "netmeds",
+    "name": "Netmeds",
+    "category": "online_shopping",
+    "channel": "online",
+    "aliases": [
+      "netmeds"
+    ]
+  },
+  {
+    "id": "reliance_smart",
+    "name": "Reliance Smart SuperStore",
+    "category": "grocery",
+    "channel": "offline",
+    "aliases": [
+      "reliance smart",
+      "reliance fresh",
+      "smart bazaar",
+      "reliance superstore"
     ]
   }
 ]

@@ -1800,6 +1800,10 @@
       {
         "label": "Issuer document (read by the rules agent)",
         "url": "C:\\Users\\lenovo\\Downloads\\millennia-tnc-20th-jul26.pdf"
+      },
+      {
+        "label": "Issuer product page (watched for changes)",
+        "url": "https://www.hdfc.bank.in/credit-cards/millennia-credit-card"
       }
     ],
     "lastVerified": "2026-11-07",
@@ -1900,6 +1904,14 @@
       {
         "label": "Issuer document (read by the rules agent)",
         "url": "C:\\Users\\lenovo\\Downloads\\Flipkart-SBI-CreditCard-TandC-Booklet.pdf"
+      },
+      {
+        "label": "Issuer product page (watched for changes)",
+        "url": "https://www.sbicard.com/en/personal/credit-cards/rewards/flipkart-sbi-card.page"
+      },
+      {
+        "label": "Preferred partners T&C (watched for changes)",
+        "url": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/personal/cards/Preferred-Partners-TandC.pdf"
       }
     ],
     "lastVerified": "2026-11-07",

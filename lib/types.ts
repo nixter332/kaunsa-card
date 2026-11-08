@@ -81,7 +81,7 @@ export interface Card {
   id: string;
   name: string;
   issuer: string;
-  network: "Visa" | "Mastercard" | "RuPay";
+  network: "Visa" | "Mastercard" | "RuPay" | "Amex";
   upi: boolean;
   reward: {
     kind: "cashback" | "points";
@@ -149,6 +149,8 @@ export interface Merchant {
   category: Category;
   channel: Channel;
   aliases: string[];
+  /** A catch-all like "Fuel station" or "Restaurant": any named brand in the same text wins over it. */
+  generic?: boolean;
 }
 
 export const WEEKDAYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"] as const;

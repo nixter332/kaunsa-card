@@ -18,7 +18,9 @@ export function findMerchant(text: string): Merchant | undefined {
   // Longest alias first, so "swiggy dineout" beats "swiggy".
   const pairs = MERCHANTS.flatMap((m) => m.aliases.map((a) => ({ m, a })));
   pairs.sort((x, y) => y.a.length - x.a.length);
-  return pairs.find(({ a }) => new RegExp(`[^a-z]${a.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}[^a-z]`).test(t))?.m;
+  const hits = pairs.filter(({ a }) => new RegExp(`[^a-z]${a.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}[^a-z]`).test(t));
+  // "petrol at BPCL" is BPCL, not just any fuel station.
+  return (hits.find((h) => !h.m.generic) ?? hits[0])?.m;
 }
 
 export function localParse(text: string): (Lookup & { merchantName?: string }) | null {

@@ -1,6 +1,7 @@
-# Monthly offers refresh: on the 1st of each month (9:00 India time), the offers agent re-reads the
-# pages in data/offer-sources.json, drops expired offers, adds new ones it's confident about, and
-# opens a pull request. You review it (the review notes are in the PR description) and merge;
+# Monthly refresh: on the 1st of each month (9:00 India time), the offers agent re-reads the
+# pages in data/offer-sources.json, drops expired offers and adds new ones it's confident about.
+# Then the terms watcher checks every card's issuer pages and PDFs for changes, and re-reads only
+# the cards whose documents changed (a reward cut shows up as a rule change). It opens a pull request. You review it (the review notes are in the PR description) and merge;
 # Vercel then updates the live app. Nothing goes live without your merge.
 #
 # Run it any time from GitHub: Actions → "Monthly offers refresh" → Run workflow.
@@ -56,6 +57,10 @@ jobs:
       - name: Add the offers marked ready
         run: npm run offers -- --apply-ready
 
+      - name: Check card terms for changes
+        continue-on-error: true
+        run: npm run extract -- --watch --apply-ready
+
       - name: Run tests
         id: tests
         continue-on-error: true
@@ -64,14 +69,14 @@ jobs:
       - name: Build the pull request description
         run: |
           {
-            echo "Automatic offers refresh for $(date +'%B %Y'). **Review before merging**: check each added offer against its page, and delete any that look wrong in this PR before merging."
+            echo "Automatic refresh for $(date +'%B %Y'). **Review before merging**: check each added offer against its page, check any card rule changes against the card's terms, and delete anything that looks wrong in this PR before merging."
             echo
             if [ "${{ steps.tests.outcome }}" != "success" ]; then echo "> ⚠ Tests failed on this branch. Don't merge until they pass."; echo; fi
-            echo "### What changed in data/offers.json"
+            echo "### What changed"
             echo
-            git diff --stat -- data/offers.json || true
+            git diff --stat -- data/offers.json data/cards.json || true
             echo
-            for f in data/proposed/REVIEW-offers.md data/proposed/REVIEW-perks.md; do
+            for f in data/proposed/REVIEW-terms.md data/proposed/REVIEW-offers.md data/proposed/REVIEW-perks.md; do
               if [ -f "$f" ]; then echo; cat "$f"; fi
             done
           } > pr-body.md
@@ -83,7 +88,10 @@ jobs:
         with:
           branch: offers/monthly-refresh
           delete-branch: true
-          add-paths: data/offers.json
-          commit-message: "Monthly offers refresh"
-          title: "Offers refresh: review and merge"
+          add-paths: |
+            data/offers.json
+            data/cards.json
+            data/terms-watch.json
+          commit-message: "Monthly offers and card terms refresh"
+          title: "Monthly refresh: review and merge"
           body-path: pr-body-trimmed.md

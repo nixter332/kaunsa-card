@@ -250,5 +250,184 @@
       "https://www.hsbc.co.in/credit-cards/products/rupay-cashback-credit-card/"
     ],
     "reviewTips": "Requested by a user. Reviews describe 10% on dining, food delivery and groceries under one combined monthly cap (about ₹400), and 1% on everything else including UPI. Check the cap amount and whether UPI spends earn the 10% too. If the page comes back thin, add HSBC's cashback T&C PDF linked from that page."
+  },
+  {
+    "id": "hdfc-moneyback-plus",
+    "name": "HDFC MoneyBack+",
+    "issuer": "HDFC Bank",
+    "network": "Mastercard",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "CashPoints",
+      "inrPerUnit": 0.25,
+      "inrPerUnitNote": "1 CashPoint = ₹0.25 against the statement."
+    },
+    "sources": [
+      "https://www.hdfcbank.com/content/api/contentstream-id/723fb80a-2dde-42a3-9793-7ae1be57c87f/a932c3e5-ff6f-43e2-8722-cb84c2530399",
+      "https://hdfc.bank.in/credit-cards/moneyback-plus-credit-card"
+    ],
+    "reviewTips": "Network not verified (issued on Visa and Mastercard). The product page links changes effective 15 May 2026; the T&C PDF is from April 2025, so where they differ the 15 May 2026 change wins. Expect 10X (20 CashPoints per ₹150) on Amazon, BigBasket, Flipkart, Reliance Smart SuperStore and Swiggy with a monthly cap, and 2 CashPoints per ₹150 elsewhere. Map Reliance Smart SuperStore to reliance_smart and Swiggy to swiggy_food + swiggy_instamart only if the document says Swiggy broadly."
+  },
+  {
+    "id": "sbi-simplyclick",
+    "name": "SimplyCLICK SBI Card",
+    "issuer": "SBI Card",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "SBI reward points",
+      "inrPerUnit": 0.25,
+      "inrPerUnitNote": "4 points = ₹1 against the statement."
+    },
+    "sources": [
+      "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/simply-click-tnc-MITC-booklet.pdf",
+      "https://www.sbicard.com/en/personal/credit-cards/shopping/simplyclick-sbi-card.page"
+    ],
+    "reviewTips": "10 points per ₹100 on exclusive online partners (list in the document, e.g. Apollo 24/7, BookMyShow, Cleartrip, Domino's, Myntra, Netmeds, Swiggy, Yatra), 5 per ₹100 on other ONLINE spends (channels: online), 1 per ₹100 otherwise. Each accelerated bucket has its own 10,000-point monthly cap with overflow to base. Amazon and Flipkart are 'other online', not partners. Partners not in the merchant list go in notes."
+  },
+  {
+    "id": "sbi-simplysave",
+    "name": "SimplySAVE SBI Card",
+    "issuer": "SBI Card",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "SBI reward points",
+      "inrPerUnit": 0.25,
+      "inrPerUnitNote": "4 points = ₹1 against the statement."
+    },
+    "sources": [
+      "https://www.sbicard.com/en/personal/credit-cards/shopping/simplysave-sbi-card.page"
+    ],
+    "reviewTips": "10 points per ₹150 on dining, movies, departmental stores and grocery; 1 per ₹150 elsewhere. Check for a monthly cap on the 10X bucket. If the page comes back empty (JavaScript), save it as PDF and pass it with --source. A RuPay variant exists; this entry is the Visa card."
+  },
+  {
+    "id": "bpcl-sbi-octane",
+    "name": "BPCL SBI Card OCTANE",
+    "issuer": "SBI Card",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "SBI reward points",
+      "inrPerUnit": 0.25,
+      "inrPerUnitNote": "4 points = ₹1 against the statement."
+    },
+    "sources": [
+      "https://www.sbicard.com/en/personal/credit-cards/travel/bpcl-sbi-card-octane.page",
+      "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/who-we-are/notices/disclosure-under-regulation-30-press-release-dec.pdf"
+    ],
+    "reviewTips": "25 points per ₹100 at BPCL fuel (merchant bpcl only, NOT the fuel category: other pumps earn nothing), capped at 2,500 points per billing cycle. 10 per ₹100 on dining, movies, grocery and departmental stores with its own monthly cap. 1 per ₹100 elsewhere; fuel at non-BPCL pumps excluded. The press release is from 2020: where the product page differs, the page wins. The 1% surcharge waiver is not a reward; leave it out."
+  },
+  {
+    "id": "axis-my-zone",
+    "name": "Axis Bank MY Zone",
+    "issuer": "Axis Bank",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "EDGE Reward points",
+      "inrPerUnit": 0.2,
+      "inrPerUnitNote": "Typical EDGE catalogue value; varies by redemption."
+    },
+    "sources": [
+      "https://www.axis.bank.in/docs/default-source/default-document-library/terms-and-conditions-for-edge-rewards.pdf",
+      "https://www.axisbank.com/docs/default-source/default-document-library/credit-cards/terms-and-conditions-for-myzone-credit-card.pdf"
+    ],
+    "reviewTips": "Expect 4 EDGE points per ₹200 as base. Check the April 2026 revision for any changed earn rates or exclusions. The EDGE REWARDS terms cover many cards: use only MY Zone's rows. Swiggy/District discounts are offers, not reward rules; leave them out."
+  },
+  {
+    "id": "axis-atlas",
+    "name": "Axis Bank Atlas",
+    "issuer": "Axis Bank",
+    "network": "Mastercard",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "EDGE Miles",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "1 EDGE Mile = ₹1 on Axis Travel EDGE; partner transfers can be worth more."
+    },
+    "sources": [
+      "https://www.axis.bank.in/docs/default-source/default-document-library/credit-cards/terms-and-conditions-of-features-of-axis-bank-atlas-credit-card.pdf",
+      "https://www.axis.bank.in/cards/credit-card/axis-bank-atlas-credit-card"
+    ],
+    "reviewTips": "Network not verified. 5 EDGE Miles per ₹100 on direct airline and hotel bookings and Axis Travel EDGE: use merchants airline and hotel ONLY, no travel category (MakeMyTrip, Goibibo, Cleartrip and other OTAs earn the base rate). Check for a monthly spend cap on the 5X. 2 EDGE Miles per ₹100 elsewhere. Milestones and tiers are not per-payment rules; put them in notes. Axis has paused new applications."
+  },
+  {
+    "id": "icici-hpcl-super-saver",
+    "name": "ICICI HPCL Super Saver",
+    "issuer": "ICICI Bank",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "ICICI reward points",
+      "inrPerUnit": 0.25,
+      "inrPerUnitNote": "Typical value; check the document for the cashback-equivalent rate."
+    },
+    "sources": [
+      "https://www.icici.bank.in/managed-assets/docs/terms-condition/hpcl-super-saver-credit-card-tnc.pdf",
+      "https://www.icicibank.com/personal-banking/cards/credit-card/hpcl-super-saver"
+    ],
+    "reviewTips": "Fuel rate applies at HPCL only (merchant hpcl, not the fuel category), with a monthly cap; HP Pay adds a little more (needs the HP Pay app, leave it in notes). Higher rate on utilities, grocery and departmental stores with its own monthly cap. ICICI changed caps from 1 Feb 2026: make sure the document is current. If the document states cashback in ₹ rather than points, say so in notes so the unit can be fixed. A RuPay variant exists; this entry is the Visa card."
+  },
+  {
+    "id": "amex-mrcc",
+    "name": "Amex Membership Rewards Credit Card",
+    "issuer": "American Express",
+    "network": "Amex",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "Membership Rewards points",
+      "inrPerUnit": 0.4,
+      "inrPerUnitNote": "Gold Collection vouchers value MR points at about ₹0.4–0.5; statement credit is ₹0.25."
+    },
+    "sources": [
+      "https://americanexpress.com/content/dam/amex/en-in/benefits/membership-rewards-terms.pdf",
+      "https://www.americanexpress.com/content/dam/amex/in/benefits/MRCC_Benefit_Terms_conditions.pdf"
+    ],
+    "reviewTips": "1 MR point per ₹50 on most spends; no points on fuel, insurance, utilities, cash and merchant EMI (exclusions). The monthly bonuses (1,000 points for 4 transactions of ₹1,500+; 1,000 for ₹20,000 a month, enrolment needed) are milestones, not per-payment rules: put them in notes. Amex has paused new MRCC applications in India."
+  },
+  {
+    "id": "amex-platinum-travel",
+    "name": "Amex Platinum Travel",
+    "issuer": "American Express",
+    "network": "Amex",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "Membership Rewards points",
+      "inrPerUnit": 0.4,
+      "inrPerUnitNote": "Gold Collection vouchers value MR points at about ₹0.4–0.5; statement credit is ₹0.25."
+    },
+    "sources": [
+      "https://americanexpress.com/content/dam/amex/en-in/benefits/membership-rewards-terms.pdf",
+      "https://americanexpress.com/in/credit-cards/platinum-travel-credit-card"
+    ],
+    "reviewTips": "1 MR point per ₹50 on most spends, same exclusions as other Amex credit cards. The card's value is in milestones (₹1.9 lakh and ₹4 lakh a year): put them in notes, not rules. Amex has paused new applications in India."
+  },
+  {
+    "id": "idfc-first-millennia",
+    "name": "IDFC FIRST Millennia",
+    "issuer": "IDFC FIRST Bank",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "IDFC reward points",
+      "inrPerUnit": 0.25,
+      "inrPerUnitNote": "1 point = ₹0.25."
+    },
+    "sources": [
+      "https://www.idfcfirst.bank.in/content/dam/idfcfirstbank/pdf/credit-card/FIRST-Millennia-Credit-Card-Communication-May-26.pdf",
+      "https://www.idfcfirst.bank.in/credit-card/benefits/rewards-points"
+    ],
+    "reviewTips": "3X on spends up to ₹20,000 a month is the base. The 10X on incremental spend above ₹20,000 a month and the birthday 10X can't be modelled per payment: put them in notes. Check the May 2026 communication for changed rates or exclusions (fuel, EMI, insurance, rent usually earn nothing)."
   }
 ]
