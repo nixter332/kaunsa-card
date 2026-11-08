@@ -3,7 +3,6 @@ import cardsJson from "@/data/cards.json";
 import offersJson from "@/data/offers.json";
 import profilesJson from "@/data/card-profiles.json";
 import { capture } from "@/lib/analytics";
-import { istMonth, offerUseKey } from "@/lib/offers";
 import type { Card, CardProfile, CardState, Condition, Lookup, Offer } from "@/lib/types";
 
 export const ALL_CARDS = cardsJson as Card[];
@@ -24,17 +23,7 @@ export type LedgerEntry = {
   discount?: number; // ₹ instant discount from that offer (included in earned)
 };
 
-/** How many times each offer was used on each card this month (India time). Key: offerId|cardId. */
-export function offerUsesFromLedger(ledger: LedgerEntry[], now = new Date()): Record<string, number> {
-  const month = istMonth(now);
-  const uses: Record<string, number> = {};
-  for (const e of ledger) {
-    if (!e.offerId || istMonth(new Date(e.ts)) !== month) continue;
-    const k = offerUseKey(e.offerId, e.cardId);
-    uses[k] = (uses[k] ?? 0) + 1;
-  }
-  return uses;
-}
+export { offerUsesFromLedger } from "@/lib/offers";
 
 export function load<T>(key: string, fallback: T): T {
   try {

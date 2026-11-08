@@ -22,6 +22,27 @@ export const normIssuer = (s: string) =>
     .replace(/[^a-z0-9]/g, "");
 
 export const offerUseKey = (offerId: string, cardId: string) => `${offerId}|${cardId}`;
+/** Uses this calendar year live under the same key with "|year" on the end. */
+export const offerYearKey = (offerId: string, cardId: string) => `${offerUseKey(offerId, cardId)}|year`;
+
+/** How many times each offer was used on each card this month and this year (India time), from logged payments. */
+export function offerUsesFromLedger(ledger: { ts: number; cardId: string; offerId?: string }[], now = new Date()): Record<string, number> {
+  const month = istMonth(now);
+  const year = month.slice(0, 4);
+  const uses: Record<string, number> = {};
+  for (const e of ledger) {
+    if (!e.offerId) continue;
+    const m = istMonth(new Date(e.ts));
+    if (m.slice(0, 4) !== year) continue;
+    const y = offerYearKey(e.offerId, e.cardId);
+    uses[y] = (uses[y] ?? 0) + 1;
+    if (m === month) {
+      const k = offerUseKey(e.offerId, e.cardId);
+      uses[k] = (uses[k] ?? 0) + 1;
+    }
+  }
+  return uses;
+}
 
 /** Does this offer cover this card at all? */
 export function offerCovers(offer: Offer, card: Card): boolean {
@@ -53,7 +74,7 @@ export type OfferCheck =
   | { status: "no" };
 
 /** Check one offer against one card and purchase. */
-export function checkOffer(offer: Offer, card: Card, lookup: Lookup, today: Date, used = 0): OfferCheck {
+export function checkOffer(offer: Offer, card: Card, lookup: Lookup, today: Date, used = 0, usedThisYear = 0): OfferCheck {
   if (!offerCovers(offer, card) || !offerLive(offer, today)) return { status: "no" };
   if (!lookup.merchant || !offer.merchants.includes(lookup.merchant)) return { status: "no" };
   if (offer.categories?.length && !offer.categories.includes(lookup.category)) return { status: "no" };
@@ -62,6 +83,7 @@ export function checkOffer(offer: Offer, card: Card, lookup: Lookup, today: Date
   if (offer.minTxn && lookup.amount < offer.minTxn) return { status: "below_min", discount: offerDiscount(offer, offer.minTxn) };
   const discount = offerDiscount(offer, lookup.amount);
   if (offer.usesPerMonth && used >= offer.usesPerMonth) return { status: "used_up", discount };
+  if (offer.usesPerYear && usedThisYear >= offer.usesPerYear) return { status: "used_up", discount };
   if (offer.days?.length && !offer.days.includes(istWeekday(today))) return { status: "wrong_day", discount };
   return { status: "ok", discount };
 }
@@ -93,15 +115,18 @@ export function bestOffer(
   let best: AppliedOffer | undefined;
   const near: { text: string; discount: number }[] = [];
   for (const offer of offers) {
-    const c = checkOffer(offer, card, lookup, today, uses[offerUseKey(offer.id, card.id)] ?? 0);
-    if (c.status === "ok") {
+    const c = checkOffer(offer, card, lookup, today, uses[offerUseKey(offer.id, card.id)] ?? 0, uses[offerYearKey(offer.id, card.id)] ?? 0);
+    if (c.status === "ok" && offer.payment === "emi") {
+      // Most people pay in full, so an EMI-only deal is a tip, not the answer.
+      near.push({ text: `${offer.title}: ${rupees(c.discount)} off if you pay by no-cost EMI${offer.code ? ` (code ${offer.code})` : ""}.`, discount: c.discount });
+    } else if (c.status === "ok") {
       if (!best || c.discount > best.discountInr) best = applied(offer, c.discount);
     } else if (c.status === "wrong_day" && offer.days) {
       near.push({ text: `${offer.title}: ${rupees(c.discount)} off, but only on ${dayList(offer.days)}.`, discount: c.discount });
     } else if (c.status === "below_min" && offer.minTxn) {
       near.push({ text: `${offer.title}: spend ${rupees(offer.minTxn)} or more to get ${rupees(c.discount)} off.`, discount: c.discount });
     } else if (c.status === "used_up") {
-      near.push({ text: `${offer.title}: already used this month on this card.`, discount: 0 });
+      near.push({ text: `${offer.title}: already used ${offer.usesPerYear && !offer.usesPerMonth ? "this year" : "this month"} on this card.`, discount: 0 });
     }
   }
   const hints = near.filter((n) => n.discount === 0 || n.discount > (best?.discountInr ?? 0)).map((n) => n.text);
@@ -115,6 +140,25 @@ export function offersForCards(offers: Offer[], cards: Card[], today: Date): { o
     .map((offer) => ({ offer, cards: cards.filter((c) => offerCovers(offer, c)) }))
     .filter((x) => x.cards.length > 0)
     .sort((a, b) => (a.offer.validTo ?? "9999").localeCompare(b.offer.validTo ?? "9999"));
+}
+
+/**
+ * Does this look like an offer we already have? The same offer is often published on both the bank's
+ * and the merchant's site, with different wording. Same cards, same shop, same deal, overlapping dates.
+ */
+export function findDuplicate(o: Offer, existing: Offer[]): Offer | undefined {
+  const sameCards = (a: Offer, b: Offer) =>
+    a.cardIds?.length && b.cardIds?.length
+      ? a.cardIds.some((id) => b.cardIds!.includes(id))
+      : Boolean(a.issuer && b.issuer && normIssuer(a.issuer) === normIssuer(b.issuer));
+  const sameDeal = (a: Offer, b: Offer) =>
+    a.discount.type === b.discount.type &&
+    Math.abs(a.discount.value - b.discount.value) < 1e-6 &&
+    (a.discount.type === "flat" || (a.discount.max ?? 0) === ((b.discount as { max?: number }).max ?? 0));
+  const overlap = (a: Offer, b: Offer) => (a.validFrom ?? "0000") <= (b.validTo ?? "9999") && (b.validFrom ?? "0000") <= (a.validTo ?? "9999");
+  return existing.find(
+    (e) => e.id !== o.id && e.kind === o.kind && e.merchants.some((m) => o.merchants.includes(m)) && sameCards(e, o) && sameDeal(e, o) && overlap(e, o),
+  );
 }
 
 /** Basic sanity checks, used by the offers agent and the tests. */
@@ -131,5 +175,6 @@ export function validateOffer(o: Offer, knownCardIds: string[], knownMerchants: 
   if (o.kind === "bank_offer" && !o.validTo) errors.push("bank offers need an end date (validTo)");
   for (const d of [o.validFrom, o.validTo]) if (d && !/^\d{4}-\d{2}-\d{2}$/.test(d)) errors.push(`date "${d}" must be YYYY-MM-DD`);
   for (const d of o.days ?? []) if (!(WEEKDAYS as readonly string[]).includes(d)) errors.push(`unknown day "${d}"`);
+  for (const n of [o.usesPerMonth, o.usesPerYear]) if (n !== undefined && !(Number.isInteger(n) && n > 0 && n <= 60)) errors.push("uses per month/year must be a whole number");
   return errors;
 }

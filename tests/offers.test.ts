@@ -24,7 +24,6 @@ const goibibo: Offer = {
   validTo: "2026-11-30",
   days: ["mon", "tue", "wed"],
   usesPerMonth: 1,
-  payment: "emi",
   code: "GOINDUSEMI",
   conditions: "Domestic flights, no-cost EMI only",
   source: "test",
@@ -60,6 +59,13 @@ describe("offers", () => {
     const onNet = evaluate(card("indusind-tiger"), lookup({ amount: 10800 })).valueInr;
     expect(best.valueInr).toBe(onNet);
     expect(best.totalInr).toBeCloseTo(1200 + onNet, 2);
+  });
+
+  it("an EMI-only offer is a tip, not the headline answer", () => {
+    const emi = { ...goibibo, payment: "emi" as const };
+    const [r] = recommend([card("indusind-tiger")], lookup({}), {}, { offers: [emi], today: MONDAY });
+    expect(r.offer).toBeUndefined();
+    expect(r.offerHints?.join(" ")).toMatch(/no-cost EMI/);
   });
 
   it("on the wrong day it doesn't apply, but says when it would", () => {

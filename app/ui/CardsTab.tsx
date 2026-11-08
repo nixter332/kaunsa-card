@@ -105,6 +105,7 @@ function OffersList({ cards }: { cards: Card[] }) {
               offer.days?.length && `${dayList(offer.days)} only`,
               offer.payment === "emi" && "no-cost EMI only",
               offer.usesPerMonth && `${offer.usesPerMonth}× a month`,
+              offer.usesPerYear && `${offer.usesPerYear}× a year`,
               offer.code && `code ${offer.code}`,
               offer.kind === "card_perk" ? "card perk" : end && `till ${end}`,
             ].filter(Boolean);

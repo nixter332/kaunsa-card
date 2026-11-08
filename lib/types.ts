@@ -161,6 +161,7 @@ export interface Offer {
   validTo?: string; // YYYY-MM-DD inclusive; omitted for lasting card perks
   days?: Weekday[]; // only on these days
   usesPerMonth?: number; // per card
+  usesPerYear?: number; // per card, per calendar year (e.g. "1 free ticket every 6 months" = 2)
   payment?: "full" | "emi"; // "emi" = only when you pay by (no-cost) EMI
   code?: string; // coupon code to enter at checkout
   rails?: Rail[]; // defaults to card payments only
