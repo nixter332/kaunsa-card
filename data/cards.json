@@ -2466,5 +2466,191 @@
     ],
     "lastVerified": "2026-11-08",
     "confidence": "medium"
+  },
+  {
+    "id": "sbi-simplyclick",
+    "name": "SimplyCLICK SBI Card",
+    "issuer": "SBI Card",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "SBI Reward Points",
+      "inrPerUnit": 0.25,
+      "inrPerUnitNote": "The T&C example converts 1 reward point at Rs 0.25 (for negative-balance closure) and says the value may vary by card variant. The value matches the supplied metadata."
+    },
+    "base": {
+      "rate": 0.01
+    },
+    "rules": [
+      {
+        "id": "online-10x-partners",
+        "label": "10X on online spends with exclusive partners",
+        "rate": 0.1,
+        "merchants": [
+          "apollo247",
+          "bookmyshow",
+          "cleartrip",
+          "dominos",
+          "myntra",
+          "netmeds",
+          "swiggy_food",
+          "yatra",
+          "tata_cliq"
+        ],
+        "channels": [
+          "online"
+        ],
+        "capId": "cap-10x"
+      },
+      {
+        "id": "online-5x-other",
+        "label": "5X on all other online spends",
+        "rate": 0.05,
+        "channels": [
+          "online"
+        ],
+        "capId": "cap-5x"
+      }
+    ],
+    "caps": [
+      {
+        "id": "cap-10x",
+        "label": "10X exclusive partner points cap (10,000 points per calendar month)",
+        "amount": 10000,
+        "period": "month",
+        "overflow": "base"
+      },
+      {
+        "id": "cap-5x",
+        "label": "5X other online points cap (10,000 points per calendar month)",
+        "amount": 10000,
+        "period": "month",
+        "overflow": "base"
+      }
+    ],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "wallet_load"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "The base rate of 0.01 (1 point per ₹100) is NOT stated explicitly in either document. The documents only give 10X and 5X multiples and say 'standard Reward Points as per the card policy' apply after the cap. The 10X = 0.10 and 5X = 0.05 rates assume 1 point per ₹100 as the 1X base, so treat all three rates as inferred.",
+      "Source 1 is a web page printed 11/8/26. Source 2 is T&C information 'correct as per June 2021'. The partner lists conflict. Source 2 lists Amazon.in, Apollo 24x7, BookMyShow, Cleartrip, Dineout, Lenskart and Netmeds. Source 1 lists Apollo 24x7, BookMyShow, Cleartrip, Dominos, IGP, Myntra, Netmeds, Swiggy, Yatra, Gyftr and Tata Cliq. I used the more recent Source 1. Amazon, Dineout and Lenskart are therefore not in the 10X rule and fall under the 5X online rule.",
+      "IGP and Gyftr are 10X partners in Source 1 but are not in the merchant enum, so they are not mapped.",
+      "'Swiggy' is mapped only to swiggy_food. The document does not say whether Instamart, Dineout or Genie are included.",
+      "The 10,000 points per calendar month cap applies separately to 10X partner spends and to 5X other online spends. After the cap, standard points accrue (overflow = base).",
+      "Not representable: 10X applies only to payments in INR. Cleartrip transactions via affiliate channels are not eligible for 10X. Amazon Gift Card purchases do not earn 10X. Utility bill payments on the SBI Card website/app do not earn 5X. Utility bills and recharges on the Amazon app/site do not earn 10X (from 1 Sep 2021). Crediting of 10X depends on partner MIDs and on the acquirer sending the correct online flag.",
+      "Excluded from the rewards program: e-wallet loads (MCC 6540/6541, best effort) and fuel transactions. Cash advance, balance transfer, encash and Flexipay are also excluded, but these are not in the category enum.",
+      "Network and UPI are omitted because the documents do not state them. Source 2 only says 'VISA, MasterCard etc.' in general.",
+      "Other benefits not modelled: ₹500 Amazon e-gift card welcome gift on paying the ₹499 annual fee, ₹2,000 Cleartrip/Yatra e-vouchers at ₹1 lakh and ₹2 lakh annual online spends, 1% fuel surcharge waiver, and renewal fee reversal at ₹1 lakh annual spend."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "C:\\Users\\lenovo\\Downloads\\simplyclick.pdf"
+      },
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/simply-click-tnc-MITC-booklet.pdf"
+      }
+    ],
+    "lastVerified": "2026-11-08",
+    "confidence": "medium"
+  },
+  {
+    "id": "sbi-simplysave",
+    "name": "SimplySAVE SBI Card",
+    "issuer": "SBI Card",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "SBI reward points",
+      "inrPerUnit": 0.25,
+      "inrPerUnitNote": "4 points = ₹1 against the statement."
+    },
+    "base": {
+      "rate": 0.0066667
+    },
+    "rules": [
+      {
+        "id": "dining-movies-grocery-10x",
+        "label": "10X points on dining, movies and grocery (10 RP per ₹150)",
+        "rate": 0.0666667,
+        "categories": [
+          "dining",
+          "movies",
+          "grocery"
+        ]
+      }
+    ],
+    "caps": [],
+    "exclusions": {
+      "categories": [],
+      "merchants": []
+    },
+    "notes": [
+      "Rates are in reward points per ₹1: base is 1 RP per ₹150 (≈0.006667); 10X is 10 RP per ₹150 (≈0.066667).",
+      "'Departmental stores' is also earned at 10X but is not in the category enum, so it is not mapped. Only dining, movies and grocery are mapped.",
+      "The document does not state the rupee value of a reward point, so 'reward' is omitted. The ₹0.25 per point in the known metadata is not confirmed by the document.",
+      "The document does not state the network in its text, so 'network' is omitted. The card image in a video thumbnail looks like Mastercard, but that is not stated. The known metadata says Visa.",
+      "The document does not say whether the card works on UPI, so 'upi' is omitted.",
+      "No caps, minimum transactions or exclusions are stated for earn rates.",
+      "Not representable as earn rules: 2,000 bonus reward points (worth Rs. 500) for spending Rs. 2,000 or more in the first 60 days. Also not representable: a 1% fuel surcharge waiver on transactions of Rs. 500 to Rs. 3,000, capped at Rs. 100 per statement cycle. Also a renewal fee reversal on annual spend of Rs. 1,00,000 or more (annual fee Rs. 499 + taxes)."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "C:\\Users\\lenovo\\Downloads\\simplysave.pdf"
+      }
+    ],
+    "lastVerified": "2026-11-08",
+    "confidence": "medium"
+  },
+  {
+    "id": "axis-my-zone",
+    "name": "Axis Bank MY Zone",
+    "issuer": "Axis Bank",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "EDGE Reward points",
+      "inrPerUnit": 0.2,
+      "inrPerUnitNote": "Typical EDGE catalogue value; varies by redemption."
+    },
+    "base": {
+      "rate": 0
+    },
+    "rules": [],
+    "caps": [],
+    "exclusions": {
+      "categories": [
+        "utilities",
+        "telecom",
+        "rent",
+        "wallet_load",
+        "government",
+        "insurance",
+        "jewellery",
+        "fuel"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Neither document states any earn rate (base or bonus), so base.rate is set to 0 only as a placeholder because the field is required. It is NOT a stated rate. No rules or caps were created.",
+      "Exclusions are from Source 2 (effective 20 June 2025): 'Transactions made on Utility & Telecom, Rent, Wallet, Government spends, Insurance, Gold & Jewellery, Fuel, Cash advances and Repayments.' Cash advances and repayments don't map to the category enum.",
+      "Source 1 (later revision, effective 28-08-2026): gift card purchases earn no rewards (now classed as a separate 'Gift Card' category instead of 'Wallet'), and no rewards on Bridge Fees, Road Fees and Tolls. These don't map to the category enum and are not in the exclusions list.",
+      "Source 2: from 1 April 2026, 1,000 EDGE REWARD Points are earned on annual spends of INR 1.5 lakh in a card anniversary year. This milestone is not representable in the schema. Movie, Fuel, Insurance, Utility, Rent, Wallet, Jewelry, Education and Government spends are excluded from that milestone calculation only. Education and movies are therefore not listed as reward-earn exclusions.",
+      "Network (Visa), UPI support and the ₹0.2 point value are not stated in either document, so they are omitted.",
+      "The District 'Buy one get one' offer needs INR 25,000 spend in the previous 3 months (from 01-11-2026). It is not a reward earn rate and is not representable.",
+      "Fee changes in Source 1 (DCC markup 3.5%, late fee slabs, payment allocation order) and the EDGE point forfeiture terms in Source 2 are not reward rules."
+    ],
+    "sources": [],
+    "lastVerified": "never",
+    "confidence": "medium"
   }
 ]
