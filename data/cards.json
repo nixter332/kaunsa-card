@@ -1998,5 +1998,473 @@
     ],
     "lastVerified": "2026-11-07",
     "confidence": "high"
+  },
+  {
+    "id": "hdfc-moneyback-plus",
+    "name": "HDFC MoneyBack+",
+    "issuer": "HDFC Bank",
+    "network": "Mastercard",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "CashPoints",
+      "inrPerUnit": 0.25,
+      "inrPerUnitNote": "1 CashPoint = up to ₹0.25 (SmartBuy flights/hotels and product catalogue); ₹0.20 as cashback; 0.25 airmiles."
+    },
+    "base": {
+      "rate": 0.01
+    },
+    "rules": [
+      {
+        "id": "10x-partner-merchants",
+        "label": "10X CashPoints (20 per ₹200) on Amazon, Flipkart, Swiggy, Reliance Smart SuperStore & BigBasket",
+        "rate": 0.1,
+        "merchants": [
+          "amazon",
+          "flipkart",
+          "swiggy_food",
+          "swiggy_instamart",
+          "reliance_smart",
+          "bigbasket"
+        ]
+      }
+    ],
+    "caps": [],
+    "exclusions": {
+      "categories": [],
+      "merchants": []
+    },
+    "notes": [
+      "Base rate: '2 CashPoints per ₹200 spent on other spends' = 0.01 CashPoints per ₹1. 10X = 0.10 CashPoints per ₹1, which at ₹0.25 matches the stated 'up to 2.5% valueback'.",
+      "The page says just 'Swiggy' with no sub-brand. I mapped it to swiggy_food and swiggy_instamart; Swiggy Dineout is not included, which is a judgement call. The page also says '10X on Amazon, Flipkart, Swiggy and more', so other partner merchants may exist but are not named.",
+      "No monthly or quarterly cap on CashPoints and no category or merchant exclusions are stated on this page, so none are recorded.",
+      "Not representable: ₹500 gift voucher on spends of ₹50,000 per calendar quarter (milestone benefit); extra 10% off Swiggy Dineout via coupon HDFCCARDS; 1% fuel surcharge waiver (min ₹400, max ₹5,000 txn, max ₹250 per cycle); 500 reward points on paying the joining fee; renewal fee waiver at ₹50,000 annual spend.",
+      "The page links to changes to this card effective 15 May 2026, but the content of those changes is not in this document. The rates above may change after that date.",
+      "Network and UPI are not stated in the document, so they are omitted even though the task metadata gives them. The reward value of ₹0.25 per CashPoint is stated as 'Upto ₹ 0.25'.",
+      "CashPoints expire after 2 years. Redemption caps (e.g. 3,000 CashPoints per month from Feb 2023) are not earn rules."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.hdfcbank.com/content/api/contentstream-id/723fb80a-2dde-42a3-9793-7ae1be57c87f/a932c3e5-ff6f-43e2-8722-cb84c2530399"
+      },
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://hdfc.bank.in/credit-cards/moneyback-plus-credit-card"
+      }
+    ],
+    "lastVerified": "2026-11-08",
+    "confidence": "medium"
+  },
+  {
+    "id": "bpcl-sbi-octane",
+    "name": "BPCL SBI Card OCTANE",
+    "issuer": "SBI Card",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "Reward Points",
+      "inrPerUnit": 0.25,
+      "inrPerUnitNote": "6,000 bonus RP are stated as worth INR 1,500 (₹0.25 per point)."
+    },
+    "base": {
+      "rate": 0.01
+    },
+    "rules": [
+      {
+        "id": "bpcl-fuel-25x",
+        "label": "25X RP on BPCL fuel & lubricants",
+        "rate": 0.25,
+        "merchants": [
+          "bpcl"
+        ],
+        "capId": "bpcl-25x-cap"
+      },
+      {
+        "id": "dining-movies-grocery-10x",
+        "label": "10X RP on dining, movies, grocery",
+        "rate": 0.1,
+        "categories": [
+          "dining",
+          "movies",
+          "grocery"
+        ]
+      }
+    ],
+    "caps": [
+      {
+        "id": "bpcl-25x-cap",
+        "label": "Max 2,500 RP per billing cycle on 25X BPCL spends",
+        "amount": 2500,
+        "period": "month",
+        "overflow": "none"
+      }
+    ],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "wallet_load"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Source is a Dec 2020 press release (SBI Card/BPCL launch); the SBI product web page supplied contained only navigation text and no reward terms.",
+      "Base: '1 Reward Point on remaining spends (except Non BPCL fuel and Mobile wallet upload)'. Interpreted as 1 RP per ₹100 (0.01 per ₹1); the document does not explicitly say 'per ₹100' for this line. Non-BPCL fuel and mobile wallet load are therefore excluded (fuel category excluded; BPCL merchant rule still applies).",
+      "25X cap: 'Max 2500 Reward Points per billing cycle', mapped to a monthly cap. The document does not say what spend beyond the cap earns, so overflow is 'none'. The cap is also stated for Bharat Gas spends, which are not representable (see below).",
+      "Bharat Gas (LPG) spends (Website & App only) also earn 25X but Bharat Gas is not in the merchant enum, so it is not mapped. BPCL's In & Out convenience store spends are said to earn 25X in the press text but are not separately mapped; they are not clearly covered by the 'bpcl' merchant rule.",
+      "Departmental Store spends earn 10X but there is no departmental store category in the enum, so only dining, movies and grocery are mapped.",
+      "Not representable: 1% fuel surcharge waiver at BPCL pumps (the press release cites 7.25% value back on BPCL fuel including it); 6,000 bonus RP welcome benefit worth ₹1,500 on joining fee payment; ₹2,000 e-gift voucher milestone on ₹3,00,000 annual spend; annual fee (₹1,499) reversal on ₹2,00,000 annual spend; 4 complimentary domestic lounge visits (max 1 per quarter); ₹1,00,000 fraud liability cover.",
+      "Press release states no minimum transaction threshold for fuel spends.",
+      "Document states the card is on the Visa Signature platform. UPI usage is not stated, so upi is omitted."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.sbicard.com/en/personal/credit-cards/travel/bpcl-sbi-card-octane.page"
+      },
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/who-we-are/notices/disclosure-under-regulation-30-press-release-dec.pdf"
+      }
+    ],
+    "lastVerified": "2026-11-08",
+    "confidence": "medium"
+  },
+  {
+    "id": "axis-atlas",
+    "name": "Axis Bank Atlas",
+    "issuer": "Axis Bank",
+    "network": "Mastercard",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "EDGE Miles",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "Document: 1 EDGE Mile is equal to INR 1. Transfer to partners is 1 EDGE Mile = 2 partner points (except Marriott: 2 EDGE Miles = 1 Bonvoy point)."
+    },
+    "base": {
+      "rate": 0.02
+    },
+    "rules": [
+      {
+        "id": "travel-5x",
+        "label": "5 EDGE Miles per ₹100 on direct airline, direct hotel (and Travel EDGE portal)",
+        "rate": 0.05,
+        "merchants": [
+          "airline",
+          "hotel"
+        ],
+        "excludeMerchants": [
+          "makemytrip",
+          "cleartrip",
+          "goibibo",
+          "easemytrip",
+          "ixigo",
+          "yatra"
+        ],
+        "capId": "travel-monthly"
+      }
+    ],
+    "caps": [
+      {
+        "id": "travel-monthly",
+        "label": "5X travel earn capped at ₹2,00,000 spend per month (= 10,000 EDGE Miles)",
+        "amount": 10000,
+        "period": "month",
+        "overflow": "base"
+      }
+    ],
+    "exclusions": {
+      "categories": [
+        "jewellery",
+        "rent",
+        "wallet_load",
+        "government",
+        "insurance",
+        "fuel",
+        "utilities",
+        "telecom"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Base earn: 2 EDGE Miles per ₹100 on other spends (applies to transactions on/after 20 Dec 2022; earlier 1 Mile per ₹100).",
+      "Travel: 5 EDGE Miles per ₹100 on Axis Bank Travel EDGE Portal, direct airline and direct hotel spends (identified by Visa MCC). The Travel EDGE portal is not in the merchant enum, so it is not listed as a merchant; the rule lists only airline and hotel merchants.",
+      "Bookings via travel agents/OTAs earn only the 2 Miles base; the OTA merchants in the enum are listed in excludeMerchants.",
+      "Monthly cap: 5X applies up to ₹2,00,000 cumulative spend per month = 10,000 Miles; above that, 2 Miles per ₹100 (base). Cap amount is derived (2,00,000 × 0.05).",
+      "Exclusions from EDGE Miles earn (from 20 April 2024): gold/jewellery, rent, wallet, government institutions, insurance, fuel, utilities, telecom, gift cards, and bridge/road fees & tolls. Gift cards and tolls have no category in the enum, so they are not in the exclusions list. Gift cards are separately stated to earn no rewards. Tolls/bridge/road fees exclusion is stated for milestone with effect 21 Aug 2026 and in the earn exclusion table.",
+      "Tier and milestone spend thresholds exclude the same categories; milestone also excludes rent and wallet from 5 March 2023.",
+      "Not representable as earn rules: welcome benefit (2,500 Miles within 37 days for cards sourced from 20 Apr 2024), annual benefit (Gold 2,500 / Platinum 5,000 Miles on paying ₹5,000+GST fee), milestone benefit (2,500 at ₹3L, additional 2,500 at ₹7.5L, additional 5,000 at ₹15L), lounge access by tier, tier upgrade at ₹7.5L and ₹15L annual spend.",
+      "Miles transfer capped at 1,50,000 EDGE Miles per calendar year (Group A 30,000, Group B 1,20,000). Redemption fees: ₹99 per redemption, ₹199 per transfer (website).",
+      "Fees affecting spend: 1% fee on rent, wallet load ≥₹10,000, fuel ≥₹50,000, utilities ≥₹25,000, education via third-party apps, online gaming ≥₹10,000 per cycle (website).",
+      "Network and UPI are not stated in the documents (Visa is mentioned only for MCC identification), so network and upi are omitted despite the supplied metadata.",
+      "Documents note T&Cs will be updated with effect from 20 June 2025; no change to earn rates is stated. The PDF contains a 21 Aug 2026 effective date, which is taken as stated."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.axis.bank.in/docs/default-source/default-document-library/credit-cards/terms-and-conditions-of-features-of-axis-bank-atlas-credit-card.pdf"
+      },
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.axis.bank.in/cards/credit-card/axis-bank-atlas-credit-card"
+      }
+    ],
+    "lastVerified": "2026-11-08",
+    "confidence": "high"
+  },
+  {
+    "id": "icici-hpcl-super-saver",
+    "name": "ICICI HPCL Super Saver",
+    "issuer": "ICICI Bank",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "ICICI reward points",
+      "inrPerUnit": 0.25,
+      "inrPerUnitNote": "Typical value; check the document for the cashback-equivalent rate."
+    },
+    "base": {
+      "rate": 0.02
+    },
+    "rules": [
+      {
+        "id": "hpcl-fuel-cashback",
+        "label": "4% cashback on fuel at HPCL pumps / HP Pay (cap ₹200/month)",
+        "rate": 0.04,
+        "merchants": [
+          "hpcl"
+        ],
+        "capId": "hpcl-fuel-cap"
+      },
+      {
+        "id": "utilities-grocery-dept-store",
+        "label": "20 points per ₹100 (5%) on utilities, groceries and department stores",
+        "rate": 0.2,
+        "categories": [
+          "utilities",
+          "grocery"
+        ],
+        "capId": "daily-essentials-cap"
+      }
+    ],
+    "caps": [
+      {
+        "id": "hpcl-fuel-cap",
+        "label": "Fuel cashback cap ₹200 per month",
+        "amount": 200,
+        "period": "month",
+        "overflow": "none"
+      },
+      {
+        "id": "daily-essentials-cap",
+        "label": "Utility/grocery/department store accelerated points cap 400 points per month",
+        "amount": 400,
+        "period": "month",
+        "overflow": "none"
+      }
+    ],
+    "exclusions": {
+      "categories": [
+        "fuel"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Two sources: the T&C (June 2021) and the current ICICI web page (2026). Where they conflict, the web page wins. The T&C cap the accelerated points at 400 per statement cycle; the web page says per month, so I used a monthly cap. The web page also adds groceries to the accelerated category.",
+      "Base rate: 2 ICICI Bank Reward Points per ₹100 (0.02 per ₹1) on non-fuel, non-utility, non-department-store spends, both domestic and international.",
+      "The fuel cashback is a rupee cashback. Its rate (0.04) and cap (₹200/month) are in rupees. The utility/grocery rate (0.20) and cap (400) are in reward points. The two cap units differ.",
+      "Fuel cashback applies only at HPCL fuel pumps and the HP Pay app (HPCL merchant). Fuel is excluded from earning reward points, so the fuel category is excluded and the HPCL merchant rule applies. No minimum transaction amount is required.",
+      "The web page says the 5% fuel saving is 4% cashback plus a 1% fuel surcharge waiver, on transactions between ₹400 and ₹4,000. The surcharge waiver is not modeled.",
+      "An extra 1.5% on fuel at HPCL is stated as 6 Payback points per ₹100 (T&C) and as Happy Coins on HP Pay app purchases (web page). It is not modeled because the reward type and unit conflict between the two sources.",
+      "Department stores are not in the category enum and are not mapped. Only utilities and grocery are mapped. 'Department store' spends earn the accelerated rate per the document but cannot be represented.",
+      "The following do not earn reward points but cannot be mapped to enum categories: cash advances, EMI/balance transfer/PLCC spends, fees and interest, and reversed transactions.",
+      "Reward value (₹ per point), network and UPI status are not stated in the documents, so reward, network and upi are omitted. The documents mention RuPay and Amex variants, but not the network of this card.",
+      "Other benefits not modeled: 2,000 joining points, ₹100 HP Pay welcome bonus, annual fee waiver at ₹1.5 lakh spend, movie offers, lounge access and roadside assistance."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.icici.bank.in/managed-assets/docs/terms-condition/hpcl-super-saver-credit-card-tnc.pdf"
+      },
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.icicibank.com/personal-banking/cards/credit-card/hpcl-super-saver"
+      }
+    ],
+    "lastVerified": "2026-11-08",
+    "confidence": "medium"
+  },
+  {
+    "id": "amex-mrcc",
+    "name": "Amex Membership Rewards Credit Card",
+    "issuer": "American Express",
+    "network": "Amex",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "Membership Rewards points",
+      "inrPerUnit": 0.4,
+      "inrPerUnitNote": "Gold Collection vouchers value MR points at about ₹0.4–0.5; statement credit is ₹0.25."
+    },
+    "base": {
+      "rate": 0.02
+    },
+    "rules": [],
+    "caps": [],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "insurance",
+        "utilities"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Base rate: 1 MR point per Rs. 50 spent on all purchases (0.02 points per ₹1) for the Membership Rewards Credit Card (Source 1, Section III and the illustration table). The table also shows telecommunications earning 1 point per Rs. 50, so telecom is not excluded.",
+      "No points on Fuel (petrol, diesel, CNG and other Oil Marketing Company products), Insurance, or Other Utility Services (household electricity, gas, water and similar providers, including government and housing-society providers). These are mapped to the fuel, insurance and utilities exclusions.",
+      "No points on any EMI option chosen on a merchant's website or at a merchant's terminal. This is stated for all Personal Credit Cards. It has no category mapping, so it is not represented in the structure.",
+      "Not eligible for points under III.1(c): cash withdrawals/advances, emergency cheque cashing, foreign exchange purchases, balance transfers, annual fees, surcharges and transaction fees, finance and interest charges, late payment and other delinquency charges, foreign currency conversion charges, and overlimit charges. These are not categories in the enum, so they are not in the exclusions list.",
+      "Source 2 (dated 7/26/2023) describes an enrollment-based benefit: 1,000 bonus MR points for net spends of INR 20,000 or more in a calendar month on the Membership Rewards Credit Card. It is a flat spend-milestone bonus, not a per-rupee rate, so it cannot be represented as a rule or cap. Source 1 has no conflicting terms, so both documents are treated as applying.",
+      "Reward value: the only rupee conversion in the documents is INR 1 = 4 MR Points (₹0.25 per point), and it applies only to redemption for a statement credit after card cancellation (Source 1, VII.5). The documents do not state a rupee value for the most common redemption. The reward field is therefore omitted. The provided metadata of ₹0.4 per point is not confirmed by the documents.",
+      "Network and UPI status are not stated in the documents, so both are omitted.",
+      "Other terms: points are forfeited if the minimum amount due is not paid by the due date. Source 1 III.1(b) says American Express may change accrual rates at its discretion, for example for promotions."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://americanexpress.com/content/dam/amex/en-in/benefits/membership-rewards-terms.pdf"
+      },
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.americanexpress.com/content/dam/amex/in/benefits/MRCC_Benefit_Terms_conditions.pdf"
+      }
+    ],
+    "lastVerified": "2026-11-08",
+    "confidence": "high"
+  },
+  {
+    "id": "amex-platinum-travel",
+    "name": "Amex Platinum Travel",
+    "issuer": "American Express",
+    "network": "Amex",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "Membership Rewards points",
+      "inrPerUnit": 0.4,
+      "inrPerUnitNote": "Gold Collection vouchers value MR points at about ₹0.4–0.5; statement credit is ₹0.25."
+    },
+    "base": {
+      "rate": 0.02
+    },
+    "rules": [],
+    "caps": [],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "insurance",
+        "utilities"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Base rate: 1 Membership Rewards point per Rs. 50 spent (0.02 points per Re 1) on all spends, per the T&C table for the American Express Platinum Travel Credit Card and the card page. No bonus category rates are stated, so there are no rules.",
+      "Excluded (no points): Fuel (petrol, diesel, CNG and other OMC products), Insurance, and Utilities (household electricity, water, gas). Telecommunications is explicitly shown as earning 1 point per Rs. 50, so it is not excluded.",
+      "Not representable: no points on cash transactions, cash advances, balance transfers, fees and charges, or foreign exchange purchases. No points on EMI selected on a merchant's website or at a merchant's terminal (effective 15 Mar 2020). Points are still earned on EMI via SafeKey and on post-purchase EMI conversions.",
+      "Not representable: milestone benefits. These are a 10,000-point welcome gift for spending Rs. 15,000 within 90 days, 10,000 points for Rs. 4 lakh spend in a membership year, and a Rs. 20,000 Taj voucher for Rs. 7 lakh spend.",
+      "Network, UPI and reward value are omitted because the documents do not state them. The T&C only gives 'INR 1 = 4 MR Points' for credit adjustment after card cancellation, which is 0.25 per point. That differs from the 0.4 in the supplied metadata, and the most common redemption value is not stated.",
+      "The T&C PDF is generic Membership Rewards terms and the card page is consistent with it. The Platinum Travel card's own rate is the 1 point per Rs. 50 base, so the Platinum card's 5X fuel and 3X overseas rates were not used. Nothing was in conflict between the documents."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://americanexpress.com/content/dam/amex/en-in/benefits/membership-rewards-terms.pdf"
+      },
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://americanexpress.com/in/credit-cards/platinum-travel-credit-card"
+      }
+    ],
+    "lastVerified": "2026-11-08",
+    "confidence": "high"
+  },
+  {
+    "id": "idfc-first-millennia",
+    "name": "IDFC FIRST Millennia",
+    "issuer": "IDFC FIRST Bank",
+    "network": "Visa",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "IDFC reward points",
+      "inrPerUnit": 0.25,
+      "inrPerUnitNote": "Website: 1 Reward Point = ₹0.25; a ₹99 + GST fee applies to each redemption transaction."
+    },
+    "base": {
+      "rate": 0.02
+    },
+    "rules": [
+      {
+        "id": "dining-10x",
+        "label": "10X points on dining (incl. food delivery)",
+        "rate": 0.066667,
+        "categories": [
+          "dining",
+          "food_delivery"
+        ]
+      },
+      {
+        "id": "travel-10x",
+        "label": "10X points on travel",
+        "rate": 0.066667,
+        "categories": [
+          "travel"
+        ]
+      },
+      {
+        "id": "insurance-utilities-1x",
+        "label": "1X points on insurance and utilities",
+        "rate": 0.006667,
+        "categories": [
+          "insurance",
+          "utilities"
+        ]
+      }
+    ],
+    "caps": [],
+    "exclusions": {
+      "categories": [
+        "fuel"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Rates are stated only as multiples (1X/3X/10X). Rupee conversion uses the website's example that 1X = 1 point per ₹150, so 3X = 0.02 and 10X ≈ 0.0667 points per ₹1. The website gives this only as an example ('for instance... depending on your card'), not specifically for Millennia, so treat the per-rupee rates as an assumption.",
+      "Base rate is 3X, from 'All other spend categories earn 3X Reward Points'.",
+      "The 18 June 2026 update (document 1) is the most recent and supersedes the older ₹20,000-per-billing-cycle threshold for 10X. The website still says 'up to 10X' and mentions 3X below ₹20,000. Where they conflict I followed the later update.",
+      "International purchases earn 10X from the first transaction, but there is no enum category or merchant for 'international merchants'. I left this out of the rules.",
+      "Railways and FASTag recharges earn 1X. Neither maps cleanly to the category enum, so I left them out of the rules. Railways are not in the stated travel MCC lists (3000-3350, 3501-3853, 7011, 4511, 4722, 4723).",
+      "No points on fuel (excluded as a category), EMI transactions or cash withdrawals. EMI and cash withdrawals have no enum category, so they are not in the exclusions.",
+      "The UPI structure (1X up to ₹2,000, 3X above) is stated only for cardholders who opted for FIRST DIGITAL. It is not clearly a Millennia rule, so I did not model it.",
+      "Rewards are earned only on spends up to the credit limit per billing cycle. This is not representable as a reward-unit cap, so no cap was added.",
+      "Bonus points on travel bookings via the IDFC FIRST Bank Mobile App are 20% on hotels and 10% on flights, on top of base rewards. This is not representable as a rate, so it is not modelled.",
+      "Non-reward benefits are not modelled: 25% off movie tickets up to ₹100 per month, 1% fuel surcharge waiver up to ₹200, railway lounge access, roadside assistance. Points are valid for 24 months.",
+      "Network (Visa) and UPI flags are not stated in the documents, so they are omitted."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.idfcfirst.bank.in/content/dam/idfcfirstbank/pdf/credit-card/FIRST-Millennia-Credit-Card-Communication-May-26.pdf"
+      },
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.idfcfirst.bank.in/credit-card/benefits/rewards-points"
+      }
+    ],
+    "lastVerified": "2026-11-08",
+    "confidence": "medium"
   }
 ]
