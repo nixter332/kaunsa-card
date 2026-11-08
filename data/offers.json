@@ -115,7 +115,7 @@
     },
     "validTo": "2026-11-11",
     "code": "INDUS150 | INDUS300",
-    "conditions": "Use code INDUS150 or INDUS300; minimum spend not stated on the page",
+    "conditions": "Use code INDUS150 or INDUS300; minimum order value not stated on the page",
     "source": "https://www.indusind.bank.in/in/en/personal/offers/indusInd-bank-credit-card-offers.html",
     "lastVerified": "2026-11-08"
   },
@@ -234,7 +234,7 @@
   },
   {
     "id": "indusind-goibibo-flights-emi-2026-11",
-    "title": "IndusInd × Goibibo flights (No-Cost EMI)",
+    "title": "IndusInd × Goibibo domestic flights (No-Cost EMI)",
     "kind": "bank_offer",
     "issuer": "IndusInd Bank",
     "merchants": [
@@ -251,7 +251,7 @@
     "usesPerMonth": 1,
     "payment": "emi",
     "code": "GOINDUSEMI",
-    "conditions": "Domestic flights on 3/6-month no-cost EMI only; hotels, international and holidays differ; not on multi-city flights",
+    "conditions": "Domestic flights on 3/6 month no-cost EMI only; hotels, international and holidays differ; not on multi-city; corporate cards excluded",
     "source": "https://www.goibibo.com/gi-promos/indusind-emi",
     "lastVerified": "2026-11-08"
   }
