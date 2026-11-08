@@ -254,24 +254,5 @@
     "conditions": "Domestic flights on 3/6-month no-cost EMI only; hotels, international and holidays differ; not on multi-city flights",
     "source": "https://www.goibibo.com/gi-promos/indusind-emi",
     "lastVerified": "2026-11-08"
-  },
-  {
-    "id": "axis-makemytrip-intl-flights-2026-11",
-    "title": "Axis × MakeMyTrip international flights",
-    "kind": "bank_offer",
-    "issuer": "Axis Bank",
-    "merchants": [
-      "makemytrip"
-    ],
-    "discount": {
-      "type": "percent",
-      "value": 0.08,
-      "max": 7500
-    },
-    "validTo": "2026-12-30",
-    "code": "MMTAXIS",
-    "conditions": "International flights (economy); business class and international hotels have different offers. No minimum stated.",
-    "source": "https://www.axis.bank.in/offers/makemytrip-offers/instant-discount-on-international-flights-and-hotels",
-    "lastVerified": "2026-11-08"
   }
 ]
