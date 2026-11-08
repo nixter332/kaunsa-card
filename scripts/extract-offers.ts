@@ -18,6 +18,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import fs from "node:fs";
 import path from "node:path";
 import { MERCHANTS } from "../lib/localParse";
+import { offerLinks, type OfferSource } from "../lib/offerLinks";
 import {
   dayList,
   findDuplicate,
@@ -56,7 +57,7 @@ type CatalogEntry = {
   sources?: string[];
 };
 type KnownCard = Pick<Card, "id" | "name" | "issuer" | "network">;
-type SourceEntry = { id: string; label: string; url: string };
+type SourceEntry = OfferSource;
 const readJson = <T>(p: string, fallback: T): T =>
   fs.existsSync(p) ? (JSON.parse(fs.readFileSync(p, "utf8")) as T) : fallback;
 const cards = readJson<Card[]>(path.join(ROOT, "data/cards.json"), []);
@@ -820,16 +821,32 @@ function cardPages(c: Card): string[] {
     if (!list.length) throw new Error("No pages in data/offer-sources.json");
     const only =
       args.only && args.only !== "true" ? args.only.split(",") : null;
-    return runMany(
-      list
-        .filter((s) => !only || only.includes(s.id))
-        .map((s) => ({
-          slug: `offers-${s.id}`,
-          label: s.label,
-          srcs: [s.url],
-        })),
-      "Offer pages",
-    );
+    const jobs: { slug: string; label: string; srcs: string[] }[] = [];
+    for (const src of list.filter((x) => !only || only.includes(x.id))) {
+      if (!src.follow) {
+        jobs.push({ slug: `offers-${src.id}`, label: src.label, srcs: [src.url] });
+        continue;
+      }
+      // A list page: read each offer's own page instead of the list.
+      try {
+        const res = await fetch(src.url, {
+          headers: { "User-Agent": "Mozilla/5.0 (Kaunsa Card offers reader)" },
+          signal: AbortSignal.timeout(30_000),
+        });
+        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+        const links = offerLinks(await res.text(), src.url, src);
+        console.log(`${src.label}: following ${links.length} offer link(s)`);
+        if (!links.length) jobs.push({ slug: `offers-${src.id}`, label: `${src.label} (no offer links found, reading the list page)`, srcs: [src.url] });
+        for (const l of links) {
+          const tail = slugify(new URL(l.url).pathname.split("/").filter(Boolean).pop() ?? "offer");
+          jobs.push({ slug: `offers-${src.id}-${tail}`.slice(0, 70), label: `${src.label}: ${l.text || tail}`, srcs: [l.url] });
+        }
+      } catch (e) {
+        console.log(`⚠ ${src.label}: couldn't open the list page (${(e as Error).message})`);
+        jobs.push({ slug: `offers-${src.id}`, label: src.label, srcs: [src.url] });
+      }
+    }
+    return runMany(jobs, "Offer pages");
   }
   if (args.perks) {
     const only =

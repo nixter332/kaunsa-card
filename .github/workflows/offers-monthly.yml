@@ -1,0 +1,89 @@
+# Monthly offers refresh: on the 1st of each month (9:00 India time), the offers agent re-reads the
+# pages in data/offer-sources.json, drops expired offers, adds new ones it's confident about, and
+# opens a pull request. You review it (the review notes are in the PR description) and merge;
+# Vercel then updates the live app. Nothing goes live without your merge.
+#
+# Run it any time from GitHub: Actions → "Monthly offers refresh" → Run workflow.
+# Needs the repository secret ANTHROPIC_API_KEY, and Settings → Actions → General →
+# "Allow GitHub Actions to create and approve pull requests" switched on.
+
+name: Monthly offers refresh
+
+on:
+  schedule:
+    - cron: "30 3 1 * *" # 03:30 UTC = 09:00 IST on the 1st
+  workflow_dispatch:
+    inputs:
+      perks:
+        description: "Also re-read every card's own page for lasting perks (do this every few months)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: offers-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Drop expired offers
+        run: npm run offers -- --prune
+
+      - name: Read offer pages
+        run: npm run offers -- --batch
+
+      - name: Read card perks
+        if: ${{ inputs.perks }}
+        run: npm run offers -- --perks
+
+      - name: Add the offers marked ready
+        run: npm run offers -- --apply-ready
+
+      - name: Run tests
+        id: tests
+        continue-on-error: true
+        run: npm test
+
+      - name: Build the pull request description
+        run: |
+          {
+            echo "Automatic offers refresh for $(date +'%B %Y'). **Review before merging**: check each added offer against its page, and delete any that look wrong in this PR before merging."
+            echo
+            if [ "${{ steps.tests.outcome }}" != "success" ]; then echo "> ⚠ Tests failed on this branch. Don't merge until they pass."; echo; fi
+            echo "### What changed in data/offers.json"
+            echo
+            git diff --stat -- data/offers.json || true
+            echo
+            for f in data/proposed/REVIEW-offers.md data/proposed/REVIEW-perks.md; do
+              if [ -f "$f" ]; then echo; cat "$f"; fi
+            done
+          } > pr-body.md
+          # GitHub limits PR descriptions to 65,536 characters.
+          head -c 60000 pr-body.md > pr-body-trimmed.md
+
+      - name: Open or update the pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: offers/monthly-refresh
+          delete-branch: true
+          add-paths: data/offers.json
+          commit-message: "Monthly offers refresh"
+          title: "Offers refresh: review and merge"
+          body-path: pr-body-trimmed.md

@@ -1,12 +1,37 @@
 [
-  { "id": "hdfc-offers", "label": "HDFC Bank credit card offers", "url": "https://www.hdfc.bank.in/offers" },
-  { "id": "icici-offers", "label": "ICICI Bank credit card offers", "url": "https://www.icici.bank.in/offers/categories/credit-card" },
-  { "id": "icici-mmt-monday", "label": "ICICI × MakeMyTrip Monday flights", "url": "https://icicibank.com/offers/travel-monday-offer" },
-  { "id": "indusind-offers", "label": "IndusInd Bank credit card offers", "url": "https://www.indusind.bank.in/in/en/personal/offers/indusInd-bank-credit-card-offers.html" },
-  { "id": "axis-offers", "label": "Axis Bank Grab Deals (credit cards)", "url": "https://www.axisbank.com/grab-deals/online-offers?bankingchannel=Credit-Card" },
-  { "id": "sbi-offers", "label": "SBI Card offers", "url": "https://www.sbicard.com/en/personal/offers.page" },
-  { "id": "hsbc-bms-saturday", "label": "HSBC × BookMyShow Saturdays", "url": "https://www.hsbc.co.in/credit-cards/offers/bookmyshow-saturday/" },
-  { "id": "goibibo-offers", "label": "Goibibo offers", "url": "https://www.goibibo.com/offers/" },
-  { "id": "makemytrip-offers", "label": "MakeMyTrip offers", "url": "https://www.makemytrip.com/offers/" },
-  { "id": "bookmyshow-offers", "label": "BookMyShow offers", "url": "https://in.bookmyshow.com/offers" }
+  {
+    "id": "goibibo-indusind",
+    "label": "Goibibo × IndusInd (updated monthly at the same address)",
+    "url": "https://www.goibibo.com/gi-promos/indusind-emi"
+  },
+  {
+    "id": "axis-makemytrip",
+    "label": "Axis × MakeMyTrip offers",
+    "url": "https://www.axis.bank.in/offers/makemytrip-offers",
+    "follow": "/offers/makemytrip-offers/",
+    "onlyKnownShops": false,
+    "maxLinks": 8
+  },
+  {
+    "id": "axis-offers",
+    "label": "Axis Bank Grab Deals (credit cards)",
+    "url": "https://www.axisbank.com/grab-deals/online-offers?bankingchannel=Credit-Card"
+  },
+  {
+    "id": "indusind-offers",
+    "label": "IndusInd Bank credit card offers",
+    "url": "https://www.indusind.bank.in/in/en/personal/offers/indusInd-bank-credit-card-offers.html"
+  },
+  {
+    "id": "icici-offers",
+    "label": "ICICI Bank credit card offers",
+    "url": "https://www.icici.bank.in/offers/credit-card.html",
+    "follow": "/offers/",
+    "maxLinks": 12
+  },
+  {
+    "id": "hsbc-bms-saturday",
+    "label": "HSBC × BookMyShow Saturdays",
+    "url": "https://www.hsbc.co.in/credit-cards/offers/bookmyshow-saturday/"
+  }
 ]
