@@ -9,7 +9,8 @@
     "extract": "tsx --env-file-if-exists=.env.local scripts/extract-rules.ts",
     "offers": "tsx --env-file-if-exists=.env.local scripts/extract-offers.ts",
     "profiles": "tsx --env-file-if-exists=.env.local scripts/extract-profile.ts",
-    "offers:monthly": "npm run offers -- --prune && npm run offers -- --batch && npm run offers -- --apply-ready"
+    "offers:monthly": "npm run offers -- --prune && npm run offers -- --batch && npm run offers -- --apply-ready",
+    "golden": "tsx scripts/golden.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.6.0",
