@@ -31,9 +31,16 @@ function start() {
   } catch {}
 }
 
-export function capture(event: string, props: Record<string, unknown> = {}) {
+/** `instant` sends right away by beacon, for events just before the page navigates (e.g. off to Google sign-in). */
+export function capture(event: string, props: Record<string, unknown> = {}, instant = false) {
   start();
-  if (KEY) posthog.capture(event, props);
+  if (KEY) posthog.capture(event, props, instant ? { send_instantly: true, transport: "sendBeacon" } : undefined);
+}
+
+/** Person properties that never change once set, e.g. their share code or who referred them. */
+export function setPersonOnce(props: Record<string, unknown>) {
+  start();
+  if (KEY) posthog.setPersonProperties(undefined, props);
 }
 
 /** After Google sign-in: ties this device's events to the person, so you can see who's who in PostHog. */

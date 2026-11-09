@@ -122,7 +122,7 @@ select.field { appearance: none; background-image: linear-gradient(45deg, transp
 .edit-grid label .field { color: var(--text); font-size: 16px; }
 .winner { margin-top: 16px; }
 .why { font-weight: 560; margin: 14px 0 4px; }
-.actions { margin: 16px 0 10px; }
+.actions { margin: 16px 0 10px; display: grid; gap: 8px; }
 .actions .btn { width: 100%; }
 .compare ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
 .compare li.dim { opacity: 0.5; }

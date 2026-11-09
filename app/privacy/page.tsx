@@ -3,7 +3,7 @@ import { CONTACT_EMAIL } from "./contact";
 
 export const metadata: Metadata = { title: "Privacy policy · Kaunsa Card" };
 
-const UPDATED = "8 November 2026";
+const UPDATED = "9 November 2026";
 
 export default function Privacy() {
   return (
@@ -29,6 +29,10 @@ export default function Privacy() {
           <li>
             <strong>How you use the app</strong>: which cards you add, what you look up (for typed lookups, the first 80 characters, like
             &ldquo;zomato 650&rdquo;), which card you said you paid with, and any feedback you send. This is linked to your name and email.
+          </li>
+          <li>
+            <strong>Share links</strong>: when you share an answer, the link has a random code, not your name or email. If someone signs up from
+            your link, we can see that your link brought them in. What you share is up to you; the answer is written into the message on your phone.
           </li>
           <li>
             <strong>Card advisor answers</strong>: your income range and monthly spending stay on your phone. Analytics only get the income range, a

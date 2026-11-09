@@ -1,13 +1,13 @@
 import { signInWithGoogle } from "../actions";
 import { CardTile } from "./CardTile";
 import { cardById } from "./store";
-import { TrackView } from "./TrackView";
+import { SignInButton, SignInTracking } from "./SignInParts";
 
 export function SignIn() {
   const fan = ["flipkart-axis", "swiggy-hdfc", "hsbc-live-plus"].map(cardById).filter(Boolean);
   return (
     <main className="app">
-      <TrackView event="signin_viewed" />
+      <SignInTracking />
       <div className="onboard">
         <div className="onboard-step">
           <div className="fan" aria-hidden="true">
@@ -23,9 +23,9 @@ export function SignIn() {
           <h1 className="onboard-title">Kaunsa Card?</h1>
           <p className="onboard-lead">Tell it what you&apos;re paying for. It tells you which of your cards gives the most back, bank offers included.</p>
           <form action={signInWithGoogle} className="onboard-actions">
-            <button className="btn google wide">
+            <SignInButton>
               <GoogleG /> Continue with Google
-            </button>
+            </SignInButton>
           </form>
           <p className="fine center">
             We only get your name and email, to know who&apos;s using Kaunsa Card. Your cards and payments stay on this phone. No bank login, ever. <a href="/privacy" className="linkish">Privacy policy</a>

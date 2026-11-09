@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { amountBucket, identifyUser, resetUser } from "@/lib/analytics";
+import { amountBucket, identifyUser, resetUser, setPersonOnce } from "@/lib/analytics";
 import { signOutOfApp } from "../actions";
 import { merchantHints, recommend, type OfferContext } from "@/lib/engine";
 import { localParse, MERCHANTS } from "@/lib/localParse";
@@ -13,6 +13,7 @@ import { Onboarding } from "./Onboarding";
 import { PayTab } from "./PayTab";
 import { Result } from "./Result";
 import { SavingsTab } from "./SavingsTab";
+import { myShareCode } from "./referral";
 import { Settings, type ThemeChoice } from "./Settings";
 import { ALL_CARDS, ALL_OFFERS, load, offerUsesFromLedger, pretty, save, statesFromLedger, track, type LedgerEntry } from "./store";
 
@@ -52,6 +53,14 @@ export function App({ user }: { user: AppUser }) {
 
   useEffect(() => {
     identifyUser(user);
+    // Share code for links this person sends, and (once) whose link brought them here.
+    setPersonOnce({ share_code: myShareCode() });
+    const referredBy = load<string>("cs.referredBy", "");
+    if (referredBy && !load<boolean>("cs.referralSent", false)) {
+      setPersonOnce({ referred_by: referredBy });
+      track("referred_signin", { ref: referredBy });
+      save("cs.referralSent", true);
+    }
     const saved = load<string[]>("cs.cards", []);
     setMyCardIds(saved);
     setOnboarded(load<boolean>("cs.onboarded", saved.length > 0));
@@ -300,6 +309,7 @@ export function App({ user }: { user: AppUser }) {
                 note={note}
                 paidWith={paidWith}
                 onPaid={markPaid}
+                onToast={showToast}
               />
             )}
           </PayTab>
@@ -352,7 +362,7 @@ export function App({ user }: { user: AppUser }) {
             setOnboarded(false);
           }}
           onClear={() => {
-            for (const k of ["cs.cards", "cs.ledger", "cs.conditions", "cs.recent", "cs.onboarded", "cs.advisor"]) localStorage.removeItem(k);
+            for (const k of ["cs.cards", "cs.ledger", "cs.conditions", "cs.recent", "cs.onboarded", "cs.advisor", "cs.shareCode", "cs.referredBy", "cs.referralSent"]) localStorage.removeItem(k);
             setMyCardIds([]);
             setLedger([]);
             setMet([]);

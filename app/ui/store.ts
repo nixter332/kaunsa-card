@@ -38,9 +38,9 @@ export function save(key: string, value: unknown) {
     localStorage.setItem(key, JSON.stringify(value));
   } catch {}
 }
-export function track(event: string, props: Record<string, unknown> = {}) {
+export function track(event: string, props: Record<string, unknown> = {}, instant = false) {
   // Sent to PostHog when configured (anonymous), and kept in a short on-device log.
-  capture(event, props);
+  capture(event, props, instant);
   const log = load<{ e: string; ts: number; p: Record<string, unknown> }[]>("cs.events", []);
   log.push({ e: event, ts: Date.now(), p: props });
   save("cs.events", log.slice(-200));

@@ -6,6 +6,7 @@ import { CATEGORIES, type AppliedOffer, type Lookup, type Recommendation } from 
 import { betterDeal } from "@/lib/offers";
 import { useEffect, useState } from "react";
 import { CardTile } from "./CardTile";
+import { shareLink } from "./referral";
 import { IconTag } from "./Icons";
 import { cardById, inr, pretty, track } from "./store";
 
@@ -18,9 +19,10 @@ type Props = {
   note?: string;
   paidWith: string | null;
   onPaid: (r: Recommendation) => void;
+  onToast: (msg: string) => void;
 };
 
-export function Result({ lookup, setLookup, results, hints, parser, note, paidWith, onPaid }: Props) {
+export function Result({ lookup, setLookup, results, hints, parser, note, paidWith, onPaid, onToast }: Props) {
   const [editing, setEditing] = useState(false);
   const [reportOpen, setReportOpen] = useState(false);
   const [reportText, setReportText] = useState("");
@@ -81,6 +83,32 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
         .filter((t) => !(deal && deal.rec === r && deal.tip.offerId === t.offerId))
         .map((t) => (r === best ? t.text : `${r.cardName}: ${t.short}.`)),
     );
+  /** Send this answer to a friend (WhatsApp etc.), with this person's share code in the link. */
+  async function share() {
+    if (!best) return;
+    const where = merchant?.name ?? pretty(lookup.category);
+    const gain = best.offer ? `saves ${inr(best.totalInr)}` : `gives ${inr(best.totalInr)} back`;
+    const text = `${where} ${inr(lookup.amount)}: ${best.cardName} ${gain}. Kaunsa Card tells you which of your cards to use for every payment.`;
+    const url = shareLink();
+    const props = { best_card: best.cardId, merchant: lookup.merchant, category: lookup.category, amount_range: amountBucket(lookup.amount) };
+    track("share_clicked", props);
+    if (navigator.share) {
+      try {
+        await navigator.share({ text, url });
+        track("answer_shared", { ...props, method: "native" });
+      } catch {
+        track("answer_share_cancelled", props);
+      }
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(`${text} ${url}`);
+      onToast("Copied. Paste it in WhatsApp.");
+      track("answer_shared", { ...props, method: "copy" });
+    } catch {
+      onToast("Couldn't copy. Try again.");
+    }
+  }
   const [missedOpen, setMissedOpen] = useState(false);
   const [missedSent, setMissedSent] = useState(false);
   const [missedCard, setMissedCard] = useState("");
@@ -244,6 +272,9 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
           <div className="actions">
             <button type="button" className="btn primary" disabled={paidWith === best.cardId} onClick={() => onPaid(best)}>
               {paidWith === best.cardId ? "Payment logged" : "I paid with this card"}
+            </button>
+            <button type="button" className="btn ghost small" onClick={share}>
+              Share this answer
             </button>
           </div>
           <div className="vote" role="group" aria-label="Was this answer right?">
