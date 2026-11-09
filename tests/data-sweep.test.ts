@@ -65,7 +65,8 @@ describe("every card, every kind of spend", () => {
   });
 
   it("a % offer with no maximum is a known, reviewed case", () => {
-    // No cap is stated on these pages. Any new one needs a person to check the page first.
+    // No cap is stated on these pages (SonyLIV checked against the Axis T&C, 9 Nov 2026: the plan price
+    // is the only limit). Any new one needs a person to check the page first.
     const reviewed = new Set([
       "axis-sonyliv-20off-2026-11",
       "swiggy-blck-cleartrip-instant-discount",
