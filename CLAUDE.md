@@ -27,7 +27,7 @@ npx tsc --noEmit     # type check
 npm run build        # what Vercel runs; check before pushing UI changes
 ```
 
-Before every commit: `npm test` and `npx tsc --noEmit` pass. For UI changes also `npm run build`.
+Before every commit: `npm test` and `npx tsc --noEmit` pass. For UI changes also `npm run build`. `.github/workflows/ci.yml` runs all three on every push to `main` and every PR. `tests/data-sweep.test.ts` runs every card through every spend type, so a data slip usually fails there first.
 
 ## Map of the code
 
@@ -60,7 +60,7 @@ npm run profiles -- --pending | --card <id> | --apply id1,id2 [--force]
 npm run offers -- --batch | --perks | --apply-ready | --apply-ids … | --prune
 ```
 
-They write proposals and a REVIEW-*.md into `data/proposed/`. A person reviews, then applies. A rule that lists both `merchants` and `categories` matches on EITHER, so an app-only or brand-only rate must list only the merchant (this caused a real bug with Scapia).
+They write proposals and a REVIEW-*.md into `data/proposed/`. A person reviews, then applies. A rule that lists both `merchants` and `categories` matches on EITHER, so an app-only or brand-only rate must list only the merchant (this caused a real bug with Scapia). A rule can carry a one-sentence `note`, shown with the answer whenever it applies, for limits the fields can't express.
 
 ### Monthly automation
 
@@ -84,5 +84,6 @@ They write proposals and a REVIEW-*.md into `data/proposed/`. A person reviews, 
 - MY Zone base rate and Amex MRCC fees come from review sites (low confidence).
 - When someone pays with the card from the "Better deal on EMI" box, there's no one-tap way to log it, and the EMI discount isn't counted in Savings.
 - Departmental stores and Bharat Gas have no category or merchant; rules that cover them are partly unmodelled.
-- `new-cards.txt`, `profiles-run.txt`, `profiles-sbi.txt` were committed by accident; delete them (`/*.txt` is now gitignored).
+- Caps that depend on other spending (Airtel Axis 25%/10% Airtel Thanks, super.money 3%, Kiwi's 1%-of-limit) aren't modelled. They show as a rule `note` with the answer, but the ranking still counts the full rate.
+- Points earned per ₹100/150/200 block and rounded down per payment are modelled as linear, so small payments are overstated (e.g. Regalia Gold at ₹150).
 - Statement upload / Account Aggregator was deliberately deferred (needs consolidated statements across banks).
