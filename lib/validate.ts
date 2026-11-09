@@ -16,6 +16,7 @@ export function validateCard(c: Partial<Card>): string[] {
     if (r.requires && !(r.requires in CONDITIONS)) errs.push(`rule ${r.id}: unknown condition "${r.requires}"`);
     if (r.rails?.includes("upi") && c.upi === false) errs.push(`rule ${r.id}: UPI rate on a card that can't be used on UPI`);
     for (const cat of r.categories ?? []) if (!CATEGORIES.includes(cat)) errs.push(`rule ${r.id}: unknown category "${cat}"`);
+    if (r.note !== undefined && !(r.note.trim().length > 0 && r.note.length <= 160)) errs.push(`rule ${r.id}: note must be one short sentence (up to 160 characters)`);
   }
   for (const cap of c.caps ?? []) {
     if (!(cap.amount > 0)) errs.push(`cap ${cap.id}: amount must be > 0`);
@@ -59,6 +60,7 @@ export function diffCards(oldC: Partial<Card> | undefined, newC: Partial<Card>):
     const [o] = unmatchedOld.splice(i, 1);
     if (o.rate !== r.rate) out.push(`~ Rule "${r.label}": ${pct(o.rate)} → ${pct(r.rate)}`);
     else if (o.requires !== r.requires || JSON.stringify(o.rails) !== JSON.stringify(r.rails)) out.push(`~ Rule "${r.label}": condition or rail changed`);
+    if ((o.note ?? "") !== (r.note ?? "")) out.push(`~ Rule "${r.label}": note ${r.note ? `now "${r.note}"` : "removed"}`);
     const capOf = (c: Partial<Card>, id?: string) => {
       const cap = c.caps?.find((x) => x.id === id);
       return cap ? `${cap.amount}/${cap.period}/${cap.overflow}` : "none";

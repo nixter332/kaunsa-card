@@ -140,6 +140,11 @@ const ruleSchema = {
     },
     minTxn: { type: "number" },
     capId: { type: "string" },
+    note: {
+      type: "string",
+      description:
+        "One short sentence shown to the user whenever this rule applies, for a limit the fields can't express, e.g. 'Capped at 2× the cashback you earn on other spends this month.' Keep the current record's note unless the document contradicts it.",
+    },
     evidence: {
       type: "string",
       description:

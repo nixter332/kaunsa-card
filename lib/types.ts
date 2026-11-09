@@ -70,6 +70,11 @@ export interface Rule {
   requires?: Condition;
   minTxn?: number;
   capId?: string;
+  /**
+   * Shown with the answer whenever this rule applies: a limit the fields can't express,
+   * e.g. a cap that depends on what you spend elsewhere ("2× your other cashback this month").
+   */
+  note?: string;
 }
 
 export interface Tier {
