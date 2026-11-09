@@ -9,6 +9,20 @@ describe("local parser", () => {
     expect(parseAmount("dinner 2,400")).toBe(2400);
     expect(parseAmount("myntra 1.5k")).toBe(1500);
     expect(parseAmount("₹650 zomato")).toBe(650);
+    expect(parseAmount("iphone 1,29,900")).toBe(129900);
+  });
+  it("isn't fooled by other numbers in the text", () => {
+    expect(parseAmount("dinner for 2 2400")).toBe(2400);
+    expect(parseAmount("iphone 15 79999")).toBe(79999);
+    expect(parseAmount("2 pizzas 900")).toBe(900);
+    expect(parseAmount("5 star hotel 8000")).toBe(8000);
+    expect(parseAmount("1mg 450")).toBe(450);
+  });
+  it("a number marked as money wins over a bigger plain one", () => {
+    expect(parseAmount("order #12345 ₹650")).toBe(650);
+    expect(parseAmount("flight 6e2045 for ₹4,800")).toBe(4800);
+    expect(parseAmount("myntra 2k for 3 shirts")).toBe(2000);
+    expect(parseAmount("gift 500/- for 2")).toBe(500);
   });
   it("prefers the longest merchant alias", () => {
     expect(localParse("swiggy dineout 3000")?.merchant).toBe("swiggy_dineout");

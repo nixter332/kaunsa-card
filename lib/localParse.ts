@@ -5,12 +5,19 @@ import type { Lookup, Merchant } from "./types";
 
 export const MERCHANTS = merchantsJson as Merchant[];
 
+/**
+ * The amount in a typed payment. Text often has other numbers in it ("dinner for 2 2400",
+ * "iphone 15 79999"), so a number marked as money (₹, rs, 1.5k, /-) wins; otherwise the largest one.
+ */
 export function parseAmount(text: string): number | null {
-  const t = text.toLowerCase().replace(/,/g, "");
-  const k = t.match(/(\d+(?:\.\d+)?)\s*k\b/);
-  if (k) return Math.round(parseFloat(k[1]) * 1000);
-  const n = t.match(/(?:₹|rs\.?|inr)?\s*(\d+(?:\.\d+)?)/);
-  return n ? Math.round(parseFloat(n[1])) : null;
+  const t = text.toLowerCase().replace(/(\d),(?=\d)/g, "$1");
+  const nums: { value: number; marked: boolean }[] = [];
+  for (const m of t.matchAll(/(?:(₹)|\b(rs\.?|inr))?\s*(\d+(?:\.\d+)?)\s*(k\b|rs\b|rupees?\b|\/-)?/g)) {
+    const value = Math.round(parseFloat(m[3]) * (m[4] === "k" ? 1000 : 1));
+    if (value > 0) nums.push({ value, marked: Boolean(m[1] || m[2] || m[4]) });
+  }
+  const pool = nums.some((n) => n.marked) ? nums.filter((n) => n.marked) : nums;
+  return pool.length ? Math.max(...pool.map((n) => n.value)) : null;
 }
 
 export function findMerchant(text: string): Merchant | undefined {
