@@ -25,6 +25,8 @@ npm run dev          # localhost:3000 (needs .env.local: AUTH_SECRET, AUTH_GOOGL
 npm test             # vitest, must stay green
 npx tsc --noEmit     # type check
 npm run build        # what Vercel runs; check before pushing UI changes
+npm run golden       # answers that differ from tests/golden.json; -- --update after checking them (no AI)
+npm run evidence     # are rule quotes the bank's words? -- --apply saves verified ones (no AI, reads bank docs)
 ```
 
 Before every commit: `npm test` and `npx tsc --noEmit` pass. For UI changes also `npm run build`. `.github/workflows/ci.yml` runs all three on every push to `main` and every PR. `tests/data-sweep.test.ts` runs every card through every spend type, so a data slip usually fails there first.
@@ -44,7 +46,8 @@ Before every commit: `npm test` and `npx tsc --noEmit` pass. For UI changes also
 
 ### Data
 
-- `data/cards.json`: reward rules for the 31 cards in the app. Each has `sources`, `lastVerified` (`"never"` = not checked against bank terms) and `confidence`.
+- `data/cards.json`: reward rules for the 31 cards in the app. Each has `sources`, `lastVerified` (`"never"` = not checked against bank terms) and `confidence`. `rule.evidence` is the bank's own words for a rule, written only by `npm run evidence -- --apply` or the rules agent after a word-for-word match; never type one by hand. Points cards have `reward.valueBasis` (shown to users) and `reward.valueStated` (false = our estimate, so not "high" confidence).
+- `tests/golden.json`: 191 pinned answers. A data change that changes an answer fails `npm test` until it's checked and saved with `npm run golden -- --update`.
 - `data/card-profiles.json`: fees, waivers, welcome, lounges, forex, min income, `notIssued` (closed to new applicants; advisor never suggests these).
 - `data/catalog.json`: cards waiting to be added, with official sources and `reviewTips` for the agent.
 - `data/offers.json`: bank offers and card perks. `data/offer-sources.json`: pages the offers agent reads monthly.
@@ -64,7 +67,7 @@ They write proposals and a REVIEW-*.md into `data/proposed/`. A person reviews, 
 
 ### Monthly automation
 
-`.github/workflows/offers-monthly.yml` runs on the 1st (09:00 IST): prunes expired offers, re-reads offer pages, adds confident offers, then checks every card's issuer documents for changes and re-reads only changed cards. It opens a PR "Monthly refresh: review and merge" that the owner reviews and merges. GitHub secret `ANTHROPIC_API_KEY` is set.
+`.github/workflows/offers-monthly.yml` runs on the 1st (09:00 IST): prunes expired offers, re-reads offer pages, adds confident offers, then checks every card's issuer documents for changes and re-reads only changed cards. It opens a PR "Monthly refresh: review and merge" that the owner reviews and merges. The PR starts with "Answers that changed" (golden answers before → after) and ends with the evidence report. A card whose new quotes aren't the bank's exact words is never auto-applied. GitHub secret `ANTHROPIC_API_KEY` is set. The PR is opened by GitHub's bot, so CI doesn't run on it; the job's own test step labels it `tests-failing`, and the owner merges it with the ruleset's admin bypass.
 
 ## Hard rules
 
@@ -86,4 +89,6 @@ They write proposals and a REVIEW-*.md into `data/proposed/`. A person reviews, 
 - Departmental stores and Bharat Gas have no category or merchant; rules that cover them are partly unmodelled.
 - Caps that depend on other spending (Airtel Axis 25%/10% Airtel Thanks, super.money 3%, Kiwi's 1%-of-limit) aren't modelled. They show as a rule `note` with the answer, but the ranking still counts the full rate.
 - Points earned per ₹100/150/200 block and rounded down per payment are modelled as linear, so small payments are overstated (e.g. Regalia Gold at ₹150).
+- Evidence check (9 Nov 2026): 35 of 63 rules have the bank's own words. 22 quotes describe scope but not the rate, and 4 aren't the document's exact words (SBI SimplyClick ×2, SimplySave, Amazon Pay ICICI Prime); see `npm run evidence`. No bank quote at all: HSBC Live+ 10% (the broad "shopping and utilities" scope came from an older record and is the sign-in screen's Zomato sample) and ICICI HPCL 4%. Flipkart Axis "4% on Swiggy" is kept from an older record; its document never pairs 4% with Swiggy.
+- Flipkart Axis notes say no cashback under ₹100, but the card has no `minTxn`.
 - Statement upload / Account Aggregator was deliberately deferred (needs consolidated statements across banks).
