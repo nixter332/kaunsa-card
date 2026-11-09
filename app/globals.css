@@ -188,6 +188,7 @@ select.field { appearance: none; background-image: linear-gradient(45deg, transp
 .ledger li { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
 .ledger li > div { display: grid; }
 .ledger-val { text-align: right; font-variant-numeric: tabular-nums; }
+.ledger-val .linkish { justify-self: end; font-size: 0.8rem; }
 .pos { color: var(--accent); }
 .neg { color: var(--warn); }
 .empty { padding: 26px 20px; border-radius: 20px; border: 1px dashed var(--line); margin-top: 8px; }

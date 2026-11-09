@@ -31,7 +31,33 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
     setVote(null);
     setFlagged(false);
     setReportOpen(false);
-  }, [lookup.merchant, lookup.category]);
+  }, [lookup.merchant, lookup.category, lookup.amount, lookup.rail, lookup.channel]);
+  // What the answer was when the edit panel opened, to report what people correct.
+  const [before, setBefore] = useState<Lookup | null>(null);
+  function toggleEdit() {
+    if (!editing) {
+      setBefore(lookup);
+      setEditing(true);
+      return;
+    }
+    setEditing(false);
+    if (!before) return;
+    const fields = (["merchant", "category", "amount", "channel", "rail"] as const).filter((k) => before[k] !== lookup[k]);
+    if (fields.length)
+      track("lookup_edited", {
+        fields,
+        parser: parser || "tile",
+        from_merchant: before.merchant,
+        to_merchant: lookup.merchant,
+        from_category: before.category,
+        to_category: lookup.category,
+        from_rail: before.rail,
+        to_rail: lookup.rail,
+        amount_changed: before.amount !== lookup.amount,
+        amount_range: amountBucket(lookup.amount),
+        best_card: best?.cardId,
+      });
+  }
   const best = results.find((r) => r.usable);
   const rest = results.filter((r) => r !== best);
   const top = Math.max(best?.totalInr ?? 0, 1);
@@ -63,7 +89,7 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
 
   return (
     <div className="result">
-      <button type="button" className="summary" onClick={() => setEditing(!editing)} aria-expanded={editing}>
+      <button type="button" className="summary" onClick={toggleEdit} aria-expanded={editing}>
         <span className="pills">
           <span className="pill">{merchant?.name ?? pretty(lookup.category)}</span>
           <span className="pill">{inr(lookup.amount)}</span>

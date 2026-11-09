@@ -1,7 +1,9 @@
 "use client";
+import { useState } from "react";
 import { cardById, inr, type LedgerEntry } from "./store";
 
-export function SavingsTab({ ledger }: { ledger: LedgerEntry[] }) {
+export function SavingsTab({ ledger, onRemove }: { ledger: LedgerEntry[]; onRemove: (ts: number) => void }) {
+  const [confirming, setConfirming] = useState<number | null>(null);
   const now = new Date();
   const month = ledger.filter((e) => {
     const d = new Date(e.ts);
@@ -65,6 +67,21 @@ export function SavingsTab({ ledger }: { ledger: LedgerEntry[] }) {
                 <span>{inr(e.amount)}</span>
                 <small className="pos">+{inr(e.earned ?? 0)}</small>
                 {miss > 0 && <small className="neg">missed {inr(miss)}</small>}
+                {confirming === e.ts ? (
+                  <small>
+                    Remove?{" "}
+                    <button type="button" className="linkish small" onClick={() => (setConfirming(null), onRemove(e.ts))}>
+                      Yes
+                    </button>{" "}
+                    <button type="button" className="linkish small" onClick={() => setConfirming(null)}>
+                      No
+                    </button>
+                  </small>
+                ) : (
+                  <button type="button" className="linkish small" aria-label={`Remove ${e.label ?? "payment"}, ${inr(e.amount)}`} onClick={() => setConfirming(e.ts)}>
+                    Remove
+                  </button>
+                )}
               </div>
             </li>
           );

@@ -45,6 +45,8 @@ export function App({ user }: { user: AppUser }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [paidWith, setPaidWith] = useState<string | null>(null);
+  // The ledger entry logged for the answer on screen, so a second tap replaces it instead of adding another.
+  const [paidTs, setPaidTs] = useState<number | null>(null);
   const [needAmount, setNeedAmount] = useState<{ lookup: Lookup; query: string; parser: string } | null>(null);
   const [toast, setToast] = useState("");
 
@@ -110,6 +112,7 @@ export function App({ user }: { user: AppUser }) {
     setLookup(l);
     setParser(parsedBy);
     setPaidWith(null);
+    setPaidTs(null);
     setError("");
     const top = recommend(myCards, l, states, offerCtx).find((r) => r.usable);
     track("lookup", {
@@ -163,6 +166,13 @@ export function App({ user }: { user: AppUser }) {
     }
   }
 
+  /** A change made on the answer screen (edit panel or a shop hint): it's a new answer, so it can be logged again. */
+  function editLookup(next: Lookup) {
+    setLookup(next);
+    setPaidWith(null);
+    setPaidTs(null);
+  }
+
   function markPaid(r: Recommendation) {
     if (!lookup) return;
     const best = results.find((x) => x.usable);
@@ -179,12 +189,15 @@ export function App({ user }: { user: AppUser }) {
       offerId: r.offer?.id,
       discount: r.offer?.discountInr,
     };
-    const next = [...ledger, entry];
+    const replaced = paidTs !== null;
+    const next = [...ledger.filter((e) => e.ts !== paidTs), entry];
     setLedger(next);
     save("cs.ledger", next);
     setPaidWith(r.cardId);
-    showToast("Payment logged. Limits and savings updated.");
+    setPaidTs(entry.ts);
+    showToast(replaced ? "Changed to this card. Limits and savings updated." : "Payment logged. Limits and savings updated.");
     track("paid", {
+      replaced,
       card: r.cardId,
       is_best: r.cardId === best?.cardId,
       value_inr: r.totalInr,
@@ -195,6 +208,20 @@ export function App({ user }: { user: AppUser }) {
       offer_id: r.offer?.id,
       discount_inr: r.offer?.discountInr,
     });
+  }
+
+  function removePayment(ts: number) {
+    const entry = ledger.find((e) => e.ts === ts);
+    if (!entry) return;
+    const next = ledger.filter((e) => e.ts !== ts);
+    setLedger(next);
+    save("cs.ledger", next);
+    if (ts === paidTs) {
+      setPaidTs(null);
+      setPaidWith(null);
+    }
+    showToast("Payment removed. Limits and savings updated.");
+    track("payment_removed", { card: entry.cardId, minutes_after: Math.round((Date.now() - entry.ts) / 60000), value_inr: entry.earned });
   }
 
   async function install() {
@@ -266,7 +293,7 @@ export function App({ user }: { user: AppUser }) {
             {lookup && (
               <Result
                 lookup={lookup}
-                setLookup={setLookup}
+                setLookup={editLookup}
                 results={results}
                 hints={hints}
                 parser={parser}
@@ -278,7 +305,7 @@ export function App({ user }: { user: AppUser }) {
           </PayTab>
         ))}
       {tab === "cards" && <CardsTab cards={myCards} states={states} selected={myCardIds} onToggle={toggleCard} met={met} onToggleCondition={toggleCondition} />}
-      {tab === "savings" && <SavingsTab ledger={ledger} />}
+      {tab === "savings" && <SavingsTab ledger={ledger} onRemove={removePayment} />}
       {tab === "advisor" && <AdvisorTab myCards={myCards} onEditCards={() => setTab("cards")} />}
 
       {toast && (
