@@ -42,7 +42,9 @@ export function quoteHasRate(quote: string, rule: Pick<Rule, "rate">, card: Pick
   const blocks = [...q.matchAll(/per (?:rs )?(\d+)/g)].map((m) => parseFloat(m[1]));
   const expected = [rule.rate * 100, rule.rate * card.reward.inrPerUnit * 100, ...blocks.map((block) => rule.rate * block)];
   if (numbers.some((n) => expected.some((e) => near(n, e)))) return true;
-  return card.base.rate > 0 && multiples.some((x) => near(x, rule.rate / card.base.rate));
+  // "10X" means 10 times the card's base, or 10 points per ₹100/150/200 when "1X" is 1 point per block
+  // (IDFC's 1X is 1 point per ₹150, and its everyday rate is 3X).
+  return multiples.some((x) => (card.base.rate > 0 && near(x, rule.rate / card.base.rate)) || [100, 150, 200].some((block) => near(x, rule.rate * block)));
 }
 
 export type EvidenceCheck = { found: boolean; hasRate: boolean; source?: string };

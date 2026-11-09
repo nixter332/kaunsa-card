@@ -32,6 +32,11 @@ quarter. 5 Reward Points per ₹200 spent on all eligible “retail” spends.`;
     expect(quoteHasRate("10X Reward Points on dining", { rate: 0.25 }, points)).toBe(true);
     expect(quoteHasRate("10 Reward Points per ₹100", { rate: 0.1 }, points)).toBe(true);
     expect(quoteHasRate("Preferred merchants earn accelerated cashback", { rate: 0.04 }, cashback)).toBe(false);
+    // IDFC: 1X = 1 point per ₹150 and the everyday rate is 3X, so 10X = 10 per ₹150.
+    const idfc = { base: { rate: 0.02 }, reward: { kind: "points" as const, unitName: "RP", inrPerUnit: 0.25 } };
+    expect(quoteHasRate("You will now earn 10X rewards on Dining", { rate: 10 / 150 }, idfc)).toBe(true);
+    expect(quoteHasRate("which will continue earning 1X Reward Points", { rate: 1 / 150 }, idfc)).toBe(true);
+    expect(quoteHasRate("You will now earn 10X rewards on Dining", { rate: 5 / 150 }, idfc)).toBe(false);
   });
 
   it("reports which document holds the quote", () => {
