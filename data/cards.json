@@ -44,7 +44,12 @@
           "online"
         ],
         "minTxn": 100,
-        "capId": "online5"
+        "capId": "online5",
+        "evidence": {
+          "quote": "5% Cashback will only be accrued on online transactions done on following categories",
+          "source": "C:\\Users\\lenovo\\Downloads\\terms-and-conditions-swiggy-hdfc-bank-credit-card-26052026.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "cleartrip5",
@@ -54,7 +59,12 @@
           "cleartrip"
         ],
         "minTxn": 100,
-        "capId": "online5"
+        "capId": "online5",
+        "evidence": {
+          "quote": "Transacitons on Cleartrip will earn 5% cashback for statement starting 17th April 2026 basis the merchant name.",
+          "source": "C:\\Users\\lenovo\\Downloads\\terms-and-conditions-swiggy-hdfc-bank-credit-card-26052026.pdf",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [
@@ -151,7 +161,12 @@
         "merchants": [
           "myntra"
         ],
-        "capId": "myntra"
+        "capId": "myntra",
+        "evidence": {
+          "quote": "Myntra 7.5% INR 4000 per statement quarter",
+          "source": "https://www.axis.bank.in/docs/default-source/default-document-library/cashback-tncs---final.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "flipkart",
@@ -160,7 +175,12 @@
         "merchants": [
           "flipkart"
         ],
-        "capId": "flipkart"
+        "capId": "flipkart",
+        "evidence": {
+          "quote": "Flipkart* 5% INR 4000 per statement quarter",
+          "source": "https://www.axis.bank.in/docs/default-source/default-document-library/cashback-tncs---final.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "cleartrip",
@@ -169,7 +189,12 @@
         "merchants": [
           "cleartrip"
         ],
-        "capId": "cleartrip"
+        "capId": "cleartrip",
+        "evidence": {
+          "quote": "Cleartrip 5% INR 4000 per statement quarter",
+          "source": "https://www.axis.bank.in/docs/default-source/default-document-library/cashback-tncs---final.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "preferred",
@@ -417,7 +442,12 @@
         "rate": 0.2,
         "merchants": [
           "scapia_travel"
-        ]
+        ],
+        "evidence": {
+          "quote": "You will earn 20% rewards on travel purchases made on the Scapia App.",
+          "source": "C:\\Users\\lenovo\\Downloads\\Cardholder_agreement v11 30_04_26.pdf",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [],
@@ -486,7 +516,12 @@
         "rate": 0.2,
         "merchants": [
           "scapia_travel"
-        ]
+        ],
+        "evidence": {
+          "quote": "You will earn 20% rewards on travel purchases made on the Scapia App.",
+          "source": "C:\\Users\\lenovo\\Downloads\\Cardholder_agreement v11 30_04_26.pdf",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [],
@@ -553,7 +588,12 @@
           "online"
         ],
         "capId": "online-cap",
-        "minTxn": 100
+        "minTxn": 100,
+        "evidence": {
+          "quote": "Online Spends 5%",
+          "source": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/ekit-tncs/cashback-tnc-ekit.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "offline-1",
@@ -563,7 +603,12 @@
           "offline"
         ],
         "capId": "offline-cap",
-        "minTxn": 100
+        "minTxn": 100,
+        "evidence": {
+          "quote": "Offline Spends 1%",
+          "source": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/ekit-tncs/cashback-tnc-ekit.pdf",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [
@@ -652,7 +697,12 @@
         "rate": 0.03,
         "merchants": [
           "amazon"
-        ]
+        ],
+        "evidence": {
+          "quote": "For Card Members not having Prime Membership, earn rate of the Reward Points will be 3% of the transaction amount for all transactions carried out on www.amazon.in",
+          "source": "https://www.icici.bank.in/content/dam/icicibank/india/managed-assets/revamp-page-images/docs/pdf/tc-for-amazon-pay-credit-card.pdf",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [],
@@ -717,7 +767,12 @@
         "merchants": [
           "airtel_bill"
         ],
-        "note": "Capped each statement month at 2× the 1% cashback you earn on other spends. Little other spend means little or no Airtel cashback."
+        "note": "Capped each statement month at 2× the 1% cashback you earn on other spends. Little other spend means little or no Airtel cashback.",
+        "evidence": {
+          "quote": "25% Cashback – Airtel bill payments via Airtel Thanks app",
+          "source": "https://www.axis.bank.in/docs/default-source/default-document-library/credit-cards/terms-and-conditions-for-cashback-for-airtel-axis-bank-credit-card.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "airtel-utility-10",
@@ -726,7 +781,12 @@
         "merchants": [
           "airtel_utility"
         ],
-        "note": "Capped each statement month at the 1% cashback you earn on other spends."
+        "note": "Capped each statement month at the 1% cashback you earn on other spends.",
+        "evidence": {
+          "quote": "10% Cashback – Other Utility Payments via Airtel Thanks app",
+          "source": "https://www.axis.bank.in/docs/default-source/default-document-library/credit-cards/terms-and-conditions-for-cashback-for-airtel-axis-bank-credit-card.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "zomato-10-valueback",
@@ -742,7 +802,12 @@
           "card"
         ],
         "minTxn": 499,
-        "capId": "zomato-valueback-cap"
+        "capId": "zomato-valueback-cap",
+        "evidence": {
+          "quote": "Customer is eligible to get 10% instant value back at Zomato, Blinkit and District Movies",
+          "source": "https://www.axis.bank.in/docs/default-source/default-document-library/credit-cards/terms-and-conditions-for-cashback-for-airtel-axis-bank-credit-card.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "blinkit-10-valueback",
@@ -842,7 +907,12 @@
         ],
         "rails": [
           "card"
-        ]
+        ],
+        "evidence": {
+          "quote": "2% back as NeuCoins on Non-EMI Spends on Tata Neu and partner Tata Brands.",
+          "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-plus-hdfc-bank-credit-card",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "upi-base",
@@ -851,7 +921,12 @@
         "rails": [
           "upi"
         ],
-        "capId": "upi-monthly"
+        "capId": "upi-monthly",
+        "evidence": {
+          "quote": "Earn 0.25% back as NeuCoins on eligible UPI spends (including spends on partner Tata Brands)",
+          "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-plus-hdfc-bank-credit-card",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "upi-neu-id",
@@ -988,7 +1063,12 @@
         ],
         "rails": [
           "card"
-        ]
+        ],
+        "evidence": {
+          "quote": "5% back as NeuCoins on Non-EMI Spends on Tata Neu and partner Tata Brands.",
+          "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-infinity-hdfc-bank-credit-card",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "grocery-capped",
@@ -1045,7 +1125,12 @@
         "rails": [
           "upi"
         ],
-        "capId": "upi-cap"
+        "capId": "upi-cap",
+        "evidence": {
+          "quote": "Earn 0.50% back as NeuCoins on eligible UPI spends (including spends on partner Tata Brands)",
+          "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-infinity-hdfc-bank-credit-card",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "upi-tata-neu-id",
@@ -1148,7 +1233,12 @@
         "rails": [
           "upi"
         ],
-        "note": "Kiwis are earned on whole ₹100s only, and capped each month at 1% of your credit limit."
+        "note": "Kiwis are earned on whole ₹100s only, and capped each month at 1% of your credit limit.",
+        "evidence": {
+          "quote": "Scan & pay Transactions - 1.5% Cashback",
+          "source": "https://gokiwi.in/rewards-policy-v2",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [],
@@ -1208,7 +1298,12 @@
           "upi"
         ],
         "requires": "partner_upi_app",
-        "note": "Capped each statement cycle at the larger of ₹100 or the cashback you earn on other spends."
+        "note": "Capped each statement cycle at the larger of ₹100 or the cashback you earn on other spends.",
+        "evidence": {
+          "quote": "QR Transactions done on/through the super.money Platform* 3%",
+          "source": "https://www.axis.bank.in/docs/default-source/default-document-library/credit-cards/axis-bank-supermoney-rupay-credit-card.pdf",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [],
@@ -1279,7 +1374,12 @@
           "swiggy_dineout"
         ],
         "capId": "swiggy-10-cap",
-        "minTxn": 249
+        "minTxn": 249,
+        "evidence": {
+          "quote": "Earning 10% Cashback using Swiggy BLCK HDFC Bank Credit Card is applicable only on transaction done on Swiggy Food ordering, Instamart and Dineout.",
+          "source": "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/pdfs/Combined_TnCs_Ornge_and_BLCK.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "online-5-categories",
@@ -1295,7 +1395,12 @@
           "online"
         ],
         "capId": "online-5-cap",
-        "minTxn": 100
+        "minTxn": 100,
+        "evidence": {
+          "quote": "5% Cashback will only be accrued on online transactions done on following Brands and categories on certain MCCs",
+          "source": "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/pdfs/Combined_TnCs_Ornge_and_BLCK.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "online-5-merchants",
@@ -1412,7 +1517,12 @@
           "swiggy_dineout"
         ],
         "capId": "swiggy-5pct-cap",
-        "minTxn": 249
+        "minTxn": 249,
+        "evidence": {
+          "quote": "Spends on Swiggy App* (Food Delivery, Instamart and Dineout) 5% cashback",
+          "source": "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/pdfs/Combined_TnCs_Ornge_and_BLCK.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "online-apparel-5",
@@ -1425,7 +1535,12 @@
           "online"
         ],
         "capId": "swiggy-5pct-cap",
-        "minTxn": 249
+        "minTxn": 249,
+        "evidence": {
+          "quote": "5% Cashback will only be accrued on online transactions done on following Brands and categories on certain MCCs",
+          "source": "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/pdfs/Combined_TnCs_Ornge_and_BLCK.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "online-electronics-5",
@@ -1660,7 +1775,12 @@
         "merchants": [
           "gpay_bill"
         ],
-        "capId": "accelerated-cap"
+        "capId": "accelerated-cap",
+        "evidence": {
+          "quote": "Cashback on bill payments (electricity, water, gas, LPG and broadband), DTH and mobile recharges through Google Pay* 5% 5%",
+          "source": "https://www.axis.bank.in/docs/default-source/default-document-library/credit-card/axis-bank-ace-credit-card-tncs.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "swiggy-zomato-ola-4",
@@ -1671,7 +1791,12 @@
           "zomato",
           "ola"
         ],
-        "capId": "accelerated-cap"
+        "capId": "accelerated-cap",
+        "evidence": {
+          "quote": "Swiggy, Zomato and Ola** 4% 4%",
+          "source": "https://www.axis.bank.in/docs/default-source/default-document-library/credit-card/axis-bank-ace-credit-card-tncs.pdf",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [
@@ -1759,7 +1884,12 @@
           "uber",
           "zomato"
         ],
-        "capId": "cap-5pct-merchants"
+        "capId": "cap-5pct-merchants",
+        "evidence": {
+          "quote": "CashBack on Amazon, BookMyShow, Cult.fit, Flipkart, Myntra, Sony LIV, Swiggy, Tata CLiQ, Uber & Zomato* 5% 1000",
+          "source": "C:\\Users\\lenovo\\Downloads\\millennia-tnc-20th-jul26.pdf",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [
@@ -1837,7 +1967,12 @@
           "flipkart",
           "shopsy"
         ],
-        "capId": "flipkart-quarterly"
+        "capId": "flipkart-quarterly",
+        "evidence": {
+          "quote": "Cardholders earning 5% cashback at Flipkart MID’s (including Shopsy, Flipkart Travel) can earn up to Rs 4,000 on a quarterly basis.",
+          "source": "C:\\Users\\lenovo\\Downloads\\Flipkart-SBI-CreditCard-TandC-Booklet.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "cleartrip-5",
@@ -1846,7 +1981,12 @@
         "merchants": [
           "cleartrip"
         ],
-        "capId": "cleartrip-quarterly"
+        "capId": "cleartrip-quarterly",
+        "evidence": {
+          "quote": "Cardholders earning 5% cashback at Cleartrip MID’s can earn up to Rs 4000 on a quarterly basis.",
+          "source": "C:\\Users\\lenovo\\Downloads\\Flipkart-SBI-CreditCard-TandC-Booklet.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "myntra-7-5",
@@ -1855,7 +1995,12 @@
         "merchants": [
           "myntra"
         ],
-        "capId": "myntra-quarterly"
+        "capId": "myntra-quarterly",
+        "evidence": {
+          "quote": "Cardholders earning 7.5% cashback at Myntra MID’s can earn up to Rs 4000 on a quarterly basis.",
+          "source": "C:\\Users\\lenovo\\Downloads\\Flipkart-SBI-CreditCard-TandC-Booklet.pdf",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [
@@ -1948,7 +2093,12 @@
           "food_delivery",
           "grocery"
         ],
-        "capId": "monthly-cashback-cap"
+        "capId": "monthly-cashback-cap",
+        "evidence": {
+          "quote": "10% cashback on all dining, food delivery and grocery transactions",
+          "source": "https://www.hsbc.bank.in/content/dam/hsbc/in/documents/credit-cards/rupay-cashback/rupay-cashback-credit-card-services-guide.pdf",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [
@@ -2030,7 +2180,12 @@
           "swiggy_instamart",
           "reliance_smart",
           "bigbasket"
-        ]
+        ],
+        "evidence": {
+          "quote": "10X CashPoints(Upto 2.5% Valueback) on Amazon, Flipkart, Swiggy, Reliance Smart SuperStore & BigBasket",
+          "source": "https://hdfc.bank.in/credit-cards/moneyback-plus-credit-card",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [],
@@ -2083,7 +2238,12 @@
         "merchants": [
           "bpcl"
         ],
-        "capId": "bpcl-25x-cap"
+        "capId": "bpcl-25x-cap",
+        "evidence": {
+          "quote": "25X Reward Points on every INR 100 spent at BPCL Fuel, Lubricants, and Bharat Gas (Website & App only) (Limited to Max 2500 Reward Points per billing cycle).",
+          "source": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/who-we-are/notices/disclosure-under-regulation-30-press-release-dec.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "dining-movies-grocery-10x",
@@ -2093,7 +2253,12 @@
           "dining",
           "movies",
           "grocery"
-        ]
+        ],
+        "evidence": {
+          "quote": "10X Reward Points on every INR 100 spent at Dining, Movies, Grocery and Departmental Stores.",
+          "source": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/who-we-are/notices/disclosure-under-regulation-30-press-release-dec.pdf",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [
@@ -2167,7 +2332,12 @@
           "ixigo",
           "yatra"
         ],
-        "capId": "travel-monthly"
+        "capId": "travel-monthly",
+        "evidence": {
+          "quote": "Earn 5 EDGE Miles for every Rs. 100 spent on Travel EDGE, airline and hotel merchants up to cumulative transactions of Rs. 2,00,000 per month",
+          "source": "https://www.axis.bank.in/docs/default-source/default-document-library/credit-cards/terms-and-conditions-of-features-of-axis-bank-atlas-credit-card.pdf",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [
@@ -2251,7 +2421,12 @@
           "utilities",
           "grocery"
         ],
-        "capId": "daily-essentials-cap"
+        "capId": "daily-essentials-cap",
+        "evidence": {
+          "quote": "For every ₹100 spent, you earn 20 ICICI Bank Reward Points, capped at 400 ICICI Bank Reward points per month.",
+          "source": "https://www.icicibank.com/personal-banking/cards/credit-card/hpcl-super-saver",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [
