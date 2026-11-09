@@ -1,9 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import { MERCHANTS } from "@/lib/localParse";
-import type { Lookup } from "@/lib/types";
-import { IconArrowUp, IconBack, IconClose, IconDelete, TileIcon } from "./Icons";
-import { pretty, TILES, type Tile } from "./store";
+import type { Card, Lookup, Offer } from "@/lib/types";
+import { IconArrowUp, IconBack, IconClose, IconDelete, IconTag, TileIcon } from "./Icons";
+import { inr, offerDeal, offerEnd, pretty, TILES, track, type Tile } from "./store";
+
+/** A monthly or quarterly bonus limit that's partly used, for the "On your cards" block. */
+export type CapRoom = { key: string; cardName: string; leftInr: number; period: string; label: string };
 
 const EXAMPLES = ["dinner 2400", "zomato 650", "myntra 3000", "instamart 900", "electricity bill via gpay 1800", "kirana 800 via UPI"];
 
@@ -20,12 +23,22 @@ type Props = {
   onPendingDone: (l: Lookup) => void;
   onPendingCancel: () => void;
   children?: React.ReactNode; // the result, when there is one
+  /** Live offers on the user's cards (bank offers first) and caps filling up. */
+  offers: { offer: Offer; cards: Card[] }[];
+  caps: CapRoom[];
 };
 
-export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBack, pending, onPendingDone, onPendingCancel, children }: Props) {
+export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBack, pending, onPendingDone, onPendingCancel, children, offers, caps }: Props) {
   const [text, setText] = useState("");
   const [tile, setTile] = useState<Tile | null>(null);
   const [example, setExample] = useState(0);
+  const shownOffers = offers.slice(0, 2);
+  const shownCaps = caps.slice(0, 1);
+  useEffect(() => {
+    if (shownOffers.length || shownCaps.length) track("home_cards_shown", { offers: offers.length, caps: caps.length });
+    // Once per visit to the Pay screen.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const t = setInterval(() => setExample((i) => (i + 1) % EXAMPLES.length), 3200);
@@ -66,6 +79,43 @@ export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBac
         </button>
       </form>
       {error && <p className="error">{error}</p>}
+
+      {!hasResult && (shownOffers.length > 0 || shownCaps.length > 0) && (
+        <section className="home-cards" aria-label="On your cards">
+          {shownCaps.map((c) => (
+            <p key={c.key} className="home-cap">
+              <strong>{c.cardName}</strong>: {c.leftInr > 0 ? `${inr(c.leftInr)} of bonus left this ${c.period}` : `bonus used up this ${c.period}`}
+              <small className="muted"> · {c.label}</small>
+            </p>
+          ))}
+          {shownOffers.map(({ offer, cards }) => {
+            const m = MERCHANTS.find((x) => x.id === offer.merchants[0]);
+            if (!m) return null;
+            const end = offer.kind === "bank_offer" ? offerEnd(offer) : "";
+            return (
+              <button
+                type="button"
+                key={offer.id}
+                className="home-offer"
+                onClick={() => {
+                  track("home_offer_tapped", { offer_id: offer.id, kind: offer.kind, merchant: m.id });
+                  setTile({ id: "offer", label: m.name, hint: "", category: m.category, channel: m.channel, rail: offer.rails?.[0] ?? "card", merchants: offer.merchants, preselect: m.id });
+                }}
+              >
+                <span className="o-title">
+                  <IconTag size={15} /> {m.name}: {offerDeal(offer)}
+                  {offer.payment === "emi" ? " (no-cost EMI)" : ""}
+                </span>
+                <span className="o-meta">
+                  {cards.map((c) => c.name).join(", ")}
+                  {end && ` · till ${end}`}
+                </span>
+              </button>
+            );
+          })}
+          {offers.length > shownOffers.length && <p className="muted small">More offers in My cards.</p>}
+        </section>
+      )}
 
       <p className="or">or tap a category</p>
       <div className="tiles">
@@ -114,7 +164,7 @@ type SheetProps = { tile: Tile; initial?: Lookup; title?: string; onClose: () =>
 
 function AmountSheet({ tile, initial, title, onClose, onDone }: SheetProps) {
   const [amount, setAmount] = useState("");
-  const [merchant, setMerchant] = useState<string | undefined>(initial?.merchant);
+  const [merchant, setMerchant] = useState<string | undefined>(initial?.merchant ?? tile.preselect);
   const [rail, setRail] = useState<Lookup["rail"]>(initial?.rail ?? tile.rail);
   const m = MERCHANTS.find((x) => x.id === merchant);
 

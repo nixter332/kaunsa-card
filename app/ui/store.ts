@@ -75,6 +75,17 @@ export function statesFromLedger(cards: Card[], ledger: LedgerEntry[], met: stri
 
 export const inr = (n: number) => `₹${Math.round(n).toLocaleString("en-IN")}`;
 
+/** "10% off up to ₹300 on ₹1,000+" */
+export function offerDeal(o: Offer) {
+  const d = o.discount;
+  const off = d.type === "flat" ? `${inr(d.value)} off` : `${Math.round(d.value * 100)}% off${d.max ? ` up to ${inr(d.max)}` : ""}`;
+  return o.minTxn ? `${off} on ${inr(o.minTxn)}+` : off;
+}
+
+/** "11 Nov" for an offer's last day. */
+export const offerEnd = (o: Offer) =>
+  o.validTo ? new Date(`${o.validTo}T12:00:00+05:30`).toLocaleDateString("en-IN", { day: "numeric", month: "short" }) : "";
+
 /** For points cards: "1 Reward Point = ₹0.50, for flights and hotels on SmartBuy." Nothing for plain cashback. */
 export function pointValueLine(card: Card): string | undefined {
   const r = card.reward;
@@ -118,6 +129,8 @@ export type Tile = {
   channel: Lookup["channel"];
   rail: Lookup["rail"];
   merchants: string[];
+  /** A shop to have selected when the sheet opens (e.g. from an offer). */
+  preselect?: string;
 };
 
 export const TILES: Tile[] = [

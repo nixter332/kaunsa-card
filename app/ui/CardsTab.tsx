@@ -2,11 +2,11 @@
 import { useState } from "react";
 import { MERCHANTS } from "@/lib/localParse";
 import { dayList, offersForCards } from "@/lib/offers";
-import type { Card, CardState, Offer } from "@/lib/types";
+import type { Card, CardState } from "@/lib/types";
 import { CardPicker } from "./CardPicker";
 import { CardTile } from "./CardTile";
 import { IconClose, IconTag } from "./Icons";
-import { ALL_OFFERS, inr } from "./store";
+import { ALL_OFFERS, inr, offerDeal, offerEnd } from "./store";
 
 type Props = {
   cards: Card[];
@@ -83,12 +83,6 @@ export function CardsTab({ cards, states, selected, onToggle, met, onToggleCondi
   );
 }
 
-function deal(o: Offer) {
-  const d = o.discount;
-  const off = d.type === "flat" ? `${inr(d.value)} off` : `${Math.round(d.value * 100)}% off${d.max ? ` up to ${inr(d.max)}` : ""}`;
-  return o.minTxn ? `${off} on ${inr(o.minTxn)}+` : off;
-}
-
 function OffersList({ cards }: { cards: Card[] }) {
   const live = offersForCards(ALL_OFFERS, cards, new Date());
   return (
@@ -100,7 +94,7 @@ function OffersList({ cards }: { cards: Card[] }) {
         <ul className="offers-list">
           {live.map(({ offer, cards: covered }) => {
             const where = offer.merchants.map((id) => MERCHANTS.find((m) => m.id === id)?.name ?? id).join(", ");
-            const end = offer.validTo ? new Date(`${offer.validTo}T12:00:00+05:30`).toLocaleDateString("en-IN", { day: "numeric", month: "short" }) : "";
+            const end = offerEnd(offer);
             const meta = [
               offer.days?.length && `${dayList(offer.days)} only`,
               offer.payment === "emi" && "no-cost EMI only",
@@ -114,7 +108,7 @@ function OffersList({ cards }: { cards: Card[] }) {
                 <p className="o-title">
                   <IconTag /> {where}
                 </p>
-                <p className="o-deal">{deal(offer)}</p>
+                <p className="o-deal">{offerDeal(offer)}</p>
                 <p className="o-meta">{[covered.map((c) => c.name).join(", "), ...meta].join(" · ")}</p>
                 {offer.conditions && <p className="o-meta">{offer.conditions}</p>}
               </li>

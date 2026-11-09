@@ -4,13 +4,14 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { amountBucket, identifyUser, resetUser, setPersonOnce } from "@/lib/analytics";
 import { signOutOfApp } from "../actions";
 import { merchantHints, recommend, type OfferContext } from "@/lib/engine";
+import { offersForCards } from "@/lib/offers";
 import { localParse, MERCHANTS } from "@/lib/localParse";
 import type { Lookup, Recommendation } from "@/lib/types";
 import { AdvisorTab } from "./AdvisorTab";
 import { CardsTab } from "./CardsTab";
 import { IconAdvisor, IconCards, IconPay, IconSavings, IconSettings } from "./Icons";
 import { Onboarding } from "./Onboarding";
-import { PayTab } from "./PayTab";
+import { PayTab, type CapRoom } from "./PayTab";
 import { Result } from "./Result";
 import { SavingsTab } from "./SavingsTab";
 import { myShareCode } from "./referral";
@@ -98,6 +99,28 @@ export function App({ user }: { user: AppUser }) {
   const offerCtx: OfferContext = useMemo(() => ({ offers: ALL_OFFERS, today: new Date(), uses: offerUsesFromLedger(ledger) }), [ledger]);
   const results: Recommendation[] = useMemo(() => (lookup ? recommend(myCards, lookup, states, offerCtx) : []), [lookup, myCards, states, offerCtx]);
   const hints = useMemo(() => (lookup ? merchantHints(myCards, lookup, states, MERCHANTS, 4, offerCtx) : []), [lookup, myCards, states, offerCtx]);
+
+  // "On your cards" on the Pay screen: live offers (time-limited bank offers before lasting perks), and the
+  // bonus limits that are closest to full.
+  const homeOffers = useMemo(
+    () => offersForCards(ALL_OFFERS, myCards, new Date()).sort((a, b) => Number(b.offer.kind === "bank_offer") - Number(a.offer.kind === "bank_offer")),
+    [myCards],
+  );
+  const capRoom: CapRoom[] = useMemo(
+    () =>
+      myCards
+        .flatMap((card) =>
+          card.caps.map((cap) => {
+            const used = states[card.id]?.capUsed[cap.id] ?? 0;
+            const leftInr = Math.max(0, cap.amount - used) * card.reward.inrPerUnit;
+            return { key: `${card.id}|${cap.id}`, cardName: card.name, leftInr, period: cap.period, label: cap.label, ratio: used / cap.amount };
+          }),
+        )
+        .filter((c) => c.ratio > 0)
+        .sort((a, b) => b.ratio - a.ratio)
+        .map(({ ratio: _r, ...c }) => c),
+    [myCards, states],
+  );
 
   const showToast = useCallback((msg: string) => {
     setToast(msg);
@@ -298,6 +321,8 @@ export function App({ user }: { user: AppUser }) {
             recent={recent}
             hasResult={!!lookup}
             onBack={() => setLookup(null)}
+            offers={homeOffers}
+            caps={capRoom}
           >
             {lookup && (
               <Result
