@@ -1,10 +1,31 @@
+import { recommend } from "@/lib/engine";
+import type { Card, Lookup } from "@/lib/types";
 import { signInWithGoogle } from "../actions";
 import { CardTile } from "./CardTile";
 import { cardById } from "./store";
+import { Samples, type Sample } from "./Samples";
 import { SignInButton, SignInTracking } from "./SignInParts";
 
+const SAMPLE_LOOKUPS: { id: string; label: string; lookup: Lookup }[] = [
+  // Three payments with three different winners: the point is that no one card wins everywhere.
+  { id: "zomato", label: "Zomato ₹600", lookup: { merchant: "zomato", category: "food_delivery", amount: 600, channel: "online", rail: "card" } },
+  { id: "myntra", label: "Myntra ₹3,000", lookup: { merchant: "myntra", category: "apparel", amount: 3000, channel: "online", rail: "card" } },
+  { id: "amazon", label: "Amazon ₹2,000", lookup: { merchant: "amazon", category: "online_shopping", amount: 2000, channel: "online", rail: "card" } },
+];
+
+/** The rules engine's real answers for three popular cards (card rules only, no offers or AI). */
+function samples(cards: Card[]): Sample[] {
+  return SAMPLE_LOOKUPS.map(({ id, label, lookup }) => ({
+    id,
+    label,
+    rows: recommend(cards, lookup)
+      .filter((r) => r.usable)
+      .map((r) => ({ cardName: r.cardName, valueInr: r.valueInr, pct: r.effectivePct, why: r.reason })),
+  }));
+}
+
 export function SignIn() {
-  const fan = ["flipkart-axis", "swiggy-hdfc", "hsbc-live-plus"].map(cardById).filter(Boolean);
+  const fan = ["flipkart-axis", "swiggy-hdfc", "hsbc-live-plus"].map(cardById).filter((c): c is Card => Boolean(c));
   return (
     <main className="app">
       <SignInTracking />
@@ -22,6 +43,7 @@ export function SignIn() {
           </div>
           <h1 className="onboard-title">Kaunsa Card?</h1>
           <p className="onboard-lead">Tell it what you&apos;re paying for. It tells you which of your cards gives the most back, bank offers included.</p>
+          <Samples samples={samples(fan)} cardsLabel={fan.map((c) => c.name).join(", ")} />
           <form action={signInWithGoogle} className="onboard-actions">
             <SignInButton>
               <GoogleG /> Continue with Google

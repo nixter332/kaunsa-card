@@ -15,6 +15,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import fs from "node:fs";
 import path from "node:path";
+import { checkQuote } from "../lib/evidence";
 import { MERCHANTS } from "../lib/localParse";
 import { callTool } from "../lib/toolCall";
 import { CATEGORIES, CONDITIONS, type Card } from "../lib/types";
@@ -34,6 +35,7 @@ import {
   type FetchResult,
   type WatchState,
 } from "../lib/termsWatch";
+import { pdfText } from "./docText";
 
 const ROOT = path.resolve(__dirname, "..");
 const CARDS_PATH = path.join(ROOT, "data/cards.json");
@@ -184,6 +186,15 @@ const submitTool: Anthropic.Tool = {
               "₹ value of one unit at the most common redemption (cashback = 1)",
           },
           inrPerUnitNote: { type: "string" },
+          valueBasis: {
+            type: "string",
+            description:
+              "Points cards: a few words shown to users on what the ₹ value assumes, e.g. 'for flights and hotels on SmartBuy (₹0.20 as statement credit)'.",
+          },
+          valueStated: {
+            type: "boolean",
+            description: "true only if the document itself states inrPerUnit.",
+          },
         },
         required: ["kind", "unitName", "inrPerUnit"],
       },
@@ -314,6 +325,8 @@ async function extract(cardId: string, srcs: string[]): Promise<Report> {
     );
 
   const docBlocks: Anthropic.ContentBlockParam[] = [];
+  // The same documents as plain text, to check the model's quotes against afterwards.
+  const docsForCheck: { source: string; text: string }[] = [];
   for (const [i, src] of srcs.entries()) {
     console.log(`Reading source ${i + 1}/${srcs.length}: ${src}`);
     let source: Source;
@@ -330,6 +343,14 @@ async function extract(cardId: string, srcs: string[]): Promise<Report> {
         `⚠ ${src} came back almost empty (the page probably loads with JavaScript). Save it as PDF and pass it with --source.`,
       );
       continue;
+    }
+    try {
+      docsForCheck.push({
+        source: src,
+        text: source.kind === "pdf" ? await pdfText(new Uint8Array(Buffer.from(source.base64, "base64"))) : source.text,
+      });
+    } catch (e) {
+      say(`⚠ Couldn't read the text of ${src} to check quotes: ${(e as Error).message}`);
     }
     docBlocks.push(
       source.kind === "pdf"
@@ -357,7 +378,7 @@ async function extract(cardId: string, srcs: string[]): Promise<Report> {
   const client = new Anthropic();
 
   console.log(`Extracting rules for ${cardId} with ${MODEL}…`);
-  type ExtractedRule = Card["rules"][number] & { evidence?: string };
+  type ExtractedRule = Omit<Card["rules"][number], "evidence"> & { evidence?: string };
   const out = await callTool<
     Omit<Partial<Card>, "rules"> & {
       rules: ExtractedRule[];
@@ -414,10 +435,25 @@ async function extract(cardId: string, srcs: string[]): Promise<Report> {
     document_states_earn_rates,
     out.rules,
   );
+  // Every quote must really be in a document and state the rule's rate; only then is it kept as evidence.
+  // A rule kept from the old record keeps its old evidence.
+  const unverified: string[] = [];
+  const rulesWithEvidence: Card["rules"] = out.rules.map(({ evidence, ...r }) => {
+    if (!evidence || evidence.startsWith("KEPT")) {
+      const old = existing?.rules.find((o) => o.id === r.id)?.evidence;
+      return old ? { ...r, evidence: old } : r;
+    }
+    const c = checkQuote(docsForCheck, evidence, r, { base: fields.base ?? seed.base, reward: fields.reward ?? seed.reward });
+    if (c.found && c.hasRate) return { ...r, evidence: { quote: evidence, source: c.source!, checked: today } };
+    unverified.push(`${r.label}: ${!c.found ? "quote not found in the documents" : "quote doesn't state this rate"}`);
+    return r;
+  });
   const proposed: Card = {
     ...seed,
     ...fields,
-    rules: out.rules.map(({ evidence: _e, ...r }) => r),
+    // A partial reward from the document keeps the fields it doesn't mention (e.g. valueBasis).
+    reward: { ...seed.reward, ...fields.reward },
+    rules: rulesWithEvidence,
     // Only stamp today's date if the document actually confirmed the earn rates.
     lastVerified: confirmed ? today : seed.lastVerified,
     sources: confirmed
@@ -460,6 +496,11 @@ async function extract(cardId: string, srcs: string[]): Promise<Report> {
     say("\nNotes from the model:\n  " + out.notes.join("\n  "));
   if (normalized.changes.length)
     say("\nAuto-fixes:\n  " + normalized.changes.join("\n  "));
+  if (unverified.length)
+    say(
+      "\n⚠ Evidence check (no AI): these quotes aren't the bank's exact words or don't state the rate. Check them in the document:\n  " +
+        unverified.join("\n  "),
+    );
   if (errors.length)
     say(
       "\n⚠ Validation errors (fix before applying):\n  " + errors.join("\n  "),
@@ -477,7 +518,7 @@ async function extract(cardId: string, srcs: string[]): Promise<Report> {
   );
   return {
     cardId,
-    status: !confirmed ? "unconfirmed" : errors.length ? "check" : "ready",
+    status: !confirmed ? "unconfirmed" : errors.length || unverified.length ? "check" : "ready",
     lines,
   };
 }

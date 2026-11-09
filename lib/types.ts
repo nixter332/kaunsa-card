@@ -75,6 +75,11 @@ export interface Rule {
    * e.g. a cap that depends on what you spend elsewhere ("2× your other cashback this month").
    */
   note?: string;
+  /**
+   * The bank's own words for this rule, checked by `npm run evidence` to be in the document
+   * (source) and to contain the rate. Shown to users under "Where's this from?".
+   */
+  evidence?: { quote: string; source: string; checked: string };
 }
 
 export interface Tier {
@@ -93,6 +98,10 @@ export interface Card {
     unitName: string;
     inrPerUnit: number;
     inrPerUnitNote?: string;
+    /** Shown with points answers: what the ₹ value assumes, e.g. "for flights and hotels on SmartBuy". */
+    valueBasis?: string;
+    /** Does the issuer's own document state inrPerUnit? false = our estimate, and the card can't be "high" confidence. */
+    valueStated?: boolean;
   };
   base: { rate: number; capId?: string; tiers?: Tier[] };
   rules: Rule[];

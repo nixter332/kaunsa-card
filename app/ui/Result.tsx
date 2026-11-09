@@ -7,8 +7,9 @@ import { betterDeal } from "@/lib/offers";
 import { useEffect, useState } from "react";
 import { CardTile } from "./CardTile";
 import { shareLink } from "./referral";
+import { SourcePanel } from "./SourcePanel";
 import { IconTag } from "./Icons";
-import { cardById, inr, pretty, track } from "./store";
+import { cardById, inr, pointValueLine, pretty, track } from "./store";
 
 type Props = {
   lookup: Lookup;
@@ -254,6 +255,7 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
           ) : (
             <p className="why">{best.reason}</p>
           )}
+          {pointValueLine(bestCard) && <p className="muted small">{pointValueLine(bestCard)}</p>}
           {otherTips.map((h) => (
             <p key={h} className="offer-hint">
               <IconTag size={15} /> {h}
@@ -313,6 +315,7 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
               </>
             )}
           </div>
+          <SourcePanel key={`${best.cardId}|${best.ruleLabel}`} card={bestCard} rec={best} />
           <p className="fine">
             {best.lastVerified === "never" ? "Rules for this card are from review sites, not yet checked against the bank's terms." : `Rules checked ${best.lastVerified}.`}{" "}
             Bank offers are shown once we&apos;ve verified them.{" "}

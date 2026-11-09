@@ -1,0 +1,1339 @@
+[
+  {
+    "key": "airtel-axis|airtel_bill|1000|card|online",
+    "label": "Airtel Axis Bank: Airtel bill (Airtel Thanks app) ₹1,000",
+    "cardId": "airtel-axis",
+    "valueInr": 250,
+    "rule": "25% on Airtel Mobile/Broadband/WiFi/DTH bills via Airtel Thanks App"
+  },
+  {
+    "key": "airtel-axis|airtel_bill|50000|card|online",
+    "label": "Airtel Axis Bank: Airtel bill (Airtel Thanks app) ₹50,000",
+    "cardId": "airtel-axis",
+    "valueInr": 12500,
+    "rule": "25% on Airtel Mobile/Broadband/WiFi/DTH bills via Airtel Thanks App"
+  },
+  {
+    "key": "airtel-axis|airtel_utility|1000|card|online",
+    "label": "Airtel Axis Bank: Utility bill via Airtel Thanks app ₹1,000",
+    "cardId": "airtel-axis",
+    "valueInr": 100,
+    "rule": "10% on other utility bills via Airtel Thanks App"
+  },
+  {
+    "key": "airtel-axis|airtel_utility|50000|card|online",
+    "label": "Airtel Axis Bank: Utility bill via Airtel Thanks app ₹50,000",
+    "cardId": "airtel-axis",
+    "valueInr": 5000,
+    "rule": "10% on other utility bills via Airtel Thanks App"
+  },
+  {
+    "key": "airtel-axis|blinkit|1000|card|online",
+    "label": "Airtel Axis Bank: Blinkit ₹1,000",
+    "cardId": "airtel-axis",
+    "valueInr": 100,
+    "rule": "10% value back on Blinkit (online, min order ₹499)"
+  },
+  {
+    "key": "airtel-axis|blinkit|50000|card|online",
+    "label": "Airtel Axis Bank: Blinkit ₹50,000",
+    "cardId": "airtel-axis",
+    "valueInr": 200,
+    "rule": "10% value back on Blinkit (online, min order ₹499)"
+  },
+  {
+    "key": "airtel-axis|other|1000|card|offline",
+    "label": "Airtel Axis Bank: other ₹1,000",
+    "cardId": "airtel-axis",
+    "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "airtel-axis|zomato|1000|card|online",
+    "label": "Airtel Axis Bank: Zomato ₹1,000",
+    "cardId": "airtel-axis",
+    "valueInr": 100,
+    "rule": "10% value back on Zomato (online, min order ₹499)"
+  },
+  {
+    "key": "airtel-axis|zomato|50000|card|online",
+    "label": "Airtel Axis Bank: Zomato ₹50,000",
+    "cardId": "airtel-axis",
+    "valueInr": 200,
+    "rule": "10% value back on Zomato (online, min order ₹499)"
+  },
+  {
+    "key": "ALL|apparel|1000|card|online",
+    "label": "Best of all cards: apparel ₹1,000",
+    "cardId": "hsbc-live-plus",
+    "valueInr": 100,
+    "rule": "10% on dining, food delivery, grocery, shopping and utilities (up to ₹1,200/month)"
+  },
+  {
+    "key": "ALL|apparel|1000|upi|offline",
+    "label": "Best of all cards: apparel ₹1,000 UPI",
+    "cardId": "kiwi-rupay",
+    "valueInr": 15,
+    "rule": "1.5% on Scan & Pay (UPI)"
+  },
+  {
+    "key": "ALL|cab|1000|card|online",
+    "label": "Best of all cards: cab ₹1,000",
+    "cardId": "swiggy-hdfc",
+    "valueInr": 50,
+    "rule": "5% on select online categories"
+  },
+  {
+    "key": "ALL|cab|1000|upi|offline",
+    "label": "Best of all cards: cab ₹1,000 UPI",
+    "cardId": "kiwi-rupay",
+    "valueInr": 15,
+    "rule": "1.5% on Scan & Pay (UPI)"
+  },
+  {
+    "key": "ALL|dining|1000|card|online",
+    "label": "Best of all cards: dining ₹1,000",
+    "cardId": "hsbc-live-plus",
+    "valueInr": 100,
+    "rule": "10% on dining, food delivery, grocery, shopping and utilities (up to ₹1,200/month)"
+  },
+  {
+    "key": "ALL|dining|1000|upi|offline",
+    "label": "Best of all cards: dining ₹1,000 UPI",
+    "cardId": "hsbc-rupay-cashback",
+    "valueInr": 100,
+    "rule": "10% cashback on dining, food delivery and grocery"
+  },
+  {
+    "key": "ALL|education|1000|card|online",
+    "label": "Best of all cards: education ₹1,000",
+    "cardId": "axis-atlas",
+    "valueInr": 20,
+    "rule": "Base rate"
+  },
+  {
+    "key": "ALL|education|1000|upi|offline",
+    "label": "Best of all cards: education ₹1,000 UPI",
+    "cardId": "tata-neu-infinity-hdfc",
+    "valueInr": 5,
+    "rule": "0.5% on eligible UPI spends"
+  },
+  {
+    "key": "ALL|electronics|1000|card|online",
+    "label": "Best of all cards: electronics ₹1,000",
+    "cardId": "hsbc-live-plus",
+    "valueInr": 100,
+    "rule": "10% on dining, food delivery, grocery, shopping and utilities (up to ₹1,200/month)"
+  },
+  {
+    "key": "ALL|electronics|1000|upi|offline",
+    "label": "Best of all cards: electronics ₹1,000 UPI",
+    "cardId": "kiwi-rupay",
+    "valueInr": 15,
+    "rule": "1.5% on Scan & Pay (UPI)"
+  },
+  {
+    "key": "ALL|food_delivery|1000|card|online",
+    "label": "Best of all cards: food delivery ₹1,000",
+    "cardId": "hsbc-live-plus",
+    "valueInr": 100,
+    "rule": "10% on dining, food delivery, grocery, shopping and utilities (up to ₹1,200/month)"
+  },
+  {
+    "key": "ALL|food_delivery|1000|upi|offline",
+    "label": "Best of all cards: food delivery ₹1,000 UPI",
+    "cardId": "hsbc-rupay-cashback",
+    "valueInr": 100,
+    "rule": "10% cashback on dining, food delivery and grocery"
+  },
+  {
+    "key": "ALL|fuel|1000|card|online",
+    "label": "Best of all cards: fuel ₹1,000",
+    "cardId": "hdfc-regalia-gold",
+    "valueInr": 12.5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "ALL|fuel|1000|upi|offline",
+    "label": "Best of all cards: fuel ₹1,000 UPI",
+    "cardId": "icici-coral-rupay",
+    "valueInr": 5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "ALL|government|1000|card|online",
+    "label": "Best of all cards: government ₹1,000",
+    "cardId": "hdfc-regalia-gold",
+    "valueInr": 12.5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "ALL|government|1000|upi|offline",
+    "label": "Best of all cards: government ₹1,000 UPI",
+    "cardId": "icici-coral-rupay",
+    "valueInr": 5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "ALL|grocery|1000|card|online",
+    "label": "Best of all cards: grocery ₹1,000",
+    "cardId": "hsbc-live-plus",
+    "valueInr": 100,
+    "rule": "10% on dining, food delivery, grocery, shopping and utilities (up to ₹1,200/month)"
+  },
+  {
+    "key": "ALL|grocery|1000|upi|offline",
+    "label": "Best of all cards: grocery ₹1,000 UPI",
+    "cardId": "hsbc-rupay-cashback",
+    "valueInr": 100,
+    "rule": "10% cashback on dining, food delivery and grocery"
+  },
+  {
+    "key": "ALL|insurance|1000|card|online",
+    "label": "Best of all cards: insurance ₹1,000",
+    "cardId": "tata-neu-infinity-hdfc",
+    "valueInr": 15,
+    "rule": "1.5% on insurance (capped 2,000 NeuCoins/month)"
+  },
+  {
+    "key": "ALL|insurance|1000|upi|offline",
+    "label": "Best of all cards: insurance ₹1,000 UPI",
+    "cardId": "tata-neu-infinity-hdfc",
+    "valueInr": 5,
+    "rule": "0.5% on eligible UPI spends"
+  },
+  {
+    "key": "ALL|jewellery|1000|card|online",
+    "label": "Best of all cards: jewellery ₹1,000",
+    "cardId": "scapia-visa",
+    "valueInr": 20,
+    "rule": "Base rate"
+  },
+  {
+    "key": "ALL|jewellery|1000|upi|offline",
+    "label": "Best of all cards: jewellery ₹1,000 UPI",
+    "cardId": "scapia-rupay",
+    "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "ALL|movies|1000|card|online",
+    "label": "Best of all cards: movies ₹1,000",
+    "cardId": "swiggy-hdfc",
+    "valueInr": 50,
+    "rule": "5% on select online categories"
+  },
+  {
+    "key": "ALL|movies|1000|upi|offline",
+    "label": "Best of all cards: movies ₹1,000 UPI",
+    "cardId": "kiwi-rupay",
+    "valueInr": 15,
+    "rule": "1.5% on Scan & Pay (UPI)"
+  },
+  {
+    "key": "ALL|online_shopping|1000|card|online",
+    "label": "Best of all cards: online shopping ₹1,000",
+    "cardId": "hsbc-live-plus",
+    "valueInr": 100,
+    "rule": "10% on dining, food delivery, grocery, shopping and utilities (up to ₹1,200/month)"
+  },
+  {
+    "key": "ALL|online_shopping|1000|upi|offline",
+    "label": "Best of all cards: online shopping ₹1,000 UPI",
+    "cardId": "kiwi-rupay",
+    "valueInr": 15,
+    "rule": "1.5% on Scan & Pay (UPI)"
+  },
+  {
+    "key": "ALL|other|1000|card|online",
+    "label": "Best of all cards: other ₹1,000",
+    "cardId": "sbi-cashback",
+    "valueInr": 50,
+    "rule": "5% cashback on online spends"
+  },
+  {
+    "key": "ALL|other|1000|upi|offline",
+    "label": "Best of all cards: other ₹1,000 UPI",
+    "cardId": "kiwi-rupay",
+    "valueInr": 15,
+    "rule": "1.5% on Scan & Pay (UPI)"
+  },
+  {
+    "key": "ALL|rent|1000|card|online",
+    "label": "Best of all cards: rent ₹1,000",
+    "cardId": "hdfc-regalia-gold",
+    "valueInr": 12.5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "ALL|rent|1000|upi|offline",
+    "label": "Best of all cards: rent ₹1,000 UPI",
+    "cardId": "kiwi-rupay",
+    "valueInr": 15,
+    "rule": "1.5% on Scan & Pay (UPI)"
+  },
+  {
+    "key": "ALL|telecom|1000|card|online",
+    "label": "Best of all cards: telecom ₹1,000",
+    "cardId": "hsbc-live-plus",
+    "valueInr": 100,
+    "rule": "10% on dining, food delivery, grocery, shopping and utilities (up to ₹1,200/month)"
+  },
+  {
+    "key": "ALL|telecom|1000|upi|offline",
+    "label": "Best of all cards: telecom ₹1,000 UPI",
+    "cardId": "hsbc-rupay-cashback",
+    "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "ALL|travel|1000|card|online",
+    "label": "Best of all cards: travel ₹1,000",
+    "cardId": "sbi-cashback",
+    "valueInr": 50,
+    "rule": "5% cashback on online spends"
+  },
+  {
+    "key": "ALL|travel|1000|upi|offline",
+    "label": "Best of all cards: travel ₹1,000 UPI",
+    "cardId": "kiwi-rupay",
+    "valueInr": 15,
+    "rule": "1.5% on Scan & Pay (UPI)"
+  },
+  {
+    "key": "ALL|utilities|1000|card|online",
+    "label": "Best of all cards: utilities ₹1,000",
+    "cardId": "hsbc-live-plus",
+    "valueInr": 100,
+    "rule": "10% on dining, food delivery, grocery, shopping and utilities (up to ₹1,200/month)"
+  },
+  {
+    "key": "ALL|utilities|1000|upi|offline",
+    "label": "Best of all cards: utilities ₹1,000 UPI",
+    "cardId": "hsbc-rupay-cashback",
+    "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "ALL|wallet_load|1000|card|online",
+    "label": "Best of all cards: wallet load ₹1,000",
+    "cardId": "hdfc-regalia-gold",
+    "valueInr": 12.5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "ALL|wallet_load|1000|upi|offline",
+    "label": "Best of all cards: wallet load ₹1,000 UPI",
+    "cardId": "kiwi-rupay",
+    "valueInr": 15,
+    "rule": "1.5% on Scan & Pay (UPI)"
+  },
+  {
+    "key": "amazon-pay-icici|amazon|1000|card|online",
+    "label": "Amazon Pay ICICI: Amazon ₹1,000",
+    "cardId": "amazon-pay-icici",
+    "valueInr": 50,
+    "rule": "5% on Amazon.in for Prime members"
+  },
+  {
+    "key": "amazon-pay-icici|amazon|50000|card|online",
+    "label": "Amazon Pay ICICI: Amazon ₹50,000",
+    "cardId": "amazon-pay-icici",
+    "valueInr": 2500,
+    "rule": "5% on Amazon.in for Prime members"
+  },
+  {
+    "key": "amazon-pay-icici|other|1000|card|offline",
+    "label": "Amazon Pay ICICI: other ₹1,000",
+    "cardId": "amazon-pay-icici",
+    "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "amex-mrcc|other|1000|card|offline",
+    "label": "Amex Membership Rewards Credit Card: other ₹1,000",
+    "cardId": "amex-mrcc",
+    "valueInr": 8,
+    "rule": "Base rate"
+  },
+  {
+    "key": "amex-platinum-travel|other|1000|card|offline",
+    "label": "Amex Platinum Travel: other ₹1,000",
+    "cardId": "amex-platinum-travel",
+    "valueInr": 8,
+    "rule": "Base rate"
+  },
+  {
+    "key": "axis-ace|gpay_bill|1000|card|online",
+    "label": "Axis Bank ACE: Bill / recharge via Google Pay ₹1,000",
+    "cardId": "axis-ace",
+    "valueInr": 50,
+    "rule": "5% on utility bills, DTH and mobile recharges via Google Pay"
+  },
+  {
+    "key": "axis-ace|gpay_bill|50000|card|online",
+    "label": "Axis Bank ACE: Bill / recharge via Google Pay ₹50,000",
+    "cardId": "axis-ace",
+    "valueInr": 500,
+    "rule": "5% on utility bills, DTH and mobile recharges via Google Pay"
+  },
+  {
+    "key": "axis-ace|other|1000|card|offline",
+    "label": "Axis Bank ACE: other ₹1,000",
+    "cardId": "axis-ace",
+    "valueInr": 15,
+    "rule": "Base rate"
+  },
+  {
+    "key": "axis-ace|swiggy_food|1000|card|online",
+    "label": "Axis Bank ACE: Swiggy (food) ₹1,000",
+    "cardId": "axis-ace",
+    "valueInr": 40,
+    "rule": "4% on Swiggy, Zomato and Ola"
+  },
+  {
+    "key": "axis-ace|swiggy_food|50000|card|online",
+    "label": "Axis Bank ACE: Swiggy (food) ₹50,000",
+    "cardId": "axis-ace",
+    "valueInr": 500,
+    "rule": "4% on Swiggy, Zomato and Ola"
+  },
+  {
+    "key": "axis-atlas|airline|1000|card|online",
+    "label": "Axis Bank Atlas: Airline (booked direct) ₹1,000",
+    "cardId": "axis-atlas",
+    "valueInr": 50,
+    "rule": "5 EDGE Miles per ₹100 on direct airline, direct hotel (and Travel EDGE portal)"
+  },
+  {
+    "key": "axis-atlas|airline|50000|card|online",
+    "label": "Axis Bank Atlas: Airline (booked direct) ₹50,000",
+    "cardId": "axis-atlas",
+    "valueInr": 2500,
+    "rule": "5 EDGE Miles per ₹100 on direct airline, direct hotel (and Travel EDGE portal)"
+  },
+  {
+    "key": "axis-atlas|other|1000|card|offline",
+    "label": "Axis Bank Atlas: other ₹1,000",
+    "cardId": "axis-atlas",
+    "valueInr": 20,
+    "rule": "Base rate"
+  },
+  {
+    "key": "axis-my-zone|other|1000|card|offline",
+    "label": "Axis Bank MY Zone: other ₹1,000",
+    "cardId": "axis-my-zone",
+    "valueInr": 4,
+    "rule": "Base rate"
+  },
+  {
+    "key": "axis-supermoney|other|1000|card|offline",
+    "label": "Axis super.money RuPay: other ₹1,000",
+    "cardId": "axis-supermoney",
+    "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "axis-supermoney|other|1000|upi|offline",
+    "label": "Axis super.money RuPay: other ₹1,000 UPI",
+    "cardId": "axis-supermoney",
+    "valueInr": 30,
+    "rule": "3% on QR/UPI transactions via the super.money app"
+  },
+  {
+    "key": "axis-supermoney|other|50000|upi|offline",
+    "label": "Axis super.money RuPay: other ₹50,000 UPI",
+    "cardId": "axis-supermoney",
+    "valueInr": 1500,
+    "rule": "3% on QR/UPI transactions via the super.money app"
+  },
+  {
+    "key": "bpcl-sbi-octane|bpcl|1000|card|offline",
+    "label": "BPCL SBI Card OCTANE: BPCL fuel station ₹1,000",
+    "cardId": "bpcl-sbi-octane",
+    "valueInr": 62.5,
+    "rule": "25X RP on BPCL fuel & lubricants"
+  },
+  {
+    "key": "bpcl-sbi-octane|bpcl|50000|card|offline",
+    "label": "BPCL SBI Card OCTANE: BPCL fuel station ₹50,000",
+    "cardId": "bpcl-sbi-octane",
+    "valueInr": 625,
+    "rule": "25X RP on BPCL fuel & lubricants"
+  },
+  {
+    "key": "bpcl-sbi-octane|dining|1000|card|online",
+    "label": "BPCL SBI Card OCTANE: dining ₹1,000",
+    "cardId": "bpcl-sbi-octane",
+    "valueInr": 25,
+    "rule": "10X RP on dining, movies, grocery"
+  },
+  {
+    "key": "bpcl-sbi-octane|dining|50000|card|online",
+    "label": "BPCL SBI Card OCTANE: dining ₹50,000",
+    "cardId": "bpcl-sbi-octane",
+    "valueInr": 1250,
+    "rule": "10X RP on dining, movies, grocery"
+  },
+  {
+    "key": "bpcl-sbi-octane|other|1000|card|offline",
+    "label": "BPCL SBI Card OCTANE: other ₹1,000",
+    "cardId": "bpcl-sbi-octane",
+    "valueInr": 2.5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "flipkart-axis|cleartrip|1000|card|online",
+    "label": "Flipkart Axis Bank: Cleartrip ₹1,000",
+    "cardId": "flipkart-axis",
+    "valueInr": 50,
+    "rule": "5% on Cleartrip"
+  },
+  {
+    "key": "flipkart-axis|cleartrip|50000|card|online",
+    "label": "Flipkart Axis Bank: Cleartrip ₹50,000",
+    "cardId": "flipkart-axis",
+    "valueInr": 2500,
+    "rule": "5% on Cleartrip"
+  },
+  {
+    "key": "flipkart-axis|flipkart|1000|card|online",
+    "label": "Flipkart Axis Bank: Flipkart ₹1,000",
+    "cardId": "flipkart-axis",
+    "valueInr": 50,
+    "rule": "5% on Flipkart"
+  },
+  {
+    "key": "flipkart-axis|flipkart|50000|card|online",
+    "label": "Flipkart Axis Bank: Flipkart ₹50,000",
+    "cardId": "flipkart-axis",
+    "valueInr": 2500,
+    "rule": "5% on Flipkart"
+  },
+  {
+    "key": "flipkart-axis|myntra|1000|card|online",
+    "label": "Flipkart Axis Bank: Myntra ₹1,000",
+    "cardId": "flipkart-axis",
+    "valueInr": 75,
+    "rule": "7.5% on Myntra"
+  },
+  {
+    "key": "flipkart-axis|myntra|50000|card|online",
+    "label": "Flipkart Axis Bank: Myntra ₹50,000",
+    "cardId": "flipkart-axis",
+    "valueInr": 3750,
+    "rule": "7.5% on Myntra"
+  },
+  {
+    "key": "flipkart-axis|other|1000|card|offline",
+    "label": "Flipkart Axis Bank: other ₹1,000",
+    "cardId": "flipkart-axis",
+    "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "flipkart-axis|swiggy_food|1000|card|online",
+    "label": "Flipkart Axis Bank: Swiggy (food) ₹1,000",
+    "cardId": "flipkart-axis",
+    "valueInr": 40,
+    "rule": "4% preferred merchant (Swiggy food)"
+  },
+  {
+    "key": "flipkart-axis|swiggy_food|50000|card|online",
+    "label": "Flipkart Axis Bank: Swiggy (food) ₹50,000",
+    "cardId": "flipkart-axis",
+    "valueInr": 2000,
+    "rule": "4% preferred merchant (Swiggy food)"
+  },
+  {
+    "key": "flipkart-sbi|cleartrip|1000|card|online",
+    "label": "Flipkart SBI Card: Cleartrip ₹1,000",
+    "cardId": "flipkart-sbi",
+    "valueInr": 50,
+    "rule": "5% cashback on Cleartrip"
+  },
+  {
+    "key": "flipkart-sbi|cleartrip|50000|card|online",
+    "label": "Flipkart SBI Card: Cleartrip ₹50,000",
+    "cardId": "flipkart-sbi",
+    "valueInr": 2500,
+    "rule": "5% cashback on Cleartrip"
+  },
+  {
+    "key": "flipkart-sbi|flipkart|1000|card|online",
+    "label": "Flipkart SBI Card: Flipkart ₹1,000",
+    "cardId": "flipkart-sbi",
+    "valueInr": 50,
+    "rule": "5% cashback on Flipkart (incl. Shopsy, Flipkart Travel)"
+  },
+  {
+    "key": "flipkart-sbi|flipkart|50000|card|online",
+    "label": "Flipkart SBI Card: Flipkart ₹50,000",
+    "cardId": "flipkart-sbi",
+    "valueInr": 2500,
+    "rule": "5% cashback on Flipkart (incl. Shopsy, Flipkart Travel)"
+  },
+  {
+    "key": "flipkart-sbi|myntra|1000|card|online",
+    "label": "Flipkart SBI Card: Myntra ₹1,000",
+    "cardId": "flipkart-sbi",
+    "valueInr": 75,
+    "rule": "7.5% cashback on Myntra"
+  },
+  {
+    "key": "flipkart-sbi|myntra|50000|card|online",
+    "label": "Flipkart SBI Card: Myntra ₹50,000",
+    "cardId": "flipkart-sbi",
+    "valueInr": 3750,
+    "rule": "7.5% cashback on Myntra"
+  },
+  {
+    "key": "flipkart-sbi|other|1000|card|offline",
+    "label": "Flipkart SBI Card: other ₹1,000",
+    "cardId": "flipkart-sbi",
+    "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "hdfc-millennia|amazon|1000|card|online",
+    "label": "HDFC Millennia: Amazon ₹1,000",
+    "cardId": "hdfc-millennia",
+    "valueInr": 50,
+    "rule": "5% on Amazon, BookMyShow, Cult.fit, Flipkart, Myntra, Sony LIV, Swiggy, Tata CLiQ, Uber & Zomato"
+  },
+  {
+    "key": "hdfc-millennia|amazon|50000|card|online",
+    "label": "HDFC Millennia: Amazon ₹50,000",
+    "cardId": "hdfc-millennia",
+    "valueInr": 1000,
+    "rule": "5% on Amazon, BookMyShow, Cult.fit, Flipkart, Myntra, Sony LIV, Swiggy, Tata CLiQ, Uber & Zomato"
+  },
+  {
+    "key": "hdfc-millennia|other|1000|card|offline",
+    "label": "HDFC Millennia: other ₹1,000",
+    "cardId": "hdfc-millennia",
+    "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "hdfc-moneyback-plus|amazon|1000|card|online",
+    "label": "HDFC MoneyBack+: Amazon ₹1,000",
+    "cardId": "hdfc-moneyback-plus",
+    "valueInr": 25,
+    "rule": "10X CashPoints (20 per ₹200) on Amazon, Flipkart, Swiggy, Reliance Smart SuperStore & BigBasket"
+  },
+  {
+    "key": "hdfc-moneyback-plus|amazon|50000|card|online",
+    "label": "HDFC MoneyBack+: Amazon ₹50,000",
+    "cardId": "hdfc-moneyback-plus",
+    "valueInr": 1250,
+    "rule": "10X CashPoints (20 per ₹200) on Amazon, Flipkart, Swiggy, Reliance Smart SuperStore & BigBasket"
+  },
+  {
+    "key": "hdfc-moneyback-plus|other|1000|card|offline",
+    "label": "HDFC MoneyBack+: other ₹1,000",
+    "cardId": "hdfc-moneyback-plus",
+    "valueInr": 2.5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "hdfc-regalia-gold|other|1000|card|offline",
+    "label": "HDFC Regalia Gold: other ₹1,000",
+    "cardId": "hdfc-regalia-gold",
+    "valueInr": 12.5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "hsbc-live-plus|dining|1000|card|online",
+    "label": "HSBC Live+: dining ₹1,000",
+    "cardId": "hsbc-live-plus",
+    "valueInr": 100,
+    "rule": "10% on dining, food delivery, grocery, shopping and utilities (up to ₹1,200/month)"
+  },
+  {
+    "key": "hsbc-live-plus|dining|50000|card|online",
+    "label": "HSBC Live+: dining ₹50,000",
+    "cardId": "hsbc-live-plus",
+    "valueInr": 1200,
+    "rule": "10% on dining, food delivery, grocery, shopping and utilities (up to ₹1,200/month)"
+  },
+  {
+    "key": "hsbc-live-plus|other|1000|card|offline",
+    "label": "HSBC Live+: other ₹1,000",
+    "cardId": "hsbc-live-plus",
+    "valueInr": 15,
+    "rule": "Base rate"
+  },
+  {
+    "key": "hsbc-rupay-cashback|dining|1000|card|online",
+    "label": "HSBC RuPay Cashback: dining ₹1,000",
+    "cardId": "hsbc-rupay-cashback",
+    "valueInr": 100,
+    "rule": "10% cashback on dining, food delivery and grocery"
+  },
+  {
+    "key": "hsbc-rupay-cashback|dining|50000|card|online",
+    "label": "HSBC RuPay Cashback: dining ₹50,000",
+    "cardId": "hsbc-rupay-cashback",
+    "valueInr": 400,
+    "rule": "10% cashback on dining, food delivery and grocery"
+  },
+  {
+    "key": "hsbc-rupay-cashback|other|1000|card|offline",
+    "label": "HSBC RuPay Cashback: other ₹1,000",
+    "cardId": "hsbc-rupay-cashback",
+    "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "hsbc-rupay-cashback|other|1000|upi|offline",
+    "label": "HSBC RuPay Cashback: other ₹1,000 UPI",
+    "cardId": "hsbc-rupay-cashback",
+    "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "icici-coral-rupay|other|1000|card|offline",
+    "label": "ICICI Coral RuPay: other ₹1,000",
+    "cardId": "icici-coral-rupay",
+    "valueInr": 5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "icici-coral-rupay|other|1000|upi|offline",
+    "label": "ICICI Coral RuPay: other ₹1,000 UPI",
+    "cardId": "icici-coral-rupay",
+    "valueInr": 5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "icici-hpcl-super-saver|hpcl|1000|card|offline",
+    "label": "ICICI HPCL Super Saver: HPCL fuel station ₹1,000",
+    "cardId": "icici-hpcl-super-saver",
+    "valueInr": 40,
+    "rule": "4% cashback on fuel at HPCL pumps (cap ₹200/month)"
+  },
+  {
+    "key": "icici-hpcl-super-saver|hpcl|50000|card|offline",
+    "label": "ICICI HPCL Super Saver: HPCL fuel station ₹50,000",
+    "cardId": "icici-hpcl-super-saver",
+    "valueInr": 200,
+    "rule": "4% cashback on fuel at HPCL pumps (cap ₹200/month)"
+  },
+  {
+    "key": "icici-hpcl-super-saver|other|1000|card|offline",
+    "label": "ICICI HPCL Super Saver: other ₹1,000",
+    "cardId": "icici-hpcl-super-saver",
+    "valueInr": 5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "icici-hpcl-super-saver|utilities|1000|card|online",
+    "label": "ICICI HPCL Super Saver: utilities ₹1,000",
+    "cardId": "icici-hpcl-super-saver",
+    "valueInr": 50,
+    "rule": "20 points per ₹100 (5%) on utilities, groceries and department stores"
+  },
+  {
+    "key": "icici-hpcl-super-saver|utilities|50000|card|online",
+    "label": "ICICI HPCL Super Saver: utilities ₹50,000",
+    "cardId": "icici-hpcl-super-saver",
+    "valueInr": 100,
+    "rule": "20 points per ₹100 (5%) on utilities, groceries and department stores"
+  },
+  {
+    "key": "idfc-first-millennia|dining|1000|card|online",
+    "label": "IDFC FIRST Millennia: dining ₹1,000",
+    "cardId": "idfc-first-millennia",
+    "valueInr": 16.67,
+    "rule": "10X points on dining (incl. food delivery)"
+  },
+  {
+    "key": "idfc-first-millennia|dining|50000|card|online",
+    "label": "IDFC FIRST Millennia: dining ₹50,000",
+    "cardId": "idfc-first-millennia",
+    "valueInr": 833.34,
+    "rule": "10X points on dining (incl. food delivery)"
+  },
+  {
+    "key": "idfc-first-millennia|insurance|1000|card|online",
+    "label": "IDFC FIRST Millennia: insurance ₹1,000",
+    "cardId": "idfc-first-millennia",
+    "valueInr": 1.67,
+    "rule": "1X points on insurance and utilities"
+  },
+  {
+    "key": "idfc-first-millennia|insurance|50000|card|online",
+    "label": "IDFC FIRST Millennia: insurance ₹50,000",
+    "cardId": "idfc-first-millennia",
+    "valueInr": 83.34,
+    "rule": "1X points on insurance and utilities"
+  },
+  {
+    "key": "idfc-first-millennia|other|1000|card|offline",
+    "label": "IDFC FIRST Millennia: other ₹1,000",
+    "cardId": "idfc-first-millennia",
+    "valueInr": 5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "idfc-first-millennia|travel|1000|card|online",
+    "label": "IDFC FIRST Millennia: travel ₹1,000",
+    "cardId": "idfc-first-millennia",
+    "valueInr": 16.67,
+    "rule": "10X points on travel"
+  },
+  {
+    "key": "idfc-first-millennia|travel|50000|card|online",
+    "label": "IDFC FIRST Millennia: travel ₹50,000",
+    "cardId": "idfc-first-millennia",
+    "valueInr": 833.34,
+    "rule": "10X points on travel"
+  },
+  {
+    "key": "indusind-tiger|other|1000|card|offline",
+    "label": "IndusInd Tiger: other ₹1,000",
+    "cardId": "indusind-tiger",
+    "valueInr": 4,
+    "rule": "Base rate"
+  },
+  {
+    "key": "kiwi-rupay|other|1000|card|offline",
+    "label": "Kiwi RuPay (YES / AU / PNB): other ₹1,000",
+    "cardId": "kiwi-rupay",
+    "valueInr": 5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "kiwi-rupay|other|1000|upi|offline",
+    "label": "Kiwi RuPay (YES / AU / PNB): other ₹1,000 UPI",
+    "cardId": "kiwi-rupay",
+    "valueInr": 15,
+    "rule": "1.5% on Scan & Pay (UPI)"
+  },
+  {
+    "key": "kiwi-rupay|other|50000|upi|offline",
+    "label": "Kiwi RuPay (YES / AU / PNB): other ₹50,000 UPI",
+    "cardId": "kiwi-rupay",
+    "valueInr": 750,
+    "rule": "1.5% on Scan & Pay (UPI)"
+  },
+  {
+    "key": "sbi-cashback|other|1000|card|offline",
+    "label": "Cashback SBI Card: other ₹1,000",
+    "cardId": "sbi-cashback",
+    "valueInr": 10,
+    "rule": "1% cashback on offline spends"
+  },
+  {
+    "key": "sbi-cashback|other|1000|card|online",
+    "label": "Cashback SBI Card: other ₹1,000",
+    "cardId": "sbi-cashback",
+    "valueInr": 50,
+    "rule": "5% cashback on online spends"
+  },
+  {
+    "key": "sbi-cashback|other|50000|card|offline",
+    "label": "Cashback SBI Card: other ₹50,000",
+    "cardId": "sbi-cashback",
+    "valueInr": 500,
+    "rule": "1% cashback on offline spends"
+  },
+  {
+    "key": "sbi-cashback|other|50000|card|online",
+    "label": "Cashback SBI Card: other ₹50,000",
+    "cardId": "sbi-cashback",
+    "valueInr": 2000,
+    "rule": "5% cashback on online spends"
+  },
+  {
+    "key": "sbi-simplyclick|apollo247|1000|card|online",
+    "label": "SimplyCLICK SBI Card: Apollo 24|7 ₹1,000",
+    "cardId": "sbi-simplyclick",
+    "valueInr": 25,
+    "rule": "10X on online spends with exclusive partners"
+  },
+  {
+    "key": "sbi-simplyclick|apollo247|50000|card|online",
+    "label": "SimplyCLICK SBI Card: Apollo 24|7 ₹50,000",
+    "cardId": "sbi-simplyclick",
+    "valueInr": 1250,
+    "rule": "10X on online spends with exclusive partners"
+  },
+  {
+    "key": "sbi-simplyclick|other|1000|card|offline",
+    "label": "SimplyCLICK SBI Card: other ₹1,000",
+    "cardId": "sbi-simplyclick",
+    "valueInr": 2.5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "sbi-simplyclick|other|1000|card|online",
+    "label": "SimplyCLICK SBI Card: other ₹1,000",
+    "cardId": "sbi-simplyclick",
+    "valueInr": 12.5,
+    "rule": "5X on all other online spends"
+  },
+  {
+    "key": "sbi-simplyclick|other|50000|card|online",
+    "label": "SimplyCLICK SBI Card: other ₹50,000",
+    "cardId": "sbi-simplyclick",
+    "valueInr": 625,
+    "rule": "5X on all other online spends"
+  },
+  {
+    "key": "sbi-simplysave|dining|1000|card|online",
+    "label": "SimplySAVE SBI Card: dining ₹1,000",
+    "cardId": "sbi-simplysave",
+    "valueInr": 16.67,
+    "rule": "10X points on dining, movies and grocery (10 RP per ₹150)"
+  },
+  {
+    "key": "sbi-simplysave|dining|50000|card|online",
+    "label": "SimplySAVE SBI Card: dining ₹50,000",
+    "cardId": "sbi-simplysave",
+    "valueInr": 833.33,
+    "rule": "10X points on dining, movies and grocery (10 RP per ₹150)"
+  },
+  {
+    "key": "sbi-simplysave|other|1000|card|offline",
+    "label": "SimplySAVE SBI Card: other ₹1,000",
+    "cardId": "sbi-simplysave",
+    "valueInr": 1.67,
+    "rule": "Base rate"
+  },
+  {
+    "key": "scapia-rupay|other|1000|card|offline",
+    "label": "Scapia Federal (RuPay, UPI): other ₹1,000",
+    "cardId": "scapia-rupay",
+    "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "scapia-rupay|other|1000|upi|offline",
+    "label": "Scapia Federal (RuPay, UPI): other ₹1,000 UPI",
+    "cardId": "scapia-rupay",
+    "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "scapia-rupay|scapia_travel|1000|card|online",
+    "label": "Scapia Federal (RuPay, UPI): Scapia app (travel) ₹1,000",
+    "cardId": "scapia-rupay",
+    "valueInr": 40,
+    "rule": "20% on travel purchases made on the Scapia App"
+  },
+  {
+    "key": "scapia-rupay|scapia_travel|50000|card|online",
+    "label": "Scapia Federal (RuPay, UPI): Scapia app (travel) ₹50,000",
+    "cardId": "scapia-rupay",
+    "valueInr": 2000,
+    "rule": "20% on travel purchases made on the Scapia App"
+  },
+  {
+    "key": "scapia-visa|other|1000|card|offline",
+    "label": "Scapia Federal (Visa): other ₹1,000",
+    "cardId": "scapia-visa",
+    "valueInr": 20,
+    "rule": "Base rate"
+  },
+  {
+    "key": "scapia-visa|scapia_travel|1000|card|online",
+    "label": "Scapia Federal (Visa): Scapia app (travel) ₹1,000",
+    "cardId": "scapia-visa",
+    "valueInr": 40,
+    "rule": "20% rewards on travel purchases made on the Scapia App"
+  },
+  {
+    "key": "scapia-visa|scapia_travel|50000|card|online",
+    "label": "Scapia Federal (Visa): Scapia app (travel) ₹50,000",
+    "cardId": "scapia-visa",
+    "valueInr": 2000,
+    "rule": "20% rewards on travel purchases made on the Scapia App"
+  },
+  {
+    "key": "swiggy-blck-hdfc|amazon|1000|card|online",
+    "label": "Swiggy BLCK HDFC: Amazon ₹1,000",
+    "cardId": "swiggy-blck-hdfc",
+    "valueInr": 50,
+    "rule": "5% on Amazon, Flipkart, Nykaa, Cleartrip, Ajio, BookMyShow, Meesho (online)"
+  },
+  {
+    "key": "swiggy-blck-hdfc|amazon|50000|card|online",
+    "label": "Swiggy BLCK HDFC: Amazon ₹50,000",
+    "cardId": "swiggy-blck-hdfc",
+    "valueInr": 1500,
+    "rule": "5% on Amazon, Flipkart, Nykaa, Cleartrip, Ajio, BookMyShow, Meesho (online)"
+  },
+  {
+    "key": "swiggy-blck-hdfc|apparel|1000|card|online",
+    "label": "Swiggy BLCK HDFC: apparel ₹1,000",
+    "cardId": "swiggy-blck-hdfc",
+    "valueInr": 50,
+    "rule": "5% on select online categories (apparel, electronics, travel, cabs)"
+  },
+  {
+    "key": "swiggy-blck-hdfc|apparel|50000|card|online",
+    "label": "Swiggy BLCK HDFC: apparel ₹50,000",
+    "cardId": "swiggy-blck-hdfc",
+    "valueInr": 1500,
+    "rule": "5% on select online categories (apparel, electronics, travel, cabs)"
+  },
+  {
+    "key": "swiggy-blck-hdfc|ola|1000|card|online",
+    "label": "Swiggy BLCK HDFC: Ola ₹1,000",
+    "cardId": "swiggy-blck-hdfc",
+    "valueInr": 50,
+    "rule": "5% on select online categories (apparel, electronics, travel, cabs)"
+  },
+  {
+    "key": "swiggy-blck-hdfc|ola|50000|card|online",
+    "label": "Swiggy BLCK HDFC: Ola ₹50,000",
+    "cardId": "swiggy-blck-hdfc",
+    "valueInr": 1500,
+    "rule": "5% on select online categories (apparel, electronics, travel, cabs)"
+  },
+  {
+    "key": "swiggy-blck-hdfc|other|1000|card|offline",
+    "label": "Swiggy BLCK HDFC: other ₹1,000",
+    "cardId": "swiggy-blck-hdfc",
+    "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "swiggy-blck-hdfc|swiggy_food|1000|card|online",
+    "label": "Swiggy BLCK HDFC: Swiggy (food) ₹1,000",
+    "cardId": "swiggy-blck-hdfc",
+    "valueInr": 100,
+    "rule": "10% on Swiggy app (Food, Instamart, Dineout)"
+  },
+  {
+    "key": "swiggy-blck-hdfc|swiggy_food|50000|card|online",
+    "label": "Swiggy BLCK HDFC: Swiggy (food) ₹50,000",
+    "cardId": "swiggy-blck-hdfc",
+    "valueInr": 1500,
+    "rule": "10% on Swiggy app (Food, Instamart, Dineout)"
+  },
+  {
+    "key": "swiggy-hdfc|cleartrip|1000|card|online",
+    "label": "Swiggy HDFC Bank: Cleartrip ₹1,000",
+    "cardId": "swiggy-hdfc",
+    "valueInr": 50,
+    "rule": "5% on Cleartrip (from 17 Apr 2026)"
+  },
+  {
+    "key": "swiggy-hdfc|cleartrip|50000|card|online",
+    "label": "Swiggy HDFC Bank: Cleartrip ₹50,000",
+    "cardId": "swiggy-hdfc",
+    "valueInr": 1500,
+    "rule": "5% on Cleartrip (from 17 Apr 2026)"
+  },
+  {
+    "key": "swiggy-hdfc|online_shopping|1000|card|online",
+    "label": "Swiggy HDFC Bank: online shopping ₹1,000",
+    "cardId": "swiggy-hdfc",
+    "valueInr": 50,
+    "rule": "5% on select online categories"
+  },
+  {
+    "key": "swiggy-hdfc|online_shopping|50000|card|online",
+    "label": "Swiggy HDFC Bank: online shopping ₹50,000",
+    "cardId": "swiggy-hdfc",
+    "valueInr": 1500,
+    "rule": "5% on select online categories"
+  },
+  {
+    "key": "swiggy-hdfc|other|1000|card|offline",
+    "label": "Swiggy HDFC Bank: other ₹1,000",
+    "cardId": "swiggy-hdfc",
+    "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "swiggy-hdfc|swiggy_food|1000|card|online",
+    "label": "Swiggy HDFC Bank: Swiggy (food) ₹1,000",
+    "cardId": "swiggy-hdfc",
+    "valueInr": 100,
+    "rule": "10% on the Swiggy app (Food, Instamart, Genie, Dineout)"
+  },
+  {
+    "key": "swiggy-hdfc|swiggy_food|50000|card|online",
+    "label": "Swiggy HDFC Bank: Swiggy (food) ₹50,000",
+    "cardId": "swiggy-hdfc",
+    "valueInr": 1500,
+    "rule": "10% on the Swiggy app (Food, Instamart, Genie, Dineout)"
+  },
+  {
+    "key": "swiggy-ornge-hdfc|amazon|1000|card|online",
+    "label": "Swiggy Ornge HDFC: Amazon ₹1,000",
+    "cardId": "swiggy-ornge-hdfc",
+    "valueInr": 50,
+    "rule": "5% on Amazon, Flipkart, Nykaa, Ajio, BookMyShow, Meesho (online)"
+  },
+  {
+    "key": "swiggy-ornge-hdfc|amazon|50000|card|online",
+    "label": "Swiggy Ornge HDFC: Amazon ₹50,000",
+    "cardId": "swiggy-ornge-hdfc",
+    "valueInr": 1500,
+    "rule": "5% on Amazon, Flipkart, Nykaa, Ajio, BookMyShow, Meesho (online)"
+  },
+  {
+    "key": "swiggy-ornge-hdfc|apparel|1000|card|online",
+    "label": "Swiggy Ornge HDFC: apparel ₹1,000",
+    "cardId": "swiggy-ornge-hdfc",
+    "valueInr": 50,
+    "rule": "5% on online Apparels"
+  },
+  {
+    "key": "swiggy-ornge-hdfc|apparel|50000|card|online",
+    "label": "Swiggy Ornge HDFC: apparel ₹50,000",
+    "cardId": "swiggy-ornge-hdfc",
+    "valueInr": 1500,
+    "rule": "5% on online Apparels"
+  },
+  {
+    "key": "swiggy-ornge-hdfc|cleartrip|1000|card|online",
+    "label": "Swiggy Ornge HDFC: Cleartrip ₹1,000",
+    "cardId": "swiggy-ornge-hdfc",
+    "valueInr": 50,
+    "rule": "5% on online Travel (Cleartrip, Paytm Travel, EaseMyTrip, Ixigo, Yatra, Ibibo)"
+  },
+  {
+    "key": "swiggy-ornge-hdfc|cleartrip|50000|card|online",
+    "label": "Swiggy Ornge HDFC: Cleartrip ₹50,000",
+    "cardId": "swiggy-ornge-hdfc",
+    "valueInr": 1500,
+    "rule": "5% on online Travel (Cleartrip, Paytm Travel, EaseMyTrip, Ixigo, Yatra, Ibibo)"
+  },
+  {
+    "key": "swiggy-ornge-hdfc|croma|1000|card|online",
+    "label": "Swiggy Ornge HDFC: Croma ₹1,000",
+    "cardId": "swiggy-ornge-hdfc",
+    "valueInr": 50,
+    "rule": "5% on online Electronics (Croma, Reliance Retail, Vijay Sales)"
+  },
+  {
+    "key": "swiggy-ornge-hdfc|croma|50000|card|online",
+    "label": "Swiggy Ornge HDFC: Croma ₹50,000",
+    "cardId": "swiggy-ornge-hdfc",
+    "valueInr": 1500,
+    "rule": "5% on online Electronics (Croma, Reliance Retail, Vijay Sales)"
+  },
+  {
+    "key": "swiggy-ornge-hdfc|ola|1000|card|online",
+    "label": "Swiggy Ornge HDFC: Ola ₹1,000",
+    "cardId": "swiggy-ornge-hdfc",
+    "valueInr": 50,
+    "rule": "5% on online Ola / Uber cabs"
+  },
+  {
+    "key": "swiggy-ornge-hdfc|ola|50000|card|online",
+    "label": "Swiggy Ornge HDFC: Ola ₹50,000",
+    "cardId": "swiggy-ornge-hdfc",
+    "valueInr": 1500,
+    "rule": "5% on online Ola / Uber cabs"
+  },
+  {
+    "key": "swiggy-ornge-hdfc|other|1000|card|offline",
+    "label": "Swiggy Ornge HDFC: other ₹1,000",
+    "cardId": "swiggy-ornge-hdfc",
+    "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "swiggy-ornge-hdfc|swiggy_food|1000|card|online",
+    "label": "Swiggy Ornge HDFC: Swiggy (food) ₹1,000",
+    "cardId": "swiggy-ornge-hdfc",
+    "valueInr": 50,
+    "rule": "5% on Swiggy App (Food Delivery, Instamart, Dineout)"
+  },
+  {
+    "key": "swiggy-ornge-hdfc|swiggy_food|50000|card|online",
+    "label": "Swiggy Ornge HDFC: Swiggy (food) ₹50,000",
+    "cardId": "swiggy-ornge-hdfc",
+    "valueInr": 1500,
+    "rule": "5% on Swiggy App (Food Delivery, Instamart, Dineout)"
+  },
+  {
+    "key": "tata-neu-infinity-hdfc|grocery|1000|card|online",
+    "label": "Tata Neu Infinity HDFC: grocery ₹1,000",
+    "cardId": "tata-neu-infinity-hdfc",
+    "valueInr": 15,
+    "rule": "1.5% on grocery (capped 2,000 NeuCoins/month)"
+  },
+  {
+    "key": "tata-neu-infinity-hdfc|grocery|50000|card|online",
+    "label": "Tata Neu Infinity HDFC: grocery ₹50,000",
+    "cardId": "tata-neu-infinity-hdfc",
+    "valueInr": 750,
+    "rule": "1.5% on grocery (capped 2,000 NeuCoins/month)"
+  },
+  {
+    "key": "tata-neu-infinity-hdfc|insurance|1000|card|online",
+    "label": "Tata Neu Infinity HDFC: insurance ₹1,000",
+    "cardId": "tata-neu-infinity-hdfc",
+    "valueInr": 15,
+    "rule": "1.5% on insurance (capped 2,000 NeuCoins/month)"
+  },
+  {
+    "key": "tata-neu-infinity-hdfc|insurance|50000|card|online",
+    "label": "Tata Neu Infinity HDFC: insurance ₹50,000",
+    "cardId": "tata-neu-infinity-hdfc",
+    "valueInr": 750,
+    "rule": "1.5% on insurance (capped 2,000 NeuCoins/month)"
+  },
+  {
+    "key": "tata-neu-infinity-hdfc|other|1000|card|offline",
+    "label": "Tata Neu Infinity HDFC: other ₹1,000",
+    "cardId": "tata-neu-infinity-hdfc",
+    "valueInr": 15,
+    "rule": "Base rate"
+  },
+  {
+    "key": "tata-neu-infinity-hdfc|other|1000|upi|offline",
+    "label": "Tata Neu Infinity HDFC: other ₹1,000 UPI",
+    "cardId": "tata-neu-infinity-hdfc",
+    "valueInr": 15,
+    "rule": "1.5% on UPI via Tata Neu UPI ID (0.5% + 1%)"
+  },
+  {
+    "key": "tata-neu-infinity-hdfc|other|50000|upi|offline",
+    "label": "Tata Neu Infinity HDFC: other ₹50,000 UPI",
+    "cardId": "tata-neu-infinity-hdfc",
+    "valueInr": 500,
+    "rule": "1.5% on UPI via Tata Neu UPI ID (0.5% + 1%)"
+  },
+  {
+    "key": "tata-neu-infinity-hdfc|tata_neu|1000|card|online",
+    "label": "Tata Neu Infinity HDFC: Tata Neu app ₹1,000",
+    "cardId": "tata-neu-infinity-hdfc",
+    "valueInr": 50,
+    "rule": "5% NeuCoins on Tata Neu and partner Tata brands (non-UPI, non-EMI)"
+  },
+  {
+    "key": "tata-neu-infinity-hdfc|tata_neu|50000|card|online",
+    "label": "Tata Neu Infinity HDFC: Tata Neu app ₹50,000",
+    "cardId": "tata-neu-infinity-hdfc",
+    "valueInr": 2500,
+    "rule": "5% NeuCoins on Tata Neu and partner Tata brands (non-UPI, non-EMI)"
+  },
+  {
+    "key": "tata-neu-infinity-hdfc|telecom|1000|card|online",
+    "label": "Tata Neu Infinity HDFC: telecom ₹1,000",
+    "cardId": "tata-neu-infinity-hdfc",
+    "valueInr": 15,
+    "rule": "1.5% on telecom & cable (capped 2,000 NeuCoins/month)"
+  },
+  {
+    "key": "tata-neu-infinity-hdfc|telecom|50000|card|online",
+    "label": "Tata Neu Infinity HDFC: telecom ₹50,000",
+    "cardId": "tata-neu-infinity-hdfc",
+    "valueInr": 750,
+    "rule": "1.5% on telecom & cable (capped 2,000 NeuCoins/month)"
+  },
+  {
+    "key": "tata-neu-infinity-hdfc|utilities|1000|card|online",
+    "label": "Tata Neu Infinity HDFC: utilities ₹1,000",
+    "cardId": "tata-neu-infinity-hdfc",
+    "valueInr": 15,
+    "rule": "1.5% on utilities (capped 2,000 NeuCoins/month)"
+  },
+  {
+    "key": "tata-neu-infinity-hdfc|utilities|50000|card|online",
+    "label": "Tata Neu Infinity HDFC: utilities ₹50,000",
+    "cardId": "tata-neu-infinity-hdfc",
+    "valueInr": 750,
+    "rule": "1.5% on utilities (capped 2,000 NeuCoins/month)"
+  },
+  {
+    "key": "tata-neu-plus-hdfc|grocery|1000|card|online",
+    "label": "Tata Neu Plus HDFC: grocery ₹1,000",
+    "cardId": "tata-neu-plus-hdfc",
+    "valueInr": 10,
+    "rule": "1% on grocery (capped 1,000 NeuCoins/month)"
+  },
+  {
+    "key": "tata-neu-plus-hdfc|grocery|50000|card|online",
+    "label": "Tata Neu Plus HDFC: grocery ₹50,000",
+    "cardId": "tata-neu-plus-hdfc",
+    "valueInr": 500,
+    "rule": "1% on grocery (capped 1,000 NeuCoins/month)"
+  },
+  {
+    "key": "tata-neu-plus-hdfc|insurance|1000|card|online",
+    "label": "Tata Neu Plus HDFC: insurance ₹1,000",
+    "cardId": "tata-neu-plus-hdfc",
+    "valueInr": 10,
+    "rule": "1% on insurance (capped 2,000 NeuCoins/month)"
+  },
+  {
+    "key": "tata-neu-plus-hdfc|insurance|50000|card|online",
+    "label": "Tata Neu Plus HDFC: insurance ₹50,000",
+    "cardId": "tata-neu-plus-hdfc",
+    "valueInr": 500,
+    "rule": "1% on insurance (capped 2,000 NeuCoins/month)"
+  },
+  {
+    "key": "tata-neu-plus-hdfc|other|1000|card|offline",
+    "label": "Tata Neu Plus HDFC: other ₹1,000",
+    "cardId": "tata-neu-plus-hdfc",
+    "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "tata-neu-plus-hdfc|other|1000|upi|offline",
+    "label": "Tata Neu Plus HDFC: other ₹1,000 UPI",
+    "cardId": "tata-neu-plus-hdfc",
+    "valueInr": 10,
+    "rule": "Up to 1% on UPI via Tata Neu UPI ID"
+  },
+  {
+    "key": "tata-neu-plus-hdfc|other|50000|upi|offline",
+    "label": "Tata Neu Plus HDFC: other ₹50,000 UPI",
+    "cardId": "tata-neu-plus-hdfc",
+    "valueInr": 500,
+    "rule": "Up to 1% on UPI via Tata Neu UPI ID"
+  },
+  {
+    "key": "tata-neu-plus-hdfc|tata_neu|1000|card|online",
+    "label": "Tata Neu Plus HDFC: Tata Neu app ₹1,000",
+    "cardId": "tata-neu-plus-hdfc",
+    "valueInr": 20,
+    "rule": "2% on Tata Neu and partner Tata brands (non-UPI, non-EMI)"
+  },
+  {
+    "key": "tata-neu-plus-hdfc|tata_neu|50000|card|online",
+    "label": "Tata Neu Plus HDFC: Tata Neu app ₹50,000",
+    "cardId": "tata-neu-plus-hdfc",
+    "valueInr": 1000,
+    "rule": "2% on Tata Neu and partner Tata brands (non-UPI, non-EMI)"
+  },
+  {
+    "key": "tata-neu-plus-hdfc|telecom|1000|card|online",
+    "label": "Tata Neu Plus HDFC: telecom ₹1,000",
+    "cardId": "tata-neu-plus-hdfc",
+    "valueInr": 10,
+    "rule": "1% on telecom & cable (capped 2,000 NeuCoins/month)"
+  },
+  {
+    "key": "tata-neu-plus-hdfc|telecom|50000|card|online",
+    "label": "Tata Neu Plus HDFC: telecom ₹50,000",
+    "cardId": "tata-neu-plus-hdfc",
+    "valueInr": 500,
+    "rule": "1% on telecom & cable (capped 2,000 NeuCoins/month)"
+  },
+  {
+    "key": "tata-neu-plus-hdfc|utilities|1000|card|online",
+    "label": "Tata Neu Plus HDFC: utilities ₹1,000",
+    "cardId": "tata-neu-plus-hdfc",
+    "valueInr": 10,
+    "rule": "1% on utilities (capped 2,000 NeuCoins/month)"
+  },
+  {
+    "key": "tata-neu-plus-hdfc|utilities|50000|card|online",
+    "label": "Tata Neu Plus HDFC: utilities ₹50,000",
+    "cardId": "tata-neu-plus-hdfc",
+    "valueInr": 500,
+    "rule": "1% on utilities (capped 2,000 NeuCoins/month)"
+  }
+]

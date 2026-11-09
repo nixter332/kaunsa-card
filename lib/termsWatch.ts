@@ -3,19 +3,9 @@
 // by the rules agent, so a reward cut gets caught without re-extracting every card every month.
 import crypto from "node:crypto";
 
-/** Review and comparison sites: useful when adding a card, too noisy to watch. */
-const SECONDARY_HOSTS =
-  /(^|\.)(cardadvisor\.in|technofino\.in|cardinsider\.com|paisabazaar\.com|bankbazaar\.com|cardexpert\.in|livefromalounge\.com|groww\.in|bajajfinservmarkets\.in|finology\.in|savesage\.club|creditmantri\.com|reddit\.com|book1a\.com|finanjo\.com)$/i;
+import { isWatchable } from "./sources";
 
-/** Issuer pages and PDFs on the web. Saved files on someone's laptop and review sites aren't watched. */
-export function isWatchable(url: string): boolean {
-  if (!/^https?:\/\//i.test(url)) return false;
-  try {
-    return !SECONDARY_HOSTS.test(new URL(url).hostname);
-  } catch {
-    return false;
-  }
-}
+export { isWatchable };
 
 /** Page text with layout noise removed, so only wording changes count. */
 export function watchText(text: string): string {
