@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { CardTile } from "./CardTile";
 import { shareLink } from "./referral";
 import { IconTag } from "./Icons";
-import { cardById, inr, pretty, track } from "./store";
+import { cardById, inr, pointValueLine, pretty, track } from "./store";
 
 type Props = {
   lookup: Lookup;
@@ -254,6 +254,7 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
           ) : (
             <p className="why">{best.reason}</p>
           )}
+          {pointValueLine(bestCard) && <p className="muted small">{pointValueLine(bestCard)}</p>}
           {otherTips.map((h) => (
             <p key={h} className="offer-hint">
               <IconTag size={15} /> {h}

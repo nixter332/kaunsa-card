@@ -98,6 +98,10 @@ export interface Card {
     unitName: string;
     inrPerUnit: number;
     inrPerUnitNote?: string;
+    /** Shown with points answers: what the ₹ value assumes, e.g. "for flights and hotels on SmartBuy". */
+    valueBasis?: string;
+    /** Does the issuer's own document state inrPerUnit? false = our estimate, and the card can't be "high" confidence. */
+    valueStated?: boolean;
   };
   base: { rate: number; capId?: string; tiers?: Tier[] };
   rules: Rule[];

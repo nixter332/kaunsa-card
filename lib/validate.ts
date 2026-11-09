@@ -27,6 +27,11 @@ export function validateCard(c: Partial<Card>): string[] {
   for (const cat of c.exclusions?.categories ?? []) if (!CATEGORIES.includes(cat)) errs.push(`unknown excluded category "${cat}"`);
   if (c.exclusions?.categories.includes("other")) errs.push(`"other" can't be excluded: it would zero out every unrecognised merchant`);
   if (c.upi && c.network !== "RuPay") errs.push("only RuPay cards can be used on UPI");
+  if (c.reward && !(c.reward.kind === "cashback" && c.reward.inrPerUnit === 1)) {
+    if (!c.reward.valueBasis?.trim()) errs.push("points card needs reward.valueBasis (what the ₹ value assumes, shown to users)");
+    if (c.reward.valueStated === undefined) errs.push("points card needs reward.valueStated (does the bank's document state the ₹ value?)");
+  }
+  if (c.confidence === "high" && c.reward?.valueStated === false) errs.push("confidence can't be high when the point value is our estimate");
   return errs;
 }
 
@@ -122,5 +127,9 @@ export function normalizeCard<T extends Partial<Card>>(c: T): { card: T; changes
     for (const cap of unused) changes.push(`Cap "${cap.label}" isn't attached to any rule, so it was dropped.`);
   }
   card.rules = rules;
+  if (card.confidence === "high" && card.reward?.valueStated === false) {
+    card.confidence = "medium";
+    changes.push("Confidence lowered to medium: the point value isn't stated in the bank's documents.");
+  }
   return { card, changes };
 }

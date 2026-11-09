@@ -186,6 +186,15 @@ const submitTool: Anthropic.Tool = {
               "₹ value of one unit at the most common redemption (cashback = 1)",
           },
           inrPerUnitNote: { type: "string" },
+          valueBasis: {
+            type: "string",
+            description:
+              "Points cards: a few words shown to users on what the ₹ value assumes, e.g. 'for flights and hotels on SmartBuy (₹0.20 as statement credit)'.",
+          },
+          valueStated: {
+            type: "boolean",
+            description: "true only if the document itself states inrPerUnit.",
+          },
         },
         required: ["kind", "unitName", "inrPerUnit"],
       },
@@ -442,6 +451,8 @@ async function extract(cardId: string, srcs: string[]): Promise<Report> {
   const proposed: Card = {
     ...seed,
     ...fields,
+    // A partial reward from the document keeps the fields it doesn't mention (e.g. valueBasis).
+    reward: { ...seed.reward, ...fields.reward },
     rules: rulesWithEvidence,
     // Only stamp today's date if the document actually confirmed the earn rates.
     lastVerified: confirmed ? today : seed.lastVerified,

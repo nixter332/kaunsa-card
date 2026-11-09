@@ -359,7 +359,9 @@
       "kind": "points",
       "unitName": "Reward Point",
       "inrPerUnit": 0.4,
-      "inrPerUnitNote": "1 Reward Point = ₹0.40 as cash credit (also ₹0.40 via Indusmoments vouchers). 4 Reward Points = 1 KrisFlyer Mile."
+      "inrPerUnitNote": "1 Reward Point = ₹0.40 as cash credit (also ₹0.40 via Indusmoments vouchers). 4 Reward Points = 1 KrisFlyer Mile.",
+      "valueBasis": "as cash credit",
+      "valueStated": true
     },
     "base": {
       "rate": 0.01,
@@ -429,7 +431,9 @@
       "kind": "points",
       "unitName": "Scapia Coin",
       "inrPerUnit": 0.2,
-      "inrPerUnitNote": "1 Reward = 1 Scapia Coin, converted on the statement date. 5 Scapia Coins = Rs. 1 when redeemed for flights, hotels, buses and other services on the Scapia app. The document says this value and the conversion ratio can change."
+      "inrPerUnitNote": "1 Reward = 1 Scapia Coin, converted on the statement date. 5 Scapia Coins = Rs. 1 when redeemed for flights, hotels, buses and other services on the Scapia app. The document says this value and the conversion ratio can change.",
+      "valueBasis": "for travel booked on the Scapia app",
+      "valueStated": true
     },
     "base": {
       "rate": 0.1
@@ -503,7 +507,9 @@
       "kind": "points",
       "unitName": "Scapia Coin",
       "inrPerUnit": 0.2,
-      "inrPerUnitNote": "1 Reward = 1 Scapia Coin; 5 Scapia Coins = Rs. 1 when redeemed on the Scapia app (flights, hotels, buses, other Scapia services). The value may change with one month's notice."
+      "inrPerUnitNote": "1 Reward = 1 Scapia Coin; 5 Scapia Coins = Rs. 1 when redeemed on the Scapia app (flights, hotels, buses, other Scapia services). The value may change with one month's notice.",
+      "valueBasis": "for travel booked on the Scapia app",
+      "valueStated": true
     },
     "base": {
       "rate": 0.05
@@ -676,7 +682,9 @@
       "kind": "points",
       "unitName": "Reward Points",
       "inrPerUnit": 1,
-      "inrPerUnitNote": "Points are credited as Amazon Pay balance; the document states earn rates as a % of transaction amount (5 points per ₹100 = 5%), implying 1 point = ₹1. An explicit point-to-rupee value is not stated."
+      "inrPerUnitNote": "Points are credited as Amazon Pay balance; the document states earn rates as a % of transaction amount (5 points per ₹100 = 5%), implying 1 point = ₹1. An explicit point-to-rupee value is not stated.",
+      "valueBasis": "as Amazon Pay balance",
+      "valueStated": false
     },
     "base": {
       "rate": 0.01
@@ -892,7 +900,9 @@
       "kind": "points",
       "unitName": "NeuCoins",
       "inrPerUnit": 1,
-      "inrPerUnitNote": "1 Tata NeuCoin = ₹1 savings on Tata Neu App/Website across eligible Tata brands"
+      "inrPerUnitNote": "1 Tata NeuCoin = ₹1 savings on Tata Neu App/Website across eligible Tata brands",
+      "valueBasis": "on Tata Neu, across Tata brands",
+      "valueStated": true
     },
     "base": {
       "rate": 0.01
@@ -1048,7 +1058,9 @@
       "kind": "points",
       "unitName": "NeuCoins",
       "inrPerUnit": 1,
-      "inrPerUnitNote": "1 Tata NeuCoin = ₹1 savings on Tata Neu App/Website across eligible Tata brands"
+      "inrPerUnitNote": "1 Tata NeuCoin = ₹1 savings on Tata Neu App/Website across eligible Tata brands",
+      "valueBasis": "on Tata Neu, across Tata brands",
+      "valueStated": true
     },
     "base": {
       "rate": 0.015
@@ -1220,7 +1232,9 @@
       "kind": "cashback",
       "unitName": "Kiwis",
       "inrPerUnit": 0.25,
-      "inrPerUnitNote": "Document: 'Each Kiwis will be currently worth Rs 0.25/-' (4 Kiwis = ₹1). Rates are expressed in Kiwis per ₹1 (2 Kiwis per ₹100 = 0.5%)."
+      "inrPerUnitNote": "Document: 'Each Kiwis will be currently worth Rs 0.25/-' (4 Kiwis = ₹1). Rates are expressed in Kiwis per ₹1 (2 Kiwis per ₹100 = 0.5%).",
+      "valueBasis": "as cashback",
+      "valueStated": true
     },
     "base": {
       "rate": 0.02
@@ -1672,7 +1686,9 @@
       "kind": "points",
       "unitName": "Reward Point",
       "inrPerUnit": 0.5,
-      "inrPerUnitNote": "Document states 1 RP = ₹0.50 on flights and hotel bookings (SmartBuy); Gold Catalogue ₹0.65, products/vouchers up to ₹0.35, statement balance ₹0.15 (website) or ₹0.20 (Smartbuy section)."
+      "inrPerUnitNote": "Document states 1 RP = ₹0.50 on flights and hotel bookings (SmartBuy); Gold Catalogue ₹0.65, products/vouchers up to ₹0.35, statement balance ₹0.15 (website) or ₹0.20 (Smartbuy section).",
+      "valueBasis": "for flights and hotels on SmartBuy (₹0.20 as statement credit)",
+      "valueStated": true
     },
     "base": {
       "rate": 0.025,
@@ -1725,7 +1741,9 @@
       "kind": "points",
       "unitName": "ICICI reward points",
       "inrPerUnit": 0.25,
-      "inrPerUnitNote": "Typical catalogue/voucher value; varies by redemption."
+      "inrPerUnitNote": "Typical catalogue/voucher value; varies by redemption.",
+      "valueBasis": "a typical voucher value",
+      "valueStated": false
     },
     "base": {
       "rate": 0.02
@@ -1858,7 +1876,9 @@
       "kind": "points",
       "unitName": "CashPoints",
       "inrPerUnit": 1,
-      "inrPerUnitNote": "1 CashPoint = ₹1 when redeemed as statement-credit CashBack (₹50 redemption fee, minimum 500 CashPoints). Redemption via SmartBuy flights/hotels/catalogue is only ₹0.30 per CashPoint."
+      "inrPerUnitNote": "1 CashPoint = ₹1 when redeemed as statement-credit CashBack (₹50 redemption fee, minimum 500 CashPoints). Redemption via SmartBuy flights/hotels/catalogue is only ₹0.30 per CashPoint.",
+      "valueBasis": "as statement credit (₹0.30 on SmartBuy)",
+      "valueStated": true
     },
     "base": {
       "rate": 0.01,
@@ -2163,7 +2183,9 @@
       "kind": "points",
       "unitName": "CashPoints",
       "inrPerUnit": 0.25,
-      "inrPerUnitNote": "1 CashPoint = up to ₹0.25 (SmartBuy flights/hotels and product catalogue); ₹0.20 as cashback; 0.25 airmiles."
+      "inrPerUnitNote": "1 CashPoint = up to ₹0.25 (SmartBuy flights/hotels and product catalogue); ₹0.20 as cashback; 0.25 airmiles.",
+      "valueBasis": "for SmartBuy flights and hotels (₹0.20 as cashback)",
+      "valueStated": true
     },
     "base": {
       "rate": 0.01
@@ -2225,7 +2247,9 @@
       "kind": "points",
       "unitName": "Reward Points",
       "inrPerUnit": 0.25,
-      "inrPerUnitNote": "6,000 bonus RP are stated as worth INR 1,500 (₹0.25 per point)."
+      "inrPerUnitNote": "6,000 bonus RP are stated as worth INR 1,500 (₹0.25 per point).",
+      "valueBasis": "the value SBI Card states for its points",
+      "valueStated": true
     },
     "base": {
       "rate": 0.01
@@ -2310,7 +2334,9 @@
       "kind": "points",
       "unitName": "EDGE Miles",
       "inrPerUnit": 1,
-      "inrPerUnitNote": "Document: 1 EDGE Mile is equal to INR 1. Transfer to partners is 1 EDGE Mile = 2 partner points (except Marriott: 2 EDGE Miles = 1 Bonvoy point)."
+      "inrPerUnitNote": "Document: 1 EDGE Mile is equal to INR 1. Transfer to partners is 1 EDGE Mile = 2 partner points (except Marriott: 2 EDGE Miles = 1 Bonvoy point).",
+      "valueBasis": "the value Axis states; more if moved to airline partners",
+      "valueStated": true
     },
     "base": {
       "rate": 0.02
@@ -2398,7 +2424,9 @@
       "kind": "points",
       "unitName": "ICICI reward points",
       "inrPerUnit": 0.25,
-      "inrPerUnitNote": "Typical value; check the document for the cashback-equivalent rate."
+      "inrPerUnitNote": "Typical value; check the document for the cashback-equivalent rate.",
+      "valueBasis": "a typical voucher value",
+      "valueStated": false
     },
     "base": {
       "rate": 0.02
@@ -2487,7 +2515,9 @@
       "kind": "points",
       "unitName": "Membership Rewards points",
       "inrPerUnit": 0.4,
-      "inrPerUnitNote": "Gold Collection vouchers value MR points at about ₹0.4–0.5; statement credit is ₹0.25."
+      "inrPerUnitNote": "Gold Collection vouchers value MR points at about ₹0.4–0.5; statement credit is ₹0.25.",
+      "valueBasis": "for Gold Collection vouchers (₹0.25 as statement credit)",
+      "valueStated": false
     },
     "base": {
       "rate": 0.02
@@ -2510,7 +2540,8 @@
       "Source 2 (dated 7/26/2023) describes an enrollment-based benefit: 1,000 bonus MR points for net spends of INR 20,000 or more in a calendar month on the Membership Rewards Credit Card. It is a flat spend-milestone bonus, not a per-rupee rate, so it cannot be represented as a rule or cap. Source 1 has no conflicting terms, so both documents are treated as applying.",
       "Reward value: the only rupee conversion in the documents is INR 1 = 4 MR Points (₹0.25 per point), and it applies only to redemption for a statement credit after card cancellation (Source 1, VII.5). The documents do not state a rupee value for the most common redemption. The reward field is therefore omitted. The provided metadata of ₹0.4 per point is not confirmed by the documents.",
       "Network and UPI status are not stated in the documents, so both are omitted.",
-      "Other terms: points are forfeited if the minimum amount due is not paid by the due date. Source 1 III.1(b) says American Express may change accrual rates at its discretion, for example for promotions."
+      "Other terms: points are forfeited if the minimum amount due is not paid by the due date. Source 1 III.1(b) says American Express may change accrual rates at its discretion, for example for promotions.",
+      "Confidence lowered from high to medium on 9 Nov 2026: the ₹0.4 point value is not stated in the issuer documents (see inrPerUnitNote)."
     ],
     "sources": [
       {
@@ -2523,7 +2554,7 @@
       }
     ],
     "lastVerified": "2026-11-08",
-    "confidence": "high"
+    "confidence": "medium"
   },
   {
     "id": "amex-platinum-travel",
@@ -2535,7 +2566,9 @@
       "kind": "points",
       "unitName": "Membership Rewards points",
       "inrPerUnit": 0.4,
-      "inrPerUnitNote": "Gold Collection vouchers value MR points at about ₹0.4–0.5; statement credit is ₹0.25."
+      "inrPerUnitNote": "Gold Collection vouchers value MR points at about ₹0.4–0.5; statement credit is ₹0.25.",
+      "valueBasis": "for Gold Collection vouchers (₹0.25 as statement credit)",
+      "valueStated": false
     },
     "base": {
       "rate": 0.02
@@ -2556,7 +2589,8 @@
       "Not representable: no points on cash transactions, cash advances, balance transfers, fees and charges, or foreign exchange purchases. No points on EMI selected on a merchant's website or at a merchant's terminal (effective 15 Mar 2020). Points are still earned on EMI via SafeKey and on post-purchase EMI conversions.",
       "Not representable: milestone benefits. These are a 10,000-point welcome gift for spending Rs. 15,000 within 90 days, 10,000 points for Rs. 4 lakh spend in a membership year, and a Rs. 20,000 Taj voucher for Rs. 7 lakh spend.",
       "Network, UPI and reward value are omitted because the documents do not state them. The T&C only gives 'INR 1 = 4 MR Points' for credit adjustment after card cancellation, which is 0.25 per point. That differs from the 0.4 in the supplied metadata, and the most common redemption value is not stated.",
-      "The T&C PDF is generic Membership Rewards terms and the card page is consistent with it. The Platinum Travel card's own rate is the 1 point per Rs. 50 base, so the Platinum card's 5X fuel and 3X overseas rates were not used. Nothing was in conflict between the documents."
+      "The T&C PDF is generic Membership Rewards terms and the card page is consistent with it. The Platinum Travel card's own rate is the 1 point per Rs. 50 base, so the Platinum card's 5X fuel and 3X overseas rates were not used. Nothing was in conflict between the documents.",
+      "Confidence lowered from high to medium on 9 Nov 2026: the ₹0.4 point value is not stated in the issuer documents (see inrPerUnitNote)."
     ],
     "sources": [
       {
@@ -2569,7 +2603,7 @@
       }
     ],
     "lastVerified": "2026-11-08",
-    "confidence": "high"
+    "confidence": "medium"
   },
   {
     "id": "idfc-first-millennia",
@@ -2581,7 +2615,9 @@
       "kind": "points",
       "unitName": "IDFC reward points",
       "inrPerUnit": 0.25,
-      "inrPerUnitNote": "Website: 1 Reward Point = ₹0.25; a ₹99 + GST fee applies to each redemption transaction."
+      "inrPerUnitNote": "Website: 1 Reward Point = ₹0.25; a ₹99 + GST fee applies to each redemption transaction.",
+      "valueBasis": "the value IDFC FIRST states (₹99 fee per redemption)",
+      "valueStated": true
     },
     "base": {
       "rate": 0.02
@@ -2657,7 +2693,9 @@
       "kind": "points",
       "unitName": "SBI Reward Points",
       "inrPerUnit": 0.25,
-      "inrPerUnitNote": "The T&C example converts 1 reward point at Rs 0.25 (for negative-balance closure) and says the value may vary by card variant. The value matches the supplied metadata."
+      "inrPerUnitNote": "The T&C example converts 1 reward point at Rs 0.25 (for negative-balance closure) and says the value may vary by card variant. The value matches the supplied metadata.",
+      "valueBasis": "the value in SBI Card's terms; may vary by redemption",
+      "valueStated": true
     },
     "base": {
       "rate": 0.01
@@ -2750,7 +2788,9 @@
       "kind": "points",
       "unitName": "SBI reward points",
       "inrPerUnit": 0.25,
-      "inrPerUnitNote": "4 points = ₹1 against the statement."
+      "inrPerUnitNote": "4 points = ₹1 against the statement.",
+      "valueBasis": "against your statement",
+      "valueStated": true
     },
     "base": {
       "rate": 0.0066667
@@ -2807,7 +2847,9 @@
       "kind": "points",
       "unitName": "EDGE Reward points",
       "inrPerUnit": 0.2,
-      "inrPerUnitNote": "Typical EDGE catalogue value; varies by redemption."
+      "inrPerUnitNote": "Typical EDGE catalogue value; varies by redemption.",
+      "valueBasis": "a typical catalogue value",
+      "valueStated": false
     },
     "base": {
       "rate": 0.02

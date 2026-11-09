@@ -74,6 +74,15 @@ export function statesFromLedger(cards: Card[], ledger: LedgerEntry[], met: stri
 }
 
 export const inr = (n: number) => `₹${Math.round(n).toLocaleString("en-IN")}`;
+
+/** For points cards: "1 Reward Point = ₹0.50, for flights and hotels on SmartBuy." Nothing for plain cashback. */
+export function pointValueLine(card: Card): string | undefined {
+  const r = card.reward;
+  if (r.kind === "cashback" && r.inrPerUnit === 1) return undefined;
+  const value = r.inrPerUnit < 1 ? r.inrPerUnit.toFixed(2) : String(r.inrPerUnit);
+  const estimate = r.valueStated === false ? " That's our estimate; the bank doesn't state it." : "";
+  return `1 ${r.unitName.replace(/s$/, "")} = ₹${value}${r.valueBasis ? `, ${r.valueBasis}` : ""}.${estimate}`;
+}
 export const pretty = (s: string) => {
   const t = s.replace(/_/g, " ");
   return t.charAt(0).toUpperCase() + t.slice(1);
