@@ -25,6 +25,9 @@ export async function POST(req: Request) {
     if (limit.ok) {
       try {
         const lookup = await parseWithClaude(text);
+        // Worth knowing when the two readers disagree on the amount (no text is logged, only the numbers).
+        const local = localParse(text)?.amount;
+        if (local && lookup.amount && local !== lookup.amount) console.warn(`Amount mismatch: Claude ${lookup.amount}, on-device ${local}`);
         return NextResponse.json({ lookup, parser: "claude" });
       } catch (e) {
         console.error("Claude parse failed, falling back:", e);

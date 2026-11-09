@@ -44,13 +44,29 @@ export async function parseWithClaude(text: string): Promise<Lookup & { merchant
     },
     "record_purchase",
   );
-  const merchant = input.merchant === "unknown" ? undefined : String(input.merchant);
+  return lookupFromTool(input);
+}
+
+/**
+ * Check the model's answer before the rules engine sees it. A spend type, channel or rail outside
+ * the allowed values throws, so the route falls back to the on-device parser. An unknown merchant
+ * is dropped, and a missing or negative amount becomes 0 (the app then asks for it).
+ */
+export function lookupFromTool(input: Record<string, unknown>): Lookup & { merchantText?: string } {
+  const category = String(input.category) as Lookup["category"];
+  const channel = String(input.channel) as Lookup["channel"];
+  const rail = String(input.rail) as Lookup["rail"];
+  if (!CATEGORIES.includes(category)) throw new Error(`Model gave unknown category "${category}"`);
+  if (channel !== "online" && channel !== "offline") throw new Error(`Model gave unknown channel "${channel}"`);
+  if (rail !== "card" && rail !== "upi") throw new Error(`Model gave unknown rail "${rail}"`);
+  const merchant = MERCHANTS.some((m) => m.id === input.merchant) ? String(input.merchant) : undefined;
+  const amount = Number(input.amount);
   return {
     merchant,
     merchantText: input.merchant_text ? String(input.merchant_text) : undefined,
-    category: input.category as Lookup["category"],
-    amount: Number(input.amount),
-    channel: input.channel as Lookup["channel"],
-    rail: input.rail as Lookup["rail"],
+    category,
+    amount: Number.isFinite(amount) && amount > 0 ? Math.round(amount) : 0,
+    channel,
+    rail,
   };
 }
