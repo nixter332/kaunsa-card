@@ -41,8 +41,13 @@ function ruleMatches(rule: Rule, lookup: Lookup, state: CardState): boolean {
 export function evaluate(card: Card, lookup: Lookup, state: CardState = { capUsed: {} }): Recommendation {
   const warnings: string[] = [];
   const capConsumption: Record<string, number> = {};
+  // How the bank's terms say a payment turns into rewards: only whole ₹blocks count, and each payment's
+  // reward may be rounded (down or to the nearest ₹1 / point).
+  const earning = card.reward.earning;
+  const earnAmount = earning?.block ? Math.floor(lookup.amount / earning.block) * earning.block : lookup.amount;
+  const rounded = (u: number) => (earning?.rounding === "down" ? Math.floor(u + 1e-9) : earning?.rounding === "nearest" ? Math.round(u) : u);
   const result = (partial: Partial<Recommendation>): Recommendation => {
-    const units = round2(partial.rewardUnits ?? 0);
+    const units = round2(rounded(partial.rewardUnits ?? 0));
     const value = round2(units * card.reward.inrPerUnit);
     return {
       cardId: card.id,
@@ -86,6 +91,10 @@ export function evaluate(card: Card, lookup: Lookup, state: CardState = { capUse
     return result({ ruleLabel: "Below minimum", reason: `Minimum spend is ${inr(card.minTxn)}` });
   }
 
+  if (earning?.block && earnAmount < lookup.amount) {
+    warnings.push(`Earns only on whole ${inr(earning.block)}s, so ${inr(earnAmount)} of this payment counts.`);
+  }
+
   const capOf = (id?: string) => card.caps.find((c) => c.id === id);
   const remaining = (id: string) => {
     const cap = capOf(id)!;
@@ -120,7 +129,7 @@ export function evaluate(card: Card, lookup: Lookup, state: CardState = { capUse
     return result({ ruleLabel: "Excluded", reason: "Excluded category" });
   }
   if (!rule) {
-    const units = baseUnits(lookup.amount);
+    const units = baseUnits(earnAmount);
     // The % is the rupee value (Kiwi "cashback" is 4 Kiwis per ₹1), not the unit rate.
     const pct = `${round2(card.base.rate * card.reward.inrPerUnit * 100)}%`;
     const perHundred = round2(card.base.rate * 100);
@@ -136,7 +145,7 @@ export function evaluate(card: Card, lookup: Lookup, state: CardState = { capUse
 
   // 4. Apply the rule, its cap, and any overflow.
   if (rule.note) warnings.push(rule.note);
-  const raw = lookup.amount * rule.rate;
+  const raw = earnAmount * rule.rate;
   let units = raw;
   if (rule.capId) {
     const cap = capOf(rule.capId)!;
@@ -144,7 +153,7 @@ export function evaluate(card: Card, lookup: Lookup, state: CardState = { capUse
     if (raw > left) {
       units = left;
       const coveredSpend = left / rule.rate;
-      const overflowSpend = lookup.amount - coveredSpend;
+      const overflowSpend = earnAmount - coveredSpend;
       warnings.push(
         left === 0
           ? `${cap.label} already used up this ${cap.period}.`

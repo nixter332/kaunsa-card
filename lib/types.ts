@@ -102,6 +102,12 @@ export interface Card {
     valueBasis?: string;
     /** Does the issuer's own document state inrPerUnit? false = our estimate, and the card can't be "high" confidence. */
     valueStated?: boolean;
+    /**
+     * When earning isn't smooth, as the bank's document states it: rewards only on whole ₹block
+     * (Kiwi: "multiples of Rs.100"), and/or each payment's reward rounded down or to the nearest unit.
+     * evidence is written only by `npm run evidence` after a word-for-word match.
+     */
+    earning?: { block?: number; rounding?: "down" | "nearest"; evidence?: { quote: string; source: string; checked: string } };
   };
   base: { rate: number; capId?: string; tiers?: Tier[] };
   rules: Rule[];

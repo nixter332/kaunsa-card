@@ -32,6 +32,14 @@ export function validateCard(c: Partial<Card>): string[] {
     if (c.reward.valueStated === undefined) errs.push("points card needs reward.valueStated (does the bank's document state the ₹ value?)");
   }
   if (c.confidence === "high" && c.reward?.valueStated === false) errs.push("confidence can't be high when the point value is our estimate");
+  const e = c.reward?.earning;
+  if (e) {
+    if (!e.block && !e.rounding) errs.push("reward.earning needs a block or a rounding");
+    if (e.block !== undefined && !(Number.isInteger(e.block) && e.block > 0 && e.block <= 1000)) errs.push("reward.earning.block must be a whole number of rupees, up to 1000");
+    if (e.rounding !== undefined && !["down", "nearest"].includes(e.rounding)) errs.push('reward.earning.rounding must be "down" or "nearest"');
+    if (!(e.evidence?.quote?.trim() && e.evidence.source?.trim() && /^\d{4}-\d{2}-\d{2}$/.test(e.evidence.checked ?? "")))
+      errs.push("reward.earning needs evidence from the bank's document (run npm run evidence -- --quote <card>/earning=...)");
+  }
   return errs;
 }
 

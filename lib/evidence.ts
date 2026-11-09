@@ -47,7 +47,16 @@ export function quoteHasRate(quote: string, rule: Pick<Rule, "rate">, card: Pick
   return multiples.some((x) => (card.base.rate > 0 && near(x, rule.rate / card.base.rate)) || [100, 150, 200].some((block) => near(x, rule.rate * block)));
 }
 
-export type EvidenceCheck = { found: boolean; hasRate: boolean; source?: string };
+/** Does the quote state this way of earning? "multiples of Rs.100" for a ₹100 block, "rounded down" / "nearest" for rounding. */
+export function quoteHasEarning(quote: string, earning: { block?: number; rounding?: "down" | "nearest" }): boolean {
+  const q = normalizeText(quote);
+  if (earning.block && !new RegExp(`(^|[^0-9.])${earning.block}([^0-9]|$)`).test(q)) return false;
+  if (earning.rounding === "down" && !/round(ed)? down/.test(q)) return false;
+  if (earning.rounding === "nearest" && !/round(ed)? off to the nearest|round(ed)? to the nearest/.test(q)) return false;
+  return Boolean(earning.block || earning.rounding);
+}
+
+export type EvidenceCheck ={ found: boolean; hasRate: boolean; source?: string };
 
 /** Check one quote against several documents; source = the first document that contains it. */
 export function checkQuote(docs: { source: string; text: string }[], quote: string, rule: Pick<Rule, "rate">, card: Pick<Card, "base" | "reward">): EvidenceCheck {

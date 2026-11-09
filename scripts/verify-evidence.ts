@@ -5,13 +5,13 @@
 //   npm run evidence -- --card <id>   one card
 //   npm run evidence -- --apply       also save verified quotes into data/cards.json (rule.evidence)
 //   npm run evidence -- --card <id> --quote "<id>/<rule>=<bank's words>" --apply
-//                                     offer a better quote for one rule; saved only if it checks out
+//                                     offer a better quote for one rule (or <id>/earning); saved only if it checks out
 //
 // Quotes come from the rule's saved evidence, or from the rules agent's last proposal
 // (data/proposed/<card>.json). Review sites are never used as evidence.
 import fs from "node:fs";
 import path from "node:path";
-import { checkQuote } from "../lib/evidence";
+import { checkQuote, quoteFound, quoteHasEarning } from "../lib/evidence";
 import { isWatchable } from "../lib/termsWatch";
 import type { Card } from "../lib/types";
 import { docText } from "./docText";
@@ -54,7 +54,7 @@ type Row = { cardId: string; rule: string; result: string; quote?: string };
 
   for (const card of cards) {
     if (only && card.id !== only) continue;
-    if (!card.rules.length) continue;
+    if (!card.rules.length && !card.reward.earning) continue;
     console.log(`\n${card.id}`);
     const docs: { source: string; text: string }[] = [];
     for (const { url } of card.sources.filter((s) => isIssuerDoc(s.url))) {
@@ -91,6 +91,24 @@ type Row = { cardId: string; rule: string; result: string; quote?: string };
         saved++;
       } else if (rule.evidence) {
         delete rule.evidence; // the document no longer backs this quote
+      }
+    }
+
+    // How earning is counted (whole ₹blocks, rounding): the quote must state it, e.g. "rounded down".
+    const earning = card.reward.earning;
+    if (earning) {
+      const label = "How earning is counted";
+      const quote = offered.get(`${card.id}/earning`) ?? earning.evidence?.quote;
+      if (!quote) rows.push({ cardId: card.id, rule: label, result: "✗ no quote from the bank" });
+      else if (!docs.length) rows.push({ cardId: card.id, rule: label, result: "? couldn't read any issuer document", quote });
+      else {
+        const hit = docs.find((d) => quoteFound(d.text, quote));
+        const ok = Boolean(hit) && quoteHasEarning(quote, earning);
+        rows.push({ cardId: card.id, rule: label, result: !hit ? "⚠ quote not found in the bank's documents" : !ok ? "⚠ quote doesn't state this way of earning" : "✓ verified", quote });
+        if (apply && ok) {
+          earning.evidence = { quote, source: hit!.source, checked: today };
+          saved++;
+        } else if (apply) delete earning.evidence;
       }
     }
   }
