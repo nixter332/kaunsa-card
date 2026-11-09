@@ -61,6 +61,12 @@ jobs:
         continue-on-error: true
         run: npm run extract -- --watch --apply-ready
 
+      # Re-check every saved quote against the bank's current documents (no AI). A quote that
+      # vanished is a sign the terms changed. Report only; nothing is changed here.
+      - name: Check evidence quotes
+        continue-on-error: true
+        run: npm run -s evidence > /dev/null
+
       # Answers people would see, before → after (tests/golden.json is last month's reviewed set).
       # The new answers are saved into this PR, so the reviewer checks them there.
       - name: Answers that changed
@@ -90,6 +96,11 @@ jobs:
             for f in data/proposed/REVIEW-terms.md data/proposed/REVIEW-offers.md data/proposed/REVIEW-perks.md; do
               if [ -f "$f" ]; then echo; cat "$f"; fi
             done
+            if [ -f data/proposed/REVIEW-evidence.md ]; then
+              echo; echo "<details><summary>Evidence check: quotes vs the bank's documents</summary>"; echo
+              cat data/proposed/REVIEW-evidence.md
+              echo; echo "</details>"
+            fi
           } > pr-body.md
           # GitHub limits PR descriptions to 65,536 characters.
           head -c 60000 pr-body.md > pr-body-trimmed.md

@@ -75,6 +75,11 @@ export interface Rule {
    * e.g. a cap that depends on what you spend elsewhere ("2× your other cashback this month").
    */
   note?: string;
+  /**
+   * The bank's own words for this rule, checked by `npm run evidence` to be in the document
+   * (source) and to contain the rate. Shown to users under "Where's this from?".
+   */
+  evidence?: { quote: string; source: string; checked: string };
 }
 
 export interface Tier {

@@ -17,6 +17,8 @@ export function validateCard(c: Partial<Card>): string[] {
     if (r.rails?.includes("upi") && c.upi === false) errs.push(`rule ${r.id}: UPI rate on a card that can't be used on UPI`);
     for (const cat of r.categories ?? []) if (!CATEGORIES.includes(cat)) errs.push(`rule ${r.id}: unknown category "${cat}"`);
     if (r.note !== undefined && !(r.note.trim().length > 0 && r.note.length <= 160)) errs.push(`rule ${r.id}: note must be one short sentence (up to 160 characters)`);
+    if (r.evidence && !(r.evidence.quote?.trim() && r.evidence.source?.trim() && /^\d{4}-\d{2}-\d{2}$/.test(r.evidence.checked ?? "")))
+      errs.push(`rule ${r.id}: evidence needs a quote, a source and a checked date (YYYY-MM-DD)`);
   }
   for (const cap of c.caps ?? []) {
     if (!(cap.amount > 0)) errs.push(`cap ${cap.id}: amount must be > 0`);

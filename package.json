@@ -10,7 +10,8 @@
     "offers": "tsx --env-file-if-exists=.env.local scripts/extract-offers.ts",
     "profiles": "tsx --env-file-if-exists=.env.local scripts/extract-profile.ts",
     "offers:monthly": "npm run offers -- --prune && npm run offers -- --batch && npm run offers -- --apply-ready",
-    "golden": "tsx scripts/golden.ts"
+    "golden": "tsx scripts/golden.ts",
+    "evidence": "tsx scripts/verify-evidence.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.6.0",
@@ -27,6 +28,7 @@
     "@types/react-dom": "^19.3.0",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
+    "unpdf": "1.9.1",
     "vitest": "^5.1.0"
   },
   "private": true
