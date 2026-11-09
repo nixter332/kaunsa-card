@@ -27,7 +27,12 @@
           "swiggy_genie"
         ],
         "minTxn": 249,
-        "capId": "swiggy10"
+        "capId": "swiggy10",
+        "evidence": {
+          "quote": "Spends on Swiggy App* (Food Delivery, Instamart and Dineout) 10% cashback Rs.1500 per billing cycle ... 10% cashback on Swiggy App (Food ordering, Instamart, Genie & Dineout)",
+          "source": "C:\\Users\\lenovo\\Downloads\\terms-and-conditions-swiggy-hdfc-bank-credit-card-26052026.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "online5",
@@ -707,7 +712,12 @@
         "merchants": [
           "amazon"
         ],
-        "requires": "amazon_prime"
+        "requires": "amazon_prime",
+        "evidence": {
+          "quote": "For Card Members having Amazon Prime Membership, earn rate of the Reward Points will be 5% of the ... transaction amount for all the transactions carried out on www.amazon",
+          "source": "https://www.icici.bank.in/content/dam/icicibank/india/managed-assets/revamp-page-images/docs/pdf/tc-for-amazon-pay-credit-card.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "amazon-non-prime",
@@ -841,7 +851,12 @@
           "card"
         ],
         "minTxn": 499,
-        "capId": "blinkit-valueback-cap"
+        "capId": "blinkit-valueback-cap",
+        "evidence": {
+          "quote": "Customer is eligible to get 10% instant value back at Zomato, Blinkit and District Movies applicable via Ecom as the mode of payment ... Minimum Order Value applicable of INR 499 for transaction made on Zomato & Blinkit",
+          "source": "https://www.axis.bank.in/docs/default-source/default-document-library/credit-cards/terms-and-conditions-for-cashback-for-airtel-axis-bank-credit-card.pdf",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [
@@ -956,7 +971,12 @@
           "upi"
         ],
         "requires": "partner_upi_app",
-        "capId": "upi-monthly"
+        "capId": "upi-monthly",
+        "evidence": {
+          "quote": "earn up to 1% back as NeuCoins on eligible UPI spends ... Earn additional 0.75% back as NeuCoins on any eligible UPI payments by using Tata Neu UPI ID",
+          "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-plus-hdfc-bank-credit-card",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "grocery-capped",
@@ -965,7 +985,12 @@
         "categories": [
           "grocery"
         ],
-        "capId": "grocery-monthly"
+        "capId": "grocery-monthly",
+        "evidence": {
+          "quote": "1% back as NeuCoins on Non-Tata Brand Spends and any Merchant EMI Spends ... NeuCoins earned on Grocery transactions will be capped to 1,000 per month",
+          "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-plus-hdfc-bank-credit-card",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "utilities-capped",
@@ -974,7 +999,12 @@
         "categories": [
           "utilities"
         ],
-        "capId": "utilities-monthly"
+        "capId": "utilities-monthly",
+        "evidence": {
+          "quote": "1% back as NeuCoins on Non-Tata Brand Spends and any Merchant EMI Spends ... NeuCoins earned on Utility transactions will be capped at 2,000 NeuCoins per calendar month",
+          "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-plus-hdfc-bank-credit-card",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "telecom-capped",
@@ -983,7 +1013,12 @@
         "categories": [
           "telecom"
         ],
-        "capId": "telecom-monthly"
+        "capId": "telecom-monthly",
+        "evidence": {
+          "quote": "1% back as NeuCoins on Non-Tata Brand Spends and any Merchant EMI Spends ... NeuCoins earned on Telecom & Cable transactions will be capped at 2,000 NeuCoins per calendar month",
+          "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-plus-hdfc-bank-credit-card",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "insurance-capped",
@@ -992,7 +1027,12 @@
         "categories": [
           "insurance"
         ],
-        "capId": "insurance-monthly"
+        "capId": "insurance-monthly",
+        "evidence": {
+          "quote": "1% back as NeuCoins on Non-Tata Brand Spends and any Merchant EMI Spends ... NeuCoins accrued for insurance transactions will have a maximum capping 2,000 per month",
+          "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-plus-hdfc-bank-credit-card",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [
@@ -1102,7 +1142,12 @@
         "rails": [
           "card"
         ],
-        "capId": "grocery-cap"
+        "capId": "grocery-cap",
+        "evidence": {
+          "quote": "1.5% back as NeuCoins on Non-Tata Brand Spends and any Merchant EMI Spends ... NeuCoins earned on Grocery transactions will be capped to 2,000 per month",
+          "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-infinity-hdfc-bank-credit-card",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "utilities-capped",
@@ -1114,7 +1159,12 @@
         "rails": [
           "card"
         ],
-        "capId": "utilities-cap"
+        "capId": "utilities-cap",
+        "evidence": {
+          "quote": "1.5% back as NeuCoins on Non-Tata Brand Spends and any Merchant EMI Spends ... NeuCoins earned on Utility transactions will be capped at 2,000 NeuCoins per calendar month",
+          "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-infinity-hdfc-bank-credit-card",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "telecom-capped",
@@ -1126,7 +1176,12 @@
         "rails": [
           "card"
         ],
-        "capId": "telecom-cap"
+        "capId": "telecom-cap",
+        "evidence": {
+          "quote": "1.5% back as NeuCoins on Non-Tata Brand Spends and any Merchant EMI Spends ... NeuCoins earned on Telecom & Cable transactions will be capped at 2,000 NeuCoins per calendar month",
+          "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-infinity-hdfc-bank-credit-card",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "insurance-capped",
@@ -1138,7 +1193,12 @@
         "rails": [
           "card"
         ],
-        "capId": "insurance-cap"
+        "capId": "insurance-cap",
+        "evidence": {
+          "quote": "1.5% back as NeuCoins on Non-Tata Brand Spends and any Merchant EMI Spends ... NeuCoins accrued for insurance transactions will have a maximum capping 2,000 per month",
+          "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-infinity-hdfc-bank-credit-card",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "upi-base",
@@ -1162,7 +1222,12 @@
           "upi"
         ],
         "requires": "partner_upi_app",
-        "capId": "upi-cap"
+        "capId": "upi-cap",
+        "evidence": {
+          "quote": "earn up to 1.5% back as NeuCoins on eligible UPI spends ... Earn additional 1% back as NeuCoins on any eligible UPI payments by using Tata Neu UPI ID",
+          "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-infinity-hdfc-bank-credit-card",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [
@@ -1443,7 +1508,12 @@
           "online"
         ],
         "capId": "online-5-cap",
-        "minTxn": 100
+        "minTxn": 100,
+        "evidence": {
+          "quote": "5% Cashback will only be accrued on online transactions done on following Brands and categories on certain MCCs with Swiggy BLCK HDFC Bank Credit Card ... Amazon, Flipkart, Nykaa, ClearTrip, Ajio, Netflix, Hotstar, BookMyShow, Meesho All online transactions except standard excluded MCCs",
+          "source": "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/pdfs/Combined_TnCs_Ornge_and_BLCK.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "online-5-mcc-merchants",
@@ -1458,7 +1528,12 @@
           "online"
         ],
         "capId": "online-5-cap",
-        "minTxn": 100
+        "minTxn": 100,
+        "evidence": {
+          "quote": "5% Cashback will only be accrued on online transactions done on following Brands and categories on certain MCCs with Swiggy BLCK HDFC Bank Credit Card ... Ola, Zoom, Uber 4111, 4121, 5511, 5521, 7512 Reliance Retail, Vijay Sales, Croma",
+          "source": "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/pdfs/Combined_TnCs_Ornge_and_BLCK.pdf",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [
@@ -1580,7 +1655,12 @@
           "online"
         ],
         "capId": "swiggy-5pct-cap",
-        "minTxn": 249
+        "minTxn": 249,
+        "evidence": {
+          "quote": "5% Cashback will only be accrued on online transactions done on following Brands and categories on certain MCCs with Swiggy Ornge HDFC Bank Credit Card ... Reliance Retail, Vijay Sales, Croma",
+          "source": "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/pdfs/Combined_TnCs_Ornge_and_BLCK.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "online-cab-5",
@@ -1597,7 +1677,12 @@
           "online"
         ],
         "capId": "swiggy-5pct-cap",
-        "minTxn": 249
+        "minTxn": 249,
+        "evidence": {
+          "quote": "5% Cashback will only be accrued on online transactions done on following Brands and categories on certain MCCs with Swiggy Ornge HDFC Bank Credit Card ... Ola, Zoom, Uber",
+          "source": "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/pdfs/Combined_TnCs_Ornge_and_BLCK.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "online-travel-5",
@@ -1613,7 +1698,12 @@
           "online"
         ],
         "capId": "swiggy-5pct-cap",
-        "minTxn": 249
+        "minTxn": 249,
+        "evidence": {
+          "quote": "5% Cashback will only be accrued on online transactions done on following Brands and categories on certain MCCs with Swiggy Ornge HDFC Bank Credit Card ... Paytm Travel, EaseMyTrip, Ixigo, Yatra, Ibibo",
+          "source": "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/pdfs/Combined_TnCs_Ornge_and_BLCK.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "online-merchants-5",
@@ -1631,7 +1721,12 @@
           "online"
         ],
         "capId": "swiggy-5pct-cap",
-        "minTxn": 249
+        "minTxn": 249,
+        "evidence": {
+          "quote": "5% Cashback will only be accrued on online transactions done on following Brands and categories on certain MCCs with Swiggy Ornge HDFC Bank Credit Card ... Amazon, Flipkart, Nykaa, ClearTrip, Ajio, Netflix, Hotstar, BookMyShow, Meesho All online transactions except standard excluded MCCs",
+          "source": "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/pdfs/Combined_TnCs_Ornge_and_BLCK.pdf",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [
@@ -2645,7 +2740,12 @@
         "categories": [
           "dining",
           "food_delivery"
-        ]
+        ],
+        "evidence": {
+          "quote": "You will now earn 10X rewards starting from your very first eligible transaction, with no minimum spend required - on Dining, Travel, and International purchases",
+          "source": "https://www.idfcfirst.bank.in/content/dam/idfcfirstbank/pdf/credit-card/FIRST-Millennia-Credit-Card-Communication-May-26.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "travel-10x",
@@ -2653,7 +2753,12 @@
         "rate": 0.066667,
         "categories": [
           "travel"
-        ]
+        ],
+        "evidence": {
+          "quote": "You will now earn 10X rewards starting from your very first eligible transaction, with no minimum spend required - on Dining, Travel, and International purchases",
+          "source": "https://www.idfcfirst.bank.in/content/dam/idfcfirstbank/pdf/credit-card/FIRST-Millennia-Credit-Card-Communication-May-26.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "insurance-utilities-1x",
@@ -2662,7 +2767,12 @@
         "categories": [
           "insurance",
           "utilities"
-        ]
+        ],
+        "evidence": {
+          "quote": "All other spend categories earn 3X Reward Points; except insurance, utilities, railways, and FASTag recharges which will continue earning 1X Reward Points",
+          "source": "https://www.idfcfirst.bank.in/content/dam/idfcfirstbank/pdf/credit-card/FIRST-Millennia-Credit-Card-Communication-May-26.pdf",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [],
@@ -2734,7 +2844,12 @@
         "channels": [
           "online"
         ],
-        "capId": "cap-10x"
+        "capId": "cap-10x",
+        "evidence": {
+          "quote": "Cumulative 10X Reward Points accrued on Online spends with exclusive partners",
+          "source": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/simply-click-tnc-MITC-booklet.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "online-5x-other",
@@ -2743,7 +2858,12 @@
         "channels": [
           "online"
         ],
-        "capId": "cap-5x"
+        "capId": "cap-5x",
+        "evidence": {
+          "quote": "cumulative 5X Reward Points accrued on other Online Spends on SimplyCLICK SBI Card",
+          "source": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/simply-click-tnc-MITC-booklet.pdf",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [
@@ -2819,7 +2939,12 @@
           "dining",
           "movies",
           "grocery"
-        ]
+        ],
+        "evidence": {
+          "quote": "10X Reward Points on Dining 10X Reward Points on Departmental Stores and Grocery 10X Reward Points on Movies 1 Reward Point per Rs. 150 spent on all other spends",
+          "source": "C:\\Users\\lenovo\\Downloads\\simplysave.pdf",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [],
