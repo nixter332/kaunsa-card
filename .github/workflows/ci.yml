@@ -1,0 +1,36 @@
+# Checks every push to main and every pull request: tests, type check, and the same build Vercel runs.
+# Vercel still deploys a push to main straight away; to stop a red build going live, turn on
+# Settings → Branches → require the "check" status before merging, and push changes through pull requests.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Tests
+        run: npm test
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+      - name: Build
+        run: npm run build
+        env:
+          # Not a real secret: the build only needs some value. Real keys live in Vercel.
+          AUTH_SECRET: ci-build-only

@@ -61,10 +61,10 @@ jobs:
         continue-on-error: true
         run: npm run extract -- --watch --apply-ready
 
-      - name: Run tests
+      - name: Run tests and type check
         id: tests
         continue-on-error: true
-        run: npm test
+        run: npm test && npx tsc --noEmit
 
       - name: Build the pull request description
         run: |
@@ -95,3 +95,4 @@ jobs:
           commit-message: "Monthly offers and card terms refresh"
           title: "Monthly refresh: review and merge"
           body-path: pr-body-trimmed.md
+          labels: ${{ steps.tests.outcome != 'success' && 'tests-failing' || '' }}
