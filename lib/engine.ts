@@ -45,7 +45,8 @@ export function evaluate(card: Card, lookup: Lookup, state: CardState = { capUse
   // reward may be rounded (down or to the nearest ₹1 / point).
   const earning = card.reward.earning;
   const earnAmount = earning?.block ? Math.floor(lookup.amount / earning.block) * earning.block : lookup.amount;
-  const rounded = (u: number) => (earning?.rounding === "down" ? Math.floor(u + 1e-9) : earning?.rounding === "nearest" ? Math.round(u) : u);
+  // "Nearest" rounds a half down, as in HDFC's own example ("6.5 will be rounded down to 6"); it never overstates.
+  const rounded = (u: number) => (earning?.rounding === "down" ? Math.floor(u + 1e-9) : earning?.rounding === "nearest" ? Math.ceil(u - 0.5 - 1e-9) : u);
   const result = (partial: Partial<Recommendation>): Recommendation => {
     const units = round2(rounded(partial.rewardUnits ?? 0));
     const value = round2(units * card.reward.inrPerUnit);

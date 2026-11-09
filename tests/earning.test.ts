@@ -34,6 +34,8 @@ describe("how earning is counted", () => {
     const c = { ...card({ rounding: "nearest", evidence: ev }), base: { rate: 0.1 } };
     expect(evaluate(c, pay(153)).valueInr).toBe(15);
     expect(evaluate(c, pay(156)).valueInr).toBe(16);
+    // HDFC's table: "650 ... 6.5 will be rounded down to 6" (at 1%).
+    expect(evaluate({ ...c, base: { rate: 0.01 } }, pay(650)).valueInr).toBe(6);
   });
   it("whole ₹100s only: ₹150 earns like ₹100, and says so", () => {
     const r = evaluate(card({ block: 100, evidence: ev }), pay(150, "upi"));

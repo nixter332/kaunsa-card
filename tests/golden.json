@@ -49,6 +49,20 @@
     "rule": "Base rate"
   },
   {
+    "key": "airtel-axis|other|1180|card|offline",
+    "label": "Airtel Axis Bank: other ₹1,180",
+    "cardId": "airtel-axis",
+    "valueInr": 11,
+    "rule": "Base rate"
+  },
+  {
+    "key": "airtel-axis|other|150|card|offline",
+    "label": "Airtel Axis Bank: other ₹150",
+    "cardId": "airtel-axis",
+    "valueInr": 1,
+    "rule": "Base rate"
+  },
+  {
     "key": "airtel-axis|zomato|1000|card|online",
     "label": "Airtel Axis Bank: Zomato ₹1,000",
     "cardId": "airtel-axis",
@@ -350,6 +364,20 @@
     "rule": "Base rate"
   },
   {
+    "key": "amazon-pay-icici|other|1180|card|offline",
+    "label": "Amazon Pay ICICI: other ₹1,180",
+    "cardId": "amazon-pay-icici",
+    "valueInr": 11,
+    "rule": "Base rate"
+  },
+  {
+    "key": "amazon-pay-icici|other|150|card|offline",
+    "label": "Amazon Pay ICICI: other ₹150",
+    "cardId": "amazon-pay-icici",
+    "valueInr": 1,
+    "rule": "Base rate"
+  },
+  {
     "key": "amex-mrcc|other|1000|card|offline",
     "label": "Amex Membership Rewards Credit Card: other ₹1,000",
     "cardId": "amex-mrcc",
@@ -357,10 +385,38 @@
     "rule": "Base rate"
   },
   {
+    "key": "amex-mrcc|other|1180|card|offline",
+    "label": "Amex Membership Rewards Credit Card: other ₹1,180",
+    "cardId": "amex-mrcc",
+    "valueInr": 9.44,
+    "rule": "Base rate"
+  },
+  {
+    "key": "amex-mrcc|other|150|card|offline",
+    "label": "Amex Membership Rewards Credit Card: other ₹150",
+    "cardId": "amex-mrcc",
+    "valueInr": 1.2,
+    "rule": "Base rate"
+  },
+  {
     "key": "amex-platinum-travel|other|1000|card|offline",
     "label": "Amex Platinum Travel: other ₹1,000",
     "cardId": "amex-platinum-travel",
     "valueInr": 8,
+    "rule": "Base rate"
+  },
+  {
+    "key": "amex-platinum-travel|other|1180|card|offline",
+    "label": "Amex Platinum Travel: other ₹1,180",
+    "cardId": "amex-platinum-travel",
+    "valueInr": 9.44,
+    "rule": "Base rate"
+  },
+  {
+    "key": "amex-platinum-travel|other|150|card|offline",
+    "label": "Amex Platinum Travel: other ₹150",
+    "cardId": "amex-platinum-travel",
+    "valueInr": 1.2,
     "rule": "Base rate"
   },
   {
@@ -382,6 +438,20 @@
     "label": "Axis Bank ACE: other ₹1,000",
     "cardId": "axis-ace",
     "valueInr": 15,
+    "rule": "Base rate"
+  },
+  {
+    "key": "axis-ace|other|1180|card|offline",
+    "label": "Axis Bank ACE: other ₹1,180",
+    "cardId": "axis-ace",
+    "valueInr": 18,
+    "rule": "Base rate"
+  },
+  {
+    "key": "axis-ace|other|150|card|offline",
+    "label": "Axis Bank ACE: other ₹150",
+    "cardId": "axis-ace",
+    "valueInr": 2,
     "rule": "Base rate"
   },
   {
@@ -420,10 +490,38 @@
     "rule": "Base rate"
   },
   {
+    "key": "axis-atlas|other|1180|card|offline",
+    "label": "Axis Bank Atlas: other ₹1,180",
+    "cardId": "axis-atlas",
+    "valueInr": 23.6,
+    "rule": "Base rate"
+  },
+  {
+    "key": "axis-atlas|other|150|card|offline",
+    "label": "Axis Bank Atlas: other ₹150",
+    "cardId": "axis-atlas",
+    "valueInr": 3,
+    "rule": "Base rate"
+  },
+  {
     "key": "axis-my-zone|other|1000|card|offline",
     "label": "Axis Bank MY Zone: other ₹1,000",
     "cardId": "axis-my-zone",
     "valueInr": 4,
+    "rule": "Base rate"
+  },
+  {
+    "key": "axis-my-zone|other|1180|card|offline",
+    "label": "Axis Bank MY Zone: other ₹1,180",
+    "cardId": "axis-my-zone",
+    "valueInr": 4.72,
+    "rule": "Base rate"
+  },
+  {
+    "key": "axis-my-zone|other|150|card|offline",
+    "label": "Axis Bank MY Zone: other ₹150",
+    "cardId": "axis-my-zone",
+    "valueInr": 0.6,
     "rule": "Base rate"
   },
   {
@@ -438,6 +536,34 @@
     "label": "Axis super.money RuPay: other ₹1,000 UPI",
     "cardId": "axis-supermoney",
     "valueInr": 30,
+    "rule": "3% on QR/UPI transactions via the super.money app"
+  },
+  {
+    "key": "axis-supermoney|other|1180|card|offline",
+    "label": "Axis super.money RuPay: other ₹1,180",
+    "cardId": "axis-supermoney",
+    "valueInr": 11,
+    "rule": "Base rate"
+  },
+  {
+    "key": "axis-supermoney|other|1180|upi|offline",
+    "label": "Axis super.money RuPay: other ₹1,180 UPI",
+    "cardId": "axis-supermoney",
+    "valueInr": 35,
+    "rule": "3% on QR/UPI transactions via the super.money app"
+  },
+  {
+    "key": "axis-supermoney|other|150|card|offline",
+    "label": "Axis super.money RuPay: other ₹150",
+    "cardId": "axis-supermoney",
+    "valueInr": 1,
+    "rule": "Base rate"
+  },
+  {
+    "key": "axis-supermoney|other|150|upi|offline",
+    "label": "Axis super.money RuPay: other ₹150 UPI",
+    "cardId": "axis-supermoney",
+    "valueInr": 4,
     "rule": "3% on QR/UPI transactions via the super.money app"
   },
   {
@@ -480,6 +606,20 @@
     "label": "BPCL SBI Card OCTANE: other ₹1,000",
     "cardId": "bpcl-sbi-octane",
     "valueInr": 2.5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "bpcl-sbi-octane|other|1180|card|offline",
+    "label": "BPCL SBI Card OCTANE: other ₹1,180",
+    "cardId": "bpcl-sbi-octane",
+    "valueInr": 2.95,
+    "rule": "Base rate"
+  },
+  {
+    "key": "bpcl-sbi-octane|other|150|card|offline",
+    "label": "BPCL SBI Card OCTANE: other ₹150",
+    "cardId": "bpcl-sbi-octane",
+    "valueInr": 0.38,
     "rule": "Base rate"
   },
   {
@@ -529,6 +669,20 @@
     "label": "Flipkart Axis Bank: other ₹1,000",
     "cardId": "flipkart-axis",
     "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "flipkart-axis|other|1180|card|offline",
+    "label": "Flipkart Axis Bank: other ₹1,180",
+    "cardId": "flipkart-axis",
+    "valueInr": 11,
+    "rule": "Base rate"
+  },
+  {
+    "key": "flipkart-axis|other|150|card|offline",
+    "label": "Flipkart Axis Bank: other ₹150",
+    "cardId": "flipkart-axis",
+    "valueInr": 1,
     "rule": "Base rate"
   },
   {
@@ -595,6 +749,20 @@
     "rule": "Base rate"
   },
   {
+    "key": "flipkart-sbi|other|1180|card|offline",
+    "label": "Flipkart SBI Card: other ₹1,180",
+    "cardId": "flipkart-sbi",
+    "valueInr": 11,
+    "rule": "Base rate"
+  },
+  {
+    "key": "flipkart-sbi|other|150|card|offline",
+    "label": "Flipkart SBI Card: other ₹150",
+    "cardId": "flipkart-sbi",
+    "valueInr": 1,
+    "rule": "Base rate"
+  },
+  {
     "key": "hdfc-millennia|amazon|1000|card|online",
     "label": "HDFC Millennia: Amazon ₹1,000",
     "cardId": "hdfc-millennia",
@@ -613,6 +781,20 @@
     "label": "HDFC Millennia: other ₹1,000",
     "cardId": "hdfc-millennia",
     "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "hdfc-millennia|other|1180|card|offline",
+    "label": "HDFC Millennia: other ₹1,180",
+    "cardId": "hdfc-millennia",
+    "valueInr": 11.8,
+    "rule": "Base rate"
+  },
+  {
+    "key": "hdfc-millennia|other|150|card|offline",
+    "label": "HDFC Millennia: other ₹150",
+    "cardId": "hdfc-millennia",
+    "valueInr": 1.5,
     "rule": "Base rate"
   },
   {
@@ -637,10 +819,38 @@
     "rule": "Base rate"
   },
   {
+    "key": "hdfc-moneyback-plus|other|1180|card|offline",
+    "label": "HDFC MoneyBack+: other ₹1,180",
+    "cardId": "hdfc-moneyback-plus",
+    "valueInr": 2.95,
+    "rule": "Base rate"
+  },
+  {
+    "key": "hdfc-moneyback-plus|other|150|card|offline",
+    "label": "HDFC MoneyBack+: other ₹150",
+    "cardId": "hdfc-moneyback-plus",
+    "valueInr": 0.38,
+    "rule": "Base rate"
+  },
+  {
     "key": "hdfc-regalia-gold|other|1000|card|offline",
     "label": "HDFC Regalia Gold: other ₹1,000",
     "cardId": "hdfc-regalia-gold",
     "valueInr": 12.5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "hdfc-regalia-gold|other|1180|card|offline",
+    "label": "HDFC Regalia Gold: other ₹1,180",
+    "cardId": "hdfc-regalia-gold",
+    "valueInr": 14.75,
+    "rule": "Base rate"
+  },
+  {
+    "key": "hdfc-regalia-gold|other|150|card|offline",
+    "label": "HDFC Regalia Gold: other ₹150",
+    "cardId": "hdfc-regalia-gold",
+    "valueInr": 1.88,
     "rule": "Base rate"
   },
   {
@@ -662,6 +872,20 @@
     "label": "HSBC Live+: other ₹1,000",
     "cardId": "hsbc-live-plus",
     "valueInr": 15,
+    "rule": "Base rate"
+  },
+  {
+    "key": "hsbc-live-plus|other|1180|card|offline",
+    "label": "HSBC Live+: other ₹1,180",
+    "cardId": "hsbc-live-plus",
+    "valueInr": 17.7,
+    "rule": "Base rate"
+  },
+  {
+    "key": "hsbc-live-plus|other|150|card|offline",
+    "label": "HSBC Live+: other ₹150",
+    "cardId": "hsbc-live-plus",
+    "valueInr": 2.25,
     "rule": "Base rate"
   },
   {
@@ -693,6 +917,34 @@
     "rule": "Base rate"
   },
   {
+    "key": "hsbc-rupay-cashback|other|1180|card|offline",
+    "label": "HSBC RuPay Cashback: other ₹1,180",
+    "cardId": "hsbc-rupay-cashback",
+    "valueInr": 11.8,
+    "rule": "Base rate"
+  },
+  {
+    "key": "hsbc-rupay-cashback|other|1180|upi|offline",
+    "label": "HSBC RuPay Cashback: other ₹1,180 UPI",
+    "cardId": "hsbc-rupay-cashback",
+    "valueInr": 11.8,
+    "rule": "Base rate"
+  },
+  {
+    "key": "hsbc-rupay-cashback|other|150|card|offline",
+    "label": "HSBC RuPay Cashback: other ₹150",
+    "cardId": "hsbc-rupay-cashback",
+    "valueInr": 1.5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "hsbc-rupay-cashback|other|150|upi|offline",
+    "label": "HSBC RuPay Cashback: other ₹150 UPI",
+    "cardId": "hsbc-rupay-cashback",
+    "valueInr": 1.5,
+    "rule": "Base rate"
+  },
+  {
     "key": "icici-coral-rupay|other|1000|card|offline",
     "label": "ICICI Coral RuPay: other ₹1,000",
     "cardId": "icici-coral-rupay",
@@ -704,6 +956,34 @@
     "label": "ICICI Coral RuPay: other ₹1,000 UPI",
     "cardId": "icici-coral-rupay",
     "valueInr": 5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "icici-coral-rupay|other|1180|card|offline",
+    "label": "ICICI Coral RuPay: other ₹1,180",
+    "cardId": "icici-coral-rupay",
+    "valueInr": 5.9,
+    "rule": "Base rate"
+  },
+  {
+    "key": "icici-coral-rupay|other|1180|upi|offline",
+    "label": "ICICI Coral RuPay: other ₹1,180 UPI",
+    "cardId": "icici-coral-rupay",
+    "valueInr": 5.9,
+    "rule": "Base rate"
+  },
+  {
+    "key": "icici-coral-rupay|other|150|card|offline",
+    "label": "ICICI Coral RuPay: other ₹150",
+    "cardId": "icici-coral-rupay",
+    "valueInr": 0.75,
+    "rule": "Base rate"
+  },
+  {
+    "key": "icici-coral-rupay|other|150|upi|offline",
+    "label": "ICICI Coral RuPay: other ₹150 UPI",
+    "cardId": "icici-coral-rupay",
+    "valueInr": 0.75,
     "rule": "Base rate"
   },
   {
@@ -725,6 +1005,20 @@
     "label": "ICICI HPCL Super Saver: other ₹1,000",
     "cardId": "icici-hpcl-super-saver",
     "valueInr": 5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "icici-hpcl-super-saver|other|1180|card|offline",
+    "label": "ICICI HPCL Super Saver: other ₹1,180",
+    "cardId": "icici-hpcl-super-saver",
+    "valueInr": 6,
+    "rule": "Base rate"
+  },
+  {
+    "key": "icici-hpcl-super-saver|other|150|card|offline",
+    "label": "ICICI HPCL Super Saver: other ₹150",
+    "cardId": "icici-hpcl-super-saver",
+    "valueInr": 0.75,
     "rule": "Base rate"
   },
   {
@@ -777,6 +1071,20 @@
     "rule": "Base rate"
   },
   {
+    "key": "idfc-first-millennia|other|1180|card|offline",
+    "label": "IDFC FIRST Millennia: other ₹1,180",
+    "cardId": "idfc-first-millennia",
+    "valueInr": 5.9,
+    "rule": "Base rate"
+  },
+  {
+    "key": "idfc-first-millennia|other|150|card|offline",
+    "label": "IDFC FIRST Millennia: other ₹150",
+    "cardId": "idfc-first-millennia",
+    "valueInr": 0.75,
+    "rule": "Base rate"
+  },
+  {
     "key": "idfc-first-millennia|travel|1000|card|online",
     "label": "IDFC FIRST Millennia: travel ₹1,000",
     "cardId": "idfc-first-millennia",
@@ -798,6 +1106,20 @@
     "rule": "Base rate"
   },
   {
+    "key": "indusind-tiger|other|1180|card|offline",
+    "label": "IndusInd Tiger: other ₹1,180",
+    "cardId": "indusind-tiger",
+    "valueInr": 4.72,
+    "rule": "Base rate"
+  },
+  {
+    "key": "indusind-tiger|other|150|card|offline",
+    "label": "IndusInd Tiger: other ₹150",
+    "cardId": "indusind-tiger",
+    "valueInr": 0.6,
+    "rule": "Base rate"
+  },
+  {
     "key": "kiwi-rupay|other|1000|card|offline",
     "label": "Kiwi RuPay (YES / AU / PNB): other ₹1,000",
     "cardId": "kiwi-rupay",
@@ -809,6 +1131,34 @@
     "label": "Kiwi RuPay (YES / AU / PNB): other ₹1,000 UPI",
     "cardId": "kiwi-rupay",
     "valueInr": 15,
+    "rule": "1.5% on Scan & Pay (UPI)"
+  },
+  {
+    "key": "kiwi-rupay|other|1180|card|offline",
+    "label": "Kiwi RuPay (YES / AU / PNB): other ₹1,180",
+    "cardId": "kiwi-rupay",
+    "valueInr": 5.5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "kiwi-rupay|other|1180|upi|offline",
+    "label": "Kiwi RuPay (YES / AU / PNB): other ₹1,180 UPI",
+    "cardId": "kiwi-rupay",
+    "valueInr": 16.5,
+    "rule": "1.5% on Scan & Pay (UPI)"
+  },
+  {
+    "key": "kiwi-rupay|other|150|card|offline",
+    "label": "Kiwi RuPay (YES / AU / PNB): other ₹150",
+    "cardId": "kiwi-rupay",
+    "valueInr": 0.5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "kiwi-rupay|other|150|upi|offline",
+    "label": "Kiwi RuPay (YES / AU / PNB): other ₹150 UPI",
+    "cardId": "kiwi-rupay",
+    "valueInr": 1.5,
     "rule": "1.5% on Scan & Pay (UPI)"
   },
   {
@@ -831,6 +1181,20 @@
     "cardId": "sbi-cashback",
     "valueInr": 50,
     "rule": "5% cashback on online spends"
+  },
+  {
+    "key": "sbi-cashback|other|1180|card|offline",
+    "label": "Cashback SBI Card: other ₹1,180",
+    "cardId": "sbi-cashback",
+    "valueInr": 11,
+    "rule": "1% cashback on offline spends"
+  },
+  {
+    "key": "sbi-cashback|other|150|card|offline",
+    "label": "Cashback SBI Card: other ₹150",
+    "cardId": "sbi-cashback",
+    "valueInr": 1,
+    "rule": "1% cashback on offline spends"
   },
   {
     "key": "sbi-cashback|other|50000|card|offline",
@@ -875,6 +1239,20 @@
     "rule": "5X on all other online spends"
   },
   {
+    "key": "sbi-simplyclick|other|1180|card|offline",
+    "label": "SimplyCLICK SBI Card: other ₹1,180",
+    "cardId": "sbi-simplyclick",
+    "valueInr": 2.95,
+    "rule": "Base rate"
+  },
+  {
+    "key": "sbi-simplyclick|other|150|card|offline",
+    "label": "SimplyCLICK SBI Card: other ₹150",
+    "cardId": "sbi-simplyclick",
+    "valueInr": 0.38,
+    "rule": "Base rate"
+  },
+  {
     "key": "sbi-simplyclick|other|50000|card|online",
     "label": "SimplyCLICK SBI Card: other ₹50,000",
     "cardId": "sbi-simplyclick",
@@ -903,6 +1281,20 @@
     "rule": "Base rate"
   },
   {
+    "key": "sbi-simplysave|other|1180|card|offline",
+    "label": "SimplySAVE SBI Card: other ₹1,180",
+    "cardId": "sbi-simplysave",
+    "valueInr": 1.97,
+    "rule": "Base rate"
+  },
+  {
+    "key": "sbi-simplysave|other|150|card|offline",
+    "label": "SimplySAVE SBI Card: other ₹150",
+    "cardId": "sbi-simplysave",
+    "valueInr": 0.25,
+    "rule": "Base rate"
+  },
+  {
     "key": "scapia-rupay|other|1000|card|offline",
     "label": "Scapia Federal (RuPay, UPI): other ₹1,000",
     "cardId": "scapia-rupay",
@@ -915,6 +1307,34 @@
     "cardId": "scapia-rupay",
     "valueInr": 10,
     "rule": "Base rate"
+  },
+  {
+    "key": "scapia-rupay|other|1180|card|offline",
+    "label": "Scapia Federal (RuPay, UPI): other ₹1,180",
+    "cardId": "scapia-rupay",
+    "valueInr": 11.8,
+    "rule": "Base rate"
+  },
+  {
+    "key": "scapia-rupay|other|1180|upi|offline",
+    "label": "Scapia Federal (RuPay, UPI): other ₹1,180 UPI",
+    "cardId": "scapia-rupay",
+    "valueInr": 11.8,
+    "rule": "Base rate"
+  },
+  {
+    "key": "scapia-rupay|other|150|card|offline",
+    "label": "Scapia Federal (RuPay, UPI): other ₹150",
+    "cardId": "scapia-rupay",
+    "valueInr": 0,
+    "rule": "Below minimum"
+  },
+  {
+    "key": "scapia-rupay|other|150|upi|offline",
+    "label": "Scapia Federal (RuPay, UPI): other ₹150 UPI",
+    "cardId": "scapia-rupay",
+    "valueInr": 0,
+    "rule": "Below minimum"
   },
   {
     "key": "scapia-rupay|scapia_travel|1000|card|online",
@@ -935,6 +1355,20 @@
     "label": "Scapia Federal (Visa): other ₹1,000",
     "cardId": "scapia-visa",
     "valueInr": 20,
+    "rule": "Base rate"
+  },
+  {
+    "key": "scapia-visa|other|1180|card|offline",
+    "label": "Scapia Federal (Visa): other ₹1,180",
+    "cardId": "scapia-visa",
+    "valueInr": 23.6,
+    "rule": "Base rate"
+  },
+  {
+    "key": "scapia-visa|other|150|card|offline",
+    "label": "Scapia Federal (Visa): other ₹150",
+    "cardId": "scapia-visa",
+    "valueInr": 3,
     "rule": "Base rate"
   },
   {
@@ -1001,6 +1435,20 @@
     "rule": "Base rate"
   },
   {
+    "key": "swiggy-blck-hdfc|other|1180|card|offline",
+    "label": "Swiggy BLCK HDFC: other ₹1,180",
+    "cardId": "swiggy-blck-hdfc",
+    "valueInr": 11.8,
+    "rule": "Base rate"
+  },
+  {
+    "key": "swiggy-blck-hdfc|other|150|card|offline",
+    "label": "Swiggy BLCK HDFC: other ₹150",
+    "cardId": "swiggy-blck-hdfc",
+    "valueInr": 1.5,
+    "rule": "Base rate"
+  },
+  {
     "key": "swiggy-blck-hdfc|swiggy_food|1000|card|online",
     "label": "Swiggy BLCK HDFC: Swiggy (food) ₹1,000",
     "cardId": "swiggy-blck-hdfc",
@@ -1047,6 +1495,20 @@
     "label": "Swiggy HDFC Bank: other ₹1,000",
     "cardId": "swiggy-hdfc",
     "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "swiggy-hdfc|other|1180|card|offline",
+    "label": "Swiggy HDFC Bank: other ₹1,180",
+    "cardId": "swiggy-hdfc",
+    "valueInr": 12,
+    "rule": "Base rate"
+  },
+  {
+    "key": "swiggy-hdfc|other|150|card|offline",
+    "label": "Swiggy HDFC Bank: other ₹150",
+    "cardId": "swiggy-hdfc",
+    "valueInr": 1,
     "rule": "Base rate"
   },
   {
@@ -1141,6 +1603,20 @@
     "rule": "Base rate"
   },
   {
+    "key": "swiggy-ornge-hdfc|other|1180|card|offline",
+    "label": "Swiggy Ornge HDFC: other ₹1,180",
+    "cardId": "swiggy-ornge-hdfc",
+    "valueInr": 11.8,
+    "rule": "Base rate"
+  },
+  {
+    "key": "swiggy-ornge-hdfc|other|150|card|offline",
+    "label": "Swiggy Ornge HDFC: other ₹150",
+    "cardId": "swiggy-ornge-hdfc",
+    "valueInr": 1.5,
+    "rule": "Base rate"
+  },
+  {
     "key": "swiggy-ornge-hdfc|swiggy_food|1000|card|online",
     "label": "Swiggy Ornge HDFC: Swiggy (food) ₹1,000",
     "cardId": "swiggy-ornge-hdfc",
@@ -1194,6 +1670,34 @@
     "label": "Tata Neu Infinity HDFC: other ₹1,000 UPI",
     "cardId": "tata-neu-infinity-hdfc",
     "valueInr": 15,
+    "rule": "1.5% on UPI via Tata Neu UPI ID (0.5% + 1%)"
+  },
+  {
+    "key": "tata-neu-infinity-hdfc|other|1180|card|offline",
+    "label": "Tata Neu Infinity HDFC: other ₹1,180",
+    "cardId": "tata-neu-infinity-hdfc",
+    "valueInr": 17.7,
+    "rule": "Base rate"
+  },
+  {
+    "key": "tata-neu-infinity-hdfc|other|1180|upi|offline",
+    "label": "Tata Neu Infinity HDFC: other ₹1,180 UPI",
+    "cardId": "tata-neu-infinity-hdfc",
+    "valueInr": 17.7,
+    "rule": "1.5% on UPI via Tata Neu UPI ID (0.5% + 1%)"
+  },
+  {
+    "key": "tata-neu-infinity-hdfc|other|150|card|offline",
+    "label": "Tata Neu Infinity HDFC: other ₹150",
+    "cardId": "tata-neu-infinity-hdfc",
+    "valueInr": 2.25,
+    "rule": "Base rate"
+  },
+  {
+    "key": "tata-neu-infinity-hdfc|other|150|upi|offline",
+    "label": "Tata Neu Infinity HDFC: other ₹150 UPI",
+    "cardId": "tata-neu-infinity-hdfc",
+    "valueInr": 2.25,
     "rule": "1.5% on UPI via Tata Neu UPI ID (0.5% + 1%)"
   },
   {
@@ -1285,6 +1789,34 @@
     "label": "Tata Neu Plus HDFC: other ₹1,000 UPI",
     "cardId": "tata-neu-plus-hdfc",
     "valueInr": 10,
+    "rule": "Up to 1% on UPI via Tata Neu UPI ID"
+  },
+  {
+    "key": "tata-neu-plus-hdfc|other|1180|card|offline",
+    "label": "Tata Neu Plus HDFC: other ₹1,180",
+    "cardId": "tata-neu-plus-hdfc",
+    "valueInr": 11.8,
+    "rule": "Base rate"
+  },
+  {
+    "key": "tata-neu-plus-hdfc|other|1180|upi|offline",
+    "label": "Tata Neu Plus HDFC: other ₹1,180 UPI",
+    "cardId": "tata-neu-plus-hdfc",
+    "valueInr": 11.8,
+    "rule": "Up to 1% on UPI via Tata Neu UPI ID"
+  },
+  {
+    "key": "tata-neu-plus-hdfc|other|150|card|offline",
+    "label": "Tata Neu Plus HDFC: other ₹150",
+    "cardId": "tata-neu-plus-hdfc",
+    "valueInr": 1.5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "tata-neu-plus-hdfc|other|150|upi|offline",
+    "label": "Tata Neu Plus HDFC: other ₹150 UPI",
+    "cardId": "tata-neu-plus-hdfc",
+    "valueInr": 1.5,
     "rule": "Up to 1% on UPI via Tata Neu UPI ID"
   },
   {

@@ -9,7 +9,15 @@
       "kind": "cashback",
       "unitName": "Cashback",
       "inrPerUnit": 1,
-      "inrPerUnitNote": "Cashback in rupees; auto-adjusted against card outstanding / posted to Swiggy account."
+      "inrPerUnitNote": "Cashback in rupees; auto-adjusted against card outstanding / posted to Swiggy account.",
+      "earning": {
+        "rounding": "nearest",
+        "evidence": {
+          "quote": "The cashback will be rounded off to the nearest integer for each individual transaction.",
+          "source": "C:\\Users\\lenovo\\Downloads\\terms-and-conditions-swiggy-hdfc-bank-credit-card-26052026.pdf",
+          "checked": "2026-11-09"
+        }
+      }
     },
     "base": {
       "rate": 0.01,
@@ -152,7 +160,15 @@
       "kind": "cashback",
       "unitName": "₹ cashback",
       "inrPerUnit": 1,
-      "inrPerUnitNote": "Cashback is money awarded in the card account."
+      "inrPerUnitNote": "Cashback is money awarded in the card account.",
+      "earning": {
+        "rounding": "down",
+        "evidence": {
+          "quote": "The cashback will be rounded down for each individual transaction.",
+          "source": "https://www.axis.bank.in/docs/default-source/default-document-library/cashback-tncs---final.pdf",
+          "checked": "2026-11-09"
+        }
+      }
     },
     "base": {
       "rate": 0.01
@@ -594,7 +610,15 @@
       "kind": "cashback",
       "unitName": "₹",
       "inrPerUnit": 1,
-      "inrPerUnitNote": "Cashback is credited to the SBI Card account within two working days of statement generation; 1 unit = ₹1."
+      "inrPerUnitNote": "Cashback is credited to the SBI Card account within two working days of statement generation; 1 unit = ₹1.",
+      "earning": {
+        "rounding": "down",
+        "evidence": {
+          "quote": "The Card Cashback will be rounded down for each individual transaction.",
+          "source": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/ekit-tncs/cashback-tnc-ekit.pdf",
+          "checked": "2026-11-09"
+        }
+      }
     },
     "base": {
       "rate": 0.01,
@@ -699,7 +723,15 @@
       "inrPerUnit": 1,
       "inrPerUnitNote": "Points are credited as Amazon Pay balance; the document states earn rates as a % of transaction amount (5 points per ₹100 = 5%), implying 1 point = ₹1. An explicit point-to-rupee value is not stated.",
       "valueBasis": "as Amazon Pay balance",
-      "valueStated": false
+      "valueStated": false,
+      "earning": {
+        "rounding": "down",
+        "evidence": {
+          "quote": "Reward Points earned on all transactions will be rounded down to the nearest integer",
+          "source": "https://www.icici.bank.in/content/dam/icicibank/india/managed-assets/revamp-page-images/docs/pdf/tc-for-amazon-pay-credit-card.pdf",
+          "checked": "2026-11-09"
+        }
+      }
     },
     "base": {
       "rate": 0.01
@@ -782,7 +814,15 @@
       "kind": "cashback",
       "unitName": "₹ cashback",
       "inrPerUnit": 1,
-      "inrPerUnitNote": "Cashback is money credited to the card account. The 10% Zomato/Blinkit value back is credited to partner wallets instead."
+      "inrPerUnitNote": "Cashback is money credited to the card account. The 10% Zomato/Blinkit value back is credited to partner wallets instead.",
+      "earning": {
+        "rounding": "down",
+        "evidence": {
+          "quote": "The cashback will be rounded down for each individual transaction.",
+          "source": "https://www.axis.bank.in/docs/default-source/default-document-library/credit-cards/terms-and-conditions-for-cashback-for-airtel-axis-bank-credit-card.pdf",
+          "checked": "2026-11-09"
+        }
+      }
     },
     "base": {
       "rate": 0.01
@@ -1309,7 +1349,15 @@
       "inrPerUnit": 0.25,
       "inrPerUnitNote": "Document: 'Each Kiwis will be currently worth Rs 0.25/-' (4 Kiwis = ₹1). Rates are expressed in Kiwis per ₹1 (2 Kiwis per ₹100 = 0.5%).",
       "valueBasis": "as cashback",
-      "valueStated": true
+      "valueStated": true,
+      "earning": {
+        "block": 100,
+        "evidence": {
+          "quote": "Starting 1st June 2025, Kiwis will be awarded only on transaction amounts in multiples of Rs.100",
+          "source": "https://gokiwi.in/rewards-policy-v2",
+          "checked": "2026-11-09"
+        }
+      }
     },
     "base": {
       "rate": 0.02
@@ -1322,7 +1370,7 @@
         "rails": [
           "upi"
         ],
-        "note": "Kiwis are earned on whole ₹100s only, and capped each month at 1% of your credit limit.",
+        "note": "Capped each month at 1% of your credit limit.",
         "evidence": {
           "quote": "Scan & pay Transactions - 1.5% Cashback",
           "source": "https://gokiwi.in/rewards-policy-v2",
@@ -1373,7 +1421,15 @@
       "kind": "cashback",
       "unitName": "₹",
       "inrPerUnit": 1,
-      "inrPerUnitNote": "Cashback is money credited to the card account."
+      "inrPerUnitNote": "Cashback is money credited to the card account.",
+      "earning": {
+        "rounding": "down",
+        "evidence": {
+          "quote": "The cashback will be rounded down for each individual transaction.",
+          "source": "https://www.axis.bank.in/docs/default-source/default-document-library/credit-cards/axis-bank-supermoney-rupay-credit-card.pdf",
+          "checked": "2026-11-09"
+        }
+      }
     },
     "base": {
       "rate": 0.01
@@ -1885,7 +1941,15 @@
     "reward": {
       "kind": "cashback",
       "unitName": "₹",
-      "inrPerUnit": 1
+      "inrPerUnit": 1,
+      "earning": {
+        "rounding": "nearest",
+        "evidence": {
+          "quote": "The cashback will be rounded off to the nearest rupee value for each individual transaction.",
+          "source": "https://www.axis.bank.in/docs/default-source/default-document-library/credit-card/axis-bank-ace-credit-card-tncs.pdf",
+          "checked": "2026-11-09"
+        }
+      }
     },
     "base": {
       "rate": 0.015
@@ -2078,7 +2142,15 @@
       "kind": "cashback",
       "unitName": "₹",
       "inrPerUnit": 1,
-      "inrPerUnitNote": "Cashback credited directly to the SBI Card account; 1 unit = ₹1."
+      "inrPerUnitNote": "Cashback credited directly to the SBI Card account; 1 unit = ₹1.",
+      "earning": {
+        "rounding": "down",
+        "evidence": {
+          "quote": "The Card Cashback will be rounded down for each individual transaction.",
+          "source": "C:\\Users\\lenovo\\Downloads\\Flipkart-SBI-CreditCard-TandC-Booklet.pdf",
+          "checked": "2026-11-09"
+        }
+      }
     },
     "base": {
       "rate": 0.01
@@ -2531,7 +2603,15 @@
       "inrPerUnit": 0.25,
       "inrPerUnitNote": "Typical value; check the document for the cashback-equivalent rate.",
       "valueBasis": "a typical voucher value",
-      "valueStated": false
+      "valueStated": false,
+      "earning": {
+        "rounding": "nearest",
+        "evidence": {
+          "quote": "ICICI Bank Reward Points earned for every qualifying retail spend transaction shall be rounded off to the nearest integer at the time",
+          "source": "https://www.icici.bank.in/managed-assets/docs/terms-condition/hpcl-super-saver-credit-card-tnc.pdf",
+          "checked": "2026-11-09"
+        }
+      }
     },
     "base": {
       "rate": 0.02
