@@ -53,7 +53,8 @@ describe("every card, every kind of spend", () => {
       expect(r.reason, c.id).toContain(`${r.effectivePct}%`);
     }
     expect(evaluate(card("kiwi-rupay"), { category: "other", amount: 1000, channel: "online", rail: "card" }).reason).toMatch(/about 0\.5%/);
-    expect(evaluate(card("swiggy-hdfc"), { category: "other", amount: 1000, channel: "offline", rail: "card" }).reason).toMatch(/the 1%\./);
+    expect(evaluate(card("swiggy-hdfc"), { category: "other", amount: 1000, channel: "offline", rail: "card" }).reason).toMatch(/earns the base 1%\./);
+    expect(evaluate(card("scapia-visa"), { category: "other", amount: 2400, channel: "offline", rail: "card" }).reason).toMatch(/10 Scapia Coins per ₹100 \(about 2%\)/);
   });
 
   it("every merchant id a card or offer uses exists in data/merchants.json", () => {

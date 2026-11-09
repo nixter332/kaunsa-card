@@ -123,13 +123,15 @@ export function evaluate(card: Card, lookup: Lookup, state: CardState = { capUse
     const units = baseUnits(lookup.amount);
     // The % is the rupee value (Kiwi "cashback" is 4 Kiwis per ₹1), not the unit rate.
     const pct = `${round2(card.base.rate * card.reward.inrPerUnit * 100)}%`;
-    const perHundred = `${round2(card.base.rate * 100)} ${card.reward.unitName} per ₹100`;
-    const rateText = card.base.tiers
-      ? "base rate (spend slab applies)"
+    const perHundred = round2(card.base.rate * 100);
+    const singular = card.reward.unitName.replace(/s$/, "");
+    const unit = perHundred === 1 ? singular : `${singular}s`;
+    const reason = card.base.tiers
+      ? "No bonus applies here, so it earns the base rate (spend slab applies)."
       : card.reward.kind === "cashback" && card.reward.inrPerUnit === 1
-        ? pct
-        : `${perHundred}, about ${pct}`;
-    return result({ rewardUnits: units, ruleLabel: "Base rate", reason: `No bonus category matches; earns the ${rateText}.` });
+        ? `No bonus applies here, so it earns the base ${pct}.`
+        : `No bonus applies here, so it earns the base ${perHundred} ${unit} per ₹100 (about ${pct}).`;
+    return result({ rewardUnits: units, ruleLabel: "Base rate", reason });
   }
 
   // 4. Apply the rule, its cap, and any overflow.
