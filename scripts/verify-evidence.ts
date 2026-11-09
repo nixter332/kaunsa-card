@@ -4,6 +4,8 @@
 //   npm run evidence                  report → data/proposed/REVIEW-evidence.md
 //   npm run evidence -- --card <id>   one card
 //   npm run evidence -- --apply       also save verified quotes into data/cards.json (rule.evidence)
+//   npm run evidence -- --card <id> --quote "<id>/<rule>=<bank's words>" --apply
+//                                     offer a better quote for one rule; saved only if it checks out
 //
 // Quotes come from the rule's saved evidence, or from the rules agent's last proposal
 // (data/proposed/<card>.json). Review sites are never used as evidence.
@@ -21,6 +23,16 @@ const today = new Date().toISOString().slice(0, 10);
 const argv = process.argv.slice(2);
 const apply = argv.includes("--apply");
 const only = argv.includes("--card") ? argv[argv.indexOf("--card") + 1] : undefined;
+// --quote "<card>/<rule>=<the bank's words>": a person offers a quote; it's saved only if it matches the
+// document word for word and states the rate (use "..." between two pieces of the same document).
+const offered = new Map(
+  argv.flatMap((a, i) => {
+    if (a !== "--quote") return [];
+    const m = /^([a-z0-9-]+)\/([a-z0-9-]+)=(.+)$/s.exec(argv[i + 1] ?? "");
+    if (!m) throw new Error(`--quote needs "card/rule=quote", got: ${argv[i + 1]}`);
+    return [[`${m[1]}/${m[2]}`, m[3].trim()] as const];
+  }),
+);
 
 /** Issuer documents only: web pages and PDFs on the bank's site, or saved PDFs. Not review sites. */
 const isIssuerDoc = (src: string) => !/^https?:\/\//i.test(src) || isWatchable(src);
@@ -61,7 +73,7 @@ type Row = { cardId: string; rule: string; result: string; quote?: string };
     }
     const fromProposal = proposalQuotes(card.id);
     for (const rule of card.rules) {
-      const quote = rule.evidence?.quote ?? fromProposal.find((e) => e.rule === rule.label)?.quote;
+      const quote = offered.get(`${card.id}/${rule.id}`) ?? rule.evidence?.quote ?? fromProposal.find((e) => e.rule === rule.label)?.quote;
       if (!quote || quote.startsWith("KEPT")) {
         rows.push({ cardId: card.id, rule: rule.label, result: "✗ no quote from the bank (rule was kept from an older record)" });
         continue;
