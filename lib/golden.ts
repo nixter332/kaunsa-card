@@ -6,7 +6,8 @@ import { CATEGORIES, type Card, type Lookup, type Merchant } from "./types";
 
 export type GoldenRow = { key: string; label: string; cardId: string; valueInr: number; rule: string };
 
-const rupees = (n: number) => `₹${Math.round(n).toLocaleString("en-IN")}`;
+/** Paise shown when there are any, so a change like ₹17.70 → ₹18 is visible. */
+const rupees = (n: number) => `₹${n.toLocaleString("en-IN", { minimumFractionDigits: Number.isInteger(n) ? 0 : 2, maximumFractionDigits: 2 })}`;
 
 /** The lookups we pin for one card: each bonus rule, the base rate, and a big spend that hits caps. */
 function cardLookups(c: Card, merchants: Merchant[]): Lookup[] {
@@ -19,8 +20,11 @@ function cardLookups(c: Card, merchants: Merchant[]): Lookup[] {
     const base = { merchant: m?.id, category, channel, rail } as const;
     out.push({ ...base, amount: Math.max(1000, r.minTxn ?? 0) }, { ...base, amount: 50000 });
   }
-  out.push({ category: "other", amount: 1000, channel: "offline", rail: "card" });
-  if (c.upi) out.push({ category: "other", amount: 1000, channel: "offline", rail: "upi" });
+  // Round amounts and small uneven ones (₹150, ₹1,180), where rounding and whole-₹ blocks show up.
+  for (const amount of [150, 1000, 1180]) {
+    out.push({ category: "other", amount, channel: "offline", rail: "card" });
+    if (c.upi) out.push({ category: "other", amount, channel: "offline", rail: "upi" });
+  }
   return out;
 }
 
