@@ -70,7 +70,7 @@ They write proposals and a REVIEW-*.md into `data/proposed/`. A person reviews, 
 
 - Never commit secrets. `.env.local` stays local. Don't print or log API keys.
 - Don't change `app/privacy/contact.ts` (holds the owner's real contact email).
-- Don't weaken the "AI never invents a rate" principle, the review step, or the sign-in requirement without the owner agreeing.
+- Don't weaken the "AI never invents a rate" principle, the review step, or the sign-in requirement without the owner agreeing. The owner agreed (9 Nov 2026) to fixed sample answers on the sign-in screen (rules engine only, no AI, nothing saved); every real lookup still needs sign-in.
 - Keep privacy promises true: card list and payment history live in the browser (localStorage); the server only sees the lookup text, Google name/email, and analytics. If a change would send more data anywhere, say so and update `app/privacy/page.tsx`.
 - Small commits with clear messages. Explain what you changed and why before pushing. Push to `main` only after tests pass and the owner says go (Vercel deploys immediately).
 - Plain, short UI copy. The audience is young Indian professionals on phones.
