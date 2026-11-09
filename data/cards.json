@@ -202,7 +202,12 @@
         "rate": 0.04,
         "merchants": [
           "swiggy_food"
-        ]
+        ],
+        "evidence": {
+          "quote": "Preferred Merchants** 4% Unlimited ... only transactions made towards Food Delivery on Swiggy App shall be eligible for accelerated cashback",
+          "source": "https://www.axis.bank.in/docs/default-source/default-document-library/cashback-tncs---final.pdf",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [
@@ -298,7 +303,12 @@
           "flipkart",
           "myntra"
         ],
-        "capId": "ten"
+        "capId": "ten",
+        "evidence": {
+          "quote": "10% cashback*, up to INR1,200 a month, on all dining, food delivery, grocery, shopping and utility spends ... Shopping spends on Amazon, Flipkart & Myntra merchants continue to earn 1.5% cashback, but will be excluded from the 10% cashback category",
+          "source": "C:\\Users\\lenovo\\Downloads\\live-plus-credit-card-services-guide.pdf",
+          "checked": "2026-11-09"
+        }
       }
     ],
     "caps": [
@@ -2439,7 +2449,12 @@
         "merchants": [
           "hpcl"
         ],
-        "capId": "hpcl-fuel-cap"
+        "capId": "hpcl-fuel-cap",
+        "evidence": {
+          "quote": "The Cardholder(s) are entitled to 4% cashback on fuel purchases, where such cashback shall be capped at INR 200 per month ... the benefit is applicable on spends at HPCL fuel pumps only",
+          "source": "https://www.icici.bank.in/managed-assets/docs/terms-condition/hpcl-super-saver-credit-card-tnc.pdf",
+          "checked": "2026-11-09"
+        }
       },
       {
         "id": "utilities-grocery-dept-store",
