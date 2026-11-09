@@ -9,7 +9,7 @@ import { CardTile } from "./CardTile";
 import { shareLink } from "./referral";
 import { SourcePanel } from "./SourcePanel";
 import { IconTag } from "./Icons";
-import { cardById, inr, pointValueLine, pretty, track } from "./store";
+import { cardById, inr, niceDate, pointValueLine, pretty, track } from "./store";
 
 type Props = {
   lookup: Lookup;
@@ -317,7 +317,7 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
           </div>
           <SourcePanel key={`${best.cardId}|${best.ruleLabel}`} card={bestCard} rec={best} />
           <p className="fine">
-            {best.lastVerified === "never" ? "Rules for this card are from review sites, not yet checked against the bank's terms." : `Rules checked ${best.lastVerified}.`}{" "}
+            {best.lastVerified === "never" ? "Rules for this card are from review sites, not yet checked against the bank's terms." : `Rules checked ${niceDate(best.lastVerified)}.`}{" "}
             Bank offers are shown once we&apos;ve verified them.{" "}
             {missedSent ? (
               <span>Thanks, we&apos;ll look into that offer.</span>
@@ -439,7 +439,9 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
                     ? r.reason
                     : r.offer
                       ? `${inr(r.offer.discountInr)} off (${r.offer.title}) + ${inr(r.valueInr)} rewards.`
-                      : `${r.effectivePct}%. ${r.reason}`}
+                      : r.reason.includes(`${r.effectivePct}%`)
+                        ? r.reason
+                        : `${r.effectivePct}%. ${r.reason}`}
                 </p>
                 {r.warnings.map((w) => (
                   <p key={w} className="compare-warn">

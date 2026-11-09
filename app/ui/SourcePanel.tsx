@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { isWatchable } from "@/lib/sources";
 import type { Card, Recommendation } from "@/lib/types";
-import { pointValueLine, track } from "./store";
+import { niceDate, pointValueLine, track } from "./store";
 
 const CONFIDENCE: Record<Card["confidence"], string> = {
   high: "High: matched to the bank's own terms.",
@@ -52,7 +52,7 @@ export function SourcePanel({ card, rec }: { card: Card; rec: Recommendation }) 
             <>
               <blockquote>&ldquo;{ev.quote}&rdquo;</blockquote>
               <p className="muted small">
-                The bank&apos;s own words, matched word for word on {ev.checked}
+                The bank&apos;s own words, matched word for word on {niceDate(ev.checked)}
                 {/^https?:\/\//.test(ev.source) ? <> in {link(ev.source)}</> : " in the bank's terms (a PDF we saved)"}.
               </p>
             </>
@@ -72,7 +72,7 @@ export function SourcePanel({ card, rec }: { card: Card; rec: Recommendation }) 
               ))}
             </p>
           )}
-          <p className="muted small">{card.lastVerified === "never" ? "Not yet checked against the bank's terms." : `Rules last checked ${card.lastVerified}.`} Every rate comes from these documents; AI never sets one.</p>
+          <p className="muted small">{card.lastVerified === "never" ? "Not yet checked against the bank's terms." : `Rules last checked ${niceDate(card.lastVerified)}.`} Every rate comes from these documents; AI never sets one.</p>
         </div>
       )}
     </div>

@@ -73,6 +73,10 @@ export function statesFromLedger(cards: Card[], ledger: LedgerEntry[], met: stri
   return states;
 }
 
+/** "7 Nov 2026" from "2026-11-07". */
+export const niceDate = (iso: string) =>
+  /^\d{4}-\d{2}-\d{2}$/.test(iso) ? new Date(`${iso}T12:00:00+05:30`).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) : iso;
+
 export const inr = (n: number) => `₹${Math.round(n).toLocaleString("en-IN")}`;
 
 /** "10% off up to ₹300 on ₹1,000+" */
