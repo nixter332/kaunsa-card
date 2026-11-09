@@ -716,7 +716,8 @@
         "rate": 0.25,
         "merchants": [
           "airtel_bill"
-        ]
+        ],
+        "note": "Capped each statement month at 2× the 1% cashback you earn on other spends. Little other spend means little or no Airtel cashback."
       },
       {
         "id": "airtel-utility-10",
@@ -724,7 +725,8 @@
         "rate": 0.1,
         "merchants": [
           "airtel_utility"
-        ]
+        ],
+        "note": "Capped each statement month at the 1% cashback you earn on other spends."
       },
       {
         "id": "zomato-10-valueback",
@@ -1145,7 +1147,8 @@
         "rate": 0.06,
         "rails": [
           "upi"
-        ]
+        ],
+        "note": "Kiwis are earned on whole ₹100s only, and capped each month at 1% of your credit limit."
       }
     ],
     "caps": [],
@@ -1204,7 +1207,8 @@
         "rails": [
           "upi"
         ],
-        "requires": "partner_upi_app"
+        "requires": "partner_upi_app",
+        "note": "Capped each statement cycle at the larger of ₹100 or the cashback you earn on other spends."
       }
     ],
     "caps": [],
