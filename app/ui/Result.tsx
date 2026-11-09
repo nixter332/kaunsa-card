@@ -7,6 +7,7 @@ import { betterDeal } from "@/lib/offers";
 import { useEffect, useState } from "react";
 import { CardTile } from "./CardTile";
 import { shareLink } from "./referral";
+import { SourcePanel } from "./SourcePanel";
 import { IconTag } from "./Icons";
 import { cardById, inr, pointValueLine, pretty, track } from "./store";
 
@@ -314,6 +315,7 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
               </>
             )}
           </div>
+          <SourcePanel key={`${best.cardId}|${best.ruleLabel}`} card={bestCard} rec={best} />
           <p className="fine">
             {best.lastVerified === "never" ? "Rules for this card are from review sites, not yet checked against the bank's terms." : `Rules checked ${best.lastVerified}.`}{" "}
             Bank offers are shown once we&apos;ve verified them.{" "}
