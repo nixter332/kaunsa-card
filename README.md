@@ -26,7 +26,7 @@ A wrong rate is worse than no answer, because people act on it. So:
 | Evidence check (`npm run evidence`) | A rule whose quote isn't the bank's exact words or doesn't state the rate. Also run inside the data agent, so such a proposal is never applied automatically. |
 | Golden answers (`tests/golden.json`, 303 pinned answers) | Any data change that changes an answer people would see. Reviewers read a before → after table, not JSON. |
 | Data sweep test | Every card × every spend type × several amounts must give a sane value. Catches slips like 0.25 typed for 0.025. |
-| CI on every push and PR | Tests (163), type check and production build must pass before merging. |
+| CI on every push and PR | Tests (170), type check and production build must pass before merging. |
 | Monthly refresh | On the 1st, a GitHub Action re-reads bank offer pages, checks every card's documents for changes, re-reads only the changed cards, and opens a pull request for human review. |
 
 ## The app
@@ -34,6 +34,7 @@ A wrong rate is worse than no answer, because people act on it. So:
 - **Pay:** type a payment (`zomato 650`, `kirana 800 via UPI`) and the best card shows as you type, or tap a category tile, which already shows your best card for it. Live offers on your cards and your nearly-used bonus limits show up here.
 - **Answer:** the best card, ₹ back and why, warnings (caps, minimums, exclusions, limits that depend on other spending), a bank offer if one applies, every other card compared, and "Where's this from?".
 - **Playbook (in My cards):** which of your cards wins each kind of spend and each shop, plus a cheat sheet per card: best uses, what earns nothing, limits to watch, perks, and bank-sourced tips. It's the first thing you see after picking your cards.
+- **What your cards are worth:** enter rough monthly spends and see the ₹ a year your cards earn when used right, against using one card for everything. Shareable, as is a cheat sheet picture of which card to use where.
 - **My cards:** each card's monthly and quarterly limits filling up as you log payments.
 - **Savings:** ₹ earned this month and ₹ missed by using a different card. Mis-logged payments can be removed.
 - **Advisor:** given your monthly spending, which cards to keep, add or drop after fees.

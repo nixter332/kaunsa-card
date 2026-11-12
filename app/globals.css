@@ -375,3 +375,13 @@ select.field { appearance: none; background-image: linear-gradient(45deg, transp
 .live-more { color: var(--muted); font-size: 12.5px; }
 .live-suggest { margin-top: 10px; }
 .cat-best { color: var(--text); font-weight: 560; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.table-card { display: grid; gap: 6px; padding: 14px; margin-bottom: 8px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); }
+.table-card p { margin: 0; }
+.table-label { font-size: 13px; color: var(--muted); }
+.table-amount { font-size: 34px; font-weight: 700; line-height: 1.1; color: var(--accent); }
+.table-amount small { font-size: 15px; font-weight: 500; color: var(--muted); }
+.table-actions { display: flex; align-items: center; gap: 14px; margin-top: 4px; }
+.table-spends { list-style: none; margin: 4px 0 8px; padding: 0; display: grid; gap: 8px; }
+.table-spends li { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 14.5px; }
+.table-spends .spend-input { flex: 0 0 132px; }
+.ending { color: var(--danger); font-weight: 600; }

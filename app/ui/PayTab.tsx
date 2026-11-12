@@ -31,9 +31,18 @@ type Props = {
   caps: CapRoom[];
   /** Best of the user's cards for a lookup, for the live preview and the tiles. */
   preview: (l: Lookup) => Preview | undefined;
+  /** A one-line note for the start of a month (limits have reset). */
+  monthNote?: string;
 };
 
-export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBack, pending, onPendingDone, onPendingCancel, children, offers, caps, preview }: Props) {
+/** Days until an offer's last day (India time), for "ends in 3 days". */
+function daysLeft(validTo?: string): number | undefined {
+  if (!validTo) return undefined;
+  const end = new Date(`${validTo}T23:59:59+05:30`).getTime();
+  return Math.max(0, Math.ceil((end - Date.now()) / 86_400_000));
+}
+
+export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBack, pending, onPendingDone, onPendingCancel, children, offers, caps, preview, monthNote }: Props) {
   const [text, setText] = useState("");
   const [tile, setTile] = useState<Tile | null>(null);
   const [example, setExample] = useState(0);
@@ -156,8 +165,9 @@ export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBac
       )}
       {error && <p className="error">{error}</p>}
 
-      {!hasResult && (shownOffers.length > 0 || shownCaps.length > 0) && (
+      {!hasResult && (shownOffers.length > 0 || shownCaps.length > 0 || monthNote) && (
         <section className="home-cards" aria-label="On your cards">
+          {monthNote && <p className="home-cap">{monthNote}</p>}
           {shownCaps.map((c) => (
             <p key={c.key} className="home-cap">
               <strong>{c.cardName}</strong>: {c.leftInr > 0 ? `${inr(c.leftInr)} of bonus left this ${c.period}` : `bonus used up this ${c.period}`}
@@ -168,6 +178,8 @@ export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBac
             const m = MERCHANTS.find((x) => x.id === offer.merchants[0]);
             if (!m) return null;
             const end = offer.kind === "bank_offer" ? offerEnd(offer) : "";
+            const left = offer.kind === "bank_offer" ? daysLeft(offer.validTo) : undefined;
+            const ending = left !== undefined && left <= 7;
             return (
               <button
                 type="button"
@@ -184,7 +196,8 @@ export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBac
                 </span>
                 <span className="o-meta">
                   {cards.map((c) => c.name).join(", ")}
-                  {end && ` · till ${end}`}
+                  {end && !ending && ` · till ${end}`}
+                  {ending && <strong className="ending"> · {left === 0 ? "ends today" : left === 1 ? "ends tomorrow" : `ends in ${left} days`}</strong>}
                 </span>
               </button>
             );

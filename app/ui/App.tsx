@@ -124,6 +124,18 @@ export function App({ user }: { user: AppUser }) {
     [myCards, states],
   );
 
+  // In the first days of a month, for people who logged payments last month: their limits are fresh again.
+  const monthNote = useMemo(() => {
+    const now = new Date();
+    if (now.getDate() > 3) return undefined;
+    const prev = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const logged = ledger.some((e) => {
+      const d = new Date(e.ts);
+      return d.getMonth() === prev.getMonth() && d.getFullYear() === prev.getFullYear();
+    });
+    return logged ? `It's a new month: your monthly bonus limits have reset.` : undefined;
+  }, [ledger]);
+
   /** The best card for a lookup, for live previews on the Pay screen (same engine as the full answer). */
   const preview = useCallback(
     (l: Lookup): Preview | undefined => {
@@ -342,6 +354,7 @@ export function App({ user }: { user: AppUser }) {
             offers={homeOffers}
             caps={capRoom}
             preview={preview}
+            monthNote={monthNote}
           >
             {lookup && (
               <Result
@@ -367,6 +380,7 @@ export function App({ user }: { user: AppUser }) {
           met={met}
           onToggleCondition={toggleCondition}
           welcome={justOnboarded}
+          onToast={showToast}
           onLookup={(l) => {
             setJustOnboarded(false);
             startLookup(l, "playbook");

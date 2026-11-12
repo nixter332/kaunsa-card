@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import cardsJson from "../data/cards.json";
 import profilesJson from "../data/card-profiles.json";
-import { advise, DEFAULT_INPUT, route, score, validateProfile, type AdvisorInput } from "../lib/advisor";
+import { advise, DEFAULT_INPUT, onTheTable, route, score, validateProfile, type AdvisorInput } from "../lib/advisor";
 import type { Card, CardProfile } from "../lib/types";
 
 const cards = cardsJson as Card[];
@@ -90,5 +90,28 @@ describe("card advisor", () => {
       expect(validateProfile(p), p.id).toEqual([]);
       expect(cards.some((c) => c.id === p.id), `${p.id} has no rules in cards.json`).toBe(true);
     }
+  });
+});
+
+describe("what your cards are worth (on the table)", () => {
+  const mine = pick("swiggy-hdfc", "flipkart-axis", "hsbc-live-plus");
+  const spends = { ...DEFAULT_INPUT, spends: { swiggy: 6000, myntra: 4000, dining: 5000, other: 10000 } };
+
+  it("using the right card each time beats any single card", () => {
+    const t = onTheTable(mine, profilesJson as CardProfile[], spends);
+    expect(t.single).not.toBeNull();
+    expect(t.best).toBeGreaterThan(t.single!.rewards);
+    expect(t.gap).toBe(t.best - t.single!.rewards);
+    // Swiggy 10% (600) + Myntra 7.5% (300) + dining 10% (500) + other 1.5% (150) a month.
+    expect(t.best).toBe((600 + 300 + 500 + 150) * 12);
+  });
+
+  it("with one card there's nothing on the table", () => {
+    const t = onTheTable(mine.slice(0, 1), profilesJson as CardProfile[], spends);
+    expect(t.gap).toBe(0);
+  });
+
+  it("no spends, no numbers", () => {
+    expect(onTheTable(mine, profilesJson as CardProfile[], DEFAULT_INPUT)).toMatchObject({ best: 0, gap: 0 });
   });
 });

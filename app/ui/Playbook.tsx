@@ -1,13 +1,16 @@
 "use client";
 // "Your playbook": which of your cards wins each kind of spend, and how to get the most from each card.
 // Everything here comes from lib/playbook.ts (the same rules engine as lookups); nothing is typed in by hand.
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MERCHANTS } from "@/lib/localParse";
 import { bestByShop, bestBySpend, cardSheet, PLAYBOOK_SPENDS, type PlaybookRow } from "@/lib/playbook";
 import type { Card, Lookup } from "@/lib/types";
+import { cheatSheetImage } from "./cheatSheet";
+import { OnTheTable } from "./OnTheTable";
+import { shareLink } from "./referral";
 import { ALL_OFFERS, ALL_PROFILES, track } from "./store";
 
-type Props = { cards: Card[]; welcome?: boolean; onLookup: (l: Lookup) => void };
+type Props = { cards: Card[]; welcome?: boolean; onLookup: (l: Lookup) => void; onToast: (msg: string) => void };
 
 const host = (url: string) => {
   try {
@@ -17,7 +20,8 @@ const host = (url: string) => {
   }
 };
 
-export function Playbook({ cards, welcome, onLookup }: Props) {
+export function Playbook({ cards, welcome, onLookup, onToast }: Props) {
+  const [making, setMaking] = useState(false);
   const spends = useMemo(() => bestBySpend(cards), [cards]);
   const shops = useMemo(() => bestByShop(cards, MERCHANTS), [cards]);
   const sheets = useMemo(() => cards.map((c) => ({ card: c, sheet: cardSheet(c, ALL_OFFERS, ALL_PROFILES.find((p) => p.id === c.id)) })), [cards]);
@@ -38,6 +42,37 @@ export function Playbook({ cards, welcome, onLookup }: Props) {
     onLookup(lookup);
   };
 
+  /** Make the cheat sheet picture on the phone, then share it (or save it where sharing files isn't supported). */
+  async function shareSheet() {
+    setMaking(true);
+    track("cheatsheet_clicked", { cards_held: cards.length });
+    try {
+      const blob = await cheatSheetImage(spends, shops, window.location.host);
+      const file = new File([blob], "kaunsa-card-cheat-sheet.png", { type: "image/png" });
+      const text = "Which of my credit cards to use where. Make yours:";
+      if (navigator.canShare?.({ files: [file] })) {
+        try {
+          await navigator.share({ files: [file], text, url: shareLink() });
+          track("cheatsheet_shared", { method: "native" });
+        } catch {
+          track("cheatsheet_share_cancelled");
+        }
+      } else {
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = file.name;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+        onToast("Cheat sheet saved to your downloads.");
+        track("cheatsheet_shared", { method: "download" });
+      }
+    } catch {
+      onToast("Couldn't make the picture. Try again.");
+    } finally {
+      setMaking(false);
+    }
+  }
+
   const Row = ({ row, kind }: { row: PlaybookRow; kind: "spend" | "shop" }) => (
     <li>
       <button type="button" className="pb-row" onClick={() => open(row, kind)} aria-label={`${row.label}: ${row.cardName ?? "no card earns"}. See the full comparison`}>
@@ -51,6 +86,7 @@ export function Playbook({ cards, welcome, onLookup }: Props) {
   return (
     <section className="playbook" aria-label="Your playbook">
       {welcome && <p className="pb-welcome">You&apos;re set. Here&apos;s which card to use where. Tap any row to compare all your cards, or use Pay to check a specific payment.</p>}
+      <OnTheTable cards={cards} onToast={onToast} />
       <h3 className="section-title">Best card for…</h3>
       <ul className="pb-list">
         {spends.map((r) => (
@@ -68,6 +104,9 @@ export function Playbook({ cards, welcome, onLookup }: Props) {
         </>
       )}
       <p className="fine">Rates for a ₹1,000 payment before any monthly limit is used. Tap a row for the full answer.</p>
+      <button type="button" className="btn ghost wide" disabled={making} onClick={shareSheet}>
+        {making ? "Making your cheat sheet…" : "Save or share my cheat sheet"}
+      </button>
 
       <h3 className="section-title">Get the most from each card</h3>
       {sheets.map(({ card, sheet }) => (

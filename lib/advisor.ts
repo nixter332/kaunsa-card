@@ -262,3 +262,29 @@ export function validateProfile(p: CardProfile): string[] {
   if (!p.sources?.length) errors.push("needs a source");
   return errors;
 }
+
+export type OnTheTable = {
+  /** ₹ a year from the cards you hold, using the best one for each spend. */
+  best: number;
+  /** The single card that would earn most if you used it for everything, and what it earns. */
+  single: { cardId: string; rewards: number } | null;
+  /** best − single: what "one card for everything" leaves behind each year. */
+  gap: number;
+  routing: RouteRow[];
+};
+
+/**
+ * "What are my cards worth?" With the cards you already hold and your monthly spends: rewards a year
+ * if you use the right card each time, against using only your best single card for everything.
+ * Fees are the same either way (you hold the cards), so this compares rewards only.
+ */
+export function onTheTable(held: Card[], profiles: CardProfile[], input: AdvisorInput): OnTheTable {
+  const all = score(held, profiles, input);
+  let single: OnTheTable["single"] = null;
+  for (const c of held) {
+    const rewards = score([c], profiles, input).yearlyRewards;
+    if (!single || rewards > single.rewards) single = { cardId: c.id, rewards };
+  }
+  const best = Math.max(all.yearlyRewards, single?.rewards ?? 0);
+  return { best, single, gap: Math.max(0, best - (single?.rewards ?? 0)), routing: all.routing };
+}
