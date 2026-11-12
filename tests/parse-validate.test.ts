@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import cardsJson from "../data/cards.json";
-import { localParse, parseAmount } from "../lib/localParse";
+import { instantRead, localParse, parseAmount, suggestMerchants } from "../lib/localParse";
 import type { Card } from "../lib/types";
 import { diffCards, isConfirmedByDocument, validateCard } from "../lib/validate";
 
@@ -79,5 +79,28 @@ describe("only stamp 'last checked' when the document confirms earn rates", () =
   it("a quoted rule, or a flat-rate card the document states, counts", () => {
     expect(isConfirmedByDocument(true, [{ evidence: "Myntra 7.5% INR 4000 per statement quarter" }])).toBe(true);
     expect(isConfirmedByDocument(true, [])).toBe(true);
+  });
+});
+
+describe("instant read (no AI)", () => {
+  it("a known shop and an amount make a complete lookup", () => {
+    expect(instantRead("swiggy 600").lookup).toMatchObject({ merchant: "swiggy_food", amount: 600, rail: "card", channel: "online" });
+    expect(instantRead("kirana 800 via upi").lookup).toMatchObject({ merchant: "kirana", amount: 800, rail: "upi", channel: "offline" });
+    expect(instantRead("dinner for 2 2400").lookup).toMatchObject({ category: "dining", amount: 2400 });
+  });
+  it("a shop without an amount is only a shop; digits in the shop's name aren't the amount", () => {
+    expect(instantRead("zomato")).toMatchObject({ merchant: { id: "zomato" } });
+    expect(instantRead("zomato").lookup).toBeUndefined();
+    expect(instantRead("1mg").lookup).toBeUndefined();
+    expect(instantRead("1mg 450").lookup).toMatchObject({ merchant: "tata_1mg", amount: 450 });
+  });
+  it("an unknown shop is left for Claude", () => {
+    expect(instantRead("decathlon 3000")).toEqual({});
+  });
+  it("suggests shops from the first letters, and stops once one is matched", () => {
+    expect(suggestMerchants("swi").map((m) => m.id)).toContain("swiggy_food");
+    expect(suggestMerchants("myn")[0].id).toBe("myntra");
+    expect(suggestMerchants("s")).toEqual([]);
+    expect(suggestMerchants("zomato 6")).toEqual([]);
   });
 });

@@ -39,7 +39,7 @@ Before every commit: `npm test` and `npx tsc --noEmit` pass. For UI changes also
 | Rules engine: eligibility → best rule → caps/overflow → ₹ value; offers applied as instant discount, rewards on the net amount | `lib/engine.ts` |
 | Bank offers: matching, days, min spend, uses per month/year, EMI-only offers shown as tips, `betterDeal` banner | `lib/offers.ts` |
 | Card advisor (keep/add/drop from income, monthly spend, fees, lounges) | `lib/advisor.ts`, `app/ui/AdvisorTab.tsx` |
-| Free-text parsing: Claude tool call + offline fallback (`findMerchant`, generic merchants lose to named brands) | `lib/claude.ts`, `lib/localParse.ts` |
+| Free-text parsing: instant read on the device when the text has a known shop and an amount (`instantRead`, no AI call, parser `instant`); otherwise a Claude tool call, with the offline parser as fallback (`findMerchant`, generic merchants lose to named brands). The Pay screen previews the answer while typing and shows the best card on each category tile | `lib/localParse.ts`, `lib/claude.ts`, `app/ui/PayTab.tsx` |
 | Playbook: best card per spend type and shop, per-card cheat sheet (best uses, exclusions, limits, perks, tips), "earns more on" line for base-rate answers | `lib/playbook.ts`, `app/ui/Playbook.tsx` (shown at the top of My cards and right after onboarding) |
 | Data validation | `lib/validate.ts` |
 | UI | `app/ui/*` (App.tsx is the client shell; page.tsx is the server component that checks sign-in) |

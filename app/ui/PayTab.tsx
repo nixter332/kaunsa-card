@@ -1,9 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
-import { MERCHANTS } from "@/lib/localParse";
+import { useEffect, useMemo, useState } from "react";
+import { instantRead, MERCHANTS, suggestMerchants } from "@/lib/localParse";
 import type { Card, Lookup, Offer } from "@/lib/types";
 import { IconArrowUp, IconBack, IconClose, IconDelete, IconTag, TileIcon } from "./Icons";
 import { inr, offerDeal, offerEnd, pretty, TILES, track, type Tile } from "./store";
+
+/** The best card for a lookup, worked out on the device. */
+export type Preview = { cardId: string; cardName: string; pct: number; totalInr: number; hasOffer: boolean };
 
 /** A monthly or quarterly bonus limit that's partly used, for the "On your cards" block. */
 export type CapRoom = { key: string; cardName: string; leftInr: number; period: string; label: string };
@@ -26,12 +29,32 @@ type Props = {
   /** Live offers on the user's cards (bank offers first) and caps filling up. */
   offers: { offer: Offer; cards: Card[] }[];
   caps: CapRoom[];
+  /** Best of the user's cards for a lookup, for the live preview and the tiles. */
+  preview: (l: Lookup) => Preview | undefined;
 };
 
-export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBack, pending, onPendingDone, onPendingCancel, children, offers, caps }: Props) {
+export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBack, pending, onPendingDone, onPendingCancel, children, offers, caps, preview }: Props) {
   const [text, setText] = useState("");
   const [tile, setTile] = useState<Tile | null>(null);
   const [example, setExample] = useState(0);
+  // Live read of what's typed (no AI): a shop, maybe an amount, or shops to suggest.
+  const live = useMemo(() => {
+    const t = text.trim();
+    if (t.length < 2) return null;
+    const read = instantRead(t);
+    if (read.lookup) return { kind: "answer" as const, name: read.merchant!.name, amount: read.lookup.amount, best: preview(read.lookup) };
+    if (read.merchant) {
+      const m = read.merchant;
+      return { kind: "shop" as const, name: m.name, best: preview({ merchant: m.id, category: m.category, channel: m.channel, rail: "card", amount: 1000 }) };
+    }
+    const suggestions = suggestMerchants(t);
+    return suggestions.length ? { kind: "suggest" as const, suggestions } : null;
+  }, [text, preview]);
+  // Each category tile shows the best card for it, so the common answers need no typing at all.
+  const tileBest = useMemo(
+    () => Object.fromEntries(TILES.map((t) => [t.id, preview({ category: t.category, channel: t.channel, rail: t.rail, amount: 1000 })])),
+    [preview],
+  );
   const shownOffers = offers.slice(0, 2);
   const shownCaps = caps.slice(0, 1);
   useEffect(() => {
@@ -78,6 +101,59 @@ export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBac
           {busy ? <span className="spinner" aria-hidden="true" /> : <IconArrowUp />}
         </button>
       </form>
+      {live?.kind === "answer" && (
+        <button
+          type="button"
+          className="live"
+          onClick={() => {
+            track("instant_preview_tapped", { kind: "answer" });
+            onText(text.trim());
+          }}
+        >
+          <span className="live-what">
+            {live.name} {inr(live.amount)}
+          </span>
+          {live.best ? (
+            <span className="live-best">
+              {live.best.cardName} · <strong>{inr(live.best.totalInr)} {live.best.hasOffer ? "saved" : "back"}</strong>
+            </span>
+          ) : (
+            <span className="live-best muted">None of your cards earns here</span>
+          )}
+          <span className="live-more">See why and compare</span>
+        </button>
+      )}
+      {live?.kind === "shop" && (
+        <p className="live static" aria-live="polite">
+          <span className="live-what">{live.name}</span>
+          {live.best ? (
+            <span className="live-best">
+              {live.best.cardName} · <strong>{live.best.pct}%</strong>
+            </span>
+          ) : (
+            <span className="live-best muted">None of your cards earns here</span>
+          )}
+          <span className="live-more">Add the amount for the exact ₹ and your limits</span>
+        </p>
+      )}
+      {live?.kind === "suggest" && (
+        <div className="chips live-suggest" role="group" aria-label="Did you mean">
+          {live.suggestions.map((m) => (
+            <button
+              type="button"
+              key={m.id}
+              className="chip"
+              onClick={() => {
+                track("suggestion_tapped", { merchant: m.id });
+                const amount = text.match(/\d[\d,.]*k?/i)?.[0];
+                setText(`${m.name} ${amount ?? ""}`.trimEnd() + (amount ? "" : " "));
+              }}
+            >
+              {m.name}
+            </button>
+          ))}
+        </div>
+      )}
       {error && <p className="error">{error}</p>}
 
       {!hasResult && (shownOffers.length > 0 || shownCaps.length > 0) && (
@@ -123,7 +199,13 @@ export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBac
           <button type="button" key={t.id} className="cat" onClick={() => setTile(t)}>
             <TileIcon id={t.id} />
             <span className="cat-label">{t.label}</span>
-            <span className="cat-hint">{t.hint}</span>
+            {tileBest[t.id] ? (
+              <span className="cat-hint cat-best">
+                {tileBest[t.id]!.cardName} · {tileBest[t.id]!.pct}%
+              </span>
+            ) : (
+              <span className="cat-hint">{t.hint}</span>
+            )}
           </button>
         ))}
       </div>
