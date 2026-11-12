@@ -174,6 +174,40 @@
     "lastVerified": "2026-11-08"
   },
   {
+    "id": "eternal-sbi-rupay",
+    "joiningFee": 499,
+    "annualFee": 499,
+    "feeWaiverSpend": 100000,
+    "forexMarkupPct": 3.5,
+    "highlights": [
+      "Fuel surcharge waiver of up to ₹200 per statement cycle",
+      "Monthly Buy 1 Get 1 movie ticket offer on District app (up to ₹200 off the 2nd ticket)",
+      "Contactless payments (up to ₹5,000 per transaction without PIN), on Mastercard and RuPay"
+    ],
+    "sources": [
+      "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/kfs/key-fact-statement.pdf",
+      "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/eternal-sbi-card/Eternal-SBI-Card-T-and-C-Booklet.pdf"
+    ],
+    "lastVerified": "2026-11-12"
+  },
+  {
+    "id": "eternal-sbi",
+    "joiningFee": 499,
+    "annualFee": 499,
+    "feeWaiverSpend": 100000,
+    "forexMarkupPct": 3.5,
+    "highlights": [
+      "Fuel surcharge waiver of up to ₹200 per statement cycle",
+      "Monthly Buy 1 Get 1 movie ticket offer on District app (up to ₹200 off the 2nd ticket)",
+      "Contactless payments (up to ₹5,000 per transaction without PIN), on Mastercard and RuPay"
+    ],
+    "sources": [
+      "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/kfs/key-fact-statement.pdf",
+      "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/eternal-sbi-card/Eternal-SBI-Card-T-and-C-Booklet.pdf"
+    ],
+    "lastVerified": "2026-11-12"
+  },
+  {
     "id": "flipkart-axis",
     "joiningFee": 500,
     "annualFee": 500,
@@ -366,6 +400,33 @@
       "https://www.icicibank.com/personal-banking/cards/credit-card/hpcl-super-saver"
     ],
     "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "icici-sapphiro",
+    "joiningFee": 6500,
+    "annualFee": 3500,
+    "feeWaiverSpend": 600000,
+    "welcome": {
+      "text": "Welcome vouchers worth over ₹13,000 (Tata CLiQ, EaseMyTrip, Da Milano, Croma, EazyDiner) on payment of the joining fee",
+      "valueInr": 13000
+    },
+    "lounge": {
+      "domestic": 16,
+      "international": 2,
+      "note": "Domestic: needs ₹75,000 or more spend in the preceding quarter, primary cardholder only. International: 2 visits per year via Priority Pass."
+    },
+    "forexMarkupPct": 3.5,
+    "minIncomeMonthly": 75000,
+    "highlights": [
+      "1% fuel surcharge waiver on fuel transactions up to ₹4,000",
+      "BookMyShow buy-one-get-one (up to ₹500) twice a month, needs ₹25,000 spend in the preceding quarter",
+      "Air accident insurance cover of ₹3 crore (international travel, tickets bought on the card)"
+    ],
+    "sources": [
+      "https://www.icici.bank.in/personal-banking/cards/credit-card/sapphiro-card",
+      "https://www.icici.bank.in/content/dam/icicibank/managed-assets/docs/personal/cards/credit-cards/membership-kits/ICICI_Bank_Sapphiro_Credit_Cards_Membership_Kit.pdf"
+    ],
+    "lastVerified": "2026-11-12"
   },
   {
     "id": "idfc-first-millennia",
@@ -591,6 +652,32 @@
       "https://www.hdfc.bank.in/credit-cards/tata-neu-infinity-hdfc-bank-credit-card"
     ],
     "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "tata-neu-infinity-sbi",
+    "joiningFee": 1499,
+    "annualFee": 1499,
+    "feeWaiverSpend": 300000,
+    "welcome": {
+      "text": "1,499 NeuCoins (1 NeuCoin = Re. 1) within 15 days of realization of joining fee",
+      "valueInr": 1499
+    },
+    "lounge": {
+      "domestic": 8,
+      "international": 4,
+      "note": "Domestic: 2 per quarter, needs ₹75,000 eligible spend in the previous calendar quarter (waived for the month and quarter of card issuance). International: 1 per quarter via Priority Pass. Primary cardholder only; add-on cardholders and guests pay (up to US$27 + GST per visit)."
+    },
+    "forexMarkupPct": 1.99,
+    "highlights": [
+      "Contactless payments (up to ₹5,000 per transaction without PIN)",
+      "Add-on cards for family members",
+      "Complimentary Priority Pass international lounge visits (4 per year)"
+    ],
+    "sources": [
+      "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/kfs/key-fact-statement.pdf",
+      "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/Tata-neu-infinty-tnc.pdf"
+    ],
+    "lastVerified": "2026-11-12"
   },
   {
     "id": "tata-neu-plus-hdfc",

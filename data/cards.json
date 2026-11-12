@@ -3114,5 +3114,456 @@
     ],
     "lastVerified": "never",
     "confidence": "low"
+  },
+  {
+    "id": "eternal-sbi-rupay",
+    "name": "Eternal SBI Card (RuPay, UPI)",
+    "issuer": "SBI Card",
+    "network": "RuPay",
+    "upi": true,
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹",
+      "inrPerUnit": 1,
+      "valueStated": true,
+      "inrPerUnitNote": "Cashback credited to the SBI Card account as ₹ amounts / instant discounts.",
+      "earning": {
+        "rounding": "down",
+        "evidence": {
+          "quote": "The Card Cashback will be rounded down for each individual transaction.",
+          "source": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/eternal-sbi-card/Eternal-SBI-Card-T-and-C-Booklet.pdf",
+          "checked": "2026-11-12"
+        }
+      }
+    },
+    "base": {
+      "rate": 0.01,
+      "capId": "base-cap"
+    },
+    "rules": [
+      {
+        "id": "zomato-district-10",
+        "label": "10% instant discount on Zomato & District",
+        "rate": 0.1,
+        "merchants": [
+          "zomato",
+          "district"
+        ],
+        "capId": "eternal-instant-cap",
+        "rails": [
+          "card"
+        ],
+        "note": "10% instant discount; shares a single ₹2,000 monthly cap with Blinkit. No cashback on EMI spends.",
+        "evidence": {
+          "quote": "The 10% instant discount on Zomato, District, and Blinkit (Beauty & Electronics) and the 5% discount on Blinkit across all other categories are subject to a single cumulative monthly cap",
+          "source": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/eternal-sbi-card/Eternal-SBI-Card-T-and-C-Booklet.pdf",
+          "checked": "2026-11-12"
+        }
+      },
+      {
+        "id": "blinkit-5",
+        "label": "5% instant discount on Blinkit (all other categories)",
+        "rate": 0.05,
+        "merchants": [
+          "blinkit"
+        ],
+        "capId": "eternal-instant-cap",
+        "rails": [
+          "card"
+        ],
+        "note": "Blinkit Beauty & Electronics earn 10% instead; the combined cap of ₹2,000 per month applies.",
+        "evidence": {
+          "quote": "The 10% instant discount on Zomato, District, and Blinkit (Beauty & Electronics) and the 5% discount on Blinkit across all other categories are subject to a single cumulative monthly cap",
+          "source": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/eternal-sbi-card/Eternal-SBI-Card-T-and-C-Booklet.pdf",
+          "checked": "2026-11-12"
+        }
+      },
+      {
+        "id": "preferred-partners-5",
+        "label": "5% cashback on Apollo, ixigo, Uber, UrbanCompany",
+        "rate": 0.05,
+        "merchants": [
+          "apollo247",
+          "ixigo",
+          "uber",
+          "urban_company"
+        ],
+        "capId": "partner-cap",
+        "rails": [
+          "card"
+        ],
+        "note": "Up to 5%; on ixigo, 4% is an instant discount with coupon IXIGOSBI and 1% is cashback.",
+        "evidence": {
+          "quote": "Preferred Partners: Apollo, ixigo, Uber, UrbanCompany Upto 5% Cashback",
+          "source": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/eternal-sbi-card/Eternal-SBI-Card-T-and-C-Booklet.pdf",
+          "checked": "2026-11-12"
+        }
+      },
+      {
+        "id": "upi-1",
+        "label": "1% cashback on UPI payments to merchants",
+        "rate": 0.01,
+        "rails": [
+          "upi"
+        ],
+        "evidence": {
+          "quote": "For payments made through UPI on merchants, the cardholder will get 1% cashback for all eligible spends",
+          "source": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/eternal-sbi-card/Eternal-SBI-Card-T-and-C-Booklet.pdf",
+          "checked": "2026-11-12"
+        }
+      }
+    ],
+    "caps": [
+      {
+        "id": "eternal-instant-cap",
+        "label": "Cumulative instant discount cap across Zomato, District & Blinkit",
+        "amount": 2000,
+        "period": "month",
+        "overflow": "none"
+      },
+      {
+        "id": "partner-cap",
+        "label": "Preferred Partners 5% cashback cap",
+        "amount": 1000,
+        "period": "month",
+        "overflow": "none"
+      },
+      {
+        "id": "base-cap",
+        "label": "1% base cashback cap",
+        "amount": 500,
+        "period": "month",
+        "overflow": "none"
+      }
+    ],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "rent",
+        "insurance",
+        "jewellery",
+        "education",
+        "utilities",
+        "government",
+        "wallet_load"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Document covers both Mastercard and RuPay variants of the Eternal SBI Card with the same earn structure; the RuPay variant is the one submitted.",
+      "Blinkit Beauty & Electronics earn 10% instant discount (within the ₹2,000 cap), while other Blinkit categories earn 5%. Only the 5% rate is represented for Blinkit, because a category rule would apply beyond Blinkit; the 10% on Blinkit Beauty & Electronics could not be represented.",
+      "The ₹2,000 monthly cap is cumulative across Zomato, District and Blinkit (calendar month per FAQ). Overflow is not stated, so set to none.",
+      "Preferred Partners 5% is capped at ₹1,000 per month. 'Apollo' is mapped to apollo247 (closest enum); 'UrbanCompany' to urban_company. On ixigo, 4% is an instant discount with code IXIGOSBI and the remaining 1% is statement-credit cashback.",
+      "All other eligible spends earn 1% cashback, capped at ₹500 per month. The doc says overflow beyond caps is not stated, so overflow is set to none.",
+      "UPI: the doc says payments through UPI on merchants earn 1% cashback on all eligible spends; it doesn't say whether this shares the ₹500 cap, so no cap is attached to the UPI rule. Because there is a separate UPI rule, the other merchant rules are set to card rail only; the doc does not explicitly say the Zomato/Blinkit/partner rates don't apply on UPI.",
+      "Minimum transaction: Card Cashback is not applicable on transactions less than ₹100 (applied as minTxn for the card).",
+      "Excluded categories per the document: fuel, rent, insurance, jewellery, education, utilities, government payments, wallet upload. Also excluded but not in the category enum: EMI transactions (Merchant EMI & Flexipay), gift/prepaid card load, cash advances, card fees & charges, gaming, balance transfers, standing-instruction / fetch-and-pay bill payments on SBI Card platforms, baby food and tobacco/paan on Eternal apps. EMI spends on Zomato/Blinkit/District earn 0%.",
+      "Fuel: no cashback; fuel surcharge waiver of up to ₹200 per statement cycle is stated separately (not an earn rule).",
+      "Movie offer: one BOGO voucher per month on District app, up to ₹200 off the 2nd ticket; not representable as an earn rate.",
+      "Cashback is rounded down per transaction (e.g., ₹2,999 treated as ₹2,900). Cap periods follow the billing cycle starting from first transaction after account opening, per the doc.",
+      "Rules for Zomato/District/Blinkit are described as 'instant discount' rather than cashback but modeled as rate-based rewards."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/eternal-sbi-card/Eternal-SBI-Card-T-and-C-Booklet.pdf"
+      }
+    ],
+    "lastVerified": "2026-11-12",
+    "confidence": "medium",
+    "minTxn": 100
+  },
+  {
+    "id": "eternal-sbi",
+    "name": "Eternal SBI Card (Mastercard)",
+    "issuer": "SBI Card",
+    "network": "Mastercard",
+    "upi": false,
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹",
+      "inrPerUnit": 1,
+      "valueStated": true,
+      "inrPerUnitNote": "Cashback credited to the SBI Card account as ₹ amounts / instant discounts.",
+      "earning": {
+        "rounding": "down",
+        "evidence": {
+          "quote": "The Card Cashback will be rounded down for each individual transaction.",
+          "source": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/eternal-sbi-card/Eternal-SBI-Card-T-and-C-Booklet.pdf",
+          "checked": "2026-11-12"
+        }
+      }
+    },
+    "base": {
+      "rate": 0.01,
+      "capId": "base-cap"
+    },
+    "rules": [
+      {
+        "id": "zomato-district-10",
+        "label": "10% instant discount on Zomato & District",
+        "rate": 0.1,
+        "merchants": [
+          "zomato",
+          "district"
+        ],
+        "capId": "eternal-instant-cap",
+        "note": "10% instant discount; shares a single ₹2,000 monthly cap with Blinkit. No cashback on EMI spends.",
+        "evidence": {
+          "quote": "The 10% instant discount on Zomato, District, and Blinkit (Beauty & Electronics) and the 5% discount on Blinkit across all other categories are subject to a single cumulative monthly cap",
+          "source": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/eternal-sbi-card/Eternal-SBI-Card-T-and-C-Booklet.pdf",
+          "checked": "2026-11-12"
+        }
+      },
+      {
+        "id": "blinkit-5",
+        "label": "5% instant discount on Blinkit (all other categories)",
+        "rate": 0.05,
+        "merchants": [
+          "blinkit"
+        ],
+        "capId": "eternal-instant-cap",
+        "note": "Blinkit Beauty & Electronics earn 10% instead; the combined cap of ₹2,000 per month applies.",
+        "evidence": {
+          "quote": "The 10% instant discount on Zomato, District, and Blinkit (Beauty & Electronics) and the 5% discount on Blinkit across all other categories are subject to a single cumulative monthly cap",
+          "source": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/eternal-sbi-card/Eternal-SBI-Card-T-and-C-Booklet.pdf",
+          "checked": "2026-11-12"
+        }
+      },
+      {
+        "id": "preferred-partners-5",
+        "label": "5% cashback on Apollo, ixigo, Uber, UrbanCompany",
+        "rate": 0.05,
+        "merchants": [
+          "apollo247",
+          "ixigo",
+          "uber",
+          "urban_company"
+        ],
+        "capId": "partner-cap",
+        "note": "Up to 5%; on ixigo, 4% is an instant discount with coupon IXIGOSBI and 1% is cashback.",
+        "evidence": {
+          "quote": "Preferred Partners: Apollo, ixigo, Uber, UrbanCompany Upto 5% Cashback",
+          "source": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/eternal-sbi-card/Eternal-SBI-Card-T-and-C-Booklet.pdf",
+          "checked": "2026-11-12"
+        }
+      }
+    ],
+    "caps": [
+      {
+        "id": "eternal-instant-cap",
+        "label": "Cumulative instant discount cap across Zomato, District & Blinkit",
+        "amount": 2000,
+        "period": "month",
+        "overflow": "none"
+      },
+      {
+        "id": "partner-cap",
+        "label": "Preferred Partners 5% cashback cap",
+        "amount": 1000,
+        "period": "month",
+        "overflow": "none"
+      },
+      {
+        "id": "base-cap",
+        "label": "1% base cashback cap",
+        "amount": 500,
+        "period": "month",
+        "overflow": "none"
+      }
+    ],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "rent",
+        "insurance",
+        "jewellery",
+        "education",
+        "utilities",
+        "government",
+        "wallet_load"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Document covers both Mastercard and RuPay variants of the Eternal SBI Card with the same earn structure; the RuPay variant is the one submitted.",
+      "Blinkit Beauty & Electronics earn 10% instant discount (within the ₹2,000 cap), while other Blinkit categories earn 5%. Only the 5% rate is represented for Blinkit, because a category rule would apply beyond Blinkit; the 10% on Blinkit Beauty & Electronics could not be represented.",
+      "The ₹2,000 monthly cap is cumulative across Zomato, District and Blinkit (calendar month per FAQ). Overflow is not stated, so set to none.",
+      "Preferred Partners 5% is capped at ₹1,000 per month. 'Apollo' is mapped to apollo247 (closest enum); 'UrbanCompany' to urban_company. On ixigo, 4% is an instant discount with code IXIGOSBI and the remaining 1% is statement-credit cashback.",
+      "All other eligible spends earn 1% cashback, capped at ₹500 per month. The doc says overflow beyond caps is not stated, so overflow is set to none.",
+      "UPI: the doc says payments through UPI on merchants earn 1% cashback on all eligible spends; it doesn't say whether this shares the ₹500 cap, so no cap is attached to the UPI rule. Because there is a separate UPI rule, the other merchant rules are set to card rail only; the doc does not explicitly say the Zomato/Blinkit/partner rates don't apply on UPI.",
+      "Minimum transaction: Card Cashback is not applicable on transactions less than ₹100 (applied as minTxn for the card).",
+      "Excluded categories per the document: fuel, rent, insurance, jewellery, education, utilities, government payments, wallet upload. Also excluded but not in the category enum: EMI transactions (Merchant EMI & Flexipay), gift/prepaid card load, cash advances, card fees & charges, gaming, balance transfers, standing-instruction / fetch-and-pay bill payments on SBI Card platforms, baby food and tobacco/paan on Eternal apps. EMI spends on Zomato/Blinkit/District earn 0%.",
+      "Fuel: no cashback; fuel surcharge waiver of up to ₹200 per statement cycle is stated separately (not an earn rule).",
+      "Movie offer: one BOGO voucher per month on District app, up to ₹200 off the 2nd ticket; not representable as an earn rate.",
+      "Cashback is rounded down per transaction (e.g., ₹2,999 treated as ₹2,900). Cap periods follow the billing cycle starting from first transaction after account opening, per the doc.",
+      "Rules for Zomato/District/Blinkit are described as 'instant discount' rather than cashback but modeled as rate-based rewards.",
+      "This Mastercard record is derived from the RuPay record (same T&C booklet covers both networks); the only difference is that it cannot be used on UPI, so the 1% UPI rule is removed."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/eternal-sbi-card/Eternal-SBI-Card-T-and-C-Booklet.pdf"
+      }
+    ],
+    "lastVerified": "2026-11-12",
+    "confidence": "medium",
+    "minTxn": 100
+  },
+  {
+    "id": "tata-neu-infinity-sbi",
+    "name": "Tata Neu Infinity SBI Card (RuPay)",
+    "issuer": "SBI Card",
+    "network": "RuPay",
+    "upi": true,
+    "reward": {
+      "kind": "points",
+      "unitName": "NeuCoins",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "1 Reward Point = 1 NeuCoin = INR 1 savings; redeemable only on Tata partner brands (closed loop).",
+      "valueStated": true,
+      "valueBasis": "on Tata Neu, across Tata brands"
+    },
+    "base": {
+      "rate": 0.015
+    },
+    "rules": [
+      {
+        "id": "tata-neu-5pct",
+        "label": "5% NeuCoins on Tata Neu App/Website",
+        "rate": 0.05,
+        "merchants": [
+          "tata_neu"
+        ],
+        "rails": [
+          "card"
+        ],
+        "note": "The document also mentions an extra 5% on select categories on the Tata Neu app, but does not say which categories, so it is not modelled.",
+        "evidence": {
+          "quote": "Enjoy 5% Value back as NeuCoins on spends on Tata Neu App/Website and partner Tata Brands",
+          "source": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/Tata-neu-infinty-tnc.pdf",
+          "checked": "2026-11-12"
+        }
+      },
+      {
+        "id": "upi-1-5pct",
+        "label": "1.5% NeuCoins on UPI (RuPay), max 500/month",
+        "rate": 0.015,
+        "rails": [
+          "upi"
+        ],
+        "capId": "upi-monthly",
+        "note": "UPI NeuCoins are capped at 500 per month.",
+        "evidence": {
+          "quote": "1.5% Value back as NeuCoins on other spends, including UPI transactions (applicable on spends on RuPay Variant)",
+          "source": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/Tata-neu-infinty-tnc.pdf",
+          "checked": "2026-11-12"
+        }
+      }
+    ],
+    "caps": [
+      {
+        "id": "upi-monthly",
+        "label": "UPI NeuCoins cap",
+        "amount": 500,
+        "period": "month",
+        "overflow": "none"
+      }
+    ],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "wallet_load",
+        "rent",
+        "government",
+        "education"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Base 1.5% NeuCoins applies on other spends including UPI on the RuPay variant (11.3e).",
+      "The document says accelerated NeuCoins are earned on brands like Air India & Air India Express, Big Basket, Tata Cliq, Taj Hotels, Tata 1 MG, Titan & Tanishq, Croma, Westside and Qmin, but states no rate for them, so no rules were created for them.",
+      "'5% on partner Tata Brands' is not tied to a specific brand list, so only the Tata Neu App/Website rule is modelled; the extra 5% on 'select category spends' on Tata Neu is unspecified and not modelled.",
+      "Per-month caps of 2000 NeuCoins are stated for Grocery, Insurance, Utility, and Telecom and cable accelerated categories, but no earn rates are given for them, so these caps are not modelled. The UPI cap of 500 per month is modelled.",
+      "The cap overflow for UPI spend is not stated; 'none' was used because the document gives no information.",
+      "Excluded from earning: fuel (MCC 5172, 5541, 5542, 5983), wallet loads (MCC 6540, 6541), rent and gift/prepaid card load/voucher purchases (MCC 6513), government (MCC 9399, 9311), education, cash advances, balance transfers, payment of outstanding balances, card fees and charges, financial charges, disputed transactions, Flexipay and Merchant EMI. Gift/voucher purchases, cash advances, fees and EMI are not representable as categories.",
+      "NeuCoins are rounded down to the nearest integer per transaction; 1 NeuCoin = 1 Reward Point = INR 1.",
+      "The document describes both Visa and RuPay variants. Rates are stated generally; the UPI benefit applies to the RuPay variant only."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/Tata-neu-infinty-tnc.pdf"
+      }
+    ],
+    "lastVerified": "2026-11-12",
+    "confidence": "medium"
+  },
+  {
+    "id": "icici-sapphiro",
+    "name": "ICICI Bank Sapphiro",
+    "issuer": "ICICI Bank",
+    "network": "Mastercard",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "ICICI Bank Reward Points",
+      "inrPerUnit": 0.25,
+      "inrPerUnitNote": "The document does not state a rupee value; ₹0.25 per point comes from the supplied card metadata.",
+      "valueStated": false,
+      "valueBasis": "a typical voucher value"
+    },
+    "base": {
+      "rate": 0.02
+    },
+    "rules": [
+      {
+        "id": "utilities-insurance",
+        "label": "1 point per ₹100 on utilities and insurance",
+        "rate": 0.01,
+        "categories": [
+          "utilities",
+          "insurance"
+        ],
+        "evidence": {
+          "quote": "Earn 1 reward point per ₹100 spent on utilities and insurance.",
+          "source": "https://www.icici.bank.in/content/dam/icicibank/managed-assets/docs/personal/cards/credit-cards/membership-kits/ICICI_Bank_Sapphiro_Credit_Cards_Membership_Kit.pdf",
+          "checked": "2026-11-12"
+        }
+      }
+    ],
+    "caps": [],
+    "exclusions": {
+      "categories": [
+        "fuel",
+        "rent",
+        "wallet_load"
+      ],
+      "merchants": []
+    },
+    "notes": [
+      "Base rate is 2 reward points per ₹100 on domestic spends (0.02 per ₹1), taken from the rewards table, which lists the same rates for the Mastercard, Amex, Visa and RuPay variants.",
+      "International spends earn 4 points per ₹100 (0.04). The schema has no domestic/international distinction, so this is not modelled as a rule. It applies only to international spends.",
+      "Utilities and insurance earn 1 point per ₹100. This overrides the base rate for those categories.",
+      "The document says no reward points on fuel transactions, cash, rent and e-Wallet. Fuel, rent and wallet_load are listed as excluded categories. Cash withdrawals have no matching category, so they are only noted here.",
+      "Milestone benefit is not modelled: 4,000 reward points on ₹4 lakh spend, then 2,000 for every additional ₹1 lakh, up to 20,000 points per anniversary year.",
+      "The 1% fuel surcharge waiver on fuel transactions up to ₹4,000 is a fee waiver, not a reward earn rate, so it is not modelled.",
+      "The document does not state a rupee value for a reward point. The ₹0.25 value comes from the supplied metadata and is marked valueStated=false.",
+      "UPI is not stated in the document, so it is omitted. The network is set to Mastercard because the document lists a Mastercard variant and the supplied metadata says Mastercard.",
+      "No monthly or quarterly earn caps are stated.",
+      "Other benefits (lounge access, BookMyShow BOGO, golf, insurance, welcome vouchers, fees) are not earn rules and are not modelled."
+    ],
+    "sources": [
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.icici.bank.in/personal-banking/cards/credit-card/sapphiro-card"
+      },
+      {
+        "label": "Issuer document (read by the rules agent)",
+        "url": "https://www.icici.bank.in/content/dam/icicibank/managed-assets/docs/personal/cards/credit-cards/membership-kits/ICICI_Bank_Sapphiro_Credit_Cards_Membership_Kit.pdf"
+      }
+    ],
+    "lastVerified": "2026-11-12",
+    "confidence": "medium"
   }
 ]
