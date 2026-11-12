@@ -5,13 +5,13 @@ import { amountBucket, identifyUser, resetUser, setPersonOnce } from "@/lib/anal
 import { signOutOfApp } from "../actions";
 import { merchantHints, recommend, type OfferContext } from "@/lib/engine";
 import { offersForCards } from "@/lib/offers";
-import { localParse, MERCHANTS } from "@/lib/localParse";
+import { instantRead, localParse, MERCHANTS } from "@/lib/localParse";
 import type { Lookup, Recommendation } from "@/lib/types";
 import { AdvisorTab } from "./AdvisorTab";
 import { CardsTab } from "./CardsTab";
 import { IconAdvisor, IconCards, IconPay, IconSavings, IconSettings } from "./Icons";
 import { Onboarding } from "./Onboarding";
-import { PayTab, type CapRoom } from "./PayTab";
+import { PayTab, type CapRoom, type Preview } from "./PayTab";
 import { Result } from "./Result";
 import { SavingsTab } from "./SavingsTab";
 import { myShareCode } from "./referral";
@@ -124,6 +124,15 @@ export function App({ user }: { user: AppUser }) {
     [myCards, states],
   );
 
+  /** The best card for a lookup, for live previews on the Pay screen (same engine as the full answer). */
+  const preview = useCallback(
+    (l: Lookup): Preview | undefined => {
+      const r = recommend(myCards, l, states, offerCtx).find((x) => x.usable);
+      return r && r.totalInr > 0 ? { cardId: r.cardId, cardName: r.cardName, pct: r.effectivePct, totalInr: r.totalInr, hasOffer: Boolean(r.offer) } : undefined;
+    },
+    [myCards, states, offerCtx],
+  );
+
   const showToast = useCallback((msg: string) => {
     setToast(msg);
     setTimeout(() => setToast(""), 2400);
@@ -174,6 +183,15 @@ export function App({ user }: { user: AppUser }) {
     setError("");
     setNote(undefined);
     const nextRecent = [q, ...recent.filter((r) => r !== q)].slice(0, 5);
+    // A known shop and an amount need no AI: answer at once, on the device.
+    const instant = instantRead(q).lookup;
+    if (instant) {
+      setRecent(nextRecent);
+      save("cs.recent", nextRecent);
+      startLookup(instant, "text", "instant", q);
+      setBusy(false);
+      return;
+    }
     try {
       const res = await fetch("/api/parse", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text: q }) });
       const data = await res.json();
@@ -323,6 +341,7 @@ export function App({ user }: { user: AppUser }) {
             onBack={() => setLookup(null)}
             offers={homeOffers}
             caps={capRoom}
+            preview={preview}
           >
             {lookup && (
               <Result

@@ -105,7 +105,7 @@ select.field { appearance: none; background-image: linear-gradient(45deg, transp
 .ask-go:disabled { background: var(--surface-2); color: var(--muted); }
 .or { color: var(--muted); font-size: 14px; margin: 22px 0 10px; }
 .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.cat { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 10px; align-items: center; text-align: left; padding: 14px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); min-height: 68px; }
+.cat { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 10px; align-items: center; text-align: left; padding: 14px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); min-height: 68px; }
 .cat svg { grid-row: span 2; color: var(--accent); }
 .cat-label { font-weight: 600; font-size: 15px; line-height: 1.2; }
 .cat-hint { color: var(--muted); font-size: 12.5px; line-height: 1.25; }
@@ -367,3 +367,11 @@ select.field { appearance: none; background-image: linear-gradient(45deg, transp
 .inapp-note { margin: 14px 0 4px; padding: 12px 14px; border: 1px solid var(--accent); border-radius: 12px; background: var(--surface); text-align: left; font-size: 14px; }
 .inapp-note p { margin: 0 0 8px; }
 .inapp-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.live { display: grid; gap: 2px; width: 100%; margin: 10px 0 0; padding: 12px 14px; text-align: left; border-radius: 14px; border: 1px solid var(--accent); background: var(--surface); }
+.live.static { border-color: var(--line); }
+.live-what { color: var(--muted); font-size: 13px; }
+.live-best { font-size: 16px; font-weight: 600; }
+.live-best strong { color: var(--accent); }
+.live-more { color: var(--muted); font-size: 12.5px; }
+.live-suggest { margin-top: 10px; }
+.cat-best { color: var(--text); font-weight: 560; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

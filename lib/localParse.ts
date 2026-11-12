@@ -48,3 +48,30 @@ export function localParse(text: string): (Lookup & { merchantName?: string }) |
     rail,
   };
 }
+
+/**
+ * What the app can read by itself while someone types, with no AI call. When it finds both a known
+ * shop and an amount, the lookup is complete and the answer can show at once.
+ */
+export function instantRead(text: string): { merchant?: Merchant; amount?: number; lookup?: Lookup } {
+  const merchant = findMerchant(text);
+  if (!merchant) return {};
+  // Digits inside the shop's own name ("1mg", "24 seven") aren't the amount.
+  let rest = ` ${text.toLowerCase()} `;
+  for (const a of [...merchant.aliases].sort((x, y) => y.length - x.length)) rest = rest.split(a).join(" ");
+  const amount = parseAmount(rest) ?? undefined;
+  const parsed = amount ? localParse(text) : null;
+  if (!amount || !parsed) return { merchant };
+  const { merchantName: _name, ...lookup } = parsed;
+  return { merchant, amount, lookup: { ...lookup, amount } };
+}
+
+/** Shops whose name starts with what's been typed so far, for tap-to-complete chips. Named brands before catch-alls. */
+export function suggestMerchants(text: string, limit = 4): Merchant[] {
+  const typed = text.toLowerCase().replace(/[\d₹,.]/g, " ").trim();
+  if (typed.length < 2 || findMerchant(text)) return [];
+  const starts = (s: string) => s.startsWith(typed) || s.split(/\s+/).some((w) => w.startsWith(typed));
+  return MERCHANTS.filter((m) => starts(m.name.toLowerCase()) || m.aliases.some(starts))
+    .sort((a, b) => Number(Boolean(a.generic)) - Number(Boolean(b.generic)) || a.name.localeCompare(b.name))
+    .slice(0, limit);
+}

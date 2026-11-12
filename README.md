@@ -14,7 +14,7 @@ People with three or more credit cards default to the same one or two and lose r
 
 A wrong rate is worse than no answer, because people act on it. So:
 
-- **Claude only reads what you typed** ("instamart 900 via UPI" → merchant, category, amount, payment method). It never sees or produces a rate. If it's unavailable, an on-device parser takes over.
+- **Claude only reads what you typed**, and only when the app can't read it itself. "swiggy 600" is answered on the device as you type; unfamiliar text ("decathlon shoes 3k") goes to Claude to work out the merchant, category, amount and payment method. Claude never sees or produces a rate.
 - **Every rate, cap and fee comes from the bank's own documents**, stored in `data/` and computed by plain code (`lib/engine.ts`).
 - **Every rule carries the bank's own words.** An automated check (`npm run evidence`, no AI) confirms that each quote appears word for word in the bank's document and states the rate. Today **all 73 rules across 35 cards pass**. Tap "Where's this from?" under any answer to see the quote and the document.
 - **Points are valued openly.** A points answer says what one point is worth and what that assumes (for example "1 Reward Point = ₹0.50, for flights and hotels on SmartBuy"), and says when the value is our estimate rather than the bank's.
@@ -31,7 +31,7 @@ A wrong rate is worse than no answer, because people act on it. So:
 
 ## The app
 
-- **Pay:** type a payment (`zomato 650`, `kirana 800 via UPI`) or tap a category and enter the amount. Live offers on your cards and your nearly-used bonus limits show up here.
+- **Pay:** type a payment (`zomato 650`, `kirana 800 via UPI`) and the best card shows as you type, or tap a category tile, which already shows your best card for it. Live offers on your cards and your nearly-used bonus limits show up here.
 - **Answer:** the best card, ₹ back and why, warnings (caps, minimums, exclusions, limits that depend on other spending), a bank offer if one applies, every other card compared, and "Where's this from?".
 - **Playbook (in My cards):** which of your cards wins each kind of spend and each shop, plus a cheat sheet per card: best uses, what earns nothing, limits to watch, perks, and bank-sourced tips. It's the first thing you see after picking your cards.
 - **My cards:** each card's monthly and quarterly limits filling up as you log payments.
