@@ -32,6 +32,11 @@ export function validateCard(c: Partial<Card>): string[] {
     if (c.reward.valueStated === undefined) errs.push("points card needs reward.valueStated (does the bank's document state the ₹ value?)");
   }
   if (c.confidence === "high" && c.reward?.valueStated === false) errs.push("confidence can't be high when the point value is our estimate");
+  for (const t of c.tips ?? []) {
+    if (!(t.text?.trim() && t.text.length <= 200)) errs.push("tip needs a short text (up to 200 characters)");
+    if (!(t.quote?.trim() && t.source?.trim() && /^\d{4}-\d{2}-\d{2}$/.test(t.checked ?? "")))
+      errs.push(`tip "${(t.text ?? "").slice(0, 40)}" needs the bank's quote, checked by npm run evidence -- --apply`);
+  }
   const e = c.reward?.earning;
   if (e) {
     if (!e.block && !e.rounding) errs.push("reward.earning needs a block or a rounding");

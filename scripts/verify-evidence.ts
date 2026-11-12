@@ -54,7 +54,7 @@ type Row = { cardId: string; rule: string; result: string; quote?: string };
 
   for (const card of cards) {
     if (only && card.id !== only) continue;
-    if (!card.rules.length && !card.reward.earning) continue;
+    if (!card.rules.length && !card.reward.earning && !card.tips?.length) continue;
     console.log(`\n${card.id}`);
     const docs: { source: string; text: string }[] = [];
     for (const { url } of card.sources.filter((s) => isIssuerDoc(s.url))) {
@@ -110,6 +110,27 @@ type Row = { cardId: string; rule: string; result: string; quote?: string };
           saved++;
         } else if (apply) delete earning.evidence;
       }
+    }
+
+    // Tips: the bank's sentence behind each tip must be in one of the card's documents.
+    for (const tip of card.tips ?? []) {
+      const label = `Tip: ${tip.text.slice(0, 60)}`;
+      if (!docs.length) {
+        rows.push({ cardId: card.id, rule: label, result: "? couldn't read any issuer document", quote: tip.quote });
+        continue;
+      }
+      const hit = docs.find((d) => quoteFound(d.text, tip.quote));
+      rows.push({ cardId: card.id, rule: label, result: hit ? "✓ verified" : "⚠ quote not found in the bank's documents", quote: tip.quote });
+      if (apply && hit) {
+        tip.source = hit.source;
+        tip.checked = today;
+        saved++;
+      }
+    }
+    if (apply && card.tips) {
+      // A tip the documents no longer back is dropped rather than shown.
+      card.tips = card.tips.filter((t) => !docs.length || docs.some((d) => quoteFound(d.text, t.quote)));
+      if (!card.tips.length) delete card.tips;
     }
   }
 

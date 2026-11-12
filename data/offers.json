@@ -254,5 +254,29 @@
     "conditions": "Domestic flights on 3/6 month no-cost EMI only; hotels, international and holidays differ; not on multi-city; corporate cards excluded",
     "source": "https://www.goibibo.com/gi-promos/indusind-emi",
     "lastVerified": "2026-11-08"
+  },
+  {
+    "id": "eternal-sbi-district-bogo",
+    "title": "Eternal SBI × District movies",
+    "kind": "card_perk",
+    "cardIds": [
+      "eternal-sbi-rupay",
+      "eternal-sbi"
+    ],
+    "merchants": [
+      "district"
+    ],
+    "categories": [
+      "movies"
+    ],
+    "discount": {
+      "type": "percent",
+      "value": 0.5,
+      "max": 200
+    },
+    "usesPerMonth": 1,
+    "conditions": "Buy 1 get 1 on the District app; book 2+ tickets in one go",
+    "source": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/eternal-sbi-card/Eternal-SBI-Card-T-and-C-Booklet.pdf",
+    "lastVerified": "2026-11-12"
   }
 ]

@@ -429,5 +429,56 @@
       "https://www.idfcfirst.bank.in/credit-card/benefits/rewards-points"
     ],
     "reviewTips": "3X on spends up to ₹20,000 a month is the base. The 10X on incremental spend above ₹20,000 a month and the birthday 10X can't be modelled per payment: put them in notes. Check the May 2026 communication for changed rates or exclusions (fuel, EMI, insurance, rent usually earn nothing)."
+  },
+  {
+    "id": "eternal-sbi-rupay",
+    "name": "Eternal SBI Card (RuPay, UPI)",
+    "issuer": "SBI Card",
+    "network": "RuPay",
+    "upi": true,
+    "reward": {
+      "kind": "cashback",
+      "unitName": "₹ cashback",
+      "inrPerUnit": 1
+    },
+    "sources": [
+      "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/eternal-sbi-card/Eternal-SBI-Card-T-and-C-Booklet.pdf"
+    ],
+    "reviewTips": "Requested by a beta user (Nov 2026). 10% instant discount on Zomato and District, Blinkit 10% only on beauty and electronics and 5% otherwise (model Blinkit at 5% with a note), all under ONE shared ₹2,000 monthly cap. 5% on Apollo, ixigo, Uber, Urban Company with a shared ₹1,000 cap. 1% base capped at ₹500. 1% on UPI. No cashback under ₹100. The Mastercard variant is derived from this record without the UPI rule."
+  },
+  {
+    "id": "tata-neu-infinity-sbi",
+    "name": "Tata Neu Infinity SBI Card (RuPay)",
+    "issuer": "SBI Card",
+    "network": "RuPay",
+    "upi": true,
+    "reward": {
+      "kind": "points",
+      "unitName": "NeuCoins",
+      "inrPerUnit": 1,
+      "inrPerUnitNote": "1 NeuCoin = ₹1 on Tata Neu."
+    },
+    "sources": [
+      "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/Tata-neu-infinty-tnc.pdf"
+    ],
+    "reviewTips": "Requested by a beta user (Nov 2026). Compare with tata-neu-infinity-hdfc: Tata Neu / partner brand rate, base rate, UPI rates and caps, category caps. Issued on Visa and RuPay; this record is the RuPay card."
+  },
+  {
+    "id": "icici-sapphiro",
+    "name": "ICICI Bank Sapphiro",
+    "issuer": "ICICI Bank",
+    "network": "Mastercard",
+    "upi": false,
+    "reward": {
+      "kind": "points",
+      "unitName": "ICICI reward points",
+      "inrPerUnit": 0.25,
+      "inrPerUnitNote": "Typical voucher value; ICICI does not state a rupee value."
+    },
+    "sources": [
+      "https://www.icici.bank.in/personal-banking/cards/credit-card/sapphiro-card",
+      "https://www.icici.bank.in/content/dam/icicibank/managed-assets/docs/personal/cards/credit-cards/membership-kits/ICICI_Bank_Sapphiro_Credit_Cards_Membership_Kit.pdf"
+    ],
+    "reviewTips": "Requested by a beta user (Nov 2026). 2 points per ₹100 domestic, 1 per ₹100 on utilities and insurance, 4 per ₹100 international (not representable). No points on fuel, rent, e-wallet. Milestones and lounges are not earn rules. Also issued on Amex/Visa/RuPay."
   }
 ]

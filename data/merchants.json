@@ -552,5 +552,17 @@
       "smart bazaar",
       "reliance superstore"
     ]
+  },
+  {
+    "id": "urban_company",
+    "name": "Urban Company",
+    "category": "other",
+    "channel": "online",
+    "aliases": [
+      "urban company",
+      "urbancompany",
+      "urbanclap",
+      "uc"
+    ]
   }
 ]

@@ -212,9 +212,9 @@
   {
     "key": "ALL|insurance|1000|upi|offline",
     "label": "Best of all cards: insurance ₹1,000 UPI",
-    "cardId": "tata-neu-infinity-hdfc",
-    "valueInr": 5,
-    "rule": "0.5% on eligible UPI spends"
+    "cardId": "tata-neu-infinity-sbi",
+    "valueInr": 15,
+    "rule": "1.5% NeuCoins on UPI (RuPay), max 500/month"
   },
   {
     "key": "ALL|jewellery|1000|card|online",
@@ -226,9 +226,9 @@
   {
     "key": "ALL|jewellery|1000|upi|offline",
     "label": "Best of all cards: jewellery ₹1,000 UPI",
-    "cardId": "scapia-rupay",
-    "valueInr": 10,
-    "rule": "Base rate"
+    "cardId": "tata-neu-infinity-sbi",
+    "valueInr": 15,
+    "rule": "1.5% NeuCoins on UPI (RuPay), max 500/month"
   },
   {
     "key": "ALL|movies|1000|card|online",
@@ -296,9 +296,9 @@
   {
     "key": "ALL|telecom|1000|upi|offline",
     "label": "Best of all cards: telecom ₹1,000 UPI",
-    "cardId": "hsbc-rupay-cashback",
-    "valueInr": 10,
-    "rule": "Base rate"
+    "cardId": "tata-neu-infinity-sbi",
+    "valueInr": 15,
+    "rule": "1.5% NeuCoins on UPI (RuPay), max 500/month"
   },
   {
     "key": "ALL|travel|1000|card|online",
@@ -324,9 +324,9 @@
   {
     "key": "ALL|utilities|1000|upi|offline",
     "label": "Best of all cards: utilities ₹1,000 UPI",
-    "cardId": "hsbc-rupay-cashback",
-    "valueInr": 10,
-    "rule": "Base rate"
+    "cardId": "tata-neu-infinity-sbi",
+    "valueInr": 15,
+    "rule": "1.5% NeuCoins on UPI (RuPay), max 500/month"
   },
   {
     "key": "ALL|wallet_load|1000|card|online",
@@ -621,6 +621,160 @@
     "cardId": "bpcl-sbi-octane",
     "valueInr": 0.38,
     "rule": "Base rate"
+  },
+  {
+    "key": "eternal-sbi-rupay|apollo247|1000|card|online",
+    "label": "Eternal SBI Card (RuPay, UPI): Apollo 24|7 ₹1,000",
+    "cardId": "eternal-sbi-rupay",
+    "valueInr": 50,
+    "rule": "5% cashback on Apollo, ixigo, Uber, UrbanCompany"
+  },
+  {
+    "key": "eternal-sbi-rupay|apollo247|50000|card|online",
+    "label": "Eternal SBI Card (RuPay, UPI): Apollo 24|7 ₹50,000",
+    "cardId": "eternal-sbi-rupay",
+    "valueInr": 1000,
+    "rule": "5% cashback on Apollo, ixigo, Uber, UrbanCompany"
+  },
+  {
+    "key": "eternal-sbi-rupay|blinkit|1000|card|online",
+    "label": "Eternal SBI Card (RuPay, UPI): Blinkit ₹1,000",
+    "cardId": "eternal-sbi-rupay",
+    "valueInr": 50,
+    "rule": "5% instant discount on Blinkit (all other categories)"
+  },
+  {
+    "key": "eternal-sbi-rupay|blinkit|50000|card|online",
+    "label": "Eternal SBI Card (RuPay, UPI): Blinkit ₹50,000",
+    "cardId": "eternal-sbi-rupay",
+    "valueInr": 2000,
+    "rule": "5% instant discount on Blinkit (all other categories)"
+  },
+  {
+    "key": "eternal-sbi-rupay|other|1000|card|offline",
+    "label": "Eternal SBI Card (RuPay, UPI): other ₹1,000",
+    "cardId": "eternal-sbi-rupay",
+    "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "eternal-sbi-rupay|other|1000|upi|offline",
+    "label": "Eternal SBI Card (RuPay, UPI): other ₹1,000 UPI",
+    "cardId": "eternal-sbi-rupay",
+    "valueInr": 10,
+    "rule": "1% cashback on UPI payments to merchants"
+  },
+  {
+    "key": "eternal-sbi-rupay|other|1180|card|offline",
+    "label": "Eternal SBI Card (RuPay, UPI): other ₹1,180",
+    "cardId": "eternal-sbi-rupay",
+    "valueInr": 11,
+    "rule": "Base rate"
+  },
+  {
+    "key": "eternal-sbi-rupay|other|1180|upi|offline",
+    "label": "Eternal SBI Card (RuPay, UPI): other ₹1,180 UPI",
+    "cardId": "eternal-sbi-rupay",
+    "valueInr": 11,
+    "rule": "1% cashback on UPI payments to merchants"
+  },
+  {
+    "key": "eternal-sbi-rupay|other|150|card|offline",
+    "label": "Eternal SBI Card (RuPay, UPI): other ₹150",
+    "cardId": "eternal-sbi-rupay",
+    "valueInr": 1,
+    "rule": "Base rate"
+  },
+  {
+    "key": "eternal-sbi-rupay|other|150|upi|offline",
+    "label": "Eternal SBI Card (RuPay, UPI): other ₹150 UPI",
+    "cardId": "eternal-sbi-rupay",
+    "valueInr": 1,
+    "rule": "1% cashback on UPI payments to merchants"
+  },
+  {
+    "key": "eternal-sbi-rupay|other|50000|upi|offline",
+    "label": "Eternal SBI Card (RuPay, UPI): other ₹50,000 UPI",
+    "cardId": "eternal-sbi-rupay",
+    "valueInr": 500,
+    "rule": "1% cashback on UPI payments to merchants"
+  },
+  {
+    "key": "eternal-sbi-rupay|zomato|1000|card|online",
+    "label": "Eternal SBI Card (RuPay, UPI): Zomato ₹1,000",
+    "cardId": "eternal-sbi-rupay",
+    "valueInr": 100,
+    "rule": "10% instant discount on Zomato & District"
+  },
+  {
+    "key": "eternal-sbi-rupay|zomato|50000|card|online",
+    "label": "Eternal SBI Card (RuPay, UPI): Zomato ₹50,000",
+    "cardId": "eternal-sbi-rupay",
+    "valueInr": 2000,
+    "rule": "10% instant discount on Zomato & District"
+  },
+  {
+    "key": "eternal-sbi|apollo247|1000|card|online",
+    "label": "Eternal SBI Card (Mastercard): Apollo 24|7 ₹1,000",
+    "cardId": "eternal-sbi",
+    "valueInr": 50,
+    "rule": "5% cashback on Apollo, ixigo, Uber, UrbanCompany"
+  },
+  {
+    "key": "eternal-sbi|apollo247|50000|card|online",
+    "label": "Eternal SBI Card (Mastercard): Apollo 24|7 ₹50,000",
+    "cardId": "eternal-sbi",
+    "valueInr": 1000,
+    "rule": "5% cashback on Apollo, ixigo, Uber, UrbanCompany"
+  },
+  {
+    "key": "eternal-sbi|blinkit|1000|card|online",
+    "label": "Eternal SBI Card (Mastercard): Blinkit ₹1,000",
+    "cardId": "eternal-sbi",
+    "valueInr": 50,
+    "rule": "5% instant discount on Blinkit (all other categories)"
+  },
+  {
+    "key": "eternal-sbi|blinkit|50000|card|online",
+    "label": "Eternal SBI Card (Mastercard): Blinkit ₹50,000",
+    "cardId": "eternal-sbi",
+    "valueInr": 2000,
+    "rule": "5% instant discount on Blinkit (all other categories)"
+  },
+  {
+    "key": "eternal-sbi|other|1000|card|offline",
+    "label": "Eternal SBI Card (Mastercard): other ₹1,000",
+    "cardId": "eternal-sbi",
+    "valueInr": 10,
+    "rule": "Base rate"
+  },
+  {
+    "key": "eternal-sbi|other|1180|card|offline",
+    "label": "Eternal SBI Card (Mastercard): other ₹1,180",
+    "cardId": "eternal-sbi",
+    "valueInr": 11,
+    "rule": "Base rate"
+  },
+  {
+    "key": "eternal-sbi|other|150|card|offline",
+    "label": "Eternal SBI Card (Mastercard): other ₹150",
+    "cardId": "eternal-sbi",
+    "valueInr": 1,
+    "rule": "Base rate"
+  },
+  {
+    "key": "eternal-sbi|zomato|1000|card|online",
+    "label": "Eternal SBI Card (Mastercard): Zomato ₹1,000",
+    "cardId": "eternal-sbi",
+    "valueInr": 100,
+    "rule": "10% instant discount on Zomato & District"
+  },
+  {
+    "key": "eternal-sbi|zomato|50000|card|online",
+    "label": "Eternal SBI Card (Mastercard): Zomato ₹50,000",
+    "cardId": "eternal-sbi",
+    "valueInr": 2000,
+    "rule": "10% instant discount on Zomato & District"
   },
   {
     "key": "flipkart-axis|cleartrip|1000|card|online",
@@ -1034,6 +1188,41 @@
     "cardId": "icici-hpcl-super-saver",
     "valueInr": 100,
     "rule": "20 points per ₹100 (5%) on utilities, groceries and department stores"
+  },
+  {
+    "key": "icici-sapphiro|other|1000|card|offline",
+    "label": "ICICI Bank Sapphiro: other ₹1,000",
+    "cardId": "icici-sapphiro",
+    "valueInr": 5,
+    "rule": "Base rate"
+  },
+  {
+    "key": "icici-sapphiro|other|1180|card|offline",
+    "label": "ICICI Bank Sapphiro: other ₹1,180",
+    "cardId": "icici-sapphiro",
+    "valueInr": 5.9,
+    "rule": "Base rate"
+  },
+  {
+    "key": "icici-sapphiro|other|150|card|offline",
+    "label": "ICICI Bank Sapphiro: other ₹150",
+    "cardId": "icici-sapphiro",
+    "valueInr": 0.75,
+    "rule": "Base rate"
+  },
+  {
+    "key": "icici-sapphiro|utilities|1000|card|online",
+    "label": "ICICI Bank Sapphiro: utilities ₹1,000",
+    "cardId": "icici-sapphiro",
+    "valueInr": 2.5,
+    "rule": "1 point per ₹100 on utilities and insurance"
+  },
+  {
+    "key": "icici-sapphiro|utilities|50000|card|online",
+    "label": "ICICI Bank Sapphiro: utilities ₹50,000",
+    "cardId": "icici-sapphiro",
+    "valueInr": 125,
+    "rule": "1 point per ₹100 on utilities and insurance"
   },
   {
     "key": "idfc-first-millennia|dining|1000|card|online",
@@ -1748,6 +1937,69 @@
     "cardId": "tata-neu-infinity-hdfc",
     "valueInr": 750,
     "rule": "1.5% on utilities (capped 2,000 NeuCoins/month)"
+  },
+  {
+    "key": "tata-neu-infinity-sbi|other|1000|card|offline",
+    "label": "Tata Neu Infinity SBI Card (RuPay): other ₹1,000",
+    "cardId": "tata-neu-infinity-sbi",
+    "valueInr": 15,
+    "rule": "Base rate"
+  },
+  {
+    "key": "tata-neu-infinity-sbi|other|1000|upi|offline",
+    "label": "Tata Neu Infinity SBI Card (RuPay): other ₹1,000 UPI",
+    "cardId": "tata-neu-infinity-sbi",
+    "valueInr": 15,
+    "rule": "1.5% NeuCoins on UPI (RuPay), max 500/month"
+  },
+  {
+    "key": "tata-neu-infinity-sbi|other|1180|card|offline",
+    "label": "Tata Neu Infinity SBI Card (RuPay): other ₹1,180",
+    "cardId": "tata-neu-infinity-sbi",
+    "valueInr": 17.7,
+    "rule": "Base rate"
+  },
+  {
+    "key": "tata-neu-infinity-sbi|other|1180|upi|offline",
+    "label": "Tata Neu Infinity SBI Card (RuPay): other ₹1,180 UPI",
+    "cardId": "tata-neu-infinity-sbi",
+    "valueInr": 17.7,
+    "rule": "1.5% NeuCoins on UPI (RuPay), max 500/month"
+  },
+  {
+    "key": "tata-neu-infinity-sbi|other|150|card|offline",
+    "label": "Tata Neu Infinity SBI Card (RuPay): other ₹150",
+    "cardId": "tata-neu-infinity-sbi",
+    "valueInr": 2.25,
+    "rule": "Base rate"
+  },
+  {
+    "key": "tata-neu-infinity-sbi|other|150|upi|offline",
+    "label": "Tata Neu Infinity SBI Card (RuPay): other ₹150 UPI",
+    "cardId": "tata-neu-infinity-sbi",
+    "valueInr": 2.25,
+    "rule": "1.5% NeuCoins on UPI (RuPay), max 500/month"
+  },
+  {
+    "key": "tata-neu-infinity-sbi|other|50000|upi|offline",
+    "label": "Tata Neu Infinity SBI Card (RuPay): other ₹50,000 UPI",
+    "cardId": "tata-neu-infinity-sbi",
+    "valueInr": 500,
+    "rule": "1.5% NeuCoins on UPI (RuPay), max 500/month"
+  },
+  {
+    "key": "tata-neu-infinity-sbi|tata_neu|1000|card|online",
+    "label": "Tata Neu Infinity SBI Card (RuPay): Tata Neu app ₹1,000",
+    "cardId": "tata-neu-infinity-sbi",
+    "valueInr": 50,
+    "rule": "5% NeuCoins on Tata Neu App/Website"
+  },
+  {
+    "key": "tata-neu-infinity-sbi|tata_neu|50000|card|online",
+    "label": "Tata Neu Infinity SBI Card (RuPay): Tata Neu app ₹50,000",
+    "cardId": "tata-neu-infinity-sbi",
+    "valueInr": 2500,
+    "rule": "5% NeuCoins on Tata Neu App/Website"
   },
   {
     "key": "tata-neu-plus-hdfc|grocery|1000|card|online",

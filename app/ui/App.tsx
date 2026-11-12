@@ -51,6 +51,8 @@ export function App({ user }: { user: AppUser }) {
   const [paidTs, setPaidTs] = useState<number | null>(null);
   const [needAmount, setNeedAmount] = useState<{ lookup: Lookup; query: string; parser: string } | null>(null);
   const [toast, setToast] = useState("");
+  // True right after onboarding, so My cards opens with a short welcome above the playbook.
+  const [justOnboarded, setJustOnboarded] = useState(false);
 
   useEffect(() => {
     identifyUser(user);
@@ -273,13 +275,11 @@ export function App({ user }: { user: AppUser }) {
           onToggle={toggleCard}
           met={met}
           onToggleCondition={toggleCondition}
-          states={states}
-          canInstall={!!installPrompt}
-          onInstall={install}
           onDone={() => {
             setOnboarded(true);
             save("cs.onboarded", true);
-            setTab("pay");
+            setJustOnboarded(true);
+            setTab("cards");
             track("onboarded", { cards_held: myCardIds.length, cards: myCardIds });
           }}
         />
@@ -339,7 +339,22 @@ export function App({ user }: { user: AppUser }) {
             )}
           </PayTab>
         ))}
-      {tab === "cards" && <CardsTab cards={myCards} states={states} selected={myCardIds} onToggle={toggleCard} met={met} onToggleCondition={toggleCondition} />}
+      {tab === "cards" && (
+        <CardsTab
+          cards={myCards}
+          states={states}
+          selected={myCardIds}
+          onToggle={toggleCard}
+          met={met}
+          onToggleCondition={toggleCondition}
+          welcome={justOnboarded}
+          onLookup={(l) => {
+            setJustOnboarded(false);
+            startLookup(l, "playbook");
+            setTab("pay");
+          }}
+        />
+      )}
       {tab === "savings" && <SavingsTab ledger={ledger} onRemove={removePayment} />}
       {tab === "advisor" && <AdvisorTab myCards={myCards} onEditCards={() => setTab("cards")} />}
 

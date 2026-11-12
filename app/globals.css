@@ -349,3 +349,21 @@ select.field { appearance: none; background-image: linear-gradient(45deg, transp
 .home-offer { display: grid; gap: 2px; text-align: left; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
 .home-offer .o-title { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 14px; }
 .home-offer .o-meta { color: var(--muted); font-size: 12.5px; }
+.playbook { display: grid; gap: 6px; margin-bottom: 8px; }
+.pb-welcome { margin: 0 0 6px; padding: 12px 14px; border-radius: 12px; background: var(--surface); border: 1px solid var(--accent); font-size: 14px; }
+.pb-list { list-style: none; margin: 0; padding: 0; }
+.pb-row { display: grid; grid-template-columns: minmax(96px, 34%) 1fr auto; gap: 10px; align-items: baseline; width: 100%; text-align: left; padding: 11px 0; border-bottom: 1px solid var(--line); }
+.pb-what { color: var(--muted); font-size: 14px; }
+.pb-card { font-weight: 600; font-size: 14.5px; }
+.pb-pct { font-variant-numeric: tabular-nums; font-weight: 650; color: var(--accent); }
+.pb-pct.none { color: var(--muted); font-weight: 500; }
+.pb-card-sheet { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); padding: 0 14px; }
+.pb-card-sheet summary { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 13px 0; cursor: pointer; font-weight: 600; }
+.pb-card-sheet[open] { padding-bottom: 12px; }
+.pb-head { margin: 8px 0 2px; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+.pb-points { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.5; }
+.pb-points li { overflow-wrap: anywhere; }
+.picker-group { margin: 10px 0 4px; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+.inapp-note { margin: 14px 0 4px; padding: 12px 14px; border: 1px solid var(--accent); border-radius: 12px; background: var(--surface); text-align: left; font-size: 14px; }
+.inapp-note p { margin: 0 0 8px; }
+.inapp-actions { display: flex; gap: 8px; flex-wrap: wrap; }

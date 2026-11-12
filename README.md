@@ -16,7 +16,7 @@ A wrong rate is worse than no answer, because people act on it. So:
 
 - **Claude only reads what you typed** ("instamart 900 via UPI" → merchant, category, amount, payment method). It never sees or produces a rate. If it's unavailable, an on-device parser takes over.
 - **Every rate, cap and fee comes from the bank's own documents**, stored in `data/` and computed by plain code (`lib/engine.ts`).
-- **Every rule carries the bank's own words.** An automated check (`npm run evidence`, no AI) confirms that each quote appears word for word in the bank's document and states the rate. Today **all 63 rules across 31 cards pass**. Tap "Where's this from?" under any answer to see the quote and the document.
+- **Every rule carries the bank's own words.** An automated check (`npm run evidence`, no AI) confirms that each quote appears word for word in the bank's document and states the rate. Today **all 73 rules across 35 cards pass**. Tap "Where's this from?" under any answer to see the quote and the document.
 - **Points are valued openly.** A points answer says what one point is worth and what that assumes (for example "1 Reward Point = ₹0.50, for flights and hotels on SmartBuy"), and says when the value is our estimate rather than the bank's.
 
 ## How it stays correct
@@ -24,15 +24,16 @@ A wrong rate is worse than no answer, because people act on it. So:
 | Safeguard | What it catches |
 | --- | --- |
 | Evidence check (`npm run evidence`) | A rule whose quote isn't the bank's exact words or doesn't state the rate. Also run inside the data agent, so such a proposal is never applied automatically. |
-| Golden answers (`tests/golden.json`, 267 pinned answers) | Any data change that changes an answer people would see. Reviewers read a before → after table, not JSON. |
+| Golden answers (`tests/golden.json`, 303 pinned answers) | Any data change that changes an answer people would see. Reviewers read a before → after table, not JSON. |
 | Data sweep test | Every card × every spend type × several amounts must give a sane value. Catches slips like 0.25 typed for 0.025. |
-| CI on every push and PR | Tests (153), type check and production build must pass before merging. |
+| CI on every push and PR | Tests (163), type check and production build must pass before merging. |
 | Monthly refresh | On the 1st, a GitHub Action re-reads bank offer pages, checks every card's documents for changes, re-reads only the changed cards, and opens a pull request for human review. |
 
 ## The app
 
 - **Pay:** type a payment (`zomato 650`, `kirana 800 via UPI`) or tap a category and enter the amount. Live offers on your cards and your nearly-used bonus limits show up here.
 - **Answer:** the best card, ₹ back and why, warnings (caps, minimums, exclusions, limits that depend on other spending), a bank offer if one applies, every other card compared, and "Where's this from?".
+- **Playbook (in My cards):** which of your cards wins each kind of spend and each shop, plus a cheat sheet per card: best uses, what earns nothing, limits to watch, perks, and bank-sourced tips. It's the first thing you see after picking your cards.
 - **My cards:** each card's monthly and quarterly limits filling up as you log payments.
 - **Savings:** ₹ earned this month and ₹ missed by using a different card. Mis-logged payments can be removed.
 - **Advisor:** given your monthly spending, which cards to keep, add or drop after fees.
@@ -49,7 +50,7 @@ Cards and payment history stay in your browser. The server sees only the text of
 
 ## Coverage
 
-31 cards from 10 issuers (HDFC, SBI, Axis, ICICI, HSBC, IndusInd, Amex, IDFC FIRST, Federal/Scapia and Kiwi partners), 52 merchants, and bank offers refreshed monthly. Each card's sources, notes and known gaps are in `data/cards.json`; open gaps are listed in `CLAUDE.md`.
+35 cards from 10 issuers (HDFC, SBI, Axis, ICICI, HSBC, IndusInd, Amex, IDFC FIRST, Federal/Scapia and Kiwi partners), 53 merchants, and bank offers refreshed monthly. Each card's sources, notes and known gaps are in `data/cards.json`; open gaps are listed in `CLAUDE.md`.
 
 ## How it works
 

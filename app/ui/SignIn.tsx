@@ -4,7 +4,7 @@ import { signInWithGoogle } from "../actions";
 import { CardTile } from "./CardTile";
 import { cardById } from "./store";
 import { Samples, type Sample } from "./Samples";
-import { SignInButton, SignInTracking } from "./SignInParts";
+import { InAppBrowserNote, SignInButton, SignInTracking } from "./SignInParts";
 
 const SAMPLE_LOOKUPS: { id: string; label: string; lookup: Lookup }[] = [
   // Three payments with three different winners: the point is that no one card wins everywhere.
@@ -44,6 +44,7 @@ export function SignIn() {
           <h1 className="onboard-title">Kaunsa Card?</h1>
           <p className="onboard-lead">Tell it what you&apos;re paying for. It tells you which of your cards gives the most back, bank offers included.</p>
           <Samples samples={samples(fan)} cardsLabel={fan.map((c) => c.name).join(", ")} />
+          <InAppBrowserNote />
           <form action={signInWithGoogle} className="onboard-actions">
             <SignInButton>
               <GoogleG /> Continue with Google

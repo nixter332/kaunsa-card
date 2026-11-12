@@ -2,10 +2,11 @@
 import { useState } from "react";
 import { MERCHANTS } from "@/lib/localParse";
 import { dayList, offersForCards } from "@/lib/offers";
-import type { Card, CardState } from "@/lib/types";
+import type { Card, CardState, Lookup } from "@/lib/types";
 import { CardPicker } from "./CardPicker";
 import { CardTile } from "./CardTile";
 import { IconClose, IconTag } from "./Icons";
+import { Playbook } from "./Playbook";
 import { ALL_OFFERS, inr, offerDeal, offerEnd } from "./store";
 
 type Props = {
@@ -15,9 +16,13 @@ type Props = {
   onToggle: (id: string) => void;
   met: string[];
   onToggleCondition: (key: string) => void;
+  /** Right after onboarding: show a short welcome above the playbook. */
+  welcome?: boolean;
+  /** A playbook row was tapped: show the full answer for it. */
+  onLookup: (l: Lookup) => void;
 };
 
-export function CardsTab({ cards, states, selected, onToggle, met, onToggleCondition }: Props) {
+export function CardsTab({ cards, states, selected, onToggle, met, onToggleCondition, welcome, onLookup }: Props) {
   const [editing, setEditing] = useState(false);
 
   return (
@@ -30,6 +35,10 @@ export function CardsTab({ cards, states, selected, onToggle, met, onToggleCondi
       </div>
 
       {cards.length === 0 && <p className="muted">Add the cards you carry and every lookup compares them.</p>}
+
+      {cards.length > 0 && <Playbook cards={cards} welcome={welcome} onLookup={onLookup} />}
+
+      {cards.length > 0 && <h3 className="section-title">This month&apos;s limits</h3>}
 
       <ul className="wallet">
         {cards.map((card) => (
