@@ -986,7 +986,7 @@
         "evidence": {
           "quote": "2% back as NeuCoins on Non-EMI Spends on Tata Neu and partner Tata Brands.",
           "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-plus-hdfc-bank-credit-card",
-          "checked": "2026-11-09"
+          "checked": "2026-11-12"
         }
       },
       {
@@ -1000,7 +1000,7 @@
         "evidence": {
           "quote": "Earn 0.25% back as NeuCoins on eligible UPI spends (including spends on partner Tata Brands)",
           "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-plus-hdfc-bank-credit-card",
-          "checked": "2026-11-09"
+          "checked": "2026-11-12"
         }
       },
       {
@@ -1015,7 +1015,7 @@
         "evidence": {
           "quote": "earn up to 1% back as NeuCoins on eligible UPI spends ... Earn additional 0.75% back as NeuCoins on any eligible UPI payments by using Tata Neu UPI ID",
           "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-plus-hdfc-bank-credit-card",
-          "checked": "2026-11-09"
+          "checked": "2026-11-12"
         }
       },
       {
@@ -1029,7 +1029,7 @@
         "evidence": {
           "quote": "1% back as NeuCoins on Non-Tata Brand Spends and any Merchant EMI Spends ... NeuCoins earned on Grocery transactions will be capped to 1,000 per month",
           "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-plus-hdfc-bank-credit-card",
-          "checked": "2026-11-09"
+          "checked": "2026-11-12"
         }
       },
       {
@@ -1043,7 +1043,7 @@
         "evidence": {
           "quote": "1% back as NeuCoins on Non-Tata Brand Spends and any Merchant EMI Spends ... NeuCoins earned on Utility transactions will be capped at 2,000 NeuCoins per calendar month",
           "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-plus-hdfc-bank-credit-card",
-          "checked": "2026-11-09"
+          "checked": "2026-11-12"
         }
       },
       {
@@ -1057,7 +1057,7 @@
         "evidence": {
           "quote": "1% back as NeuCoins on Non-Tata Brand Spends and any Merchant EMI Spends ... NeuCoins earned on Telecom & Cable transactions will be capped at 2,000 NeuCoins per calendar month",
           "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-plus-hdfc-bank-credit-card",
-          "checked": "2026-11-09"
+          "checked": "2026-11-12"
         }
       },
       {
@@ -1071,7 +1071,7 @@
         "evidence": {
           "quote": "1% back as NeuCoins on Non-Tata Brand Spends and any Merchant EMI Spends ... NeuCoins accrued for insurance transactions will have a maximum capping 2,000 per month",
           "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-plus-hdfc-bank-credit-card",
-          "checked": "2026-11-09"
+          "checked": "2026-11-12"
         }
       }
     ],
@@ -1136,7 +1136,15 @@
       }
     ],
     "lastVerified": "2026-11-07",
-    "confidence": "medium"
+    "confidence": "medium",
+    "tips": [
+      {
+        "text": "Register for NeuPass in the Tata Neu app: selected categories there earn an extra 5% NeuCoins on top.",
+        "quote": "Earn additional 5% back as NeuCoins on selected categories on Tata Neu App/Website",
+        "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-plus-hdfc-bank-credit-card",
+        "checked": "2026-11-12"
+      }
+    ]
   },
   {
     "id": "tata-neu-infinity-hdfc",
@@ -1169,7 +1177,7 @@
         "evidence": {
           "quote": "5% back as NeuCoins on Non-EMI Spends on Tata Neu and partner Tata Brands.",
           "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-infinity-hdfc-bank-credit-card",
-          "checked": "2026-11-09"
+          "checked": "2026-11-12"
         }
       },
       {
@@ -1186,7 +1194,7 @@
         "evidence": {
           "quote": "1.5% back as NeuCoins on Non-Tata Brand Spends and any Merchant EMI Spends ... NeuCoins earned on Grocery transactions will be capped to 2,000 per month",
           "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-infinity-hdfc-bank-credit-card",
-          "checked": "2026-11-09"
+          "checked": "2026-11-12"
         }
       },
       {
@@ -1203,7 +1211,7 @@
         "evidence": {
           "quote": "1.5% back as NeuCoins on Non-Tata Brand Spends and any Merchant EMI Spends ... NeuCoins earned on Utility transactions will be capped at 2,000 NeuCoins per calendar month",
           "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-infinity-hdfc-bank-credit-card",
-          "checked": "2026-11-09"
+          "checked": "2026-11-12"
         }
       },
       {
@@ -1220,7 +1228,7 @@
         "evidence": {
           "quote": "1.5% back as NeuCoins on Non-Tata Brand Spends and any Merchant EMI Spends ... NeuCoins earned on Telecom & Cable transactions will be capped at 2,000 NeuCoins per calendar month",
           "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-infinity-hdfc-bank-credit-card",
-          "checked": "2026-11-09"
+          "checked": "2026-11-12"
         }
       },
       {
@@ -1237,7 +1245,7 @@
         "evidence": {
           "quote": "1.5% back as NeuCoins on Non-Tata Brand Spends and any Merchant EMI Spends ... NeuCoins accrued for insurance transactions will have a maximum capping 2,000 per month",
           "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-infinity-hdfc-bank-credit-card",
-          "checked": "2026-11-09"
+          "checked": "2026-11-12"
         }
       },
       {
@@ -1251,7 +1259,7 @@
         "evidence": {
           "quote": "Earn 0.50% back as NeuCoins on eligible UPI spends (including spends on partner Tata Brands)",
           "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-infinity-hdfc-bank-credit-card",
-          "checked": "2026-11-09"
+          "checked": "2026-11-12"
         }
       },
       {
@@ -1266,7 +1274,7 @@
         "evidence": {
           "quote": "earn up to 1.5% back as NeuCoins on eligible UPI spends ... Earn additional 1% back as NeuCoins on any eligible UPI payments by using Tata Neu UPI ID",
           "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-infinity-hdfc-bank-credit-card",
-          "checked": "2026-11-09"
+          "checked": "2026-11-12"
         }
       }
     ],
@@ -1335,7 +1343,15 @@
       }
     ],
     "lastVerified": "2026-11-07",
-    "confidence": "medium"
+    "confidence": "medium",
+    "tips": [
+      {
+        "text": "Register for NeuPass in the Tata Neu app: selected categories there earn an extra 5% NeuCoins on top.",
+        "quote": "Earn additional 5% back as NeuCoins on selected categories on Tata Neu App/Website",
+        "source": "https://www.hdfc.bank.in/credit-cards/tata-neu-infinity-hdfc-bank-credit-card",
+        "checked": "2026-11-12"
+      }
+    ]
   },
   {
     "id": "kiwi-rupay",
@@ -3271,7 +3287,15 @@
     ],
     "lastVerified": "2026-11-12",
     "confidence": "medium",
-    "minTxn": 100
+    "minTxn": 100,
+    "tips": [
+      {
+        "text": "On ixigo, apply code IXIGOSBI for 4% off flights and hotels; the remaining 1% comes as cashback.",
+        "quote": "On ixigo, Cardholder will get 4% instant discount on flight and hotel booking using coupon code : IXIGOSBI",
+        "source": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/eternal-sbi-card/Eternal-SBI-Card-T-and-C-Booklet.pdf",
+        "checked": "2026-11-12"
+      }
+    ]
   },
   {
     "id": "eternal-sbi",
@@ -3408,7 +3432,15 @@
     ],
     "lastVerified": "2026-11-12",
     "confidence": "medium",
-    "minTxn": 100
+    "minTxn": 100,
+    "tips": [
+      {
+        "text": "On ixigo, apply code IXIGOSBI for 4% off flights and hotels; the remaining 1% comes as cashback.",
+        "quote": "On ixigo, Cardholder will get 4% instant discount on flight and hotel booking using coupon code : IXIGOSBI",
+        "source": "https://www.sbicard.com/sbi-card-en/assets/docs/pdf/eternal-sbi-card/Eternal-SBI-Card-T-and-C-Booklet.pdf",
+        "checked": "2026-11-12"
+      }
+    ]
   },
   {
     "id": "tata-neu-infinity-sbi",

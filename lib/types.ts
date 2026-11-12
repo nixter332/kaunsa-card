@@ -114,6 +114,12 @@ export interface Card {
   caps: Cap[];
   exclusions: { categories: Category[]; merchants: string[] };
   minTxn?: number;
+  /**
+   * Ways to get more from this card that aren't a reward rate (a coupon code, a free sign-up).
+   * Bank-sourced only: `quote` is the bank's own sentence, and `npm run evidence -- --apply`
+   * fills source and checked once it finds that sentence in the card's documents.
+   */
+  tips?: { text: string; quote: string; source: string; checked: string }[];
   notes: string[];
   sources: { label: string; url: string }[];
   lastVerified: string;
