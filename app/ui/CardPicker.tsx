@@ -11,13 +11,28 @@ type Props = {
   onToggleCondition: (key: string) => void;
 };
 
+/** Shown first when there's no search, so most people find their cards without scrolling. Our pick, not usage data. */
+const POPULAR = [
+  "hdfc-millennia",
+  "sbi-cashback",
+  "amazon-pay-icici",
+  "flipkart-axis",
+  "swiggy-hdfc",
+  "axis-ace",
+  "hdfc-regalia-gold",
+  "tata-neu-infinity-hdfc",
+  "hsbc-live-plus",
+  "sbi-simplyclick",
+];
+
 export function CardPicker({ selected, onToggle, met, onToggleCondition }: Props) {
   const [search, setSearch] = useState("");
   const [requestText, setRequestText] = useState("");
   const [requested, setRequested] = useState(false);
   const q = search.trim().toLowerCase();
-  const list = ALL_CARDS.filter((c) => !q || `${c.name} ${c.issuer} ${c.network} ${c.upi ? "upi rupay" : ""}`.toLowerCase().includes(q)).sort((a, b) =>
-    a.name.localeCompare(b.name),
+  const rank = (id: string) => (q || !POPULAR.includes(id) ? POPULAR.length : POPULAR.indexOf(id));
+  const list = ALL_CARDS.filter((c) => !q || `${c.name} ${c.issuer} ${c.network} ${c.upi ? "upi rupay" : ""}`.toLowerCase().includes(q)).sort(
+    (a, b) => rank(a.id) - rank(b.id) || a.name.localeCompare(b.name),
   );
 
   function requestCard() {
@@ -39,11 +54,13 @@ export function CardPicker({ selected, onToggle, met, onToggleCondition }: Props
         aria-label="Search cards"
       />
       <ul className="picker-list">
-        {list.map((c) => {
+        {list.map((c, i) => {
           const on = selected.includes(c.id);
           const [a, b] = cardColors(c);
           return (
             <li key={c.id}>
+              {!q && i === 0 && <p className="picker-group">Popular</p>}
+              {!q && i === POPULAR.length && <p className="picker-group">All cards, A to Z</p>}
               <button type="button" className={`picker-row${on ? " on" : ""}`} aria-pressed={on} onClick={() => onToggle(c.id)}>
                 <span className="swatch" style={{ background: `linear-gradient(135deg, ${a}, ${b})` }} aria-hidden="true" />
                 <span className="picker-text">

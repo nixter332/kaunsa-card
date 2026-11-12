@@ -4,6 +4,7 @@ import type { MerchantHint } from "@/lib/engine";
 import { amountBucket } from "@/lib/analytics";
 import { CATEGORIES, type AppliedOffer, type Lookup, type Recommendation } from "@/lib/types";
 import { betterDeal } from "@/lib/offers";
+import { earnsMoreAt } from "@/lib/playbook";
 import { useEffect, useState } from "react";
 import { CardTile } from "./CardTile";
 import { shareLink } from "./referral";
@@ -256,6 +257,11 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
             <p className="why">{best.reason}</p>
           )}
           {pointValueLine(bestCard) && <p className="muted small">{pointValueLine(bestCard)}</p>}
+          {best.ruleLabel === "Base rate" && earnsMoreAt(bestCard).length > 0 && (
+            <p className="muted small">
+              This is {bestCard.name}&apos;s everyday rate. It earns more on: {earnsMoreAt(bestCard).join("; ")}.
+            </p>
+          )}
           {otherTips.map((h) => (
             <p key={h} className="offer-hint">
               <IconTag size={15} /> {h}
