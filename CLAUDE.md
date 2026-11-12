@@ -41,6 +41,7 @@ Before every commit: `npm test` and `npx tsc --noEmit` pass. For UI changes also
 | Card advisor (keep/add/drop from income, monthly spend, fees, lounges) | `lib/advisor.ts`, `app/ui/AdvisorTab.tsx` |
 | Free-text parsing: instant read on the device when the text has a known shop and an amount (`instantRead`, no AI call, parser `instant`); otherwise a Claude tool call, with the offline parser as fallback (`findMerchant`, generic merchants lose to named brands). The Pay screen previews the answer while typing and shows the best card on each category tile | `lib/localParse.ts`, `lib/claude.ts`, `app/ui/PayTab.tsx` |
 | Playbook: best card per spend type and shop, per-card cheat sheet (best uses, exclusions, limits, perks, tips), "earns more on" line for base-rate answers | `lib/playbook.ts`, `app/ui/Playbook.tsx` (shown at the top of My cards and right after onboarding) |
+| "What your cards are worth": yearly rewards with the held cards used right vs the best single card for everything (`onTheTable`, shares saved spends with the Advisor); shareable cheat sheet picture drawn on the device | `lib/advisor.ts`, `app/ui/OnTheTable.tsx`, `app/ui/cheatSheet.ts` |
 | Data validation | `lib/validate.ts` |
 | UI | `app/ui/*` (App.tsx is the client shell; page.tsx is the server component that checks sign-in) |
 | Analytics events | `lib/analytics.ts` (lookup, answer_vote, offer_missed, advisor_run, paid, offer_tip_shown, offer_tip_code_copied, …) |
@@ -94,4 +95,5 @@ They write proposals and a REVIEW-*.md into `data/proposed/`. A person reviews, 
 - Eternal SBI: Blinkit is modelled at 5% (10% applies only to beauty and electronics, which the app can't tell apart); its District 10% and the monthly buy-1-get-1 perk are both applied to a movie booking, and the booklet doesn't say whether they combine. Tata Neu Infinity SBI and ICICI Sapphiro have one record each though they're issued on several networks.
 - Tata Neu's extra 5% with NeuPass is a tip only: neither bank lists which categories qualify, so it isn't in any rate.
 - Onboarding is one step (pick cards, popular ones first; `POPULAR` in `app/ui/CardPicker.tsx` is our pick, not usage data) and lands on the playbook. The sign-in screen warns inside in-app browsers (LinkedIn, Instagram, Facebook), where Google blocks sign-in.
+- No way to reach people outside the app yet. A weekly email or push ("2 offers on your cards end this week") would need the server to know each person's cards, which breaks the "cards stay on your phone" promise, so it needs the owner's decision first. For now the Pay screen flags offers ending within 7 days and notes when monthly limits reset.
 - Statement upload / Account Aggregator was deliberately deferred (needs consolidated statements across banks).

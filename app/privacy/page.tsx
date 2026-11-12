@@ -3,7 +3,7 @@ import { CONTACT_EMAIL } from "./contact";
 
 export const metadata: Metadata = { title: "Privacy policy · Kaunsa Card" };
 
-const UPDATED = "9 November 2026";
+const UPDATED = "12 November 2026";
 
 export default function Privacy() {
   return (
@@ -32,11 +32,11 @@ export default function Privacy() {
           </li>
           <li>
             <strong>Share links</strong>: when you share an answer, the link has a random code, not your name or email. If someone signs up from
-            your link, we can see that your link brought them in. What you share is up to you; the answer is written into the message on your phone.
+            your link, we can see that your link brought them in. What you share is up to you; the answer, and the cheat sheet picture of your cards, are made on your phone and only go where you send them.
           </li>
           <li>
             <strong>Card advisor answers</strong>: your income range and monthly spending stay on your phone. Analytics only get the income range, a
-            rounded total, which spending types you filled in, and which cards were suggested.
+            rounded total, which spending types you filled in, and which cards were suggested. The same goes for &ldquo;what your cards are worth&rdquo;: only rounded ranges are recorded.
           </li>
           <li>
             <strong>Basic device information</strong> such as browser, device type and approximate city (from your IP address), recorded by our
