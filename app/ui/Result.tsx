@@ -190,6 +190,28 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
 
       {hints.length > 0 && (
         <section className="hint" aria-label="Where are you paying?">
+          {/* A shop with an offer on one of your cards today is spelled out: a bare "BookMyShow · ₹260" chip was easy to miss. */}
+          {hints
+            .filter((h) => h.offer)
+            .slice(0, 2)
+            .map((h) => {
+              const m = MERCHANTS.find((x) => x.id === h.merchantId);
+              if (!m || !h.offer) return null;
+              return (
+                <button
+                  type="button"
+                  key={`offer-${h.merchantId}`}
+                  className="hint-offer"
+                  onClick={() => {
+                    track("merchant_hint_used", { merchant: h.merchantId, category: lookup.category, card: h.cardId, offer: true });
+                    setLookup({ ...lookup, merchant: m.id, category: m.category, channel: lookup.rail === "upi" ? lookup.channel : m.channel });
+                  }}
+                >
+                  <span className="hint-offer-q">On {m.name}?</span> {h.offer.title} with {h.cardName}: <strong>{inr(h.offer.discountInr)} off</strong> today.{" "}
+                  <span className="hint-offer-go">See it</span>
+                </button>
+              );
+            })}
           <p className="hint-title">Paying on one of these? Your cards earn more there.</p>
           <div className="chips">
             {hints.map((h) => {
@@ -201,7 +223,7 @@ export function Result({ lookup, setLookup, results, hints, parser, note, paidWi
                   key={h.merchantId}
                   className="chip"
                   onClick={() => {
-                    track("merchant_hint_used", { merchant: h.merchantId, category: lookup.category, card: h.cardId });
+                    track("merchant_hint_used", { merchant: h.merchantId, category: lookup.category, card: h.cardId, offer: !!h.offer });
                     setLookup({ ...lookup, merchant: m.id, category: m.category, channel: lookup.rail === "upi" ? lookup.channel : m.channel });
                   }}
                 >

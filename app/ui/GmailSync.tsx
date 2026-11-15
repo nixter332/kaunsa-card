@@ -18,6 +18,9 @@ type Props = {
   onSync: () => void;
   onLinkCard: (u: Unmatched, cardId: string) => void;
   onIgnore: (u: Unmatched) => void;
+  /** Imported payments at shops the app doesn't know, valued at the base rate until the person names them. */
+  toName: number;
+  onOpenSavings: () => void;
 };
 
 function ago(ts: number) {
@@ -30,7 +33,7 @@ function ago(ts: number) {
 
 const normIssuer = (s: string) => s.toLowerCase().replace(/\b(bank|card|cards|credit)\b/g, "").replace(/[^a-z0-9]/g, "");
 
-export function GmailSync({ clientId, connected, lastSync, syncing, status, unmatched, cards, onSync, onLinkCard, onIgnore }: Props) {
+export function GmailSync({ clientId, connected, lastSync, syncing, status, unmatched, cards, onSync, onLinkCard, onIgnore, toName, onOpenSavings }: Props) {
   const [ready, setReady] = useState(false);
   useEffect(() => {
     // Load Google's script now, so the tap opens its popup at once (browsers block popups opened later).
@@ -65,6 +68,13 @@ export function GmailSync({ clientId, connected, lastSync, syncing, status, unma
             {syncing ? "Syncing…" : stale ? "Sync new payments" : "Sync"}
           </button>
         </div>
+      )}
+
+      {connected && toName > 0 && (
+        <button type="button" className="linkish small gmail-name" onClick={onOpenSavings}>
+          {toName} payment{toName === 1 ? " is" : "s are"} at shops we don&apos;t know, so {toName === 1 ? "it's" : "they're"} counted at your card&apos;s base rate. Tell us what they
+          were →
+        </button>
       )}
 
       {asks.map((u) => {

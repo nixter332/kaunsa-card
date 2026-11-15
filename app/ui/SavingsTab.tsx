@@ -1,8 +1,53 @@
 "use client";
 import { useState } from "react";
+import { needsKind, shopOf, SHOP_KINDS, type ShopKindId } from "@/lib/importAlerts";
 import { cardById, inr, type LedgerEntry } from "./store";
 
-export function SavingsTab({ ledger, onRemove }: { ledger: LedgerEntry[]; onRemove: (ts: number) => void }) {
+/**
+ * Gmail alerts name the shop the way the bank's terminal does ("JIMIS BURGER LLP") with no category, so those payments
+ * count at the card's base rate. One question per shop, biggest spend first; the answer is remembered on this phone.
+ */
+function ShopQuestion({ ledger, onNameShop }: { ledger: LedgerEntry[]; onNameShop: (shop: string, kind: ShopKindId) => void }) {
+  const groups = new Map<string, { label: string; count: number; total: number; cardId: string }>();
+  for (const e of ledger.filter(needsKind)) {
+    const shop = shopOf(e)!;
+    const g = groups.get(shop) ?? { label: e.label ?? shop, count: 0, total: 0, cardId: e.cardId };
+    g.count++;
+    g.total += e.amount;
+    groups.set(shop, g);
+  }
+  const list = [...groups.entries()].sort((a, b) => b[1].total - a[1].total);
+  if (!list.length) return null;
+  const [shop, g] = list[0];
+  return (
+    <section className="gmail shop-ask" aria-label="What was this payment?">
+      <p className="small">
+        <strong>What is {g.label}?</strong> {g.count === 1 ? "1 payment" : `${g.count} payments`}, {inr(g.total)} on {cardById(g.cardId)?.name ?? "your card"}. Counted at
+        the base rate until you say.
+      </p>
+      <div className="chips">
+        {SHOP_KINDS.map((k) => (
+          <button type="button" key={k.id} className="chip" onClick={() => onNameShop(shop, k.id)}>
+            {k.label}
+          </button>
+        ))}
+      </div>
+      <p className="fine">
+        {list.length > 1 ? `${list.length - 1} more shop${list.length === 2 ? "" : "s"} after this. ` : ""}Remembered on this phone, so you&apos;re asked once per shop.
+      </p>
+    </section>
+  );
+}
+
+export function SavingsTab({
+  ledger,
+  onRemove,
+  onNameShop,
+}: {
+  ledger: LedgerEntry[];
+  onRemove: (ts: number) => void;
+  onNameShop: (shop: string, kind: ShopKindId) => void;
+}) {
   const [confirming, setConfirming] = useState<number | null>(null);
   const now = new Date();
   const month = ledger.filter((e) => {
@@ -19,6 +64,7 @@ export function SavingsTab({ ledger, onRemove }: { ledger: LedgerEntry[]; onRemo
     return (
       <div className="screen">
         <h1 className="title">Savings</h1>
+        <ShopQuestion ledger={ledger} onNameShop={onNameShop} />
         <div className="empty">
           <p className="empty-big">Nothing logged in {monthName} yet.</p>
           <p className="muted">After a lookup, tap “I paid with this card”. Your rewards, bank discounts, and anything you missed by using a different card add up here.</p>
@@ -49,6 +95,8 @@ export function SavingsTab({ ledger, onRemove }: { ledger: LedgerEntry[]; onRemo
           <span className="stat-label">payments on the best card</span>
         </div>
       </div>
+
+      <ShopQuestion ledger={ledger} onNameShop={onNameShop} />
 
       <h3 className="section-title">This month</h3>
       <ul className="ledger">

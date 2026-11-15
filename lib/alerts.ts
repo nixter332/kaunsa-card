@@ -33,9 +33,18 @@ const ISSUERS: [RegExp, string][] = [
   [/\bfederal bank\b/i, "Federal Bank"],
 ];
 
+/**
+ * Bank mail that uses the same words but is never a card payment, seen in the owner's inbox (Nov 2026): bank-account
+ * debits, account UPI alerts, OTPs, EMI schedules, statements, newsletters. On the first sync these were 73% of the emails
+ * read, which used up Gmail's per-minute limit. If a bank's credit card alerts ever use one of these phrases (e.g. a RuPay
+ * credit card on UPI saying "UPI txn"), take it out here; tests/alerts.test.ts checks none appears in a supported alert.
+ */
+export const NOT_CARD_PAYMENT = ['"was debited from your A/c"', '"UPI txn"', "subject:OTP", 'subject:"one time password"', "subject:amortization", "subject:statement", "category:promotions"];
+
 /** Gmail search for card alerts from the banks above (senders, and words they use). */
 export const GMAIL_QUERY =
-  '{from:hdfcbank from:axis.bank.in from:axisbank from:hsbc from:indusind from:scapia from:sbicard from:icici from:idfcfirstbank from:americanexpress} {spent transaction "used at" txn}';
+  '{from:hdfcbank from:axis.bank.in from:axisbank from:hsbc from:indusind from:scapia from:sbicard from:icici from:idfcfirstbank from:americanexpress} {spent transaction "used at" txn} ' +
+  NOT_CARD_PAYMENT.map((x) => `-${x}`).join(" ");
 
 /** Words that say it's a spend (not an OTP, refund, payment received or a promo). */
 const SPEND = /\bspent\b|\btransaction\b|\btxn\b|\bused (?:at|for)\b|\bpayment on\b/i;
@@ -119,6 +128,9 @@ export function cleanDescriptor(raw: string): string {
     .replace(/\s+/g, " ")
     .trim();
 }
+
+/** How a shop is remembered on the phone once the person says what it is: "JIMIS BURGER LLP" → "JIMIS BURGER". */
+export const shopKey = (raw: string) => cleanDescriptor(raw).toUpperCase();
 
 /** The app's shop for a bank descriptor, if it knows it. Catch-alls ("Restaurant") aren't guessed from a name. */
 export function merchantFor(raw: string): Merchant | undefined {

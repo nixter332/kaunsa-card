@@ -204,7 +204,15 @@ const RELATED: Partial<Record<Lookup["category"], Lookup["category"][]>> = {
   online_shopping: ["apparel", "electronics"],
 };
 
-export type MerchantHint = { merchantId: string; cardId: string; valueInr: number; effectivePct: number };
+export type MerchantHint = {
+  merchantId: string;
+  cardId: string;
+  cardName: string;
+  valueInr: number;
+  effectivePct: number;
+  /** A bank offer or card perk that applies there today: said out loud, since it's often the biggest number. */
+  offer?: { title: string; discountInr: number };
+};
 
 /**
  * When a lookup names no shop, find shops where one of the user's cards has its own, better rate.
@@ -230,7 +238,15 @@ export function merchantHints(
     if (!named.has(m.id) || !cats.has(m.category)) continue;
     const channel = lookup.rail === "upi" ? lookup.channel : m.channel;
     const best = recommend(cards, { ...lookup, merchant: m.id, category: m.category, channel }, states, ctx).find((r) => r.usable);
-    if (best && best.totalInr > current + 0.5) hints.push({ merchantId: m.id, cardId: best.cardId, valueInr: best.totalInr, effectivePct: best.effectivePct });
+    if (best && best.totalInr > current + 0.5)
+      hints.push({
+        merchantId: m.id,
+        cardId: best.cardId,
+        cardName: best.cardName,
+        valueInr: best.totalInr,
+        effectivePct: best.effectivePct,
+        offer: best.offer && best.offer.discountInr > 0 ? { title: best.offer.title, discountInr: best.offer.discountInr } : undefined,
+      });
   }
   return hints.sort((a, b) => b.valueInr - a.valueInr).slice(0, limit);
 }
