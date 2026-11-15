@@ -48,7 +48,8 @@ export const GMAIL_QUERY =
 
 /** Words that say it's a spend (not an OTP, refund, payment received or a promo). */
 const SPEND = /\bspent\b|\btransaction\b|\btxn\b|\bused (?:at|for)\b|\bpayment on\b/i;
-const NOT_SPEND = /\bOTP\b|one[- ]time password|\brefund(?:ed)?\b|\breversal\b|payment (?:of .* )?(?:has been )?received|\bcredited to your card\b|\bdeclined\b|\bunsuccessful\b|\bfailed\b/i;
+// An OTP message says what the OTP is for; a footer like ICICI's "Never share your OTP" doesn't make an alert an OTP.
+const NOT_SPEND = /\bis (?:your|the) OTP\b|\bOTP (?:is|for)\b|one[- ]time password (?:is|for)\b|\(OTP\) has been generated|\brefund(?:ed)?\b|\breversal\b|payment (?:of .* )?(?:has been )?received|\bcredited to your card\b|\bdeclined\b|\bunsuccessful\b|\bfailed\b/i;
 
 const AMOUNT = /(?:INR|Rs\.?|₹)\s*([\d,]+(?:\.\d{1,2})?)/i;
 
@@ -77,6 +78,12 @@ function labeledMerchant(lines: string[]): string | undefined {
   return undefined;
 }
 
+/** ICICI: "... on Oct 19, 2026 at 11:23:57. Info: AMAZON PAY IN E COMMERCE." */
+function infoMerchant(flat: string): string | undefined {
+  const v = /\bInfo\s*:\s*(.+?)(?=\.(?:\s|$)|$)/i.exec(flat)?.[1]?.trim();
+  return v && v.length <= 60 ? v : undefined;
+}
+
 /** "... at PYU*Instamart Grocery on 2026-11-15", "... at MAKEMYTRIP COM. Avl", "... at Makemytrip Com is Approved". */
 function atMerchant(flat: string): string | undefined {
   for (const m of flat.matchAll(/\bat\s+(.+?)(?=\s+(?:on|for|is|was|using)\b|[.;](?:\s|$)|\s+Avl\b|$)/gi)) {
@@ -92,6 +99,13 @@ const MONTHS = "jan feb mar apr may jun jul aug sep oct nov dec".split(" ");
 function findTs(flat: string): number | undefined {
   let m = /(\d{4})-(\d{2})-(\d{2})[: ](\d{2}):(\d{2})(?::(\d{2}))?/.exec(flat); // 2026-11-15:11:50:41
   if (m) return ist(+m[1], +m[2], +m[3], +m[4], +m[5], +(m[6] ?? 0));
+  // ICICI: "Oct 19, 2026 at 11:23:57" (month first)
+  m = /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+(\d{1,2}),?\s+(\d{4})(?:,?\s+(?:at\s+)?(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(am|pm)?)?/i.exec(flat);
+  if (m) {
+    let hour = m[4] ? +m[4] : 12;
+    if (m[7]) hour = (hour % 12) + (m[7].toLowerCase() === "pm" ? 12 : 0);
+    return ist(+m[3], MONTHS.indexOf(m[1].toLowerCase()) + 1, +m[2], hour, m[5] ? +m[5] : 0, m[6] ? +m[6] : 0);
+  }
   // 15-11-2026 11:50:41, 21-10-26 14:26:17, 14/11/26, 08-11-2026 at 11:49 PM. A date with a time wins over a bare
   // date (the Axis email has a bare "22-10-2026" at the top and the full time further down).
   const dates = [...flat.matchAll(/\b(\d{1,2})[-/](\d{1,2})[-/](\d{2,4})(?:,?\s+(?:at\s+)?(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(am|pm)?)?/gi)];
@@ -148,7 +162,7 @@ export function parseAlert(text: string): AlertTxn | undefined {
   if (!/credit card|\bcard\b/i.test(flat)) return undefined;
   const issuer = ISSUERS.find(([re]) => re.test(flat))?.[1];
   const amountMatch = AMOUNT.exec(flat);
-  const merchantRaw = labeledMerchant(lines) ?? atMerchant(flat);
+  const merchantRaw = labeledMerchant(lines) ?? infoMerchant(flat) ?? atMerchant(flat);
   if (!issuer || !amountMatch || !merchantRaw) return undefined;
   const amount = Number(amountMatch[1].replace(/,/g, ""));
   if (!(amount > 0)) return undefined;
