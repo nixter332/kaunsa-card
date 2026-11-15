@@ -215,12 +215,14 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
       const kind = e instanceof Error ? e.message : "error";
       const msg: Record<string, string> = {
         denied: "Gmail access wasn't allowed, so nothing was read.",
+        scope: "Gmail wasn't ticked. Tap Connect again and, on Google's screen, tick “View your email messages and settings”.",
+        api_off: "Gmail isn't switched on for this app yet (Gmail API in Google Cloud). Turn it on, wait a few minutes, then try again.",
         closed: "The Google window was closed before finishing.",
         blocked: "Your browser blocked Google's window. Allow pop-ups for this site and try again.",
         expired: "Gmail access ran out. Tap Sync again.",
       };
       setSyncStatus("sync didn't finish");
-      showToast(msg[kind] ?? "Couldn't reach Gmail. Try again in a bit.");
+      showToast(msg[kind] ?? `Couldn't reach Gmail (${kind.slice(0, 60)}). Try again in a bit.`);
       track("gmail_error", { kind: kind.slice(0, 40), first_time: firstTime });
     } finally {
       setSyncing(false);
@@ -267,7 +269,8 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
 
   const showToast = useCallback((msg: string) => {
     setToast(msg);
-    setTimeout(() => setToast(""), 2400);
+    // Long messages (like Gmail errors) stay up long enough to read.
+    setTimeout(() => setToast(""), Math.max(2400, msg.length * 60));
   }, []);
 
   const toggleCard = (id: string) => {
