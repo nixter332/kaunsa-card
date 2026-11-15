@@ -33,6 +33,8 @@ type Props = {
   preview: (l: Lookup) => Preview | undefined;
   /** A one-line note for the start of a month (limits have reset). */
   monthNote?: string;
+  /** Shown at the top of the screen (the Gmail sync card). */
+  top?: React.ReactNode;
 };
 
 /** Days until an offer's last day (India time), for "ends in 3 days". */
@@ -42,7 +44,7 @@ function daysLeft(validTo?: string): number | undefined {
   return Math.max(0, Math.ceil((end - Date.now()) / 86_400_000));
 }
 
-export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBack, pending, onPendingDone, onPendingCancel, children, offers, caps, preview, monthNote }: Props) {
+export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBack, pending, onPendingDone, onPendingCancel, children, offers, caps, preview, monthNote, top }: Props) {
   const [text, setText] = useState("");
   const [tile, setTile] = useState<Tile | null>(null);
   const [example, setExample] = useState(0);
@@ -90,6 +92,7 @@ export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBac
 
   return (
     <div className="screen">
+      {top}
       <h1 className="hero">What are you paying for?</h1>
       <form
         className="ask"

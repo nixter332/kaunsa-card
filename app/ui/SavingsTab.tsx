@@ -58,7 +58,10 @@ export function SavingsTab({ ledger, onRemove }: { ledger: LedgerEntry[]; onRemo
           return (
             <li key={e.ts}>
               <div>
-                <strong>{e.label ?? "Payment"}</strong>
+                <strong>
+                  {e.label ?? "Payment"}
+                  {e.source === "gmail" && <span className="from-gmail"> · from Gmail</span>}
+                </strong>
                 <small className="muted">
                   {new Date(e.ts).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}, {card?.name ?? e.cardId}
                 </small>

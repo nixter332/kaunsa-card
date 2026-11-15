@@ -3,7 +3,7 @@ import { CONTACT_EMAIL } from "./contact";
 
 export const metadata: Metadata = { title: "Privacy policy · Kaunsa Card" };
 
-const UPDATED = "12 November 2026";
+const UPDATED = "15 November 2026";
 
 export default function Privacy() {
   return (
@@ -35,6 +35,13 @@ export default function Privacy() {
             your link, we can see that your link brought them in. What you share is up to you; the answer, and the cheat sheet picture of your cards, are made on your phone and only go where you send them.
           </li>
           <li>
+            <strong>Gmail (only if you connect it)</strong>: when you tap Sync, this phone asks Google for read-only access for one hour,
+            searches for card alert emails from your banks, and reads the amount, shop, card&apos;s last 4 digits and date. That happens on your
+            phone: the emails and the access never reach our server. The payments it finds are saved on your phone like ones you log yourself.
+            Analytics only get counts (for example &ldquo;5 emails, 4 read&rdquo;), the banks involved, and the sender domain of alerts the app
+            couldn&apos;t read. Disconnect any time in Settings, or remove access in your Google account.
+          </li>
+          <li>
             <strong>Card advisor answers</strong>: your income range and monthly spending stay on your phone. Analytics only get the income range, a
             rounded total, which spending types you filled in, and which cards were suggested. The same goes for &ldquo;what your cards are worth&rdquo;: only rounded ranges are recorded.
           </li>
@@ -45,7 +52,7 @@ export default function Privacy() {
         </ul>
 
         <h2>What we never collect</h2>
-        <p>Card numbers, CVVs, bank logins, account balances or statements. The app never connects to your bank.</p>
+        <p>Full card numbers, CVVs, bank logins, account balances or statements. The app never connects to your bank, and never sends or deletes your emails.</p>
 
         <h2>Where your data lives</h2>
         <ul>
