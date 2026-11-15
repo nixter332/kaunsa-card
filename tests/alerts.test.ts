@@ -124,6 +124,12 @@ describe("reading bank alerts", () => {
     expect(parseAlert("Refund of INR 500 from AMAZON credited to your HDFC Bank Credit Card x9016")).toBeUndefined();
     expect(parseAlert("Payment of Rs. 5,000 has been received on your HDFC Bank Credit Card x9016")).toBeUndefined();
     expect(parseAlert("Get 10% off at Myntra with your HDFC Bank Credit Card! Shop now.")).toBeUndefined();
+    // A friend's HDFC debit card e-mandate was logged on their Tata Neu HDFC credit card (Nov 2026; digits changed).
+    expect(
+      parseAlert(
+        "Dear Customer, Greetings from HDFC Bank! Your Google Play - Content Purchase Services bill, set up through E-mandate (Auto payment), has been successfully paid using your HDFC Bank Debit Card ending 5555. Transaction Details: Amount: INR 89.00 Date: 14/11/2026 Mandate ID: XTwR0gpgiB To manage your e-Mandates, please visit: https://merchantmandate.hdfc.bank.in For queries/to Block and Reissue, Call 18002586161/SMS BLOCK DC 5555 to 7308080808",
+      ),
+    ).toBeUndefined();
     expect(parseAlert("A One-Time Password (OTP) has been generated for a transaction of INR 500 at AMAZON on your HSBC Credit Card ending with 3845.")).toBeUndefined();
   });
   it("strips gateway prefixes and company suffixes", () => {

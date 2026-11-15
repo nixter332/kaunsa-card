@@ -117,7 +117,7 @@ export function SavingsTab({
               <div className="ledger-val">
                 <span>{inr(e.amount)}</span>
                 <small className="pos">+{inr(e.earned ?? 0)}</small>
-                {miss > 0 && <small className="neg">missed {inr(miss)}</small>}
+                {miss >= 0.5 && <small className="neg">missed {inr(miss)}</small>}
                 {confirming === e.ts ? (
                   <small>
                     Remove?{" "}
