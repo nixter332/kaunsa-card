@@ -5,7 +5,7 @@ import { GMAIL_QUERY, htmlToLines } from "@/lib/alerts";
 const SCOPE = "https://www.googleapis.com/auth/gmail.readonly";
 const API = "https://gmail.googleapis.com/gmail/v1/users/me";
 
-type TokenResponse = { access_token?: string; expires_in?: number; error?: string; error_description?: string };
+type TokenResponse = { access_token?: string; expires_in?: number; scope?: string; error?: string; error_description?: string };
 type TokenClient = { requestAccessToken: (o?: { prompt?: string; login_hint?: string }) => void };
 type GoogleOAuth = {
   accounts: {
@@ -17,6 +17,7 @@ type GoogleOAuth = {
         error_callback?: (e: { type?: string; message?: string }) => void;
       }) => TokenClient;
       revoke: (token: string, done?: () => void) => void;
+      hasGrantedAllScopes: (r: TokenResponse, ...scopes: string[]) => boolean;
     };
   };
 };
@@ -53,6 +54,11 @@ export function prepareGmail(clientId: string): Promise<void> {
         const p = pending;
         pending = null;
         if (!p) return;
+        // Google shows Gmail as a separate checkbox; if it was left unticked the token can't read mail.
+        if (r.access_token && !google()!.accounts.oauth2.hasGrantedAllScopes(r, SCOPE)) {
+          p.reject(new Error("scope"));
+          return;
+        }
         if (r.access_token) {
           token = { value: r.access_token, expires: Date.now() + ((r.expires_in ?? 3600) - 60) * 1000 };
           p.resolve(r.access_token);
@@ -91,7 +97,16 @@ async function api<T>(path: string, accessToken: string): Promise<T> {
     token = null;
     throw new Error("expired");
   }
-  if (!res.ok) throw new Error(`gmail ${res.status}`);
+  if (!res.ok) {
+    // Keep Google's reason (e.g. "Gmail API has not been used in project … or it is disabled") for the message and analytics.
+    let reason = "";
+    try {
+      reason = ((await res.json()) as { error?: { message?: string } }).error?.message ?? "";
+    } catch {}
+    if (res.status === 403 && /has not been used|is disabled|not enabled/i.test(reason)) throw new Error("api_off");
+    if (res.status === 403) throw new Error("scope");
+    throw new Error(`gmail ${res.status} ${reason}`.trim());
+  }
   return res.json() as Promise<T>;
 }
 
