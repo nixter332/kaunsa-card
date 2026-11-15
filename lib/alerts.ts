@@ -160,6 +160,10 @@ export function parseAlert(text: string): AlertTxn | undefined {
   const flat = lines.filter(Boolean).join(" ");
   if (!SPEND.test(flat) || NOT_SPEND.test(flat)) return undefined;
   if (!/credit card|\bcard\b/i.test(flat)) return undefined;
+  // Debit card payments come from the bank account, so they earn nothing on a credit card. Without this, an HDFC debit
+  // card e-mandate was logged on the person's only HDFC credit card (Nov 2026). HDFC's credit card SMS says "BLOCK DC",
+  // so only the words "debit card" count, and only when the message doesn't also say "credit card".
+  if (/\bdebit card\b/i.test(flat) && !/\bcredit card\b/i.test(flat)) return undefined;
   const issuer = ISSUERS.find(([re]) => re.test(flat))?.[1];
   const amountMatch = AMOUNT.exec(flat);
   const merchantRaw = labeledMerchant(lines) ?? infoMerchant(flat) ?? atMerchant(flat);
