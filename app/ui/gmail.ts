@@ -91,7 +91,9 @@ export function revokeGmail() {
 
 export type GmailMessage = { id: string; internalDate: number; from: string; text: string };
 
-async function api<T>(path: string, accessToken: string): Promise<T> {
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+async function api<T>(path: string, accessToken: string, attempt = 0): Promise<T> {
   const res = await fetch(`${API}${path}`, { headers: { Authorization: `Bearer ${accessToken}` } });
   if (res.status === 401) {
     token = null;
@@ -103,8 +105,15 @@ async function api<T>(path: string, accessToken: string): Promise<T> {
     try {
       reason = ((await res.json()) as { error?: { message?: string } }).error?.message ?? "";
     } catch {}
-    const kind =
-      res.status === 403 && /has not been used|is disabled|not enabled/i.test(reason)
+    // Gmail limits how much each person's mail can be read per minute. Google's advice: wait and retry, waiting longer each time.
+    const rate = res.status === 429 || (res.status === 403 && /quota|rate ?limit/i.test(reason));
+    if (rate && attempt < 3) {
+      await sleep(2000 * 2 ** attempt + Math.random() * 500);
+      return api<T>(path, accessToken, attempt + 1);
+    }
+    const kind = rate
+      ? "rate"
+      : res.status === 403 && /has not been used|is disabled|not enabled/i.test(reason)
         ? "api_off"
         : res.status === 403 && /insufficient|scope/i.test(reason)
           ? "scope"
@@ -134,8 +143,19 @@ function bodyText(part: Part): { plain: string; html: string } {
   return { plain, html };
 }
 
-/** Card alert emails received after `afterSec` (Unix seconds), as plain text with the subject on top. */
-export async function fetchAlertEmails(accessToken: string, afterSec: number, max = 250): Promise<GmailMessage[]> {
+export type AlertFetch = {
+  emails: GmailMessage[];
+  /** False when Google asked us to slow down or there were more emails than one sync reads; `upTo` is how far we got. */
+  complete: boolean;
+  upTo?: number;
+};
+
+/**
+ * Card alert emails received after `afterSec` (Unix seconds), oldest first, as plain text with the subject on top.
+ * Reads at most `max` emails, 3 at a time, so one sync stays well inside Gmail's per-minute limit for a person.
+ * If Google still says "slow down", it keeps what was read so far and the next sync carries on from there.
+ */
+export async function fetchAlertEmails(accessToken: string, afterSec: number, max = 120): Promise<AlertFetch> {
   const q = `${GMAIL_QUERY} after:${afterSec}`;
   const ids: string[] = [];
   let pageToken = "";
@@ -146,13 +166,23 @@ export async function fetchAlertEmails(accessToken: string, afterSec: number, ma
     );
     ids.push(...(page.messages ?? []).map((m) => m.id));
     pageToken = page.nextPageToken ?? "";
-  } while (pageToken && ids.length < max);
+  } while (pageToken && ids.length < 500);
+  // Gmail lists newest first. Read oldest first, so a sync cut short can pick up where it stopped.
+  const todo = ids.reverse().slice(0, max);
+  let complete = !pageToken && ids.length <= max;
 
   const out: GmailMessage[] = [];
-  for (let i = 0; i < Math.min(ids.length, max); i += 6) {
-    const batch = await Promise.all(
-      ids.slice(i, i + 6).map((id) => api<{ id: string; internalDate: string; payload: Part }>(`/messages/${id}?format=full`, accessToken)),
-    );
+  for (let i = 0; i < todo.length; i += 3) {
+    let batch: { id: string; internalDate: string; payload: Part }[];
+    try {
+      batch = await Promise.all(todo.slice(i, i + 3).map((id) => api<{ id: string; internalDate: string; payload: Part }>(`/messages/${id}?format=full`, accessToken)));
+    } catch (e) {
+      if (e instanceof Error && e.message === "rate" && out.length) {
+        complete = false;
+        break;
+      }
+      throw e;
+    }
     for (const m of batch) {
       const headers = m.payload.headers ?? [];
       const subject = headers.find((h) => h.name.toLowerCase() === "subject")?.value ?? "";
@@ -161,5 +191,5 @@ export async function fetchAlertEmails(accessToken: string, afterSec: number, ma
       out.push({ id: m.id, internalDate: Number(m.internalDate), from, text: `${subject}\n${plain.trim() ? plain : htmlToLines(html)}` });
     }
   }
-  return out;
+  return { emails: out, complete, upTo: out.length ? Math.max(...out.map((m) => m.internalDate)) : undefined };
 }
