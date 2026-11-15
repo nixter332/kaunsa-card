@@ -33,6 +33,9 @@ function applyTheme(choice: ThemeChoice) {
 
 export type AppUser = { id: string; name: string; email: string; image?: string };
 
+/** Gmail import on this phone: connected, when it last finished, and where to carry on if a sync was cut short. */
+type GmailState = { connected: boolean; lastSync: number; resumeFrom?: number };
+
 export function App({ user, googleClientId }: { user: AppUser; googleClientId?: string }) {
   const [ready, setReady] = useState(false);
   const [onboarded, setOnboarded] = useState(true);
@@ -58,7 +61,7 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
   // True right after onboarding, so My cards opens with a short welcome above the playbook.
   const [justOnboarded, setJustOnboarded] = useState(false);
   // Gmail import (all on this phone): whether it's connected, last sync, card numbers learned, payments to ask about.
-  const [gmail, setGmail] = useState({ connected: false, lastSync: 0 });
+  const [gmail, setGmail] = useState<GmailState>({ connected: false, lastSync: 0 });
   const [syncing, setSyncing] = useState(false);
   const [syncStatus, setSyncStatus] = useState<string>();
   const [last4, setLast4] = useState<Record<string, string>>({});
@@ -82,7 +85,7 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
     setLedger(load<LedgerEntry[]>("cs.ledger", []));
     setMet(load<string[]>("cs.conditions", []));
     setRecent(load<string[]>("cs.recent", []));
-    setGmail(load("cs.gmail", { connected: false, lastSync: 0 }));
+    setGmail(load<GmailState>("cs.gmail", { connected: false, lastSync: 0 }));
     setLast4(load<Record<string, string>>("cs.last4", {}));
     setIgnoredLast4(load<string[]>("cs.ignoredLast4", []));
     setHeldAlerts(load<Incoming[]>("cs.heldAlerts", []));
@@ -183,9 +186,11 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
     try {
       const token = await gmailToken({ firstTime, email: user.email });
       // First time: from the start of last month, so this month's limits are right. Later: since the last sync, with a day's overlap.
+      // A sync cut short (Gmail's per-minute limit) carries on from the last email it read.
       const now = new Date();
-      const from = gmail.lastSync ? gmail.lastSync - 86_400_000 : new Date(now.getFullYear(), now.getMonth() - 1, 1).getTime();
-      const emails = await fetchAlertEmails(token, Math.floor(from / 1000));
+      const from = gmail.resumeFrom ?? (gmail.lastSync ? gmail.lastSync - 86_400_000 : new Date(now.getFullYear(), now.getMonth() - 1, 1).getTime());
+      const got = await fetchAlertEmails(token, Math.floor(from / 1000));
+      const emails = got.emails;
       const parsed: Incoming[] = [];
       const unread: string[] = [];
       for (const e of emails) {
@@ -194,14 +199,18 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
         else unread.push((/@([\w.-]+)/.exec(e.from)?.[1] ?? "unknown").toLowerCase());
       }
       const r = applyAlerts([...heldAlerts, ...parsed], last4, ignoredLast4);
-      const next = { connected: true, lastSync: Date.now() };
+      const next: GmailState = got.complete
+        ? { connected: true, lastSync: Date.now() }
+        : { connected: true, lastSync: gmail.lastSync, resumeFrom: got.upTo ? got.upTo - 1000 : from };
       setGmail(next);
       save("cs.gmail", next);
-      setSyncStatus(r.added ? `added ${r.added} payment${r.added === 1 ? "" : "s"}` : "no new payments");
-      showToast(r.added ? `Added ${r.added} payment${r.added === 1 ? "" : "s"} from Gmail. Limits and savings updated.` : "No new card payments in Gmail.");
+      const addedText = r.added ? `Added ${r.added} payment${r.added === 1 ? "" : "s"} from Gmail.` : "No new card payments yet.";
+      setSyncStatus(got.complete ? (r.added ? `added ${r.added} payment${r.added === 1 ? "" : "s"}` : "no new payments") : "more to read, tap Sync");
+      showToast(got.complete ? (r.added ? `${addedText} Limits and savings updated.` : "No new card payments in Gmail.") : `${addedText} There's more to read: tap Sync again in a minute.`);
       if (firstTime) track("gmail_connected", {});
       track("gmail_synced", {
         emails: emails.length,
+        complete: got.complete,
         read: parsed.length,
         added: r.added,
         skipped: r.skipped,
@@ -220,6 +229,7 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
         closed: "The Google window was closed before finishing.",
         blocked: "Your browser blocked Google's window. Allow pop-ups for this site and try again.",
         expired: "Gmail access ran out. Tap Sync again.",
+        rate: "Gmail asked us to slow down. Wait a minute, then tap again.",
       };
       setSyncStatus("sync didn't finish");
       const reason = (e as { reason?: string }).reason ?? "";
