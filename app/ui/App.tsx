@@ -16,6 +16,10 @@ import { Result } from "./Result";
 import { SavingsTab } from "./SavingsTab";
 import { myShareCode } from "./referral";
 import { Settings, type ThemeChoice } from "./Settings";
+import { GmailSync } from "./GmailSync";
+import { fetchAlertEmails, gmailToken, revokeGmail } from "./gmail";
+import { parseAlert } from "@/lib/alerts";
+import { importAlerts, type Incoming, type Unmatched } from "@/lib/importAlerts";
 import { ALL_CARDS, ALL_OFFERS, load, offerUsesFromLedger, pretty, save, statesFromLedger, track, type LedgerEntry } from "./store";
 
 type Tab = "pay" | "cards" | "savings" | "advisor";
@@ -29,7 +33,7 @@ function applyTheme(choice: ThemeChoice) {
 
 export type AppUser = { id: string; name: string; email: string; image?: string };
 
-export function App({ user }: { user: AppUser }) {
+export function App({ user, googleClientId }: { user: AppUser; googleClientId?: string }) {
   const [ready, setReady] = useState(false);
   const [onboarded, setOnboarded] = useState(true);
   const [tab, setTab] = useState<Tab>("pay");
@@ -53,6 +57,14 @@ export function App({ user }: { user: AppUser }) {
   const [toast, setToast] = useState("");
   // True right after onboarding, so My cards opens with a short welcome above the playbook.
   const [justOnboarded, setJustOnboarded] = useState(false);
+  // Gmail import (all on this phone): whether it's connected, last sync, card numbers learned, payments to ask about.
+  const [gmail, setGmail] = useState({ connected: false, lastSync: 0 });
+  const [syncing, setSyncing] = useState(false);
+  const [syncStatus, setSyncStatus] = useState<string>();
+  const [last4, setLast4] = useState<Record<string, string>>({});
+  const [ignoredLast4, setIgnoredLast4] = useState<string[]>([]);
+  const [unmatched, setUnmatched] = useState<Unmatched[]>([]);
+  const [heldAlerts, setHeldAlerts] = useState<Incoming[]>([]);
 
   useEffect(() => {
     identifyUser(user);
@@ -70,6 +82,10 @@ export function App({ user }: { user: AppUser }) {
     setLedger(load<LedgerEntry[]>("cs.ledger", []));
     setMet(load<string[]>("cs.conditions", []));
     setRecent(load<string[]>("cs.recent", []));
+    setGmail(load("cs.gmail", { connected: false, lastSync: 0 }));
+    setLast4(load<Record<string, string>>("cs.last4", {}));
+    setIgnoredLast4(load<string[]>("cs.ignoredLast4", []));
+    setHeldAlerts(load<Incoming[]>("cs.heldAlerts", []));
     const t = load<ThemeChoice>("cs.theme", "system");
     setTheme(t);
     applyTheme(t);
@@ -135,6 +151,110 @@ export function App({ user }: { user: AppUser }) {
     });
     return logged ? `It's a new month: your monthly bonus limits have reset.` : undefined;
   }, [ledger]);
+
+  /** Add read alerts to the ledger (same valuation as "I paid"), and hold back the ones whose card isn't known yet. */
+  function applyAlerts(incoming: Incoming[], map: Record<string, string>, ignored: string[]) {
+    const r = importAlerts({
+      incoming,
+      ledger,
+      cards: myCards,
+      last4: map,
+      ignoredLast4: ignored,
+      states: (l, at) => statesFromLedger(myCards, l as LedgerEntry[], met, at),
+    });
+    setLedger(r.ledger);
+    save("cs.ledger", r.ledger);
+    const nextMap = { ...map, ...r.learned };
+    setLast4(nextMap);
+    save("cs.last4", nextMap);
+    const held = incoming.filter((t) => r.unmatched.some((u) => u.msgId === t.msgId));
+    setHeldAlerts(held);
+    save("cs.heldAlerts", held);
+    setUnmatched(r.unmatched);
+    return r;
+  }
+
+  async function syncGmail() {
+    if (!googleClientId) return;
+    setSyncing(true);
+    setSyncStatus(undefined);
+    const firstTime = !gmail.connected;
+    if (firstTime) track("gmail_connect_clicked", { cards_held: myCards.length });
+    try {
+      const token = await gmailToken({ firstTime, email: user.email });
+      // First time: from the start of last month, so this month's limits are right. Later: since the last sync, with a day's overlap.
+      const now = new Date();
+      const from = gmail.lastSync ? gmail.lastSync - 86_400_000 : new Date(now.getFullYear(), now.getMonth() - 1, 1).getTime();
+      const emails = await fetchAlertEmails(token, Math.floor(from / 1000));
+      const parsed: Incoming[] = [];
+      const unread: string[] = [];
+      for (const e of emails) {
+        const t = parseAlert(e.text);
+        if (t) parsed.push({ ...t, msgId: e.id, fallbackTs: e.internalDate });
+        else unread.push((/@([\w.-]+)/.exec(e.from)?.[1] ?? "unknown").toLowerCase());
+      }
+      const r = applyAlerts([...heldAlerts, ...parsed], last4, ignoredLast4);
+      const next = { connected: true, lastSync: Date.now() };
+      setGmail(next);
+      save("cs.gmail", next);
+      setSyncStatus(r.added ? `added ${r.added} payment${r.added === 1 ? "" : "s"}` : "no new payments");
+      showToast(r.added ? `Added ${r.added} payment${r.added === 1 ? "" : "s"} from Gmail. Limits and savings updated.` : "No new card payments in Gmail.");
+      if (firstTime) track("gmail_connected", {});
+      track("gmail_synced", {
+        emails: emails.length,
+        read: parsed.length,
+        added: r.added,
+        skipped: r.skipped,
+        unmatched: r.unmatched.length,
+        unknown_merchant: r.unknownMerchant,
+        banks: [...new Set(parsed.map((p) => p.issuer))],
+        // Sender domains of alerts we couldn't read, to know which bank formats to add next (no content).
+        unread_senders: [...new Set(unread)].slice(0, 10),
+      });
+    } catch (e) {
+      const kind = e instanceof Error ? e.message : "error";
+      const msg: Record<string, string> = {
+        denied: "Gmail access wasn't allowed, so nothing was read.",
+        closed: "The Google window was closed before finishing.",
+        blocked: "Your browser blocked Google's window. Allow pop-ups for this site and try again.",
+        expired: "Gmail access ran out. Tap Sync again.",
+      };
+      setSyncStatus("sync didn't finish");
+      showToast(msg[kind] ?? "Couldn't reach Gmail. Try again in a bit.");
+      track("gmail_error", { kind: kind.slice(0, 40), first_time: firstTime });
+    } finally {
+      setSyncing(false);
+    }
+  }
+
+  function linkCard(u: Unmatched, cardId: string) {
+    const map = u.last4 ? { ...last4, [cardId]: u.last4 } : last4;
+    // Without last 4 digits there's nothing to remember: assign just this payment to the card.
+    const incoming = u.last4 ? heldAlerts : heldAlerts.map((t) => (t.msgId === u.msgId ? { ...t, last4: undefined, issuer: myCards.find((c) => c.id === cardId)!.issuer, cardHint: myCards.find((c) => c.id === cardId)!.name.toLowerCase() } : t));
+    const r = applyAlerts(incoming, map, ignoredLast4);
+    track("gmail_card_linked", { card: cardId, added: r.added });
+    showToast(r.added ? `Added ${r.added} payment${r.added === 1 ? "" : "s"}.` : "Saved.");
+  }
+
+  function ignoreCard(u: Unmatched) {
+    const ignored = u.last4 ? [...ignoredLast4, u.last4] : ignoredLast4;
+    setIgnoredLast4(ignored);
+    save("cs.ignoredLast4", ignored);
+    const held = heldAlerts.filter((t) => (u.last4 ? t.last4 !== u.last4 : t.msgId !== u.msgId));
+    setHeldAlerts(held);
+    save("cs.heldAlerts", held);
+    setUnmatched((list) => list.filter((x) => (u.last4 ? x.last4 !== u.last4 : x.msgId !== u.msgId)));
+    track("gmail_card_ignored", { issuer: u.issuer });
+  }
+
+  function disconnectGmail() {
+    revokeGmail();
+    for (const k of ["cs.gmail", "cs.heldAlerts"]) localStorage.removeItem(k);
+    setGmail({ connected: false, lastSync: 0 });
+    setHeldAlerts([]);
+    setUnmatched([]);
+    track("gmail_disconnected");
+  }
 
   /** The best card for a lookup, for live previews on the Pay screen (same engine as the full answer). */
   const preview = useCallback(
@@ -355,6 +475,22 @@ export function App({ user }: { user: AppUser }) {
             caps={capRoom}
             preview={preview}
             monthNote={monthNote}
+            top={
+              googleClientId ? (
+                <GmailSync
+                  clientId={googleClientId}
+                  connected={gmail.connected}
+                  lastSync={gmail.lastSync || undefined}
+                  syncing={syncing}
+                  status={syncStatus}
+                  unmatched={unmatched.length ? unmatched : heldAlerts.map((t) => ({ msgId: t.msgId, issuer: t.issuer, last4: t.last4, amount: t.amount, label: t.merchant?.name ?? t.merchantRaw, ts: t.ts ?? t.fallbackTs }))}
+                  cards={myCards}
+                  onSync={syncGmail}
+                  onLinkCard={linkCard}
+                  onIgnore={ignoreCard}
+                />
+              ) : undefined
+            }
           >
             {lookup && (
               <Result
@@ -434,8 +570,16 @@ export function App({ user }: { user: AppUser }) {
             setSettingsOpen(false);
             setOnboarded(false);
           }}
+          gmailConnected={gmail.connected}
+          onDisconnectGmail={disconnectGmail}
           onClear={() => {
-            for (const k of ["cs.cards", "cs.ledger", "cs.conditions", "cs.recent", "cs.onboarded", "cs.advisor", "cs.shareCode", "cs.referredBy", "cs.referralSent"]) localStorage.removeItem(k);
+            revokeGmail();
+            for (const k of ["cs.cards", "cs.ledger", "cs.conditions", "cs.recent", "cs.onboarded", "cs.advisor", "cs.shareCode", "cs.referredBy", "cs.referralSent", "cs.gmail", "cs.last4", "cs.ignoredLast4", "cs.heldAlerts"]) localStorage.removeItem(k);
+            setGmail({ connected: false, lastSync: 0 });
+            setLast4({});
+            setIgnoredLast4([]);
+            setHeldAlerts([]);
+            setUnmatched([]);
             setMyCardIds([]);
             setLedger([]);
             setMet([]);

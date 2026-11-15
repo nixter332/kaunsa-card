@@ -16,9 +16,11 @@ type Props = {
   onReplay: () => void;
   onClear: () => void;
   onClose: () => void;
+  gmailConnected?: boolean;
+  onDisconnectGmail?: () => void;
 };
 
-export function Settings({ user, onSignOut, theme, onTheme, canInstall, onInstall, onReplay, onClear, onClose }: Props) {
+export function Settings({ user, onSignOut, theme, onTheme, canInstall, onInstall, onReplay, onClear, onClose, gmailConnected, onDisconnectGmail }: Props) {
   const [confirming, setConfirming] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
   const [stats, setStats] = useState(statsEnabled);
@@ -77,6 +79,21 @@ export function Settings({ user, onSignOut, theme, onTheme, canInstall, onInstal
             <p className="fine">On Android, open your browser menu and tap Add to Home Screen or Install app. On iPhone, tap Share, then Add to Home Screen.</p>
           )}
         </div>
+
+        {gmailConnected && onDisconnectGmail && (
+          <div className="setting">
+            <span>Payments from Gmail</span>
+            <p className="fine">
+              Card alert emails are read on this phone when you tap Sync; nothing is stored on our server. Payments already logged stay in Savings.
+            </p>
+            <button type="button" className="btn ghost wide" onClick={onDisconnectGmail}>
+              Disconnect Gmail
+            </button>
+            <a className="linkish small" href="https://myaccount.google.com/connections" target="_blank" rel="noopener noreferrer">
+              Remove Kaunsa Card&apos;s access in your Google account
+            </a>
+          </div>
+        )}
 
         {analyticsEnabled && (
           <div className="setting">

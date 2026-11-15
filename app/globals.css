@@ -385,3 +385,9 @@ select.field { appearance: none; background-image: linear-gradient(45deg, transp
 .table-spends li { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 14.5px; }
 .table-spends .spend-input { flex: 0 0 132px; }
 .ending { color: var(--danger); font-weight: 600; }
+.gmail { display: grid; gap: 8px; margin: 0 0 14px; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); }
+.gmail p { margin: 0; }
+.gmail-title { font-weight: 650; }
+.gmail-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.gmail-ask { display: grid; gap: 6px; padding-top: 8px; border-top: 1px solid var(--line); }
+.from-gmail { font-weight: 400; font-size: 12px; color: var(--muted); }

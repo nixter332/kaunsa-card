@@ -7,5 +7,10 @@ export default async function Page() {
   const session = await auth();
   const user = session?.user;
   if (!user?.email) return <SignIn />;
-  return <App user={{ id: user.id ?? user.email, name: user.name ?? "", email: user.email, image: user.image ?? undefined }} />;
+  return (
+    <App
+      user={{ id: user.id ?? user.email, name: user.name ?? "", email: user.email, image: user.image ?? undefined }}
+      googleClientId={process.env.AUTH_GOOGLE_ID}
+    />
+  );
 }

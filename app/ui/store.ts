@@ -21,6 +21,9 @@ export type LedgerEntry = {
   label?: string; // what the payment was, e.g. "Myntra"
   offerId?: string; // bank offer or card perk used, for "once a month" limits
   discount?: number; // ₹ instant discount from that offer (included in earned)
+  source?: "gmail" | "manual"; // "gmail" = logged from a card alert email
+  key?: string; // card + amount + minute, so the same payment isn't logged twice
+  msgId?: string; // Gmail message it came from
 };
 
 export { offerUsesFromLedger } from "@/lib/offers";
@@ -54,12 +57,11 @@ export const periodKey = (ts: number, period: "month" | "quarter") => {
 /** Conditions a card's rules depend on, e.g. Amazon Prime. */
 export const conditionsOf = (card: Card) => [...new Set(card.rules.map((r) => r.requires).filter(Boolean))] as Condition[];
 
-export function statesFromLedger(cards: Card[], ledger: LedgerEntry[], met: string[] = []): Record<string, CardState> {
-  const now = Date.now();
+export function statesFromLedger(cards: Card[], ledger: LedgerEntry[], met: string[] = [], now = Date.now()): Record<string, CardState> {
   const states: Record<string, CardState> = {};
   for (const card of cards) {
     const capUsed: Record<string, number> = {};
-    for (const entry of ledger.filter((e) => e.cardId === card.id)) {
+    for (const entry of ledger.filter((e) => e.cardId === card.id && e.ts <= now)) {
       for (const [capId, units] of Object.entries(entry.capConsumption)) {
         const cap = card.caps.find((c) => c.id === capId);
         if (cap && periodKey(entry.ts, cap.period) === periodKey(now, cap.period)) capUsed[capId] = (capUsed[capId] ?? 0) + units;
