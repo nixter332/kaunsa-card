@@ -103,9 +103,14 @@ async function api<T>(path: string, accessToken: string): Promise<T> {
     try {
       reason = ((await res.json()) as { error?: { message?: string } }).error?.message ?? "";
     } catch {}
-    if (res.status === 403 && /has not been used|is disabled|not enabled/i.test(reason)) throw new Error("api_off");
-    if (res.status === 403) throw new Error("scope");
-    throw new Error(`gmail ${res.status} ${reason}`.trim());
+    const kind =
+      res.status === 403 && /has not been used|is disabled|not enabled/i.test(reason)
+        ? "api_off"
+        : res.status === 403 && /insufficient|scope/i.test(reason)
+          ? "scope"
+          : `gmail ${res.status}`;
+    // Google's own wording rides along (it names no person or email), so analytics shows the real cause.
+    throw Object.assign(new Error(kind), { reason });
   }
   return res.json() as Promise<T>;
 }

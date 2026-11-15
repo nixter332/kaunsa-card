@@ -222,8 +222,9 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
         expired: "Gmail access ran out. Tap Sync again.",
       };
       setSyncStatus("sync didn't finish");
-      showToast(msg[kind] ?? `Couldn't reach Gmail (${kind.slice(0, 60)}). Try again in a bit.`);
-      track("gmail_error", { kind: kind.slice(0, 40), first_time: firstTime });
+      const reason = (e as { reason?: string }).reason ?? "";
+      showToast(msg[kind] ?? `Couldn't reach Gmail (${kind}${reason ? `: ${reason}` : ""}`.slice(0, 160) + "). Try again in a bit.");
+      track("gmail_error", { kind: kind.slice(0, 40), reason: reason.slice(0, 200), first_time: firstTime });
     } finally {
       setSyncing(false);
     }
