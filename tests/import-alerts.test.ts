@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import cardsJson from "../data/cards.json";
 import { htmlToLines, parseAlert } from "../lib/alerts";
-import { importAlerts, type ImportedEntry, type Incoming } from "../lib/importAlerts";
+import { importAlerts, needsKind, setShopKind, shopOf, type ImportedEntry, type Incoming } from "../lib/importAlerts";
 import type { Card, CardState } from "../lib/types";
 
 const cards = (cardsJson as Card[]).filter((c) => ["swiggy-hdfc", "flipkart-axis", "hsbc-live-plus"].includes(c.id));
@@ -59,6 +59,43 @@ describe("importing alerts as payments", () => {
     expect(r.added).toBe(0);
     expect(r.unmatched).toMatchObject([{ issuer: "HDFC Bank", last4: "1111", amount: 500 }]);
     expect(run([sbi], [], { "swiggy-hdfc": "9016" }, ["1111"]).unmatched).toEqual([]);
+  });
+});
+
+describe("shops the app doesn't know", () => {
+  const run = (incoming: Incoming[], ledger: ImportedEntry[] = [], shopKinds = {}) =>
+    importAlerts({ incoming, ledger, cards, last4: {}, ignoredLast4: [], states, shopKinds });
+
+  it("an unknown shop counts at the base rate and waits to be named; a known one doesn't", () => {
+    const r = run([burger, swiggy]);
+    const b = r.ledger.find((e) => e.cardId === "hsbc-live-plus")!;
+    expect(b).toMatchObject({ category: "other", shop: "JIMIS BURGER", earned: 20.58 });
+    expect(needsKind(b)).toBe(true);
+    expect(r.ledger.filter(needsKind)).toHaveLength(1); // Swiggy is a known shop
+  });
+
+  it("naming it 'eating out' values it again at HSBC Live+'s 10% dining rate and uses up that limit", () => {
+    const r = run([burger]);
+    const named = setShopKind({ ledger: r.ledger, shop: "JIMIS BURGER", kind: "dining", cards, states });
+    expect(named.changed).toBe(1);
+    expect(named.ledger[0]).toMatchObject({ category: "dining", channel: "offline", kindSet: true, earned: 137.2 });
+    expect(Object.values(named.ledger[0].capConsumption)[0]).toBeCloseTo(137.2);
+    expect(named.deltaInr).toBeCloseTo(137.2 - 20.58);
+    expect(named.ledger.filter(needsKind)).toHaveLength(0);
+  });
+
+  it("the next payment at a named shop is valued right away", () => {
+    const r = run([burger], [], { "JIMIS BURGER": "dining" });
+    expect(r.ledger[0]).toMatchObject({ category: "dining", kindSet: true, earned: 137.2 });
+    expect(r.unknownMerchant).toBe(0);
+  });
+
+  it("payments imported before shops were remembered are still asked about, by their label", () => {
+    const old: ImportedEntry = { ts: Date.UTC(2026, 10, 13, 8), cardId: "hsbc-live-plus", capConsumption: {}, amount: 1372, earned: 20.58, label: "Jimis Burger Llp", source: "gmail" };
+    const known: ImportedEntry = { ...old, label: "Swiggy (food)" };
+    expect(shopOf(old)).toBe("JIMIS BURGER");
+    expect(shopOf(known)).toBeUndefined();
+    expect(setShopKind({ ledger: [old], shop: "JIMIS BURGER", kind: "dining", cards, states }).ledger[0].earned).toBe(137.2);
   });
 });
 

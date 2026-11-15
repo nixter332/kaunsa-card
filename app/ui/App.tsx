@@ -19,8 +19,8 @@ import { Settings, type ThemeChoice } from "./Settings";
 import { GmailSync } from "./GmailSync";
 import { fetchAlertEmails, gmailToken, revokeGmail } from "./gmail";
 import { parseAlert } from "@/lib/alerts";
-import { importAlerts, type Incoming, type Unmatched } from "@/lib/importAlerts";
-import { ALL_CARDS, ALL_OFFERS, load, offerUsesFromLedger, pretty, save, statesFromLedger, track, type LedgerEntry } from "./store";
+import { importAlerts, needsKind, setShopKind, SHOP_KINDS, type Incoming, type ShopKindId, type Unmatched } from "@/lib/importAlerts";
+import { ALL_CARDS, ALL_OFFERS, inr, load, offerUsesFromLedger, pretty, save, statesFromLedger, track, type LedgerEntry } from "./store";
 
 type Tab = "pay" | "cards" | "savings" | "advisor";
 type InstallPrompt = Event & { prompt: () => Promise<void> };
@@ -68,6 +68,8 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
   const [ignoredLast4, setIgnoredLast4] = useState<string[]>([]);
   const [unmatched, setUnmatched] = useState<Unmatched[]>([]);
   const [heldAlerts, setHeldAlerts] = useState<Incoming[]>([]);
+  // Shops the person has named ("JIMIS BURGER" → eating out), kept on this phone so later payments there are valued right.
+  const [shopKinds, setShopKinds] = useState<Record<string, ShopKindId>>({});
 
   useEffect(() => {
     identifyUser(user);
@@ -89,6 +91,7 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
     setLast4(load<Record<string, string>>("cs.last4", {}));
     setIgnoredLast4(load<string[]>("cs.ignoredLast4", []));
     setHeldAlerts(load<Incoming[]>("cs.heldAlerts", []));
+    setShopKinds(load<Record<string, ShopKindId>>("cs.shopKinds", {}));
     const t = load<ThemeChoice>("cs.theme", "system");
     setTheme(t);
     applyTheme(t);
@@ -164,6 +167,7 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
       last4: map,
       ignoredLast4: ignored,
       states: (l, at) => statesFromLedger(myCards, l as LedgerEntry[], met, at),
+      shopKinds,
     });
     setLedger(r.ledger);
     save("cs.ledger", r.ledger);
@@ -216,6 +220,9 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
         skipped: r.skipped,
         unmatched: r.unmatched.length,
         unknown_merchant: r.unknownMerchant,
+        // Imported payments at shops still waiting to be named, across the whole history (the "79% unknown" metric).
+        to_name: r.ledger.filter(needsKind).length,
+        gmail_total: r.ledger.filter((e) => e.source === "gmail").length,
         banks: [...new Set(parsed.map((p) => p.issuer))],
         // Sender domains of alerts we couldn't read, to know which bank formats to add next (no content).
         unread_senders: [...new Set(unread)].slice(0, 10),
@@ -321,6 +328,8 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
       // What was typed (text lookups only, first 80 characters), so wrong reads can be fixed.
       query: query?.slice(0, 80),
       merchant_hints: merchantHints(myCards, l, states, MERCHANTS, 4, offerCtx).map((h) => h.merchantId),
+      // Shops among those where one of the person's cards has an offer today (shown as a line of its own).
+      hint_offers: merchantHints(myCards, l, states, MERCHANTS, 4, offerCtx).filter((h) => h.offer).map((h) => h.merchantId),
     });
   }
 
@@ -406,6 +415,21 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
       offer_id: r.offer?.id,
       discount_inr: r.offer?.discountInr,
     });
+  }
+
+  /** The person said what an unknown shop is: value its imported payments again and remember it for next time. */
+  function nameShop(shop: string, kind: ShopKindId) {
+    const r = setShopKind({ ledger, shop, kind, cards: myCards, states: (l, at) => statesFromLedger(myCards, l as LedgerEntry[], met, at) });
+    setLedger(r.ledger);
+    save("cs.ledger", r.ledger);
+    const kinds = { ...shopKinds, [shop]: kind };
+    setShopKinds(kinds);
+    save("cs.shopKinds", kinds);
+    const label = SHOP_KINDS.find((k) => k.id === kind)!.label.toLowerCase();
+    const delta = Math.round(r.deltaInr);
+    showToast(delta > 0 ? `Saved as ${label}: +${inr(delta)} cashback counted.` : `Saved as ${label}.`);
+    // No shop name: only the kind picked, how many payments it covered and what's left to name.
+    track("shop_kind_set", { kind, payments: r.changed, delta_inr: delta, left: r.ledger.filter(needsKind).length });
   }
 
   function removePayment(ts: number) {
@@ -501,6 +525,8 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
                   cards={myCards}
                   onSync={syncGmail}
                   onLinkCard={linkCard}
+                  toName={ledger.filter(needsKind).length}
+                  onOpenSavings={() => setTab("savings")}
                   onIgnore={ignoreCard}
                 />
               ) : undefined
@@ -538,7 +564,7 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
           }}
         />
       )}
-      {tab === "savings" && <SavingsTab ledger={ledger} onRemove={removePayment} />}
+      {tab === "savings" && <SavingsTab ledger={ledger} onRemove={removePayment} onNameShop={nameShop} />}
       {tab === "advisor" && <AdvisorTab myCards={myCards} onEditCards={() => setTab("cards")} />}
 
       {toast && (
@@ -588,7 +614,8 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
           onDisconnectGmail={disconnectGmail}
           onClear={() => {
             revokeGmail();
-            for (const k of ["cs.cards", "cs.ledger", "cs.conditions", "cs.recent", "cs.onboarded", "cs.advisor", "cs.shareCode", "cs.referredBy", "cs.referralSent", "cs.gmail", "cs.last4", "cs.ignoredLast4", "cs.heldAlerts"]) localStorage.removeItem(k);
+            for (const k of ["cs.cards", "cs.ledger", "cs.conditions", "cs.recent", "cs.onboarded", "cs.advisor", "cs.shareCode", "cs.referredBy", "cs.referralSent", "cs.gmail", "cs.last4", "cs.ignoredLast4", "cs.heldAlerts", "cs.shopKinds"]) localStorage.removeItem(k);
+            setShopKinds({});
             setGmail({ connected: false, lastSync: 0 });
             setLast4({});
             setIgnoredLast4([]);

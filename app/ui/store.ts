@@ -3,7 +3,7 @@ import cardsJson from "@/data/cards.json";
 import offersJson from "@/data/offers.json";
 import profilesJson from "@/data/card-profiles.json";
 import { capture } from "@/lib/analytics";
-import type { Card, CardProfile, CardState, Condition, Lookup, Offer } from "@/lib/types";
+import type { Card, CardProfile, CardState, Category, Channel, Condition, Lookup, Offer } from "@/lib/types";
 
 export const ALL_CARDS = cardsJson as Card[];
 export const cardById = (id: string) => ALL_CARDS.find((c) => c.id === id);
@@ -24,6 +24,11 @@ export type LedgerEntry = {
   source?: "gmail" | "manual"; // "gmail" = logged from a card alert email
   key?: string; // card + amount + minute, so the same payment isn't logged twice
   msgId?: string; // Gmail message it came from
+  merchant?: string; // known shop id (Gmail imports)
+  category?: Category; // what it was valued as (Gmail imports; unknown shops are "other" until named)
+  channel?: Channel;
+  shop?: string; // unknown shop as remembered on this phone, e.g. "JIMIS BURGER"
+  kindSet?: boolean; // the person said what the shop is
 };
 
 export { offerUsesFromLedger } from "@/lib/offers";

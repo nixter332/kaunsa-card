@@ -1,7 +1,7 @@
 // Real alert formats from the owner's banks (Nov 2026), names removed.
 import { describe, expect, it } from "vitest";
 import cardsJson from "../data/cards.json";
-import { cleanDescriptor, matchCard, merchantFor, parseAlert, txnKey } from "../lib/alerts";
+import { cleanDescriptor, GMAIL_QUERY, matchCard, merchantFor, NOT_CARD_PAYMENT, parseAlert, shopKey, txnKey } from "../lib/alerts";
 import type { Card } from "../lib/types";
 
 const cards = cardsJson as Card[];
@@ -126,5 +126,21 @@ describe("matching an alert to a card", () => {
     const a = parseAlert(SAMPLES.hdfcSms1)!;
     const b = parseAlert(SAMPLES.hdfcEmail)!;
     expect(txnKey(a, "swiggy-hdfc")).toBe(txnKey(b, "swiggy-hdfc"));
+  });
+});
+
+describe("the Gmail search", () => {
+  it("leaves out account debits, UPI account alerts, OTPs, EMI schedules and statements, but no supported card alert", () => {
+    for (const x of NOT_CARD_PAYMENT) expect(GMAIL_QUERY).toContain(`-${x}`);
+    const words = (s: string) => s.toLowerCase().replace(/[^a-z0-9₹]+/g, " ").trim();
+    for (const x of NOT_CARD_PAYMENT) {
+      if (x.startsWith("category:")) continue;
+      const phrase = words(x.replace(/^subject:/, "").replace(/"/g, ""));
+      for (const [name, text] of Object.entries(SAMPLES)) expect(` ${words(text)} `, `${x} would hide ${name}`).not.toContain(` ${phrase} `);
+    }
+  });
+  it("remembers a shop by its cleaned name", () => {
+    expect(shopKey("JIMIS BURGER LLP")).toBe("JIMIS BURGER");
+    expect(shopKey("Jimis Burger Llp")).toBe("JIMIS BURGER"); // payments imported before 15 Nov 2026 only kept this label
   });
 });
