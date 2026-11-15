@@ -56,7 +56,7 @@ export function GmailSync({ clientId, connected, lastSync, syncing, status, unma
           <button type="button" className="btn primary small" disabled={!ready || syncing} onClick={onSync}>
             {syncing ? "Reading your card alerts…" : "Connect Gmail"}
           </button>
-          <p className="fine">Works with HDFC, Axis, HSBC, IndusInd and Scapia alerts today. Google will show a warning that the app isn&apos;t verified yet.</p>
+          <p className="fine">Works with HDFC, Axis, SBI Card, ICICI, HSBC, IndusInd and Scapia alerts today. Google will show a warning that the app isn&apos;t verified yet.</p>
         </>
       ) : (
         <div className="gmail-row">

@@ -50,6 +50,27 @@ Amount due: INR 3398.00`,
 
 In case you have not authorized this transaction, you can block your Credit Card instantly by sending SMS BLOCK 2196 to 5676757.`,
   scapiaSms: "Hi! Your txn of ₹470.79 at Gelato Secret Umf Gianyar on your Scapia Federal Visa credit card was successful. Not you? Go to Scapia support on the app.- Federal Bank",
+  // From friends (Nov 2026); card digits changed.
+  sbiEmail: `Dear Cardholder,
+This is to inform you that, Rs.3,058.20 spent on your SBI Credit Card ending 4321 at PRATYAYAEMERCEPRI on 14/11/26. Trxn. not done by you? Report at https://sbicard.com/Dispute. If you have not authorized this transaction please contact the SBI Card Helpline.
+
+Warm regards,
+SBI Card`,
+  iciciEmail: `Dear Customer,
+
+Your ICICI Bank Credit Card XX7788 has been used for a transaction of INR 1,634.00 on Oct 19, 2026 at 11:23:57. Info: AMAZON PAY IN E COMMERCE.
+
+The Available Credit Limit on your card is INR 98,366.00 and Total Credit Limit is INR 1,00,000.00. The above limits are a total of the limits of all the Credit Cards issued to the primary card holder, including any supplementary cards.
+
+In case you have not done this transaction, to report it please call on 18002662 or SMS BLOCK space 7788 to 9215676766 from your registered mobile number and if you are outside India, call on 04071403333.
+
+In case you require any further information, you may call our Customer Care or write to us at customer.care@icicibank.com
+
+Never share your OTP, URN, CVV or passwords with anyone even if the person claims to be a bank employee.
+
+Sincerely,
+
+Team ICICI Bank`,
   scapiaEmail: `Your transaction was successful!
 
 Your payment on 08-11-2026 at 11:49 PM using your Scapia Federal Visa Credit Card ending in 8874 has been successfully processed.
@@ -92,11 +113,18 @@ describe("reading bank alerts", () => {
     expect(parseAlert(SAMPLES.scapiaSms)!.last4).toBeUndefined();
     expect(parseAlert(SAMPLES.scapiaEmail)).toMatchObject({ issuer: "Federal Bank", last4: "8874", amount: 94.53, merchantRaw: "Render.com + Us", ts: istTs("2026-11-08T23:49:00") });
   });
+  it("SBI Card email (bare date read as midday)", () => {
+    expect(parseAlert(SAMPLES.sbiEmail)).toMatchObject({ issuer: "SBI Card", last4: "4321", amount: 3058.2, merchantRaw: "PRATYAYAEMERCEPRI", ts: istTs("2026-11-14T12:00:00") });
+  });
+  it("ICICI email: 'Info:' is the shop, the date is month first, and the 'never share your OTP' footer doesn't make it an OTP", () => {
+    expect(parseAlert(SAMPLES.iciciEmail)).toMatchObject({ issuer: "ICICI Bank", last4: "7788", amount: 1634, merchant: { id: "amazon" }, ts: istTs("2026-10-19T11:23:57") });
+  });
   it("ignores OTPs, refunds, payments received and promos", () => {
     expect(parseAlert("123456 is your OTP for a transaction of INR 500 at AMAZON on HDFC Bank Card x9016")).toBeUndefined();
     expect(parseAlert("Refund of INR 500 from AMAZON credited to your HDFC Bank Credit Card x9016")).toBeUndefined();
     expect(parseAlert("Payment of Rs. 5,000 has been received on your HDFC Bank Credit Card x9016")).toBeUndefined();
     expect(parseAlert("Get 10% off at Myntra with your HDFC Bank Credit Card! Shop now.")).toBeUndefined();
+    expect(parseAlert("A One-Time Password (OTP) has been generated for a transaction of INR 500 at AMAZON on your HSBC Credit Card ending with 3845.")).toBeUndefined();
   });
   it("strips gateway prefixes and company suffixes", () => {
     expect(cleanDescriptor("PYU*Instamart Grocery")).toBe("Instamart Grocery");
@@ -122,6 +150,11 @@ describe("matching an alert to a card", () => {
     // A card linked to other digits is ruled out, leaving one candidate.
     expect(matchCard(t, two, { "hdfc-millennia": "1111" })?.id).toBe("swiggy-hdfc");
   });
+  it("SBI and ICICI alerts go to the only card from that bank", () => {
+    const friend = pick("sbi-cashback", "amazon-pay-icici", "flipkart-axis");
+    expect(matchCard(parseAlert(SAMPLES.sbiEmail)!, friend, {})?.id).toBe("sbi-cashback");
+    expect(matchCard(parseAlert(SAMPLES.iciciEmail)!, friend, {})?.id).toBe("amazon-pay-icici");
+  });
   it("the same payment from SMS and email gets one key", () => {
     const a = parseAlert(SAMPLES.hdfcSms1)!;
     const b = parseAlert(SAMPLES.hdfcEmail)!;
@@ -133,10 +166,13 @@ describe("the Gmail search", () => {
   it("leaves out account debits, UPI account alerts, OTPs, EMI schedules and statements, but no supported card alert", () => {
     for (const x of NOT_CARD_PAYMENT) expect(GMAIL_QUERY).toContain(`-${x}`);
     const words = (s: string) => s.toLowerCase().replace(/[^a-z0-9₹]+/g, " ").trim();
+    // Subjects of real card alerts (Gmail inbox, Nov 2026). "subject:" filters are checked against these; the others against bodies.
+    const SUBJECTS = ["We noticed a transaction on your Credit Card", "INR 1553 spent on credit card no. XX0574", "Credit Card Transaction Alert", "Your transaction was successful"];
     for (const x of NOT_CARD_PAYMENT) {
       if (x.startsWith("category:")) continue;
       const phrase = words(x.replace(/^subject:/, "").replace(/"/g, ""));
-      for (const [name, text] of Object.entries(SAMPLES)) expect(` ${words(text)} `, `${x} would hide ${name}`).not.toContain(` ${phrase} `);
+      const against = x.startsWith("subject:") ? Object.fromEntries(SUBJECTS.map((t) => [t, t])) : SAMPLES;
+      for (const [name, text] of Object.entries(against)) expect(` ${words(text)} `, `${x} would hide ${name}`).not.toContain(` ${phrase} `);
     }
   });
   it("remembers a shop by its cleaned name", () => {
