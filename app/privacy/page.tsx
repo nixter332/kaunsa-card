@@ -35,7 +35,8 @@ export default function Privacy() {
             your link, we can see that your link brought them in. What you share is up to you; the answer, and the cheat sheet picture of your cards, are made on your phone and only go where you send them.
           </li>
           <li>
-            <strong>Gmail (only if you connect it)</strong>: when you tap Sync, this phone asks Google for read-only access for one hour,
+            <strong>Gmail (only if you connect it)</strong>: this is in a closed test and isn&apos;t open to everyone yet, so most people won&apos;t
+            see it. Where it&apos;s on, when you tap Sync, this phone asks Google for read-only access for one hour,
             searches for card alert emails from your banks, and reads the amount, shop, card&apos;s last 4 digits and date. That happens on your
             phone: the emails and the access never reach our server. The payments it finds are saved on your phone like ones you log yourself.
             Analytics only get counts (for example &ldquo;5 emails, 4 read&rdquo;), the banks involved, and the sender domain of alerts the app

@@ -36,7 +36,7 @@ export type AppUser = { id: string; name: string; email: string; image?: string 
 /** Gmail import on this phone: connected, when it last finished, and where to carry on if a sync was cut short. */
 type GmailState = { connected: boolean; lastSync: number; resumeFrom?: number };
 
-export function App({ user, googleClientId }: { user: AppUser; googleClientId?: string }) {
+export function App({ user, gmailClientId }: { user: AppUser; gmailClientId?: string }) {
   const [ready, setReady] = useState(false);
   const [onboarded, setOnboarded] = useState(true);
   const [tab, setTab] = useState<Tab>("pay");
@@ -184,7 +184,7 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
   }
 
   async function syncGmail() {
-    if (!googleClientId) return;
+    if (!gmailClientId) return;
     setSyncing(true);
     setSyncStatus(undefined);
     const firstTime = !gmail.connected;
@@ -522,9 +522,9 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
             preview={preview}
             monthNote={monthNote}
             top={
-              googleClientId ? (
+              gmailClientId ? (
                 <GmailSync
-                  clientId={googleClientId}
+                  clientId={gmailClientId}
                   connected={gmail.connected}
                   lastSync={gmail.lastSync || undefined}
                   syncing={syncing}

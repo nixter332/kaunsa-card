@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { gmailAllowed } from "@/lib/gmailAccess";
 import { App } from "./ui/App";
 import { SignIn } from "./ui/SignIn";
 
@@ -10,7 +11,8 @@ export default async function Page() {
   return (
     <App
       user={{ id: user.id ?? user.email, name: user.name ?? "", email: user.email, image: user.image ?? undefined }}
-      googleClientId={process.env.AUTH_GOOGLE_ID}
+      // Gmail sync is only for allowlisted accounts (see lib/gmailAccess.ts). Others get no client ID at all.
+      gmailClientId={gmailAllowed(user.email) ? process.env.AUTH_GOOGLE_ID : undefined}
     />
   );
 }
