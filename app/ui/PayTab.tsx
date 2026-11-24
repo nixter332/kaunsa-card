@@ -98,7 +98,7 @@ export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBac
         className="ask"
         onSubmit={(e) => {
           e.preventDefault();
-          if (text.trim()) onText(text.trim());
+          if (text.trim() && !busy) onText(text.trim());
         }}
       >
         <input
@@ -117,6 +117,7 @@ export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBac
         <button
           type="button"
           className="live"
+          disabled={busy}
           onClick={() => {
             track("instant_preview_tapped", { kind: "answer" });
             onText(text.trim());
@@ -231,7 +232,7 @@ export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBac
           <h3 className="section-title">Recent</h3>
           <div className="chips">
             {recent.map((r) => (
-              <button type="button" key={r} className="chip" onClick={() => onText(r)}>
+              <button type="button" key={r} className="chip" disabled={busy} onClick={() => onText(r)}>
                 {r}
               </button>
             ))}

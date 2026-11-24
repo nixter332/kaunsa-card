@@ -29,7 +29,7 @@ npm run golden       # answers that differ from tests/golden.json; -- --update a
 npm run evidence     # are rule quotes the bank's words? -- --apply saves verified ones (no AI, reads bank docs)
 ```
 
-Before every commit: `npm test` and `npx tsc --noEmit` pass. For UI changes also `npm run build`. `.github/workflows/ci.yml` runs all three on every push to `main` and every PR. `tests/data-sweep.test.ts` runs every card through every spend type, so a data slip usually fails there first.
+Before every commit: `npm test` and `npx tsc --noEmit` pass. For UI changes also `npm run build`. `.github/workflows/ci.yml` runs all three on every push to `main` and every PR. `tests/data-sweep.test.ts` runs every card through every spend type, so a data slip usually fails there first. UI tests render real components in a simulated browser: start the file with `// @vitest-environment jsdom` and use `@testing-library/react` (see `tests/lookup-once.test.tsx`, which counts events from the on-device log `cs.events`).
 
 ## Map of the code
 
