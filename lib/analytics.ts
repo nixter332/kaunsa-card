@@ -1,4 +1,6 @@
 // Product analytics via PostHog (free tier). Signed-in users are identified by their Google name and email.
+// Guests ("Try it now") are anonymous: a random ID kept on this device, and no person profile. If a guest signs in
+// later, identifyUser links that ID's earlier events to the person, so one funnel runs from first visit to sign-in.
 // Without NEXT_PUBLIC_POSTHOG_KEY nothing is sent anywhere; events are only kept on the device.
 // No card numbers or bank details are ever sent: just who it is, which cards they picked and what they looked up
 // (for typed lookups, the first 80 characters of what was typed, e.g. "zomato 650").
@@ -43,7 +45,10 @@ export function setPersonOnce(props: Record<string, unknown>) {
   if (KEY) posthog.setPersonProperties(undefined, props);
 }
 
-/** After Google sign-in: ties this device's events to the person, so you can see who's who in PostHog. */
+/**
+ * After Google sign-in: ties this device's events to the person, so you can see who's who in PostHog. Called while
+ * the device still has its anonymous guest ID, so PostHog merges the guest's earlier events into the same person.
+ */
 export function identifyUser(user: { id: string; name: string; email: string }) {
   start();
   if (!KEY) return;

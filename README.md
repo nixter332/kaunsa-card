@@ -14,7 +14,7 @@ People with three or more credit cards default to the same one or two and lose r
 
 A wrong rate is worse than no answer, because people act on it. So:
 
-- **Claude only reads what you typed**, and only when the app can't read it itself. "swiggy 600" is answered on the device as you type; unfamiliar text ("decathlon shoes 3k") goes to Claude to work out the merchant, category, amount and payment method. Claude never sees or produces a rate.
+- **Claude only reads what you typed**, and only when the app can't read it itself. "swiggy 600" is answered on the device as you type; for signed-in people, unfamiliar text ("decathlon shoes 3k") goes to Claude to work out the merchant, category, amount and payment method. Claude never sees or produces a rate.
 - **Every rate, cap and fee comes from the bank's own documents**, stored in `data/` and computed by plain code (`lib/engine.ts`).
 - **Every rule carries the bank's own words.** An automated check (`npm run evidence`, no AI) confirms that each quote appears word for word in the bank's document and states the rate. Today **all 73 rules across 35 cards pass**. Tap "Where's this from?" under any answer to see the quote and the document.
 - **Points are valued openly.** A points answer says what one point is worth and what that assumes (for example "1 Reward Point = ₹0.50, for flights and hotels on SmartBuy"), and says when the value is our estimate rather than the bank's.
@@ -41,14 +41,14 @@ A wrong rate is worse than no answer, because people act on it. So:
 - **Advisor:** given your monthly spending, which cards to keep, add or drop after fees.
 - **Share:** send an answer to a friend on WhatsApp.
 
-Cards and payment history stay in your browser. The server sees only the text of a lookup, your Google name and email, and usage analytics. See the [privacy policy](https://kaunsa-card-six.vercel.app/privacy).
+Cards and payment history stay in your browser. Without signing in, nothing but usage analytics leaves the phone. If you sign in, the server also sees your Google name and email and the text of lookups the phone can't read itself. See the [privacy policy](https://kaunsa-card-six.vercel.app/privacy).
 
 ## Product decisions
 
-- **Google sign-in, with sample answers first.** Sign-in keeps the AI cost per person bounded and tells us who uses it. The sign-in screen shows three real sample answers (worked out by the same rules engine, no AI) so people see the value before signing in.
+- **Try it first, sign in for more.** Of 9 friends who reached the old sign-in screen (7–24 Nov), only 5 signed in, and the in-app browsers of WhatsApp and LinkedIn, where launch links open, block Google sign-in. So "Try it now" opens the whole app with no account: cards, answers, offers, the playbook and the Advisor, all on the phone. Guests' typing is read on the device only, so they cost nothing. Signing in adds AI reading of free text (kept per account, rate-limited), and the app asks for it once, only after a lookup it couldn't fully read.
 - **No bank linking or statement upload.** It would need consolidated statements across banks; logging "I paid with this card" answers "is my cap used up?" well enough to test whether people come back.
 - **Model only what the bank states.** Rounding and whole-₹100 earning are applied only where the bank's terms say so. Where a document is ambiguous, the app stays as is and the gap is written down rather than guessed.
-- **Instrument before scaling.** PostHog tracks the sign-in → onboarding → lookup → logged-payment funnel, answer trust (thumbs, "this looks wrong", edits to a misread lookup, "Where's this from?" opens), sharing and retention.
+- **Instrument before scaling.** PostHog tracks the landing → try it or sign in → onboarding → lookup → logged-payment funnel (a guest who signs in later keeps one history), answer trust (thumbs, "this looks wrong", edits to a misread lookup, "Where's this from?" opens), sharing and retention.
 
 ## Coverage
 

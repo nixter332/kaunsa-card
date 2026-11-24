@@ -17,6 +17,7 @@ import { SavingsTab } from "./SavingsTab";
 import { myShareCode } from "./referral";
 import { Settings, type ThemeChoice } from "./Settings";
 import { GmailSync } from "./GmailSync";
+import { SignInPrompt, type PromptReason } from "./SignInParts";
 import { fetchAlertEmails, gmailToken, revokeGmail } from "./gmail";
 import { parseAlert } from "@/lib/alerts";
 import { importAlerts, needsKind, setShopKind, SHOP_KINDS, type Incoming, type ShopKindId, type Unmatched } from "@/lib/importAlerts";
@@ -36,7 +37,8 @@ export type AppUser = { id: string; name: string; email: string; image?: string 
 /** Gmail import on this phone: connected, when it last finished, and where to carry on if a sync was cut short. */
 type GmailState = { connected: boolean; lastSync: number; resumeFrom?: number };
 
-export function App({ user, gmailClientId }: { user: AppUser; gmailClientId?: string }) {
+/** `user` is missing for guests ("Try it now"): typed text is read on the device only, never sent to /api/parse. */
+export function App({ user, gmailClientId }: { user?: AppUser; gmailClientId?: string }) {
   const [ready, setReady] = useState(false);
   const [onboarded, setOnboarded] = useState(true);
   const [tab, setTab] = useState<Tab>("pay");
@@ -72,16 +74,23 @@ export function App({ user, gmailClientId }: { user: AppUser; gmailClientId?: st
   const [heldAlerts, setHeldAlerts] = useState<Incoming[]>([]);
   // Shops the person has named ("JIMIS BURGER" → eating out), kept on this phone so later payments there are valued right.
   const [shopKinds, setShopKinds] = useState<Record<string, ShopKindId>>({});
+  // Guests: the one light sign-in prompt, at most once per visit, after a lookup the device couldn't fully read.
+  const [signInPrompt, setSignInPrompt] = useState<PromptReason>();
+  const promptUsed = useRef(false);
 
   useEffect(() => {
-    identifyUser(user);
-    // Share code for links this person sends, and (once) whose link brought them here.
-    setPersonOnce({ share_code: myShareCode() });
-    const referredBy = load<string>("cs.referredBy", "");
-    if (referredBy && !load<boolean>("cs.referralSent", false)) {
-      setPersonOnce({ referred_by: referredBy });
-      track("referred_signin", { ref: referredBy });
-      save("cs.referralSent", true);
+    // Signed in: tie this device's events (including any from before, as a guest) to the person.
+    // Guests stay anonymous: no identify and no person properties, so no PostHog person profile is made for them.
+    if (user) {
+      identifyUser(user);
+      // Share code for links this person sends, and (once) whose link brought them here.
+      setPersonOnce({ share_code: myShareCode() });
+      const referredBy = load<string>("cs.referredBy", "");
+      if (referredBy && !load<boolean>("cs.referralSent", false)) {
+        setPersonOnce({ referred_by: referredBy });
+        track("referred_signin", { ref: referredBy });
+        save("cs.referralSent", true);
+      }
     }
     const saved = load<string[]>("cs.cards", []);
     setMyCardIds(saved);
@@ -111,6 +120,7 @@ export function App({ user, gmailClientId }: { user: AppUser; gmailClientId?: st
       installed: window.matchMedia("(display-mode: standalone)").matches,
       cards_held: saved.length,
       theme: t,
+      guest: !user,
     });
     setReady(true);
     return () => {
@@ -190,7 +200,7 @@ export function App({ user, gmailClientId }: { user: AppUser; gmailClientId?: st
     const firstTime = !gmail.connected;
     if (firstTime) track("gmail_connect_clicked", { cards_held: myCards.length });
     try {
-      const token = await gmailToken({ firstTime, email: user.email });
+      const token = await gmailToken({ firstTime, email: user?.email ?? "" });
       // First time: from the start of last month, so this month's limits are right. Later: since the last sync, with a day's overlap.
       // A sync cut short (Gmail's per-minute limit) carries on from the last email it read.
       const now = new Date();
@@ -320,6 +330,7 @@ export function App({ user, gmailClientId }: { user: AppUser; gmailClientId?: st
       category: l.category,
       rail: l.rail,
       channel: l.channel,
+      guest: !user,
       amount_range: amountBucket(l.amount),
       cards_held: myCards.length,
       best_card: top?.cardId,
@@ -343,6 +354,7 @@ export function App({ user, gmailClientId }: { user: AppUser; gmailClientId?: st
     setBusy(true);
     setError("");
     setNote(undefined);
+    setSignInPrompt(undefined);
     const nextRecent = [q, ...recent.filter((r) => r !== q)].slice(0, 5);
     // A known shop and an amount need no AI: answer at once, on the device.
     const instant = instantRead(q).lookup;
@@ -350,6 +362,23 @@ export function App({ user, gmailClientId }: { user: AppUser; gmailClientId?: st
       setRecent(nextRecent);
       save("cs.recent", nextRecent);
       startLookup(instant, "text", "instant", q);
+      setBusy(false);
+      asking.current = false;
+      return;
+    }
+    if (!user) {
+      // Guests: read on the device only. /api/parse (Claude) is for signed-in people, so guest mode costs nothing.
+      const local = localParse(q);
+      if (local) {
+        setRecent(nextRecent);
+        save("cs.recent", nextRecent);
+        startLookup(local, "text", "local", q);
+        // An amount but no shop we know ("Eatclub 456"): answered at each card's everyday rate.
+        if (!local.merchant && local.category === "other") offerSignIn("unknown_shop");
+      } else {
+        setError("Add a shop and an amount, like “swiggy 450”.");
+        offerSignIn("unreadable");
+      }
       setBusy(false);
       asking.current = false;
       return;
@@ -379,6 +408,14 @@ export function App({ user, gmailClientId }: { user: AppUser; gmailClientId?: st
       setBusy(false);
       asking.current = false;
     }
+  }
+
+  /** Guests only, at most once per visit: sign-in is offered where it adds something (AI reading of free text). */
+  function offerSignIn(reason: PromptReason) {
+    if (user || promptUsed.current) return;
+    promptUsed.current = true;
+    setSignInPrompt(reason);
+    track("signin_prompt_shown", { reason });
   }
 
   /** A change made on the answer screen (edit panel or a shop hint): it's a new answer, so it can be logged again. */
@@ -516,7 +553,19 @@ export function App({ user, gmailClientId }: { user: AppUser; gmailClientId?: st
             error={error}
             recent={recent}
             hasResult={!!lookup}
-            onBack={() => setLookup(null)}
+            onBack={() => {
+              setLookup(null);
+              setSignInPrompt(undefined);
+            }}
+            notice={
+              signInPrompt && (
+                <SignInPrompt
+                  reason={signInPrompt}
+                  onTap={() => track("signin_from_prompt", { reason: signInPrompt }, true)}
+                  onDismiss={() => setSignInPrompt(undefined)}
+                />
+              )
+            }
             offers={homeOffers}
             caps={capRoom}
             preview={preview}

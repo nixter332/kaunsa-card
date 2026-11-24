@@ -35,6 +35,8 @@ type Props = {
   monthNote?: string;
   /** Shown at the top of the screen (the Gmail sync card). */
   top?: React.ReactNode;
+  /** A note about the last lookup (the guest sign-in prompt), above the answer or under the box. */
+  notice?: React.ReactNode;
 };
 
 /** Days until an offer's last day (India time), for "ends in 3 days". */
@@ -44,7 +46,7 @@ function daysLeft(validTo?: string): number | undefined {
   return Math.max(0, Math.ceil((end - Date.now()) / 86_400_000));
 }
 
-export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBack, pending, onPendingDone, onPendingCancel, children, offers, caps, preview, monthNote, top }: Props) {
+export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBack, pending, onPendingDone, onPendingCancel, children, offers, caps, preview, monthNote, top, notice }: Props) {
   const [text, setText] = useState("");
   const [tile, setTile] = useState<Tile | null>(null);
   const [example, setExample] = useState(0);
@@ -85,6 +87,7 @@ export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBac
         <button type="button" className="back" onClick={onBack}>
           <IconBack size={20} /> New payment
         </button>
+        {notice}
         {children}
       </div>
     );
@@ -168,6 +171,7 @@ export function PayTab({ onLookup, onText, busy, error, recent, hasResult, onBac
         </div>
       )}
       {error && <p className="error">{error}</p>}
+      {notice}
 
       {!hasResult && (shownOffers.length > 0 || shownCaps.length > 0 || monthNote) && (
         <section className="home-cards" aria-label="On your cards">
