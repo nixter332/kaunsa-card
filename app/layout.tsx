@@ -2,9 +2,16 @@ import type { Metadata, Viewport } from "next";
 import "@fontsource-variable/bricolage-grotesque";
 import "./globals.css";
 
+const TITLE = "Kaunsa Card: which card should I swipe?";
+const DESCRIPTION = "Tell it what you're paying for and it picks which of your credit cards gives the most back. Built for Indian cards and UPI.";
+
 export const metadata: Metadata = {
-  title: "Kaunsa Card: which card should I swipe?",
-  description: "Tell it what you're paying for and it picks which of your credit cards gives the most back. Built for Indian cards and UPI.",
+  // Link previews (LinkedIn, WhatsApp, X) need full URLs; the picture itself is app/opengraph-image.tsx.
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://kaunsa-card-six.vercel.app"),
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: { title: TITLE, description: DESCRIPTION, url: "/", siteName: "Kaunsa Card", locale: "en_IN", type: "website" },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
   applicationName: "Kaunsa Card",
   appleWebApp: { capable: true, title: "Kaunsa Card", statusBarStyle: "black-translucent" },
   formatDetection: { telephone: false },
