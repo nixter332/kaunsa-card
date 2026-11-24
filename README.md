@@ -36,7 +36,7 @@ A wrong rate is worse than no answer, because people act on it. So:
 - **Playbook (in My cards):** which of your cards wins each kind of spend and each shop, plus a cheat sheet per card: best uses, what earns nothing, limits to watch, perks, and bank-sourced tips. It's the first thing you see after picking your cards.
 - **What your cards are worth:** enter rough monthly spends and see the ₹ a year your cards earn when used right, against using one card for everything. Shareable, as is a cheat sheet picture of which card to use where.
 - **My cards:** each card's monthly and quarterly limits filling up as you log payments.
-- **Payments from Gmail:** connect Gmail once, tap Sync when you open the app, and your card alert emails become logged payments, so limits, cashback earned and anything missed fill in on their own. The emails are read on your phone and never reach our server.
+- **Payments from Gmail** (closed test, owner only until Google verifies the app): connect Gmail once, tap Sync when you open the app, and your card alert emails become logged payments, so limits, cashback earned and anything missed fill in on their own. The emails are read on your phone and never reach our server.
 - **Savings:** ₹ earned this month and ₹ missed by using a different card. Mis-logged payments can be removed.
 - **Advisor:** given your monthly spending, which cards to keep, add or drop after fees.
 - **Share:** send an answer to a friend on WhatsApp.
