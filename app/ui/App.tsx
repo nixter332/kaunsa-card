@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { amountBucket, identifyUser, resetUser, setPersonOnce } from "@/lib/analytics";
 import { signOutOfApp } from "../actions";
 import { merchantHints, recommend, type OfferContext } from "@/lib/engine";
@@ -52,6 +52,8 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
   const [parser, setParser] = useState("");
   const [note, setNote] = useState<string | undefined>();
   const [busy, setBusy] = useState(false);
+  // Set synchronously, so a second tap in the same moment sees it (state updates only land on the next render).
+  const asking = useRef(false);
   const [error, setError] = useState("");
   const [paidWith, setPaidWith] = useState<string | null>(null);
   // The ledger entry logged for the answer on screen, so a second tap replaces it instead of adding another.
@@ -334,6 +336,10 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
   }
 
   async function askText(q: string) {
+    // One text lookup at a time: a second tap (Recent chip, Enter, preview) while one is being read would log
+    // a second "lookup" and, for unfamiliar text, pay for a second Claude call ("Eatclub 456" fired 4 times, 15 Nov).
+    if (asking.current) return;
+    asking.current = true;
     setBusy(true);
     setError("");
     setNote(undefined);
@@ -345,6 +351,7 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
       save("cs.recent", nextRecent);
       startLookup(instant, "text", "instant", q);
       setBusy(false);
+      asking.current = false;
       return;
     }
     try {
@@ -370,6 +377,7 @@ export function App({ user, googleClientId }: { user: AppUser; googleClientId?: 
       } else setError(e instanceof Error ? e.message : "Add an amount, like “dinner 2400”.");
     } finally {
       setBusy(false);
+      asking.current = false;
     }
   }
 
