@@ -3,7 +3,7 @@ import { CONTACT_EMAIL } from "./contact";
 
 export const metadata: Metadata = { title: "Privacy policy · Kaunsa Card" };
 
-const UPDATED = "15 November 2026";
+const UPDATED = "24 November 2026";
 
 export default function Privacy() {
   return (
@@ -23,12 +23,14 @@ export default function Privacy() {
         <h2>What we collect</h2>
         <ul>
           <li>
-            <strong>Your Google name, email and account ID</strong>, when you sign in with Google, so we know who is using the app. We don&apos;t
-            get your password or access to anything else in your Google account.
+            <strong>Your Google name, email and account ID</strong>, only if you sign in with Google, so we know who is using the app. Signing in
+            is optional. We don&apos;t get your password or access to anything else in your Google account.
           </li>
           <li>
             <strong>How you use the app</strong>: which cards you add, what you look up (for typed lookups, the first 80 characters, like
-            &ldquo;zomato 650&rdquo;), which card you said you paid with, and any feedback you send. This is linked to your name and email.
+            &ldquo;zomato 650&rdquo;), which card you said you paid with, and any feedback you send. If you&apos;re signed in, this is linked to your name and
+            email. If not, it&apos;s linked only to a random ID kept on this phone; if you sign in later, that earlier use is linked to your
+            account.
           </li>
           <li>
             <strong>Share links</strong>: when you share an answer, the link has a random code, not your name or email. If someone signs up from
@@ -41,6 +43,10 @@ export default function Privacy() {
             phone: the emails and the access never reach our server. The payments it finds are saved on your phone like ones you log yourself.
             Analytics only get counts (for example &ldquo;5 emails, 4 read&rdquo;), the banks involved, and the sender domain of alerts the app
             couldn&apos;t read. Disconnect any time in Settings, or remove access in your Google account.
+          </li>
+          <li>
+            <strong>One cookie</strong> if you tap &ldquo;Try it now&rdquo;: it only remembers that this browser chose to use the app without
+            signing in, so you go straight in next time. It holds nothing about you.
           </li>
           <li>
             <strong>Card advisor answers</strong>: your income range and monthly spending stay on your phone. Analytics only get the income range, a
@@ -65,8 +71,9 @@ export default function Privacy() {
             <strong>PostHog</strong> (EU servers) stores usage events for analytics.
           </li>
           <li>
-            <strong>Anthropic (Claude)</strong> reads the text you type, like &ldquo;dinner 2400&rdquo;, to understand the payment. It is not
-            used to train their models.
+            <strong>Anthropic (Claude)</strong> reads the text you type, like &ldquo;dinner 2400&rdquo;, to understand the payment, only when
+            you&apos;re signed in and the app can&apos;t read it on your phone. Without signing in, what you type is read on your phone only. It is
+            not used to train their models.
           </li>
           <li>
             <strong>Vercel</strong> hosts the app, and <strong>Upstash</strong> keeps a daily count of AI lookups per account (deleted after about
@@ -77,7 +84,7 @@ export default function Privacy() {
         <h2>Your choices</h2>
         <ul>
           <li>Turn off usage stats any time in Settings → Share usage stats.</li>
-          <li>Sign out from Settings. Signing in is needed to use the app.</li>
+          <li>Use the app without signing in (&ldquo;Try it now&rdquo;). Sign in or out any time from Settings.</li>
           <li>
             To see or delete what we hold about you, email <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. We&apos;ll act on it within 30
             days.

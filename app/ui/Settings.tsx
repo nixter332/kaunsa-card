@@ -3,11 +3,13 @@ import { useState } from "react";
 import { analyticsEnabled, setStatsEnabled, statsEnabled } from "@/lib/analytics";
 import type { AppUser } from "./App";
 import { IconClose, IconLogout } from "./Icons";
+import { GoogleG, GoogleSignIn } from "./SignInParts";
 
 export type ThemeChoice = "system" | "dark" | "light";
 
 type Props = {
-  user: AppUser;
+  /** Missing for guests, who get a "Sign in with Google" option here instead. */
+  user?: AppUser;
   onSignOut: () => void;
   theme: ThemeChoice;
   onTheme: (t: ThemeChoice) => void;
@@ -34,29 +36,42 @@ export function Settings({ user, onSignOut, theme, onTheme, canInstall, onInstal
           </button>
         </div>
 
-        <div className="setting account">
-          {user.image ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={user.image} alt="" referrerPolicy="no-referrer" />
-          ) : (
-            <span className="avatar">{(user.name || user.email).slice(0, 1).toUpperCase()}</span>
-          )}
-          <div>
-            <strong>{user.name || "Signed in"}</strong>
-            <small className="muted">{user.email}</small>
+        {user ? (
+          <div className="setting account">
+            {user.image ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={user.image} alt="" referrerPolicy="no-referrer" />
+            ) : (
+              <span className="avatar">{(user.name || user.email).slice(0, 1).toUpperCase()}</span>
+            )}
+            <div>
+              <strong>{user.name || "Signed in"}</strong>
+              <small className="muted">{user.email}</small>
+            </div>
+            <button
+              type="button"
+              className="btn ghost small"
+              disabled={signingOut}
+              onClick={() => {
+                setSigningOut(true);
+                onSignOut();
+              }}
+            >
+              <IconLogout size={18} /> Sign out
+            </button>
           </div>
-          <button
-            type="button"
-            className="btn ghost small"
-            disabled={signingOut}
-            onClick={() => {
-              setSigningOut(true);
-              onSignOut();
-            }}
-          >
-            <IconLogout size={18} /> Sign out
-          </button>
-        </div>
+        ) : (
+          <div className="setting">
+            <span>Not signed in</span>
+            <p className="fine">
+              Sign in with Google and the app can read anything you type, like &ldquo;decathlon shoes 3k&rdquo;, not just shops it knows. Your
+              cards and payments stay on this phone either way.
+            </p>
+            <GoogleSignIn source="settings" className="btn google wide">
+              <GoogleG /> Sign in with Google
+            </GoogleSignIn>
+          </div>
+        )}
 
         <div className="setting">
           <span>Appearance</span>
@@ -100,7 +115,7 @@ export function Settings({ user, onSignOut, theme, onTheme, canInstall, onInstal
             <label className="toggle-row">
               <span>
                 <strong>Share usage stats</strong>
-                <small className="muted">Which cards you add, what you look up (like “zomato 650”), and reports you send, linked to your Google name and email. Never card numbers or bank details.</small>
+                <small className="muted">Which cards you add, what you look up (like “zomato 650”), and reports you send, linked to your Google name and email if you sign in. Never card numbers or bank details.</small>
               </span>
               <input
                 type="checkbox"

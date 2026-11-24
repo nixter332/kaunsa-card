@@ -1,6 +1,6 @@
 "use client";
-// First run after sign-in: one step. Pick your cards, then land on your playbook.
-// (The sign-in screen already showed what the app does, with sample answers.)
+// First run (after "Try it now" or sign-in): one step. Pick your cards, then land on your playbook.
+// (The landing screen already showed what the app does, with sample answers.)
 import { CardPicker } from "./CardPicker";
 
 type Props = {
